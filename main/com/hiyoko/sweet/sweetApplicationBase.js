@@ -39,6 +39,16 @@ com.hiyoko.sweet.ApplicationBase.prototype.fireEvent = function(event) {
 	this.$html.trigger(event);
 };
 
+com.hiyoko.sweet.ApplicationBase.prototype.setStorage = function(id, value) {
+	this.$html.trigger({type: 'setStorage', id: this.id + '-' + id, value: value});
+};
+
+com.hiyoko.sweet.ApplicationBase.prototype.getStorage = function(id, opt_callback) {
+	var event = new $.Event('getStorage', {key: this.id + '-' + id,
+		callback: opt_callback || console.log });
+	this.$html.trigger(event);
+};
+
 com.hiyoko.sweet.ApplicationBase.prototype.getAsyncEvent = function(eventType, opt_eventProperties){
 	return new com.hiyoko.sweet.ApplicationBase.AsyncEvent(eventType, opt_eventProperties);
 };
@@ -61,9 +71,11 @@ com.hiyoko.sweet.ApplicationBase.AsyncEvent = function(eventType, opt_eventPrope
 };
 
 com.hiyoko.sweet.ApplicationBase.AsyncEvent.prototype.done = function(func) {
-	this.resolve = func();
+	this.resolve = func;
+	return this;
 };
 
 com.hiyoko.sweet.ApplicationBase.AsyncEvent.prototype.fail = function(func) {
-	this.reject = func();
+	this.reject = func;
+	return this;
 };

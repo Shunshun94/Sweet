@@ -31,9 +31,8 @@ com.hiyoko.DodontoF.V2.Room = function(url, room, opt_pass) {
 	tofServer.prototype.buildRequest_ = function(params) {
 		var args = [];
 		for(var key in params) {
-			args.push(key + '=' + params[key]);
+			args.push(key + '=' + encodeURIComponent(params[key]));
 		}
-		console.log(this.url + args.join('&'));
 		return this.url + args.join('&');
 	};
 	
@@ -90,7 +89,7 @@ com.hiyoko.DodontoF.V2.Room = function(url, room, opt_pass) {
 	tofRoom.prototype.buildRequest_ = function(params) {
 		var args = [];
 		for(var key in params) {
-			args.push(key + '=' + params[key]);
+			args.push(key + '=' + encodeURIComponent(params[key]));
 		}
 		args.push('room=' + this.base.room);
 		args.push('password=' + this.base.pass);
@@ -130,8 +129,36 @@ com.hiyoko.DodontoF.V2.Room = function(url, room, opt_pass) {
 		return this.sendRequest_(tofRoom.API_NAMES.GET_CHAT, param);
 	};
 	
-	tofRoom.prototype.sendChat = function() {
-		return this.sendRequest_(tofRoom.API_NAMES.SEND_CHAT, {dice:true});
+	tofRoom.prototype.sendChat = function(args) {
+		var promise = new $.Deferred;
+		if(Boolean(args.name) && Boolean(args.message)) {
+			this.sendRequest_(tofRoom.API_NAMES.SEND_CHAT, args)
+			.done(function(r){
+				if(r.result !== 'OK') {
+					promise.reject(r);
+				}
+				promise.resolve(r);
+			})
+			.fail(function(r){
+				promise.reject(r);
+			});			
+		} else {
+			promise.reject({result:'Necessary infomration is lacked.'})
+		}
+		return promise;
+	};
+	
+	tofRoom.prototype.playBGM = function(url, msg, opt_name) {
+		return this.sendChat({
+			name: opt_name || 'あゆみ',
+			message: com.hiyoko.util.format('###CutInMovie###{' +
+					'"source":"./image/defaultImageSet/pawn/pawnBlack.png",' +
+					'"volume":0.5,"message":"%s",' +
+					'"cutInTag":"BGM","displaySeconds":0,"height":0,"isSoundLoop":true,' +
+					'"soundSource":"%s",' +
+					'"width":0,"position":"up,right","isTail":false}',
+					msg, url)
+		});
 	};
 	
 	tofRoom.prototype.addMemo = function(msg) {
@@ -139,7 +166,6 @@ com.hiyoko.DodontoF.V2.Room = function(url, room, opt_pass) {
 	};
 	
 	tofRoom.prototype.updateMemo = function(msg, opt_id) {
-		console.log(msg, opt_id);
 		var updateMemoPromise = new $.Deferred; 
 		if(opt_id) {
 			this.sendRequest_(tofRoom.API_NAMES.CHANGE_MEMO, {message:msg, targetId: opt_id}).done(function(result){

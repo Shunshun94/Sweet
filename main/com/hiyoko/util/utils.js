@@ -8,54 +8,15 @@ com.hiyoko.util.test = com.hiyoko.util.test || {};
  * @param {Object} target
  * @param {string} opt_desc
  */
-function rejectEmpty(target, opt_desc){
+com.hiyoko.util.rejectEmpty = function(target, opt_desc){
 	var desc = opt_desc ? opt_desc : 'Inputed variable is ';
 	if(typeof target === 'undefined'){
-		throw new com.hiyoko.Exception(desc + ' (undefined)');
+		throw new Error(desc + ' (undefined)');
 	}
 	if(target === null){
-		throw new com.hiyoko.Exception(desc + ' (null)');
+		throw new Error(desc + ' (null)');
 	}
 };
-
-com.hiyoko.util.test.assignEqual = function(a, b) {
-	if(a !== b) {
-		throw new Error('Expected "' + b + '". However, actually it\'s "' + a + '".');
-	}
-	return true;
-};
-
-com.hiyoko.util.test.assignNotEqual = function(a, b) {
-	if(a === b) {
-		throw new Error('Expected not "' + b + '". However, actually it\'s "' + a + '".');
-	}
-	return true;
-};
-
-com.hiyoko.util.test.assignTrue = function(a) {
-	if(a !== true) {
-		throw new Error('Expected True but, it\'s ' + a);
-	}
-	return true;
-};
-
-com.hiyoko.util.test.assignFalse = function(a) {
-	if(a !== false) {
-		throw new Error('Expected False but, it\'s ' + a);
-	}
-	return true;
-};
-
-com.hiyoko.util.test.assignError = function(func) {
-	try{
-		func();
-	}catch(e){
-		return true;
-	}
-	throw new Error('Expected exception but, finished without exception.');
-};
-
-com.hiyoko.util.test.assign = com.hiyoko.util.test.assignEqual;
 
 /**
  * URL の Query 部分を取得する関数 

@@ -1,0 +1,48 @@
+@CHARSET "UTF-8";		
+
+button {
+	display:block;
+	font-size:140%;
+	border: lightyellow 3px outset;
+	background-color:lemonchiffon;
+	margin-top:4px;
+}
+
+#com-hiyoko-sweet-body {
+	height:800px;
+	width:805px;
+}
+
+#com-hiyoko-sweet-menu {
+	display:inline-block;
+	vertical-align:top;
+	height:100%;
+	width:200px;
+}
+
+#com-hiyoko-sweet-apps {
+	display:inline-block;
+	height:100%;
+	width:600px;
+}
+
+
+#com-hiyoko-sweet-circumstance table {
+	display:none;
+}
+
+#com-hiyoko-sweet-disscussion-options {
+	width:100%;
+}
+
+.com-hiyoko-sweet-disscussion-options-option:nth-child(odd) {
+	background-color: #EEEEEE;
+	
+}
+
+
+
+
+.active {
+	color:red;
+}
