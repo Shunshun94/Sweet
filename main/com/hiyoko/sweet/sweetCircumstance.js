@@ -68,9 +68,10 @@ com.hiyoko.sweet.Circumstance.CommandBase.prototype.renderTable = function(datal
 						'<tr class="%s"><td contenteditable="">%s</td>' +
 						'<td contenteditable="">%s</td>' +
 						'<td contenteditable="">%s</td>' +
-						'<td><button>×</button></td></tr>',
+						'<td><button class="%s">×</button></td></tr>',
 						self.id + '-list',
-						data.command, data.url, data.memo));
+						data.command, data.url, data.memo,
+						self.id + '-list-delete'));
 	});
 	table.append(com.hiyoko.util.format(
 			'<tr><td colspan="4"><button id="%s">ADD</button></td></tr>',
@@ -128,8 +129,15 @@ com.hiyoko.sweet.Circumstance.CommandBase.prototype.bindEvents = function() {
 				'<tr class="%s"><td contenteditable=""></td>' +
 				'<td contenteditable=""></td>' +
 				'<td contenteditable=""></td>' +
-				'<td><button>×</button></td></tr>',
-				this.id + '-list'));
+				'<td><button class="%s">×</button></td></tr>',
+				this.id + '-list', this.id + '-list-delete'));
+	}.bind(this));
+	
+	this.getElementById('editor').click(function(e) {
+		var clicked = $(e.target);
+		if(clicked.hasClass(this.id + '-list-delete')) {
+			clicked.parent().parent().remove();
+		}
 	}.bind(this));
 };
 
