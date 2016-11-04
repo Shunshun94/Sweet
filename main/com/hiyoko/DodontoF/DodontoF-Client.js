@@ -9,6 +9,8 @@ com.hiyoko = com.hiyoko || {};
 com.hiyoko.DodontoF = com.hiyoko.DodontoF || {};
 com.hiyoko.DodontoF.V2 = com.hiyoko.DodontoF.V2 || {};
 
+com.hiyoko.DodontoF.V2.versionName = 'あゆみ';
+
 com.hiyoko.DodontoF.V2.Server = function(url) {
 	this.url = com.hiyoko.DodontoF.V2.util.urlSuiter_(url);
 };
@@ -150,7 +152,7 @@ com.hiyoko.DodontoF.V2.Room = function(url, room, opt_pass) {
 	
 	tofRoom.prototype.playBGM = function(url, msg, opt_name) {
 		return this.sendChat({
-			name: opt_name || 'あゆみ',
+			name: opt_name || com.hiyoko.DodontoF.V2.versionName,
 			message: com.hiyoko.util.format('###CutInMovie###{' +
 					'"source":"./image/defaultImageSet/pawn/pawnBlack.png",' +
 					'"volume":0.5,"message":"%s",' +
