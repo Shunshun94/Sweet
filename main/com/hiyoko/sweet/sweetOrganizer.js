@@ -9,7 +9,7 @@ com.hiyoko.sweet.Organizer = function($html) {
 	this.query = com.hiyoko.util.getQueries();
 	
 	this.$html = $html;
-	this.$html_id = this.$html.attr('id');
+	this.id = this.$html.attr('id');
 
 	this.tofServerAccess;
 	this.tofRoomAccess;
@@ -28,7 +28,8 @@ com.hiyoko.sweet.Organizer = function($html) {
 com.hiyoko.util.extend(com.hiyoko.sweet.ApplicationBase, com.hiyoko.sweet.Organizer);
 
 com.hiyoko.sweet.Organizer.prototype.buildComponents = function() {
-	var $apps = $(com.hiyoko.util.format('#%s-apps', this.$html_id)).children();
+	var $apps = this.getElementById('apps').children();
+	console.log($apps);
 	this.applications = com.hiyoko.util.mergeArray(
 			com.hiyoko.sweet.Organizer.APPLICATION_LIST,
 			$apps, 
@@ -39,6 +40,14 @@ com.hiyoko.sweet.Organizer.prototype.buildComponents = function() {
 		this.tofServerAccess = new com.hiyoko.DodontoF.V2.Server(this.query.url);
 		this.tofRoomAccess = this.tofServerAccess.getRoom(this.query.room, this.query.pass);
 		this.onClickList({num:0});
+		this.tofRoomAccess.getRoomInfo()
+		.done(function(r){
+			console.log(this.getElementById('header'))
+			this.getElementById('header').text('【' + r.roomName + '】');
+		}.bind(this))
+		.fail(function(r){
+			alert('Couldn\'t get DodontoF Room Info. Is URL correct?');
+		});
 	} else {
 		this.onClickList({num: (this.applications.length - 1)});
 		this.list.disable();
