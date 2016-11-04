@@ -108,6 +108,10 @@ com.hiyoko.DodontoF.V2.Room = function(url, room, opt_pass) {
 		});
 	};
 	
+	tofRoom.prototype.getRoomInfo = function() {
+		return this.sendRequest_(tofRoom.API_NAMES.GET_ROOM_INFO, {});
+	};
+	
 	tofRoom.prototype.getId = function() {
 		return this.sendRequest_(tofRoom.API_NAMES.LOGIN_INFO, {});
 	};
