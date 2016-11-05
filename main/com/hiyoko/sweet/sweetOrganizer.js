@@ -47,6 +47,8 @@ com.hiyoko.sweet.Organizer.prototype.buildComponents = function() {
 		}.bind(this))
 		.fail(function(r){
 			alert('Couldn\'t get DodontoF Room Info. Is URL correct?');
+			this.onClickList({num: (this.applications.length - 1)});
+			this.list.disable();
 		});
 	} else {
 		this.onClickList({num: (this.applications.length - 1)});
