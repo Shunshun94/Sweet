@@ -20,6 +20,7 @@ com.hiyoko.util.extend(com.hiyoko.sweet.ApplicationBase, com.hiyoko.sweet.Discus
 com.hiyoko.sweet.Discussion.prototype.buildComponents = function(){
 	this.chatStreams = new com.hiyoko.sweet.Discussion.ChatStreams(this.getElementById('chat'));
 	this.memo = new com.hiyoko.sweet.Discussion.Memo(this.getElementById('memo'));
+	this.vote = new com.hiyoko.sweet.Discussion.Vote(this.getElementById('vote'));
 };
 
 
@@ -88,8 +89,51 @@ com.hiyoko.sweet.Discussion.Memo.prototype.setMemoId = function(suffix) {
 	}.bind(this)).fail(function(r){
 		this.editor.notify('メモの追加には成功しましたが、\n次の更新がうまくいかなそうです\n理由：' + r.result, 'warn');
 	}.bind(this));
-	
+
 	this.fireEvent(event);
+};
+
+com.hiyoko.sweet.Discussion.Vote = function($html) {
+	this.$html = $($html);
+	this.id = this.$html.attr('id');
+
+	this.list = this.getElementById('list');
+	this.submit = this.getElementById('submit');
+
+	this.bindEvents();
+};
+
+com.hiyoko.util.extend(com.hiyoko.sweet.ApplicationBase, com.hiyoko.sweet.Discussion.Vote);
+
+com.hiyoko.sweet.Discussion.Vote.prototype.bindEvents = function() {
+	this.submit.click(function(e){
+		var voteTargets = this.list.val().split('\n');
+		var message = [];
+		var voteCount = 1;
+		var sweetUrl = (document.location.protocol + '//' +
+						document.location.host +
+						document.location.pathname);
+		var url = '';
+		var voteId = com.hiyoko.util.rndString();
+		
+		if(sweetUrl.endsWith('index.html')) {
+			url = sweetUrl.replace('index.html', 'vote.html?vid=' + voteId);
+		} else if (sweetUrl.endsWith('/')) {
+			url = sweetUrl + 'vote.html?vid=' + voteId;
+		} else {
+			url = sweetUrl + '/vote.html?vid=' + voteId;
+		}
+	
+		voteTargets.forEach(function(v) {
+			var text = v.trim();
+			if(text !== '') {
+				message.push(com.hiyoko.util.format('%s %s %s', voteCount, text, url + '&selection=' + voteCount));
+				voteCount++;
+			} 
+		});
+		console.log(message);
+	}.bind(this));
+
 };
 
 com.hiyoko.sweet.Discussion.ChatStreams = function($html) {

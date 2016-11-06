@@ -30,17 +30,30 @@ button {
 	display:flex;
 }
 
+#com-hiyoko-sweet-disscussion-vote {
+	height:260px;
+	border:6px inset gray;
+	padding-left:3px;
+	padding-right:3px;
+}
+
+#com-hiyoko-sweet-disscussion-vote-list {
+	border:3px inset gray;
+	height:140px;
+	width:490px;
+}
+
 #com-hiyoko-sweet-disscussion-memo {
 	border:6px inset gray;
 	padding-left:3px;
 	padding-right:3px;
-	height:500px;
+	height:400px;
 	width:500px;
 }
 
 #com-hiyoko-sweet-disscussion-memo-editor {
 	border:3px inset gray;
-	height:380px;
+	height:280px;
 	width:490px;
 }
 
