@@ -18,7 +18,6 @@ com.hiyoko.sweet.Discussion = function($html, opt_params){
 com.hiyoko.util.extend(com.hiyoko.sweet.ApplicationBase, com.hiyoko.sweet.Discussion);
 
 com.hiyoko.sweet.Discussion.prototype.buildComponents = function(){
-	
 	this.chatStreams = new com.hiyoko.sweet.Discussion.ChatStreams(this.getElementById('chat'));
 	this.memo = new com.hiyoko.sweet.Discussion.Memo(this.getElementById('memo'));
 };
@@ -27,19 +26,71 @@ com.hiyoko.sweet.Discussion.prototype.buildComponents = function(){
 
 com.hiyoko.sweet.Discussion.prototype.bindEvents  = function($html){
 	this.$html.on('copyChatLog', function(e){
-		console.log(e);
-	});
+		this.memo.add(e);
+	}.bind(this));
 };
 
 com.hiyoko.sweet.Discussion.Memo = function($html) {
 	this.$html = $($html);
 	this.id = this.$html.attr('id');
+	
+	this.memoId = '';
+	
+	this.editor = this.getElementById('editor');
+	this.clear = this.getElementById('clear');
+	this.bindEvents();
 };
 
-com.hiyoko.sweet.Discussion.Memo.prototype.add = function(text) {
-	
-}
+com.hiyoko.util.extend(com.hiyoko.sweet.ApplicationBase, com.hiyoko.sweet.Discussion.Memo);
 
+com.hiyoko.sweet.Discussion.Memo.prototype.add = function(msgObject) {
+	this.editor.val(com.hiyoko.util.format('%s\n┌────────────────\n│%s\n├────────────────\n%s',
+			this.editor.val(), msgObject.name, msgObject.text));
+	this.update();
+};
+
+com.hiyoko.sweet.Discussion.Memo.prototype.bindEvents = function() {
+	this.editor.change(this.update.bind(this));
+	this.clear.click(function(e) {
+		this.editor.val('');
+		this.memoId = '';
+	}.bind(this));
+};
+
+com.hiyoko.sweet.Discussion.Memo.prototype.update = function(e) {
+	var id = this.memoId ? '' : com.hiyoko.util.rndString(8, '#');
+	var text = this.memoId ? this.editor.val() : this.editor.val() + '\n\n' + id;
+	
+	var event = this.getAsyncEvent('tofRoomRequest', {
+		method: 'updateMemo',
+		args:[text, this.memoId]
+	}).done(function(r){
+		this.editor.notify('更新しました', 'success');
+		if (this.memoId === '') {
+			this.setMemoId(id);
+		}
+	}.bind(this)).fail(function(r){
+		this.editor.notify('更新に失敗しました\n理由：' + r.result, 'warn');
+	}.bind(this));
+	
+	this.fireEvent(event);
+};
+
+com.hiyoko.sweet.Discussion.Memo.prototype.setMemoId = function(suffix) {
+	var event = this.getAsyncEvent('tofRoomRequest', {
+		method: 'getCharacters'
+	}).done(function(r){
+		r.characters.forEach(function(memoCand) {
+			if(memoCand.type === 'Memo' && memoCand.message.endsWith(suffix)) {
+				this.memoId = memoCand.imgId;
+			}
+		}.bind(this));
+	}.bind(this)).fail(function(r){
+		this.editor.notify('メモの追加には成功しましたが、\n次の更新がうまくいかなそうです\n理由：' + r.result, 'warn');
+	}.bind(this));
+	
+	this.fireEvent(event);
+};
 
 com.hiyoko.sweet.Discussion.ChatStreams = function($html) {
 	this.$html = $($html);
