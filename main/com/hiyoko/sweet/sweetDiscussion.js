@@ -127,11 +127,27 @@ com.hiyoko.sweet.Discussion.Vote.prototype.bindEvents = function() {
 		voteTargets.forEach(function(v) {
 			var text = v.trim();
 			if(text !== '') {
-				message.push(com.hiyoko.util.format('%s %s %s', voteCount, text, url + '&selection=' + voteCount));
+				message.push(com.hiyoko.util.format('案　%s %s %s', voteCount, text, url + '&selection=' + voteCount));
 				voteCount++;
 			} 
 		});
-		console.log(message);
+		
+		if(confirm('以下の条件で投票を開始します。よろしいですか?\n\n' + message.join('\n'))) {
+			var event = this.getAsyncEvent('tofRoomRequest', {
+				method: 'sendChat',
+				args: [{
+					name: 'SWEET',
+					message: message.join('\n')
+				}]
+			}).done(function(r){
+				this.submit.notify('投票を開始しました');
+			}.bind(this)).fail(function(r){
+				this.submit.notify('投票の開始に失敗しました\n理由:' + r.result);
+			}.bind(this));
+
+			this.fireEvent(event);
+		}
+		
 	}.bind(this));
 
 };
