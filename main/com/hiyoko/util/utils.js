@@ -110,6 +110,19 @@ com.hiyoko.util.mergeArray = function(arrayA, arrayB, func) {
 	return result;
 };
 
+com.hiyoko.util.groupArray = function(array, groupBy) {
+	var result = {};
+	var length = array.length;
+	for(var i = 0; i < length; i++) {
+		groupId = groupBy(array[i], i, array);
+		if(! result[groupId]) {
+			result[groupId] = [];
+		}
+		result[groupId].push(array[i]);
+	}
+	return result;
+}
+
 com.hiyoko.util.extend = function(superClass, subClass) {
 	var list = superClass.prototype;
 	for(var key in list) {
