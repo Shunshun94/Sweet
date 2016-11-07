@@ -9,38 +9,97 @@ button {
 }
 
 #com-hiyoko-sweet-body {
-	height:800px;
-	width:805px;
+	display:flex;
 }
 
 #com-hiyoko-sweet-menu {
-	display:inline-block;
 	vertical-align:top;
 	height:100%;
 	width:200px;
 }
 
 #com-hiyoko-sweet-apps {
-	display:inline-block;
 	height:100%;
-	width:600px;
 }
-
 
 #com-hiyoko-sweet-circumstance table {
 	display:none;
 }
 
-#com-hiyoko-sweet-disscussion-options {
-	width:100%;
+#com-hiyoko-sweet-disscussion {
+	display:flex;
 }
 
-.com-hiyoko-sweet-disscussion-options-option:nth-child(odd) {
-	background-color: #EEEEEE;
-	
+#com-hiyoko-sweet-disscussion-vote {
+	height:260px;
+	border:6px inset gray;
+	padding-left:3px;
+	padding-right:3px;
 }
 
+#com-hiyoko-sweet-disscussion-vote-list {
+	border:3px inset gray;
+	height:140px;
+	width:490px;
+}
 
+#com-hiyoko-sweet-disscussion-memo {
+	border:6px inset gray;
+	padding-left:3px;
+	padding-right:3px;
+	height:400px;
+	width:500px;
+}
+
+#com-hiyoko-sweet-disscussion-memo-editor {
+	border:3px inset gray;
+	height:280px;
+	width:490px;
+}
+
+#com-hiyoko-sweet-disscussion-memo-clear {
+	margin-left:10px;
+}
+
+#com-hiyoko-sweet-disscussion-chat {
+	display:flex;
+}
+
+.com-hiyoko-sweet-disscussion-chat-stream { 
+	width:300px;
+	border:6px inset black;
+}
+
+.com-hiyoko-sweet-disscussion-chat-stream-messages {
+	height:600px;
+	overflow:scroll;
+}
+
+.com-hiyoko-sweet-disscussion-chat-stream-messages-message {
+	position:relative;
+	border-bottom:1px gray solid;
+}
+
+.com-hiyoko-sweet-disscussion-chat-stream-messages-message-name {
+	font-size:120%;
+}
+
+.com-hiyoko-sweet-disscussion-chat-stream-messages-message-text {
+	width:280px;
+	word-break:break-all;
+	padding:3px;
+}
+.com-hiyoko-sweet-disscussion-chat-stream-messages-message-button {
+	display:inline;
+	font-size:100%;
+	border:gray 3px outset;
+	background-color:#A0A0A0;
+	opacity:0.5;
+	position:absolute;
+	right:5px;
+	bottom:0px;
+	margin-top:0px;
+}
 
 
 .active {

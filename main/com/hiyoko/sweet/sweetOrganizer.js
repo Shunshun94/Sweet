@@ -28,21 +28,13 @@ com.hiyoko.sweet.Organizer = function($html) {
 com.hiyoko.util.extend(com.hiyoko.sweet.ApplicationBase, com.hiyoko.sweet.Organizer);
 
 com.hiyoko.sweet.Organizer.prototype.buildComponents = function() {
-	var $apps = this.getElementById('apps').children();
-	console.log($apps);
-	this.applications = com.hiyoko.util.mergeArray(
-			com.hiyoko.sweet.Organizer.APPLICATION_LIST,
-			$apps, 
-			function(app, dom){return new app(dom);});
-	this.list = new com.hiyoko.sweet.AppList(this.getElement('#com-hiyoko-sweet-menu'), this.applications);
-	
 	if(this.query.url && this.query.room) {
 		this.tofServerAccess = new com.hiyoko.DodontoF.V2.Server(this.query.url);
 		this.tofRoomAccess = this.tofServerAccess.getRoom(this.query.room, this.query.pass);
+		this.buildApplications();
 		this.onClickList({num:0});
 		this.tofRoomAccess.getRoomInfo()
 		.done(function(r){
-			console.log(this.getElementById('header'))
 			this.getElementById('header').text('【' + r.roomName + '】');
 		}.bind(this))
 		.fail(function(r){
@@ -51,12 +43,23 @@ com.hiyoko.sweet.Organizer.prototype.buildComponents = function() {
 			this.list.disable();
 		}.bind(this));
 	} else {
+		this.tofRoomAccess = com.hiyoko.DodontoF.V2.RoomDummy;
+		this.buildApplications();
 		this.onClickList({num: (this.applications.length - 1)});
 		this.list.disable();
 	}
 
 
 };
+
+com.hiyoko.sweet.Organizer.prototype.buildApplications = function(){
+	var $apps = this.getElementById('apps').children();
+	this.applications = com.hiyoko.util.mergeArray(
+			com.hiyoko.sweet.Organizer.APPLICATION_LIST,
+			$apps, 
+			function(app, dom){return new app(dom);});
+	this.list = new com.hiyoko.sweet.AppList(this.getElement('#com-hiyoko-sweet-menu'), this.applications);
+}
 
 com.hiyoko.sweet.Organizer.prototype.onClickList = function(e) {
 	this.applications.forEach(function(app) {
@@ -85,6 +88,6 @@ com.hiyoko.sweet.Organizer.prototype.bindEvents = function(e) {
 	this.$html.on('clickMenu', this.onClickList.bind(this));
 };
 
-com.hiyoko.sweet.Organizer.APPLICATION_LIST = [com.hiyoko.sweet.Circumstance, com.hiyoko.sweet.Entry];//, com.hiyoko.sweet.Discussion];
+com.hiyoko.sweet.Organizer.APPLICATION_LIST = [com.hiyoko.sweet.Circumstance, com.hiyoko.sweet.Discussion, com.hiyoko.sweet.Entry];
 
 

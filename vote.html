@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Vote</title>
+</head>
+<body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+<script src='main/com/hiyoko/DodontoF/DodontoF-Client.js'></script>
+<script src='main/com/hiyoko/util/utils.js'></script>
+<script>
+var params = com.hiyoko.util.getQueries();
+var lastInput = localStorage.getItem(params.vid);
+
+if(lastInput) {
+	alert('すでに投票済みです');
+} else {
+	var tof = new com.hiyoko.DodontoF.V2.Room(params.url, params.room, params.pass);
+	tof.sendChat({
+		name: 'SWEET',
+		message: 'VOTE: ' + params.selection
+	}).done(function(r){
+		alert('投票しました');
+		localStorage.setItem(params.vid, params.selection);
+	}).fail(function(r){
+		alert('投票に失敗しました。\n理由：' + r.result);
+	});
+}
+
+
+</script>
+
+
+</body>
+</html>

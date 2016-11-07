@@ -201,9 +201,19 @@ com.hiyoko.DodontoF.V2.Room = function(url, room, opt_pass) {
 		return updateMemoPromise.promise();
 	};
 	
+	tofRoom.prototype.getCharacters = function() {
+		return this.sendRequest_(tofRoom.API_NAMES.GET_CHARACTER, {'characters':0});
+	};
 	
 	  
 })(com.hiyoko.DodontoF.V2.Room);
+
+com.hiyoko.DodontoF.V2.RoomDummy = com.hiyoko.DodontoF.V2.RoomDummy || {};
+com.hiyoko.DodontoF.V2.RoomDummy.getRoomInfo = function() {
+	return new $.Deferred;
+};
+
+
 
 com.hiyoko.DodontoF.V2.util = com.hiyoko.DodontoF.V2.util || {};
 
