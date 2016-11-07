@@ -114,20 +114,21 @@ com.hiyoko.sweet.Discussion.Vote.prototype.bindEvents = function() {
 						document.location.host +
 						document.location.pathname);
 		var url = '';
-		var voteId = com.hiyoko.util.rndString();
+		
+		var urlSuffix = com.hiyoko.util.format('%s&vid=%s', location.search, com.hiyoko.util.rndString(18));
 		
 		if(sweetUrl.endsWith('index.html')) {
-			url = sweetUrl.replace('index.html', 'vote.html?vid=' + voteId);
+			url = sweetUrl.replace('index.html', 'vote.html' + urlSuffix);
 		} else if (sweetUrl.endsWith('/')) {
-			url = sweetUrl + 'vote.html?vid=' + voteId;
+			url = sweetUrl + 'vote.html' + urlSuffix;
 		} else {
-			url = sweetUrl + '/vote.html?vid=' + voteId;
+			url = sweetUrl + '/vote.html' + urlSuffix;
 		}
 	
 		voteTargets.forEach(function(v) {
 			var text = v.trim();
 			if(text !== '') {
-				message.push(com.hiyoko.util.format('案　%s %s %s', voteCount, text, url + '&selection=' + voteCount));
+				message.push(com.hiyoko.util.format('案　%s %s\n　　%s', voteCount, text, url + '&selection=' + voteCount));
 				voteCount++;
 			} 
 		});
