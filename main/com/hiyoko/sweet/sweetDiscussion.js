@@ -128,12 +128,12 @@ com.hiyoko.sweet.Discussion.Vote.prototype.bindEvents = function() {
 		voteTargets.forEach(function(v) {
 			var text = v.trim();
 			if(text !== '') {
-				message.push(com.hiyoko.util.format('案　%s %s\n　　%s', voteCount, text, url + '&selection=' + voteCount));
+				message.push(com.hiyoko.util.format('案　%s %s\n%s', voteCount, text, url + '&selection=' + voteCount));
 				voteCount++;
 			} 
 		});
 		
-		if(confirm('以下の条件で投票を開始します。よろしいですか?\n\n' + message.join('\n'))) {
+		if(confirm('以下の条件で投票を開始します。よろしいですか?\n\n' + message.join('\n\n'))) {
 			var event = this.getAsyncEvent('tofRoomRequest', {
 				method: 'sendChat',
 				args: [{
