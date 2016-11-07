@@ -43,6 +43,7 @@ com.hiyoko.sweet.Organizer.prototype.buildComponents = function() {
 			this.list.disable();
 		}.bind(this));
 	} else {
+		this.tofRoomAccess = com.hiyoko.DodontoF.V2.RoomDummy;
 		this.buildApplications();
 		this.onClickList({num: (this.applications.length - 1)});
 		this.list.disable();
