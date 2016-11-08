@@ -22,6 +22,11 @@ button {
 	height:100%;
 }
 
+.com-hiyoko-sweet-accounting-detail-table-border {
+	background-color:black;
+}
+
+
 #com-hiyoko-sweet-circumstance table {
 	display:none;
 }
