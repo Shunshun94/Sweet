@@ -23,14 +23,24 @@ com.hiyoko.sweet.Accounting.DetailIn = function($html) {
 	this.renderTable([{title:'項目名', type:'text'},
 	                  {title:'単価', type:'number'},
 	                  {title:'数量', type:'number'},
-	                  {title:'小計', type:'auto', value:this.calcSubTotal}
+	                  {title:'小計', type:'auto', func:this.calcSubTotal}
 	]);
 };
 
 com.hiyoko.util.extend(com.hiyoko.sweet.TableBase, com.hiyoko.sweet.Accounting.DetailIn);
 
-com.hiyoko.sweet.Accounting.DetailIn.prototype.calcSubTotal = function(e) {
-	
+com.hiyoko.sweet.Accounting.DetailIn.prototype.calcSubTotal = function(vals) {
+	return vals[1] * vals[2];
 };
 
+com.hiyoko.sweet.Accounting.DetailIn.prototype.calcTotal = function(e) {
+	var result = ['', '', ''];
+	var total = 0;
+	var table = this.getTableValue();
+	table.forEach(function(v) {
+		total += Number(v[3]);
+	});
+	result.push(total);
+	return result;
+};
 

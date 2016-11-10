@@ -86,9 +86,13 @@ com.hiyoko.util.extend(com.hiyoko.sweet.ApplicationBase, com.hiyoko.sweet.TableB
 
 com.hiyoko.sweet.TableBase.prototype.renderTable = function(cols){
 	var headerClass = this.id + '-header';
-	var totalClass = this.id + '-total';
 	this.memberClass = this.id + '-member';
 	this.cols = cols;
+	
+	var $body = $('<tbody></tbody>');
+	$body.attr('id', this.id + '-body');
+	
+	this.$html.append($body);
 	
 	var $header = $('<tr></tr>')
 	$header.addClass(headerClass);
@@ -100,7 +104,7 @@ com.hiyoko.sweet.TableBase.prototype.renderTable = function(cols){
 		$header.append($col);
 	}.bind(this));
 	
-	this.$html.append($header);
+	$body.append($header);
 	
 	var $util = $(com.hiyoko.util.format('<tr colspan="%s"></tr>', this.cols.length));
 	$util.append(com.hiyoko.util.format(
@@ -110,11 +114,48 @@ com.hiyoko.sweet.TableBase.prototype.renderTable = function(cols){
 			this.id + '-remove'));
 	$util.addClass(this.id + '-util');
 	
-	this.$html.append($util);
+	$body.append($util);
+	this.addTotal();
+
+	this.getStorage('data', function(data) {
+		if(data && data.length > 0) {
+			data.forEach(function(line) {
+				this.addMember();
+				this.setLine(line);
+			}.bind(this));
+			if(this.calcTotal) {
+				this.setTotal(this.calcTotal());
+			}
+		} else {
+			this.addMember();			
+		}
+		this.bindSharedEvent();
+	}.bind(this));
+};
+
+com.hiyoko.sweet.TableBase.prototype.addTotal = function() {
+	var isTotalRequired = false;
+	var totalId = this.id + '-total';
+	var totalClass = 'com-hiyoko-sweet-table-base-total';
 	
-	this.addMember();
-	
-	this.bindSharedEvent();
+	if(this.calcTotal) {
+		var $tr = $('<tr></tr>');
+		$tr.attr('id', totalId);
+		$tr.addClass(totalClass);
+		
+		this.cols.forEach(function(){
+			$tr.append('<td></td>');
+		});
+		
+		this.getElementsByClass('util').before($tr);
+	}
+};
+
+com.hiyoko.sweet.TableBase.prototype.setTotal = function(result) {
+	var trs = this.getElementById('total').children();
+	result.forEach(function(v, i) {
+		$(trs[i]).text(v);
+	});
 };
 
 com.hiyoko.sweet.TableBase.prototype.addMember = function() {
@@ -126,7 +167,7 @@ com.hiyoko.sweet.TableBase.prototype.addMember = function() {
 		$col.addClass(this.memberClass + '-' + i);
 		
 		if(col.type === 'text') {
-			$col.attr('contenteditable', true);
+			$col.append('<input value="" type="text" class="com-hiyoko-sweet-table-base-member-text" />');
 		} else if (col.type === 'number') {
 			$col.append('<input value="0" type="number" class="com-hiyoko-sweet-table-base-member-number" />');
 		} else if (col.type === 'check') {
@@ -137,7 +178,11 @@ com.hiyoko.sweet.TableBase.prototype.addMember = function() {
 		
 		$member.append($col);
 	}.bind(this));
-	this.getElementsByClass('util').before($member);
+	if(this.getElementById('total').length){
+		this.getElementById('total').before($member);
+	} else {
+		this.getElementsByClass('util').before($member);
+	}
 };
 
 com.hiyoko.sweet.TableBase.prototype.bindSharedEvent = function() {
@@ -146,7 +191,72 @@ com.hiyoko.sweet.TableBase.prototype.bindSharedEvent = function() {
 		this.getElementsByClass('member:last').remove();
 	}.bind(this));
 	
-	console.log(this.getElementById('add'));
+	this.$html.change(function(e) {
+		var $tr = $(e.target);
+		
+		while(! $tr.hasClass(this.memberClass)) {
+			$tr = $tr.parent();
+		}
+		
+		var vals = this.getLine($tr);
+		var $tds = $tr.children();
+		this.cols.forEach(function(v, i){
+			if(v.type === 'auto') {
+				$($tds[i]).text(v.func(vals));
+			}
+		}.bind(this));
+		
+		if(this.calcTotal) {
+			this.setTotal(this.calcTotal(e));
+		}
+		this.setStorage('data', this.getTableValue());
+	}.bind(this));
+	
+	this.getElementById('body').sortable();
+	
+	
 };
+
+com.hiyoko.sweet.TableBase.prototype.getLine = function($tr) {
+	var vals = $tr.children();
+	var result = [];
+	this.cols.forEach(function(v, i){
+		if(v.type === 'text') {
+			result.push($($(vals[i]).find('input')[0]).val());
+		} else if (v.type === 'number') {
+			result.push($($(vals[i]).find('input')[0]).val());
+		} else if (v.type === 'check') {
+			
+		} else if (v.type === 'auto') {
+			result.push($(vals[i]).text());
+		}
+	});
+	return result;
+};
+
+com.hiyoko.sweet.TableBase.prototype.setLine = function(line, opt_$tr) {
+	var vals = (opt_$tr || this.getElementsByClass('member:last')).children();
+	this.cols.forEach(function(v, i){
+		if(v.type === 'text') {
+			$($(vals[i]).find('input')[0]).val(line[i]);
+		} else if (v.type === 'number') {
+			$($(vals[i]).find('input')[0]).val(line[i]);
+		} else if (v.type === 'check') {
+			
+		} else if (v.type === 'auto') {
+			$(vals[i]).text(line[i]);
+		}
+	});
+};
+
+com.hiyoko.sweet.TableBase.prototype.getTableValue = function() {
+	var result = [];
+	$.each(this.getElementsByClass('member'), function(i, v) {
+		result.push(this.getLine($(v)));
+	}.bind(this));
+	return result;
+};
+
+com.hiyoko.sweet.TableBase.prototype.calcTotal = undefined;
 
 
