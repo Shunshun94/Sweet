@@ -167,9 +167,9 @@ com.hiyoko.sweet.TableBase.prototype.addMember = function() {
 		$col.addClass(this.memberClass + '-' + i);
 		
 		if(col.type === 'text') {
-			$col.append('<input value="" type="text" class="com-hiyoko-sweet-table-base-member-text" />');
+			$col.append('<input value="" type="text" name="' + i + '" class="com-hiyoko-sweet-table-base-member-text" />');
 		} else if (col.type === 'number') {
-			$col.append('<input value="0" type="number" class="com-hiyoko-sweet-table-base-member-number" />');
+			$col.append('<input value="0" type="number" name="' + i + '" class="com-hiyoko-sweet-table-base-member-number" />');
 		} else if (col.type === 'check') {
 			
 		} else if (col.type === 'auto') {
@@ -193,29 +193,37 @@ com.hiyoko.sweet.TableBase.prototype.bindSharedEvent = function() {
 	
 	this.$html.change(function(e) {
 		var $tr = $(e.target);
+		var num = Number($tr.attr('name'));
+		var inputValue = $tr.val();
 		
 		while(! $tr.hasClass(this.memberClass)) {
 			$tr = $tr.parent();
 		}
 		
-		var vals = this.getLine($tr);
-		var $tds = $tr.children();
-		this.cols.forEach(function(v, i){
-			if(v.type === 'auto') {
-				$($tds[i]).text(v.func(vals));
-			}
-		}.bind(this));
+		var autocomplete = (this.cols[num].autocomplete || this.defaultAutoComplete).bind(this);
 		
-		if(this.calcTotal) {
-			this.setTotal(this.calcTotal(e));
-		}
-		this.setStorage('data', this.getTableValue());
+		autocomplete(inputValue, $tr, function(){
+			var vals = this.getLine($tr);
+			var $tds = $tr.children();
+			this.cols.forEach(function(v, i){
+				if(v.type === 'auto') {
+					$($tds[i]).text(v.func(vals));
+				}
+			}.bind(this));
+			
+			if(this.calcTotal) {
+				this.setTotal(this.calcTotal(e));
+			}
+			this.setStorage('data', this.getTableValue());
+		}.bind(this));
 	}.bind(this));
 	
 	this.getElementById('body').sortable();
 	
 	
 };
+
+com.hiyoko.sweet.TableBase.prototype.defaultAutoComplete = function(val, $tr, callback) {callback();};
 
 com.hiyoko.sweet.TableBase.prototype.getLine = function($tr) {
 	var vals = $tr.children();
@@ -237,14 +245,16 @@ com.hiyoko.sweet.TableBase.prototype.getLine = function($tr) {
 com.hiyoko.sweet.TableBase.prototype.setLine = function(line, opt_$tr) {
 	var vals = (opt_$tr || this.getElementsByClass('member:last')).children();
 	this.cols.forEach(function(v, i){
-		if(v.type === 'text') {
-			$($(vals[i]).find('input')[0]).val(line[i]);
-		} else if (v.type === 'number') {
-			$($(vals[i]).find('input')[0]).val(line[i]);
-		} else if (v.type === 'check') {
-			
-		} else if (v.type === 'auto') {
-			$(vals[i]).text(line[i]);
+		if(line[i] !== null && line[i] !== undefined) {
+			if(v.type === 'text') {
+				$($(vals[i]).find('input')[0]).val(line[i]);
+			} else if (v.type === 'number') {
+				$($(vals[i]).find('input')[0]).val(line[i]);
+			} else if (v.type === 'check') {
+				
+			} else if (v.type === 'auto') {
+				$(vals[i]).text(line[i]);
+			}	
 		}
 	});
 };
@@ -258,5 +268,4 @@ com.hiyoko.sweet.TableBase.prototype.getTableValue = function() {
 };
 
 com.hiyoko.sweet.TableBase.prototype.calcTotal = undefined;
-
 

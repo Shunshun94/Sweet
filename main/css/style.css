@@ -32,10 +32,15 @@ button {
 	width:98%;
 }
 
-.com-hiyoko-sweet-accounting-detail-table-border {
-	background-color:black;
+#com-hiyoko-sweet-accounting-detail-in {
+	display:inline-block;
+	vertical-align:top;	
 }
 
+#com-hiyoko-sweet-accounting-detail-out {
+	display:inline-block;
+	vertical-align:top;
+}
 
 #com-hiyoko-sweet-circumstance table {
 	display:none;
