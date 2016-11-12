@@ -44,6 +44,7 @@ button {
 
 #com-hiyoko-sweet-accounting-summary {
 	padding:1em;
+	display:inline-block;
 }
 
 .com-hiyoko-sweet-accounting-summary-table td {
@@ -58,6 +59,11 @@ td.com-hiyoko-sweet-accounting-summary-table-out-name {
 
 td.com-hiyoko-sweet-accounting-summary-table-out-total {
 	border-top: double 6px black;
+}
+
+#com-hiyoko-sweet-accounting-plan {
+	padding:1em;
+	display:inline-block;
 }
 
 #com-hiyoko-sweet-circumstance table {

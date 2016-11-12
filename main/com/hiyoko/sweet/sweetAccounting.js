@@ -16,12 +16,14 @@ com.hiyoko.util.extend(com.hiyoko.sweet.ApplicationBase, com.hiyoko.sweet.Accoun
 com.hiyoko.sweet.Accounting.prototype.buildComponents = function() {
 	this.input = new com.hiyoko.sweet.Accounting.InputTable(this.getElementById('detail'));
 	this.summary = new com.hiyoko.sweet.Accounting.SummaryReport(this.getElementById('summary'));
+	this.divide = new com.hiyoko.sweet.Accounting.FeePartition(this.getElementById('plan'));
 };
 
 com.hiyoko.sweet.Accounting.prototype.bindEvents = function() {
 	this.getElementById('printReport').click(function(){
 		var cost = this.calcCost(this.input.getIn(), this.input.getOut())
 		this.summary.draw(cost);
+		this.divide.print(cost);
 	}.bind(this));
 };
 
@@ -177,6 +179,7 @@ com.hiyoko.sweet.Accounting.SummaryReport.prototype.draw = function(cost) {
 
 	var $table = $('<table border="2"></table>');
 	$table.addClass(this.id + '-table');
+	$table.append('<caption>収支報告</caption>');
 	
 	var inTable = this.renderInTable(cost.inCost.raw);
 	var outTable = this.renderOutTable(cost.outCost.raw);
@@ -261,5 +264,65 @@ com.hiyoko.sweet.Accounting.SummaryReport.prototype.renderOutTableLine = functio
 			this.id + '-table-out-name',
 			detailData[1], detailData[2],detailData[3], detailData[4]).replace(/\n/gm, '<br/>');
 };
+
+com.hiyoko.sweet.Accounting.FeePartition = function($html) {
+	this.$html = $($html);
+	this.id = this.$html.attr('id');
+	
+	this.$memberCount = this.getElementById('memberCount');
+	this.$table = this.getElementById('table');
+	
+	this.bindEvents();
+};
+
+com.hiyoko.util.extend(com.hiyoko.sweet.ApplicationBase, com.hiyoko.sweet.Accounting.FeePartition);
+
+com.hiyoko.sweet.Accounting.FeePartition.prototype.bindEvents = function() {
+	this.$memberCount.change(function(e) {
+		this.print(this.data, this.$memberCount.val());
+	}.bind(this));
+};
+
+com.hiyoko.sweet.Accounting.FeePartition.prototype.defineMemberCount = (data, opt_members) {
+	if((Number(this.$memberCount.val()) !== 0)) {
+		return this.$memberCount.val(); 
+	} else {
+		if(opt_members) {
+			return opt_members;
+		} else {
+			var count = 0;
+			for(var key in data.outCost.members) {
+				count++;
+			}
+			if(count) {
+				return count;
+			} else {
+				return 4;
+			}
+			
+		}
+	}
+};
+
+com.hiyoko.sweet.Accounting.FeePartition.prototype.print = function(data, opt_members, opt_denomi) {
+	this.data = data;
+	
+	var benefit = data.inCost.total - data.outCost.total;
+	var memberCount = this.defineMemberCount();
+	var denomi = opt_denomi || 100;
+	
+	var standardPaying = denomi * Math.floor(benefit / (memberCount * denomi));
+	var excess = benefit - (standardPaying * memberCount);
+	
+	this.$table.empty();
+	
+	console.log(standardPaying);
+}; 
+
+
+
+
+
+
 
 
