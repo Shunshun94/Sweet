@@ -1,7 +1,10 @@
 var com = com || {};
 com.hiyoko = com.hiyoko || {};
 com.hiyoko.sweet = com.hiyoko.sweet || {};
-com.hiyoko.sweet.ApplicationBase = function(){};
+com.hiyoko.sweet.ApplicationBase = function($html){};
+
+com.hiyoko.sweet.ApplicationBase.prototype.buildComponents = function(){};
+com.hiyoko.sweet.ApplicationBase.prototype.bindEvents = function(){};
 
 com.hiyoko.sweet.ApplicationBase.prototype.getElement = function(query){
 	return this.$html.find(query);

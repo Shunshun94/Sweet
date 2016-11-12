@@ -42,6 +42,20 @@ button {
 	vertical-align:top;
 }
 
+.com-hiyoko-sweet-accounting-summary-table td {
+	text-align:right;
+	padding:3px;
+}
+
+td.com-hiyoko-sweet-accounting-summary-table-out-name {
+	vertical-align:top;
+	text-align:left;
+}
+
+td.com-hiyoko-sweet-accounting-summary-table-out-total {
+	border-top: double 6px black;
+}
+
 #com-hiyoko-sweet-circumstance table {
 	display:none;
 }
