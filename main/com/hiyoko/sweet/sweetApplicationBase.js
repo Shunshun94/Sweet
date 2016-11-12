@@ -168,15 +168,23 @@ com.hiyoko.sweet.TableBase.prototype.addMember = function() {
 	this.cols.forEach(function(col, i){
 		var $col = $('<td></td>');
 		$col.addClass(this.memberClass + '-' + i);
-		
+		var $input = false;
 		if(col.type === 'text') {
-			$col.append('<input value="" type="text" name="' + i + '" class="com-hiyoko-sweet-table-base-member-text" />');
+			$input = $('<input value="" type="text" name="' + i + '" class="com-hiyoko-sweet-table-base-member-text" />');
 		} else if (col.type === 'number') {
-			$col.append('<input value="0" type="number" name="' + i + '" class="com-hiyoko-sweet-table-base-member-number" />');
+			$input = $('<input value="0" type="number" name="' + i + '" class="com-hiyoko-sweet-table-base-member-number" />');
 		} else if (col.type === 'check') {
 			
 		} else if (col.type === 'auto') {
 			$col.css('background-color', '#E0E0E0');
+		}
+		
+		if(col.autocomplete) {
+			$input.attr({'autocomplete': 'on', 'list': col.autocomplete.attr('id')})
+		}
+		
+		if($input) {
+			$col.append($input);
 		}
 		
 		$member.append($col);
@@ -203,14 +211,14 @@ com.hiyoko.sweet.TableBase.prototype.bindSharedEvent = function() {
 			$tr = $tr.parent();
 		}
 		
-		var autocomplete = (this.cols[num].autocomplete || this.defaultAutoComplete).bind(this);
+		var inputTrigger = (this[this.cols[num].inputTrigger] || this.defaultInputTrigger).bind(this);
 		
-		autocomplete(inputValue, $tr, function(){
+		inputTrigger(inputValue, $tr, function(){
 			var vals = this.getLine($tr);
 			var $tds = $tr.children();
 			this.cols.forEach(function(v, i){
 				if(v.type === 'auto') {
-					$($tds[i]).text(v.func(vals));
+					$($tds[i]).text(this[v.func](vals));
 				}
 			}.bind(this));
 			
@@ -226,7 +234,7 @@ com.hiyoko.sweet.TableBase.prototype.bindSharedEvent = function() {
 	
 };
 
-com.hiyoko.sweet.TableBase.prototype.defaultAutoComplete = function(val, $tr, callback) {callback();};
+com.hiyoko.sweet.TableBase.prototype.defaultInputTrigger = function(val, $tr, callback) {callback();};
 
 com.hiyoko.sweet.TableBase.prototype.getLine = function($tr) {
 	var vals = $tr.children();

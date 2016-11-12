@@ -42,6 +42,10 @@ button {
 	vertical-align:top;
 }
 
+#com-hiyoko-sweet-accounting-summary {
+	padding:1em;
+}
+
 .com-hiyoko-sweet-accounting-summary-table td {
 	text-align:right;
 	padding:3px;
