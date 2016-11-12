@@ -88,6 +88,11 @@ com.hiyoko.sweet.Organizer.prototype.bindEvents = function(e) {
 	this.$html.on('clickMenu', this.onClickList.bind(this));
 };
 
-com.hiyoko.sweet.Organizer.APPLICATION_LIST = [com.hiyoko.sweet.Circumstance, com.hiyoko.sweet.Discussion, com.hiyoko.sweet.Entry];
+com.hiyoko.sweet.Organizer.APPLICATION_LIST = [
+	com.hiyoko.sweet.Accounting,
+	com.hiyoko.sweet.Circumstance,
+	com.hiyoko.sweet.Discussion,
+	com.hiyoko.sweet.Entry
+];
 
 
