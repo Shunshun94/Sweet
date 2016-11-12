@@ -279,11 +279,13 @@ com.hiyoko.util.extend(com.hiyoko.sweet.ApplicationBase, com.hiyoko.sweet.Accoun
 
 com.hiyoko.sweet.Accounting.FeePartition.prototype.bindEvents = function() {
 	this.$memberCount.change(function(e) {
-		this.print(this.data, this.$memberCount.val());
+		if(this.data){
+			this.print(this.data, this.$memberCount.val());	
+		}
 	}.bind(this));
 };
 
-com.hiyoko.sweet.Accounting.FeePartition.prototype.defineMemberCount = (data, opt_members) {
+com.hiyoko.sweet.Accounting.FeePartition.prototype.defineMemberCount = function(data, opt_members) {
 	if((Number(this.$memberCount.val()) !== 0)) {
 		return this.$memberCount.val(); 
 	} else {
@@ -299,7 +301,6 @@ com.hiyoko.sweet.Accounting.FeePartition.prototype.defineMemberCount = (data, op
 			} else {
 				return 4;
 			}
-			
 		}
 	}
 };
@@ -308,15 +309,39 @@ com.hiyoko.sweet.Accounting.FeePartition.prototype.print = function(data, opt_me
 	this.data = data;
 	
 	var benefit = data.inCost.total - data.outCost.total;
-	var memberCount = this.defineMemberCount();
-	var denomi = opt_denomi || 100;
+	var memberCount = this.defineMemberCount(data);
+	var denomi = opt_denomi || 10;
+	var count = 0;
+	var itemCost;
 	
 	var standardPaying = denomi * Math.floor(benefit / (memberCount * denomi));
 	var excess = benefit - (standardPaying * memberCount);
 	
 	this.$table.empty();
 	
-	console.log(standardPaying);
+	
+	this.$table.append('<caption>報酬配分</caption>');
+	this.$table.append(com.hiyoko.util.format('<tr><th>名前</th><th>基本金額</th><th>補填金額</th><th class="%s">合計金額</th></tr>',
+			this.id + '-table-coltotal'));
+	for(var key in data.outCost.members) {
+		memberCount--;
+		itemCost = data.outCost.members[key].reduce(function(a, b){return a + Number(b[4])}, 0);
+		this.$table.append(com.hiyoko.util.format('<tr><td>%s</td><td>%s</td><td>%s</td><td class="%s">%s</td></tr>',
+				key, standardPaying, itemCost, this.id + '-table-coltotal', standardPaying + itemCost));
+	}
+	
+	if(memberCount > 0) {
+		this.$table.append(com.hiyoko.util.format('<tr><td>他のメンバー (%s名)</td><td>%s</td><td>%s</td><td class="%s">%s</td></tr>',
+				memberCount, standardPaying, 0, this.id + '-table-coltotal', standardPaying));
+	}
+	
+	if(excess) {
+		this.$table.append(com.hiyoko.util.format('<tr><td>未分配金</td><td>%s</td><td>%s</td><td class="%s">%s</td></tr>',
+				excess, 0, this.id + '-table-coltotal', standardPaying));
+	}
+	
+	this.$table.append(com.hiyoko.util.format('<tr class="%s"><td>合計</td><td>%s</td><td>%s</td><td class="%s">%s</td></tr>',
+			this.id + '-table-rowtotal', benefit, data.outCost.total, this.id + '-table-coltotal', data.inCost.total));
 }; 
 
 
