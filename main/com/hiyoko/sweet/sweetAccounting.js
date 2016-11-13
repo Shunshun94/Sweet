@@ -317,6 +317,7 @@ com.hiyoko.sweet.Accounting.FeePartition.prototype.print = function(data, opt_me
 	var standardPaying = denomi * Math.floor(benefit / (memberCount * denomi));
 	var excess = benefit - (standardPaying * memberCount);
 	
+	this.$memberCount.val(memberCount);
 	this.$table.empty();
 	
 	
