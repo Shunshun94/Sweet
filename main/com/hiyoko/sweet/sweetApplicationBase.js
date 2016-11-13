@@ -188,7 +188,6 @@ com.hiyoko.sweet.TableBase.prototype.addMember = function() {
 		if($input) {
 			$col.append($input);
 		}
-		
 		$member.append($col);
 	}.bind(this));
 	if(this.getElementById('total').length){
@@ -202,6 +201,7 @@ com.hiyoko.sweet.TableBase.prototype.bindSharedEvent = function() {
 	this.getElementById('add').click(this.addMember.bind(this));
 	this.getElementById('remove').click(function(e) {
 		this.getElementsByClass('member:last').remove();
+		this.setStorage('data', this.getTableValue());
 		if(this.calcTotal) {
 			this.setTotal(this.calcTotal());
 		}
