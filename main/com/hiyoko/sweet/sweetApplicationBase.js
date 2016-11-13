@@ -87,11 +87,12 @@ com.hiyoko.sweet.TableBase = function(){};
 
 com.hiyoko.util.extend(com.hiyoko.sweet.ApplicationBase, com.hiyoko.sweet.TableBase);
 
-com.hiyoko.sweet.TableBase.prototype.renderTable = function(cols){
+com.hiyoko.sweet.TableBase.prototype.renderTable = function(cols, opt_data){
 	var headerClass = this.id + '-header';
 	this.memberClass = this.id + '-member';
 	this.cols = cols;
 	
+	this.$html.empty();
 	var $body = $('<tbody></tbody>');
 	$body.attr('id', this.id + '-body');
 	
@@ -120,7 +121,8 @@ com.hiyoko.sweet.TableBase.prototype.renderTable = function(cols){
 	$body.append($util);
 	this.addTotal();
 
-	this.getStorage('data', function(data) {
+	this.getStorage('data', function(storage_data) {
+		var data = opt_data || storage_data;
 		if(data && data.length > 0) {
 			data.forEach(function(line) {
 				this.addMember();
