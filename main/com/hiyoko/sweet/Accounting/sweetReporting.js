@@ -1,7 +1,6 @@
 var com = com || {};
 com.hiyoko = com.hiyoko || {};
 com.hiyoko.sweet = com.hiyoko.sweet || {};
-
 com.hiyoko.sweet.Accounting = com.hiyoko.sweet.Accounting || {}
 
 com.hiyoko.sweet.Accounting.SummaryReport = function($html) {
