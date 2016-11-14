@@ -77,6 +77,24 @@ button {
 	width:40px;
 }
 
+#com-hiyoko-sweet-accounting-detail-savedData-toggle {
+	display:block;
+	font-size:80%;
+	border: lightyellow 3px none;
+	background-color:lemonchiffon;
+	border-radius: 1em;
+	opacity:0.8;
+}
+
+#com-hiyoko-sweet-accounting-detail-savedData-display {
+	display:none;
+	color:white;
+	background-color:#001000;
+	border-radius: 1em;
+	opacity:0.9;
+	padding:1em;
+}
+
 #com-hiyoko-sweet-accounting-summary {
 	padding:1em;
 	display:inline-block;

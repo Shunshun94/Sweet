@@ -22,6 +22,7 @@ com.hiyoko.sweet.Accounting.InputTable = function($html) {
 	
 	this.detailIn = new com.hiyoko.sweet.Accounting.DetailIn(this.getElementById('in'), detailInCols);
 	this.detailOut = new com.hiyoko.sweet.Accounting.DetailOut(this.getElementById('out'), detailOutCols);
+	this.saveData = new com.hiyoko.sweet.Accounting.SaveDataManager(this.getElementById('savedData'));
 };
 
 com.hiyoko.util.extend(com.hiyoko.sweet.ApplicationBase, com.hiyoko.sweet.Accounting.InputTable);
@@ -122,3 +123,73 @@ com.hiyoko.sweet.Accounting.DetailOut.prototype.calcTotal = function(e) {
 	
 	return result;
 };
+
+com.hiyoko.sweet.Accounting.SaveDataManager = function($html) {
+	this.$html = $($html);
+	this.id = this.$html.attr('id');
+	
+	this.toggler = this.getElementById('toggle');
+	this.display = this.getElementById('display');
+	this.list = this.getElementById('display-list');
+	this.detail = this.getElementById('display-detail');
+	this.apply = this.getElementById('display-apply');
+	
+	this.bindEvents();
+	this.loadData();
+};
+
+com.hiyoko.util.extend(com.hiyoko.sweet.ApplicationBase, com.hiyoko.sweet.Accounting.SaveDataManager);
+
+com.hiyoko.sweet.Accounting.SaveDataManager.prototype.bindEvents = function() {
+	this.toggler.click(function(e) {
+		this.display.toggle(300);
+	}.bind(this));
+};
+
+com.hiyoko.sweet.Accounting.SaveDataManager.prototype.loadData = function() {
+	com.hiyoko.sweet.Accounting.SaveDataManager.SampleScenario.forEach(function(v) {
+		var $li = $('<li></li>');
+		
+		$li.text(v.title);
+		$li.addClass(this.id + 'display-list-data');
+		
+		this.list.append($li);
+	}.bind(this));
+};
+
+com.hiyoko.sweet.Accounting.SaveDataManager.SampleScenario = [
+{ 
+	title: '基本的な使い方',
+	detail: 'アイナ達一行はゴブリン退治の依頼をうけ、これを達成した。\n依頼料は1人400ガメル。ゴブリンが持っていた宝石を道中で取得した。\n\n' +
+		'かかった経費として、アイナがもっていたヒーリングポーションを2つ使い、\nソーサラーのケーンが3点の魔晶石を1つ消費した。',
+	member: 4,
+	inCost: [['依頼報酬', 400, 4, 1600], ['宝石', 300, 3, 900]],
+	outCost: [['アイナ', 'ヒーリングポーション', 100, 2, 200], ['ケーン', '魔晶石(3点)', 300, 1, 300]]
+}, { 
+	title: 'アイテムで経費を補填する',
+	detail: 'アルケミストのケインは戦闘で緑Aランクのカードを4枚消費した。\n' +
+		'しかし、戦闘で松ヤニ (100G/緑A) を6個入手していたので、\n金ではなくこちらから4つを粗製のマテリアルカードにして補填とすることにした。\n',
+	member: 1,
+	inCost: [['松ヤニ', 100, 6, 400], ['松ヤニ', 100, -4, -400]],
+	outCost: [['ケイン', '緑A', 200, 4, 800], ['ケイン', '松ヤニ (カードに加工済み)', -200, 4, -800]]
+}/*
+, { 
+	title: '',
+	detail: '',
+	inCost: [[], []],
+	outCost: [[], []]
+}, { 
+	title: '',
+	detail: '',
+	inCost: [[], []],
+	outCost: [[], []]
+}*/
+
+];
+
+
+
+
+
+
+
