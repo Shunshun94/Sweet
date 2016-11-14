@@ -36,6 +36,14 @@ button {
 	width:97%;
 }
 
+#com-hiyoko-sweet-accounting-detail {
+	position:relative;
+}
+
+#com-hiyoko-sweet-accounting-detail-savedData {
+	position:fixed;
+}
+
 #com-hiyoko-sweet-accounting-detail-in {
 	display:inline-block;
 	vertical-align:top;	
