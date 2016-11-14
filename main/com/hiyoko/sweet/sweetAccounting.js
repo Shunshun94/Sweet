@@ -333,12 +333,12 @@ com.hiyoko.sweet.Accounting.FeePartition.prototype.print = function(data, opt_me
 	
 	if(memberCount > 0) {
 		this.$table.append(com.hiyoko.util.format('<tr><td>他のメンバー (%s名)</td><td>%s</td><td>%s</td><td class="%s">%s</td></tr>',
-				memberCount, standardPaying, 0, this.id + '-table-coltotal', standardPaying));
+				memberCount, standardPaying, 0, this.id + '-table-coltotal', standardPaying * memberCount));
 	}
 	
 	if(excess) {
 		this.$table.append(com.hiyoko.util.format('<tr><td>未分配金</td><td>%s</td><td>%s</td><td class="%s">%s</td></tr>',
-				excess, 0, this.id + '-table-coltotal', standardPaying));
+				excess, 0, this.id + '-table-coltotal', excess));
 	}
 	
 	this.$table.append(com.hiyoko.util.format('<tr class="%s"><td>合計</td><td>%s</td><td>%s</td><td class="%s">%s</td></tr>',
