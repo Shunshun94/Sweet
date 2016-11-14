@@ -32,14 +32,41 @@ button {
 	width:98%;
 }
 
+.com-hiyoko-sweet-table-base-member-number {
+	width:97%;
+}
+
 #com-hiyoko-sweet-accounting-detail-in {
 	display:inline-block;
 	vertical-align:top;	
+	width:350px;
 }
 
 #com-hiyoko-sweet-accounting-detail-out {
 	display:inline-block;
 	vertical-align:top;
+	width:470px;
+}
+
+.com-hiyoko-sweet-accounting-detail-out-header-0 {
+	width:100px;
+}
+
+.com-hiyoko-sweet-accounting-detail-in-header-0,
+.com-hiyoko-sweet-accounting-detail-out-header-1  {
+	width:200px;
+}
+
+.com-hiyoko-sweet-accounting-detail-in-header-1,
+.com-hiyoko-sweet-accounting-detail-in-header-2,
+.com-hiyoko-sweet-accounting-detail-out-header-2,
+.com-hiyoko-sweet-accounting-detail-out-header-3 {
+	width:60px;
+}
+
+.com-hiyoko-sweet-accounting-detail-in-header-3,
+.com-hiyoko-sweet-accounting-detail-out-header-4 {
+	width:40px;
 }
 
 #com-hiyoko-sweet-accounting-summary {

@@ -103,7 +103,7 @@ com.hiyoko.sweet.TableBase.prototype.renderTable = function(cols, opt_data){
 	
 	this.cols.forEach(function(col, i){
 		var $col = $('<th></th>');
-		$col.addClass(this.headerClass + '-' + i);
+		$col.addClass(headerClass + '-' + i);
 		$col.text(col.title);
 		$header.append($col);
 	}.bind(this));
