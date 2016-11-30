@@ -35,6 +35,20 @@ com.hiyoko.sweet.Accounting.InputTable.prototype.bindEvents = function(){
 			tag.append('<option value="' + item + '"></option>');
 		});
 	}.bind(this));
+	
+	this.getElementById('savedData').on('ApplyScenario', function(e) {
+		console.log(e);
+		this.detailIn.clear();
+		e.inCost.forEach(function(l) {
+			this.detailIn.addMember();
+			this.detailIn.setLine(l);
+		}.bind(this));
+		this.detailOut.clear();
+		e.outCost.forEach(function(l) {
+			this.detailOut.addMember();
+			this.detailOut.setLine(l);
+		}.bind(this));
+	}.bind(this));
 };
 
 
@@ -134,8 +148,8 @@ com.hiyoko.sweet.Accounting.SaveDataManager = function($html) {
 	this.detail = this.getElementById('display-detail');
 	this.apply = this.getElementById('display-apply');
 	
-	this.bindEvents();
 	this.loadData();
+	this.bindEvents();
 };
 
 com.hiyoko.util.extend(com.hiyoko.sweet.ApplicationBase, com.hiyoko.sweet.Accounting.SaveDataManager);
@@ -144,14 +158,31 @@ com.hiyoko.sweet.Accounting.SaveDataManager.prototype.bindEvents = function() {
 	this.toggler.click(function(e) {
 		this.display.toggle(300);
 	}.bind(this));
+	
+	this.getElementsByClass('display-list-data').click(function(e){
+		var $clicked = $(e.target);
+		this.getElement('.active').removeClass('active');
+		$clicked.addClass('active');
+		var id = $clicked.attr('title');
+		this.detail.text(com.hiyoko.sweet.Accounting.SaveDataManager.SampleScenario[id].detail);
+	}.bind(this));
+	
+	this.apply.click(function(e) {
+		var id = Number(this.getElement('.active').attr('title'));
+		var event = new $.Event('ApplyScenario', com.hiyoko.sweet.Accounting.SaveDataManager.SampleScenario[id]);
+		this.fireEvent(event);
+	}.bind(this));
+	
+	
 };
 
 com.hiyoko.sweet.Accounting.SaveDataManager.prototype.loadData = function() {
-	com.hiyoko.sweet.Accounting.SaveDataManager.SampleScenario.forEach(function(v) {
+	com.hiyoko.sweet.Accounting.SaveDataManager.SampleScenario.forEach(function(v, i) {
 		var $li = $('<li></li>');
 		
 		$li.text(v.title);
-		$li.addClass(this.id + 'display-list-data');
+		$li.addClass(this.id + '-display-list-data');
+		$li.attr('title', i);
 		
 		this.list.append($li);
 	}.bind(this));
@@ -160,7 +191,7 @@ com.hiyoko.sweet.Accounting.SaveDataManager.prototype.loadData = function() {
 com.hiyoko.sweet.Accounting.SaveDataManager.SampleScenario = [
 { 
 	title: '基本的な使い方',
-	detail: 'アイナ達一行はゴブリン退治の依頼をうけ、これを達成した。\n依頼料は1人400ガメル。ゴブリンが持っていた宝石を道中で取得した。\n\n' +
+	detail: 'アイナ達一行はゴブリン退治の依頼をうけ、これを達成した。\n依頼料は1人400ガメル。ゴブリンが持っていた宝石3つ (1つ300ガメル相当) を道中で取得した。\n\n' +
 		'かかった経費として、アイナがもっていたヒーリングポーションを2つ使い、\nソーサラーのケーンが3点の魔晶石を1つ消費した。',
 	member: 4,
 	inCost: [['依頼報酬', 400, 4, 1600], ['宝石', 300, 3, 900]],

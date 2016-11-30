@@ -197,6 +197,13 @@ com.hiyoko.sweet.TableBase.prototype.addMember = function() {
 	}
 };
 
+com.hiyoko.sweet.TableBase.prototype.clear = function() {
+	this.getElementsByClass('member').remove();
+	if(this.calcTotal) {
+		this.setTotal(this.calcTotal());
+	}
+};
+
 com.hiyoko.sweet.TableBase.prototype.bindSharedEvent = function() {
 	this.getElementById('add').click(this.addMember.bind(this));
 	this.getElementById('remove').click(function(e) {
