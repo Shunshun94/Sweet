@@ -37,7 +37,6 @@ com.hiyoko.sweet.Accounting.InputTable.prototype.bindEvents = function(){
 	}.bind(this));
 	
 	this.getElementById('savedData').on('ApplyScenario', function(e) {
-		console.log(e);
 		this.detailIn.clear();
 		e.inCost.forEach(function(l) {
 			this.detailIn.addMember();

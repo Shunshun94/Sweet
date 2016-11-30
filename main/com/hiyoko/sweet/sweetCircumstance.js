@@ -228,7 +228,7 @@ com.hiyoko.sweet.Circumstance.Music.prototype.sendCommand = function(e) {
 		alert('設定に失敗しました\n' + r.result);
 	});
 	
-	event.args = [data.url, data.command, 'SWEET'];
+	event.args = [data.url, data.command, this.getElementById('volume').val(),'SWEET'];
 	event.method = 'playBGM';
 	this.fireEvent(event);
 };

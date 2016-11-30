@@ -154,16 +154,17 @@ com.hiyoko.DodontoF.V2.Room = function(url, room, opt_pass) {
 		return promise;
 	};
 	
-	tofRoom.prototype.playBGM = function(url, msg, opt_name) {
+	tofRoom.prototype.playBGM = function(url, msg, opt_volume, opt_name) {
+		var volume = opt_volume || '0.5';
 		return this.sendChat({
 			name: opt_name || com.hiyoko.DodontoF.V2.versionName,
 			message: com.hiyoko.util.format('###CutInMovie###{' +
 					'"source":"./image/defaultImageSet/pawn/pawnBlack.png",' +
-					'"volume":0.5,"message":"%s",' +
+					'"volume":%s,"message":"%s",' +
 					'"cutInTag":"BGM","displaySeconds":0,"height":0,"isSoundLoop":true,' +
 					'"soundSource":"%s",' +
 					'"width":0,"position":"up,right","isTail":false}',
-					msg, url)
+					volume, msg, url)
 		});
 	};
 	
