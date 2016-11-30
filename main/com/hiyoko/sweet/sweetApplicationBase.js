@@ -87,11 +87,12 @@ com.hiyoko.sweet.TableBase = function(){};
 
 com.hiyoko.util.extend(com.hiyoko.sweet.ApplicationBase, com.hiyoko.sweet.TableBase);
 
-com.hiyoko.sweet.TableBase.prototype.renderTable = function(cols){
+com.hiyoko.sweet.TableBase.prototype.renderTable = function(cols, opt_data){
 	var headerClass = this.id + '-header';
 	this.memberClass = this.id + '-member';
 	this.cols = cols;
 	
+	this.$html.empty();
 	var $body = $('<tbody></tbody>');
 	$body.attr('id', this.id + '-body');
 	
@@ -102,7 +103,7 @@ com.hiyoko.sweet.TableBase.prototype.renderTable = function(cols){
 	
 	this.cols.forEach(function(col, i){
 		var $col = $('<th></th>');
-		$col.addClass(this.headerClass + '-' + i);
+		$col.addClass(headerClass + '-' + i);
 		$col.text(col.title);
 		$header.append($col);
 	}.bind(this));
@@ -120,7 +121,8 @@ com.hiyoko.sweet.TableBase.prototype.renderTable = function(cols){
 	$body.append($util);
 	this.addTotal();
 
-	this.getStorage('data', function(data) {
+	this.getStorage('data', function(storage_data) {
+		var data = opt_data || storage_data;
 		if(data && data.length > 0) {
 			data.forEach(function(line) {
 				this.addMember();
@@ -186,7 +188,6 @@ com.hiyoko.sweet.TableBase.prototype.addMember = function() {
 		if($input) {
 			$col.append($input);
 		}
-		
 		$member.append($col);
 	}.bind(this));
 	if(this.getElementById('total').length){
@@ -196,10 +197,18 @@ com.hiyoko.sweet.TableBase.prototype.addMember = function() {
 	}
 };
 
+com.hiyoko.sweet.TableBase.prototype.clear = function() {
+	this.getElementsByClass('member').remove();
+	if(this.calcTotal) {
+		this.setTotal(this.calcTotal());
+	}
+};
+
 com.hiyoko.sweet.TableBase.prototype.bindSharedEvent = function() {
 	this.getElementById('add').click(this.addMember.bind(this));
 	this.getElementById('remove').click(function(e) {
 		this.getElementsByClass('member:last').remove();
+		this.setStorage('data', this.getTableValue());
 		if(this.calcTotal) {
 			this.setTotal(this.calcTotal());
 		}
