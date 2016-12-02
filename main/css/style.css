@@ -10,7 +10,8 @@ button {
 
 #com-hiyoko-sweet-header {
 	border-bottom: solid 3px #D0C0C0;
-	background-color:#A0A0A0;
+	background-color:#202040;
+	color:white;
 	padding:1em;
 	font-size:130%;
 }
@@ -46,8 +47,8 @@ button {
 	height:100%;
 	width:100%;
 	border-left: solid 3px #D0C0C0;
-	background-color:#A0A0A0;
-	padding-left:1em;
+	background-color:#F0F0F0;
+	padding:1em;
 }
 
 
@@ -239,7 +240,7 @@ td.com-hiyoko-sweet-accounting-summary-table-out-total {
 
 #com-hiyoko-sweet-footer{
 	border-top: solid 3px #D0C0C0;
-	background-color:#A0A0A0;
+	background-color:#F0E0E0;
 	padding:1em;
 	font-size:70%;
 }
