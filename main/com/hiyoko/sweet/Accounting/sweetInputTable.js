@@ -170,6 +170,7 @@ com.hiyoko.sweet.Accounting.SaveDataManager.prototype.bindEvents = function() {
 		var id = Number(this.getElement('.active').attr('title'));
 		var event = new $.Event('ApplyScenario', com.hiyoko.sweet.Accounting.SaveDataManager.SampleScenario[id]);
 		this.fireEvent(event);
+		this.display.toggle(300);
 	}.bind(this));
 	
 	
