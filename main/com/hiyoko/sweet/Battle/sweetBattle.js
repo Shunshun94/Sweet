@@ -20,7 +20,11 @@ com.hiyoko.sweet.Battle.prototype.buildComponents = function() {
 	this.appendCharacter();	
 };
 
-com.hiyoko.sweet.Battle.prototype.bindEvents = function() {};
+com.hiyoko.sweet.Battle.prototype.bindEvents = function() {
+	this.getElementById('appendCharacter').click(function(e){
+		this.appendCharacter();
+	}.bind(this));
+};
 
 com.hiyoko.sweet.Battle.prototype.appendCharacter = function() {
 	var newId = com.hiyoko.util.rndString(8, '-');

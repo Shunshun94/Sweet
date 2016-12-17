@@ -159,48 +159,6 @@ td.com-hiyoko-sweet-accounting-summary-table-out-total {
 	border-left: double 6px black;
 }
 
-.com-hiyoko-sweet-battle-character {
-	border: 5px inset #B0B0B0;
-	padding:1em;
-	background-color:#F0F0F0;
-}
-
-.com-hiyoko-sweet-battle-character table input {
-	width:98%;
-}
-
-.com-hiyoko-sweet-battle-character-part {
-	border: 4px inset #A0A0A0;
-	padding:1em;
-	background-color:#E0E0E0;
-}
-
-.com-hiyoko-sweet-battle-character-part-number {
-	width:50px;
-}
-
-.com-hiyoko-sweet-battle-character-part-attackway {
-	border: 3px inset #909090;
-	padding:1em;
-	background-color:#D0D0D0;
-	
-}
-
-.com-hiyoko-sweet-battle-character-part-attackway-name {
-	width:80px;
-}
-
-.com-hiyoko-sweet-battle-character-part-attackway-val {
-	width:40px;
-}
-
-.com-hiyoko-sweet-battle-character-part-attackway > button {
-	display: inline;
-}
-
-.com-hiyoko-sweet-battle-character-part-attackway-exec {
-	margin-left:1em;
-}
 
 #com-hiyoko-sweet-circumstance table {
 	display:none;
