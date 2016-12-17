@@ -1,19 +1,31 @@
 @CHARSET "UTF-8";
 
+#com-hiyoko-sweet-battle {
+	position:relative;
+}
+
+#com-hiyoko-sweet-battle button {
+	font-size:100%;
+}
+
+#com-hiyoko-sweet-battle-appendCharacter {
+	border: coral 3px outset;
+	background-color:tomato;
+	position:absolute;
+	right:0px;
+	top:-15px;
+}
+
+#com-hiyoko-sweet-battle-optionalValues-table {
+	display:none;
+}
+
 .com-hiyoko-sweet-battle-character {
 	border: 5px inset #B0B0B0;
 	padding:4px;
 	background-color:#F0F0F0;
 	position:relative;
 	min-width:785px;
-}
-
-#com-hiyoko-sweet-battle button {
-	font-size:100%;
-}
-#com-hiyoko-sweet-battle-appendCharacter {
-	border: coral 3px outset;
-	background-color:tomato;
 }
 
 .com-hiyoko-sweet-battle-character table input {

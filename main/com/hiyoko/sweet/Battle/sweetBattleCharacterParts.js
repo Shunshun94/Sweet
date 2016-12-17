@@ -13,9 +13,11 @@ com.hiyoko.sweet.Battle.BattleCharacter = function($html, opt_params) {
 
 	this.saveButton = this.getElement('.' + this.clazz + '-save');
 	this.removeButton = this.getElement('.' + this.clazz + '-remove');
-	
+
 	this.vitalityRegistButton = this.getElement('.' + this.clazz + '-vitality-exec');
 	this.mentalityRegistButton = this.getElement('.' + this.clazz + '-mentality-exec');
+	this.vitalityRegistStaticButton = this.getElement('.' + this.clazz + '-vitality-static-exec');
+	this.mentalityRegistStaticButton = this.getElement('.' + this.clazz + '-mentality-static-exec');
 	this.addPartButton = this.getElement('.' + this.clazz + '-addPart');
 
 	this.name = this.getElement('.' + this.clazz + '-name');
@@ -45,7 +47,6 @@ com.hiyoko.sweet.Battle.BattleCharacter.prototype.render = function() {
 com.hiyoko.sweet.Battle.BattleCharacter.prototype.bindEvents = function() {
 	this.saveButton.click(function(e){
 		var result = this.getValue();
-		console.log(result);		
 	}.bind(this));
 
 	this.addPartButton.click(function(e){
@@ -55,7 +56,42 @@ com.hiyoko.sweet.Battle.BattleCharacter.prototype.bindEvents = function() {
 	this.removeButton.click(function(e){
 		this.destract();
 	}.bind(this));
-
+	
+	this.vitalityRegistButton.click(function(e){
+		this.fireEvent(new $.Event('executeRequest', {
+			col: 5,
+			name: this.name.val(),
+			text: '生命抵抗判定',
+			value: '' + this.vitality.val() + '+2d6'
+		}));
+	}.bind(this));
+	
+	this.mentalityRegistButton.click(function(e){
+		this.fireEvent(new $.Event('executeRequest', {
+			col: 6,
+			name: this.name.val(),
+			text: '精神抵抗判定',
+			value: this.vitality.val() + '+2d6'
+		}));
+	}.bind(this));
+	
+	this.vitalityRegistStaticButton.click(function(e){
+		this.fireEvent(new $.Event('executeRequest', {
+			col: 5,
+			name: this.name.val(),
+			text: '生命抵抗判定 (固定値)',
+			value: 'C(' + this.vitality.val() + '+7'
+		}));
+	}.bind(this));
+	
+	this.mentalityRegistStaticButton.click(function(e){
+		this.fireEvent(new $.Event('executeRequest', {
+			col: 6,
+			name: this.name.val(),
+			text: '精神抵抗判定 (固定値)',
+			value: 'C(' + this.mentality.val() + '+7'
+		}));
+	}.bind(this));
 };
 
 com.hiyoko.sweet.Battle.BattleCharacter.prototype.getValue = function() {
