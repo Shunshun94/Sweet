@@ -7,7 +7,10 @@ com.hiyoko.sweet.Battle = function($html, opt_params) {
 	this.LIST_NAME = 'SWEET Battle';
 	this.id = this.$html.attr('id');
 	this.list = {};
+	this.enemyList = {};
 	this.optionalValues;
+	
+	this.datalist = this.getElementById('datalist');
 	
 	this.buildComponents();
 	this.bindEvents();
@@ -17,7 +20,16 @@ com.hiyoko.util.extend(com.hiyoko.sweet.ApplicationBase, com.hiyoko.sweet.Battle
 
 com.hiyoko.sweet.Battle.prototype.buildComponents = function() {
 	this.optionalValues = new com.hiyoko.sweet.Battle.OptionalValues(this.getElementById('optionalValues'));
-	this.appendCharacter();	
+	this.appendCharacter();
+	
+	this.getStorage('enemy-list', function(result){
+		if (result) {
+			this.enemyList = result;
+			for(var name in this.enemyList) {
+				this.datalist.append('<option>' + name + '</option>');
+			}
+		}
+	}.bind(this));
 };
 
 com.hiyoko.sweet.Battle.prototype.bindEvents = function() {
@@ -25,7 +37,6 @@ com.hiyoko.sweet.Battle.prototype.bindEvents = function() {
 		this.appendCharacter();
 	}.bind(this));
 	
-	// col, name, text, value
 	this.$html.on('executeRequest', function(e) {
 		var option = this.optionalValues.getOptionalValue(e.col);
 		var text = e.value.startsWith('C') ?
@@ -46,6 +57,12 @@ com.hiyoko.sweet.Battle.prototype.bindEvents = function() {
 		this.fireEvent(event);
 		this.$html.notify('コマンドを送信しました' + text, 'info');
 	}.bind(this));
+	
+	this.$html.on('saveRequest', function(e){
+		console.log(e);
+		this.enemyList[e.value.name] = e.value;
+		this.setStorage('enemy-list', this.enemyList);
+	}.bind(this));
 };
 
 com.hiyoko.sweet.Battle.prototype.appendCharacter = function() {
@@ -54,6 +71,7 @@ com.hiyoko.sweet.Battle.prototype.appendCharacter = function() {
 	this.$html.append(com.hiyoko.util.format('<div class="%s" id="%s"></div>',
 			this.id + '-character',
 			this.id + '-character' + newId));
-	this.list[newId] = new com.hiyoko.sweet.Battle.BattleCharacter(this.getElementById('character' + newId));
+	this.list[newId] = new com.hiyoko.sweet.Battle.BattleCharacter(this.getElementById('character' + newId),
+			{autocomplete:this.datalist.attr('id')});
 };
 

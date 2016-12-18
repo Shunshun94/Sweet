@@ -24,6 +24,10 @@ com.hiyoko.sweet.Battle.BattleCharacter = function($html, opt_params) {
 	this.vitality = this.getElement('.' + this.clazz + '-vitality-val');
 	this.mentality = this.getElement('.' + this.clazz + '-mentality-val');
 
+	if(opt_params && opt_params.autocomplete) {
+		this.name.attr({'autocomplete': 'on', 'list': opt_params.autocomplete});
+	}
+	
 	this.bindEvents();
 };
 
@@ -47,6 +51,10 @@ com.hiyoko.sweet.Battle.BattleCharacter.prototype.render = function() {
 com.hiyoko.sweet.Battle.BattleCharacter.prototype.bindEvents = function() {
 	this.saveButton.click(function(e){
 		var result = this.getValue();
+		this.fireEvent(new $.Event('saveRequest', {
+			value: result
+		}));
+		this.saveButton.notify('保存しました', 'info');
 	}.bind(this));
 
 	this.addPartButton.click(function(e){
@@ -366,7 +374,9 @@ com.hiyoko.sweet.Battle.BattleCharacter.Part.AttackWay.prototype.render = functi
 com.hiyoko.sweet.Battle.BattleCharacter.Part.AttackWay.prototype.getValue = function() {
 	return {
 		name: this.name.val(),
-		value: Number(this.value.val())
+		value: Number(this.value.val()),
+		isMagic: this.atkMode.attr('title') === '0',
+		damage: this.atk.val()
 	};
 };
 
