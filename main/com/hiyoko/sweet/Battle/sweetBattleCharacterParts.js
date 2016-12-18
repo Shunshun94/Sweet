@@ -109,6 +109,18 @@ com.hiyoko.sweet.Battle.BattleCharacter.prototype.bindEvents = function() {
 			value: e.value
 		}));
 	}.bind(this));
+	
+	this.name.change(function(e) {
+		var event = this.getAsyncEvent('loadRequest', {value:this.name.val()});
+		event.done(function(result){
+			this.setValue(result);
+		}.bind(this)).fail(function(result){});
+		this.fireEvent(event);
+	}.bind(this));
+};
+
+com.hiyoko.sweet.Battle.BattleCharacter.prototype.setValue = function(result) {
+	console.log(result);
 };
 
 com.hiyoko.sweet.Battle.BattleCharacter.prototype.getValue = function() {

@@ -59,9 +59,16 @@ com.hiyoko.sweet.Battle.prototype.bindEvents = function() {
 	}.bind(this));
 	
 	this.$html.on('saveRequest', function(e){
-		console.log(e);
 		this.enemyList[e.value.name] = e.value;
 		this.setStorage('enemy-list', this.enemyList);
+	}.bind(this));
+	
+	this.$html.on('loadRequest', function(e){
+		if(this.enemyList[e.value]) {
+			e.resolve(this.enemyList[e.value]);
+		} else {
+			e.reject();
+		}
 	}.bind(this));
 };
 
