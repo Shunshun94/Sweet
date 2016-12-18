@@ -31,7 +31,7 @@ com.hiyoko.util.extend(com.hiyoko.sweet.ApplicationBase, com.hiyoko.sweet.Battle
 
 com.hiyoko.sweet.Battle.BattleCharacter.prototype.render = function() {
 	this.$html.append(com.hiyoko.util.format(
-			'<button class="%s">SAVE</button><p>名前 <input type="text" class="%s" /></p>' + 
+			'<button class="%s">SAVE</button><p>名前 <input value="NO NAME" type="text" class="%s" /></p>' + 
 			'<div>生命抵抗力<input type="number" value="0" class="%s" />' +
 			'<button class="%s">判定</button><button class="%s">判定(固定値)</button>' +
 			' 　/　精神抵抗力<input type="number" value="0" class="%s" />' +
@@ -71,7 +71,7 @@ com.hiyoko.sweet.Battle.BattleCharacter.prototype.bindEvents = function() {
 			col: 6,
 			name: this.name.val(),
 			text: '精神抵抗判定',
-			value: this.vitality.val() + '+2d6'
+			value: this.mentality.val() + '+2d6'
 		}));
 	}.bind(this));
 	
@@ -90,6 +90,15 @@ com.hiyoko.sweet.Battle.BattleCharacter.prototype.bindEvents = function() {
 			name: this.name.val(),
 			text: '精神抵抗判定 (固定値)',
 			value: 'C(' + this.mentality.val() + '+7'
+		}));
+	}.bind(this));
+	
+	this.$html.on('executeRequestFromPart', function(e){
+		this.fireEvent(new $.Event('executeRequest', {
+			col: e.col,
+			name: this.name.val(),
+			text: e.text,
+			value: e.value
 		}));
 	}.bind(this));
 };
@@ -133,6 +142,15 @@ com.hiyoko.sweet.Battle.BattleCharacter.Part = function($html, opt_original) {
 	this.add = this.getElement('.' + this.clazz + '-addAttackWay');
 	this.remove = this.getElement('.' + this.clazz + '-delete');
 	
+	this.name = this.getElement('.' + this.clazz + '-name');
+	this.dodge = this.getElement('.' + this.clazz + '-dodge');
+	this.armor = this.getElement('.' + this.clazz + '-armor');
+	this.hp = this.getElement('.' + this.clazz + '-hp');
+	this.mp = this.getElement('.' + this.clazz + '-mp');
+	
+	this.dodgeExec = this.getElement('.' + this.clazz + '-dodge-exec');
+	this.staticDodgeExec = this.getElement('.' + this.clazz + '-dodge-static-exec');
+	
 	this.bindEvents();
 };
 
@@ -168,6 +186,30 @@ com.hiyoko.sweet.Battle.BattleCharacter.Part.prototype.bindEvents = function() {
 	
 	this.remove.click(function(e){
 		this.destract();
+	}.bind(this));
+	
+	this.dodgeExec.click(function(e){
+		this.fireEvent(new $.Event('executeRequestFromPart', {
+			col: 4,
+			text: this.name.val() + '：回避判定:',
+			value: this.dodge.val() + '+2d6'
+		}));
+	}.bind(this));
+	
+	this.staticDodgeExec.click(function(e){
+		this.fireEvent(new $.Event('executeRequestFromPart', {
+			col: 4,
+			text: this.name.val() + '：回避判定 (固定値)',
+			value: 'C(' + this.dodge.val() + '+7'
+		}));
+	}.bind(this));
+	
+	this.$html.on('executeRequestFromAttackWay', function(e){
+		this.fireEvent(new $.Event('executeRequestFromPart', {
+			col: e.col,
+			text: this.name.val() + '：' + e.text,
+			value: e.value
+		}));
 	}.bind(this));
 };
 
@@ -224,6 +266,7 @@ com.hiyoko.sweet.Battle.BattleCharacter.Part.AttackWay = function($html, opt_par
 	this.atkSwitch = this.getElement('.' + this.clazz + '-switch');
 	this.atkExec = this.getElement('.' + this.clazz + '-atk-exec');
 	this.exec = this.getElement('.' + this.clazz + '-exec');
+	this.staticExec = this.getElement('.' + this.clazz + '-static-exec');
 	this.del = this.getElement('.' + this.clazz + '-del');
 	if(opt_param) {
 		this.name.val(opt_param.name || '');
@@ -242,13 +285,67 @@ com.hiyoko.sweet.Battle.BattleCharacter.Part.AttackWay.prototype.bindEvent = fun
 		if(newValue === 1) {
 			this.atkMode.text('ダメージ基準値');
 		} else {
-			this.atkMode.text('威力レート');
+			this.atkMode.text('魔法威力レート');
 		}
 		this.atkMode.attr('title', newValue);
 	}.bind(this));
 	
 	this.del.click(function(e) {
 		this.destract();
+	}.bind(this));
+	
+	this.exec.click(function(e){
+		if (this.atkMode.attr('title') === '0') {
+			this.fireEvent(new $.Event('executeRequestFromAttackWay', {
+				col: 2,
+				text: this.name.val() + ' 行使判定',
+				value: this.value.val() + '+2d6'
+			}));
+		} else {
+			this.fireEvent(new $.Event('executeRequestFromAttackWay', {
+				col: 2,
+				text: this.name.val() + ' 命中判定',
+				value: this.value.val() + '+2d6'
+			}));			
+		}
+	}.bind(this));
+	
+	this.staticExec.click(function(e){
+		if (this.atkMode.attr('title') === '0') {
+			this.fireEvent(new $.Event('executeRequestFromAttackWay', {
+				col: 2,
+				text: this.name.val() + ' 行使判定',
+				value: 'C(' + this.value.val() + '+7'
+			}));
+		} else {
+			this.fireEvent(new $.Event('executeRequestFromAttackWay', {
+				col: 2,
+				text: this.name.val() + ' 命中判定',
+				value: 'C(' + this.value.val() + '+7'
+			}));			
+		}
+	}.bind(this));
+	
+	this.atkExec.click(function(e){
+		if (this.atkMode.attr('title') === '0') {
+			this.fireEvent(new $.Event('executeRequestFromAttackWay', {
+				col: 3,
+				text: this.name.val() + ' ダメージ',
+				value:  'k' + this.atk.val() + '+' + this.value.val()
+			}));
+			this.fireEvent(new $.Event('executeRequestFromAttackWay', {
+				col: 3,
+				text: this.name.val() + ' ダメージ (抵抗)',
+				value:  'k' + this.atk.val() + '@13+' + this.value.val()
+			}));
+		} else {
+			this.fireEvent(new $.Event('executeRequestFromAttackWay', {
+				col: 3,
+				text: this.name.val() + ' ダメージ',
+				value:  '2d6+' + this.atk.val()
+			}));
+		}
+
 	}.bind(this));
 };
 

@@ -36,15 +36,15 @@ com.hiyoko.sweet.Battle.prototype.bindEvents = function() {
 		}
 		
 		var event = this.getAsyncEvent('tofRoomRequest').done(function(r){
-			alert('送信しました');
-		}).fail(function(r){
+			this.$html.notify('ダイスが振られました', 'success');
+		}.bind(this)).fail(function(r){
 			alert('送信に失敗しました\n' + r.result);
 		});
 		
 		event.args = [{name: e.name, message: text, bot:'SwordWorld2.0'}];
 		event.method = 'sendChat';
 		this.fireEvent(event);
-		
+		this.$html.notify('コマンドを送信しました' + text, 'info');
 	}.bind(this));
 };
 
