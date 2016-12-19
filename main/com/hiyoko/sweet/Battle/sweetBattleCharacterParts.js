@@ -126,6 +126,15 @@ com.hiyoko.sweet.Battle.BattleCharacter.prototype.bindEvents = function() {
 com.hiyoko.sweet.Battle.BattleCharacter.prototype.setValue = function(result) {
 	this.vitality.val(result.vitality);
 	this.mentality.val(result.mentality);
+	console.log(result);
+	
+	this.destractParts();
+	
+	result.parts.forEach(function(part){
+		var id = this.addPart();
+		this.parts[id].setValue(part);
+	}.bind(this));
+	
 };
 
 com.hiyoko.sweet.Battle.BattleCharacter.prototype.getValue = function() {
@@ -262,6 +271,20 @@ com.hiyoko.sweet.Battle.BattleCharacter.Part.prototype.addAttackWay = function(o
 	this.$html.append($dom)
 
 	this.attackWays[newId] = new com.hiyoko.sweet.Battle.BattleCharacter.Part.AttackWay(this.getElementById(newId), opt_param);
+	return newId;
+};
+
+com.hiyoko.sweet.Battle.BattleCharacter.Part.prototype.setValue = function(value) {
+	com.hiyoko.sweet.Battle.BattleCharacter.Part.COLUMN.forEach(function(column){
+		this.getElement('.' + this.clazz + '-' + column[0]).val(value[column[0]]);
+	}.bind(this));
+	
+	this.destractAttackWays();
+	
+	value.attackWays.forEach(function(aw) {
+		var id = this.addAttackWay();
+		this.attackWays[id].setValue(aw);
+	}.bind(this));
 };
 
 com.hiyoko.sweet.Battle.BattleCharacter.Part.prototype.getValue = function() {
@@ -275,7 +298,11 @@ com.hiyoko.sweet.Battle.BattleCharacter.Part.prototype.getValue = function() {
 	}
 
 	com.hiyoko.sweet.Battle.BattleCharacter.Part.COLUMN.forEach(function(column) {
-		result[column[0]] = Number(this.getElement('.' + this.clazz + '-' + column[0]).val()) || 0;
+		if(column[1] === 'number') {
+			result[column[0]] = Number(this.getElement('.' + this.clazz + '-' + column[0]).val()) || 0;
+		} else {
+			result[column[0]] = this.getElement('.' + this.clazz + '-' + column[0]).val();
+		}
 	}.bind(this));
 
 	return result;
@@ -414,7 +441,22 @@ com.hiyoko.sweet.Battle.BattleCharacter.Part.AttackWay.prototype.render = functi
 			this.clazz + '-exec', this.clazz + '-static-exec', this.clazz + '-atk-exec',
 			this.clazz + '-switch', this.clazz + '-del'));
 };
- 
+
+com.hiyoko.sweet.Battle.BattleCharacter.Part.AttackWay.prototype.setValue = function(value) {
+	this.name.val(value.name);
+	this.value.val(value.value);
+	this.atk.val(value.damage);
+	
+	if(value.isMagic) {
+		this.atkMode.attr('title', 0);
+		this.atkMode.text('魔法威力レート');
+	} else {
+		this.atkMode.attr('title', 1);
+		this.atkMode.text('ダメージ基準値');
+	}
+	
+};
+
 com.hiyoko.sweet.Battle.BattleCharacter.Part.AttackWay.prototype.getValue = function() {
 	return {
 		name: this.name.val(),
