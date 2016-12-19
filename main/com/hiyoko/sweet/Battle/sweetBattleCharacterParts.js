@@ -65,6 +65,10 @@ com.hiyoko.sweet.Battle.BattleCharacter.prototype.bindEvents = function() {
 		this.destract();
 	}.bind(this));
 	
+	this.$html.on('removePart', function(e){
+		this.destractPart(e.id);
+	}.bind(this));
+	
 	this.vitalityRegistButton.click(function(e){
 		this.fireEvent(new $.Event('executeRequest', {
 			col: 5,
@@ -120,7 +124,8 @@ com.hiyoko.sweet.Battle.BattleCharacter.prototype.bindEvents = function() {
 };
 
 com.hiyoko.sweet.Battle.BattleCharacter.prototype.setValue = function(result) {
-	console.log(result);
+	this.vitality.val(result.vitality);
+	this.mentality.val(result.mentality);
 };
 
 com.hiyoko.sweet.Battle.BattleCharacter.prototype.getValue = function() {
@@ -146,6 +151,17 @@ com.hiyoko.sweet.Battle.BattleCharacter.prototype.addPart = function(opt_origina
 	this.parts[newId] = new com.hiyoko.sweet.Battle.BattleCharacter.Part(this.getElementById(newId));
 	return newId;
 };
+
+com.hiyoko.sweet.Battle.BattleCharacter.prototype.destractParts = function() {
+	for(var key in this.parts) {
+		this.destractPart(key);
+	}
+}
+
+com.hiyoko.sweet.Battle.BattleCharacter.prototype.destractPart = function(id) {
+	this.parts[id].$html.remove();
+	delete this.parts[id];
+}
 
 com.hiyoko.sweet.Battle.BattleCharacter.prototype.destract = function() {
 	this.$html.remove();
@@ -231,6 +247,10 @@ com.hiyoko.sweet.Battle.BattleCharacter.Part.prototype.bindEvents = function() {
 			value: e.value
 		}));
 	}.bind(this));
+	
+	this.$html.on('removeAttackWay', function(e) {
+		this.destractAttackWay(e.id);
+	}.bind(this));
 };
 
 com.hiyoko.sweet.Battle.BattleCharacter.Part.prototype.addAttackWay = function(opt_param) {
@@ -262,7 +282,19 @@ com.hiyoko.sweet.Battle.BattleCharacter.Part.prototype.getValue = function() {
 };
 
 com.hiyoko.sweet.Battle.BattleCharacter.Part.prototype.destract = function() {
-	this.$html.remove();
+	var splitedId = this.id.split('-');
+	this.fireEvent(new $.Event('removePart', {id: splitedId.pop()}));
+}
+
+com.hiyoko.sweet.Battle.BattleCharacter.Part.prototype.destractAttackWays = function() {
+	for(var key in this.attackWays) {
+		this.destractAttackWay(key);
+	}
+}
+
+com.hiyoko.sweet.Battle.BattleCharacter.Part.prototype.destractAttackWay = function(id) {
+	this.attackWays[id].$html.remove();
+	delete this.attackWays[id];
 };
 
 com.hiyoko.sweet.Battle.BattleCharacter.Part.COLUMN = [
@@ -393,5 +425,6 @@ com.hiyoko.sweet.Battle.BattleCharacter.Part.AttackWay.prototype.getValue = func
 };
 
 com.hiyoko.sweet.Battle.BattleCharacter.Part.AttackWay.prototype.destract = function() {
-	this.$html.remove();
+	var splitedId = this.id.split('-');
+	this.fireEvent(new $.Event('removeAttackWay', {id:splitedId.pop()}));
 };
