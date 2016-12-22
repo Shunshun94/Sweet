@@ -15,7 +15,7 @@ com.hiyoko.sweet.Battle.OptionalValues = function($html, opt_conf) {
 					this.$table,
 					[{title:'', type:'check'}, {title:'名称', type:'text'},
 	                 {title:'命中', type:'number'}, {title:'追加 D', type:'number'}, {title:'回避', type:'number'},
-	                 {title:'生命抵抗', type:'number'}, {title:'精神抵抗', type:'number'}]);
+	                 {title:'生命抵抗', type:'number'}, {title:'精神抵抗', type:'number'}, {title:'魔力', type:'number'}]);
 	
 	this.bindEvent();
 };

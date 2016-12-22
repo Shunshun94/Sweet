@@ -20,6 +20,9 @@ com.hiyoko.sweet.Battle.BattleCharacter = function($html, opt_params) {
 	this.mentalityRegistStaticButton = this.getElement('.' + this.clazz + '-mentality-static-exec');
 	this.addPartButton = this.getElement('.' + this.clazz + '-addPart');
 
+	this.addToTof = this.getElement('.' + this.clazz + '-add-tof');
+	this.addToTofAsUnknown = this.getElement('.' + this.clazz + '-add-tof-unknown');
+	
 	this.name = this.getElement('.' + this.clazz + '-name');
 	this.vitality = this.getElement('.' + this.clazz + '-vitality-val');
 	this.mentality = this.getElement('.' + this.clazz + '-mentality-val');
@@ -35,13 +38,15 @@ com.hiyoko.util.extend(com.hiyoko.sweet.ApplicationBase, com.hiyoko.sweet.Battle
 
 com.hiyoko.sweet.Battle.BattleCharacter.prototype.render = function() {
 	this.$html.append(com.hiyoko.util.format(
-			'<button class="%s">SAVE</button><p>名前 <input value="NO NAME" type="text" class="%s" /></p>' + 
+			'<button class="%s">SAVE</button><p>名前 <input value="NO NAME" type="text" class="%s" />' +
+			'<button class="%s">コマ追加</button><button class="%s">コマ追加 (正体不明)</button></p>' + 
 			'<div>生命抵抗力<input type="number" value="0" class="%s" />' +
 			'<button class="%s">判定</button><button class="%s">判定(固定値)</button>' +
 			' 　/　精神抵抗力<input type="number" value="0" class="%s" />' +
 			'<button class="%s">判定</button><button class="%s">判定(固定値)</button></div>' +
 			'<button class="%s">部位追加</button><button class="%s">REMOVE</button>',
 			this.clazz + '-save', this.clazz + '-name',
+			this.clazz + '-add-tof', this.clazz + '-add-tof-unknown',
 			this.clazz + '-vitality-val', this.clazz + '-vitality-exec', this.clazz + '-vitality-static-exec',
 			this.clazz + '-mentality-val', this.clazz + '-mentality-exec', this.clazz + '-mentality-static-exec',
 			this.clazz + '-addPart', this.clazz + '-remove'));
@@ -57,6 +62,19 @@ com.hiyoko.sweet.Battle.BattleCharacter.prototype.bindEvents = function() {
 		this.saveButton.notify('保存しました', 'info');
 	}.bind(this));
 
+	this.addToTof.click(function(e) {
+		this.fireEvent(new $.Event('appendCharacterRequest', {
+			value: this.getValue(), hide: false
+		}));
+	}.bind(this));
+	
+	this.addToTofAsUnknown.click(function(e) {
+		this.name.val(com.hiyoko.util.rndString(3, 'UNKNOWN＃'));
+		this.fireEvent(new $.Event('appendCharacterRequest', {
+			value: this.getValue(), hide: true
+		}));
+	}.bind(this));
+	
 	this.addPartButton.click(function(e){
 		this.addPart();
 	}.bind(this));
@@ -376,7 +394,7 @@ com.hiyoko.sweet.Battle.BattleCharacter.Part.AttackWay.prototype.bindEvent = fun
 	this.exec.click(function(e){
 		if (this.atkMode.attr('title') === '0') {
 			this.fireEvent(new $.Event('executeRequestFromAttackWay', {
-				col: 2,
+				col: 7,
 				text: this.name.val() + ' 行使判定',
 				value: this.value.val() + '+2d6'
 			}));
@@ -392,7 +410,7 @@ com.hiyoko.sweet.Battle.BattleCharacter.Part.AttackWay.prototype.bindEvent = fun
 	this.staticExec.click(function(e){
 		if (this.atkMode.attr('title') === '0') {
 			this.fireEvent(new $.Event('executeRequestFromAttackWay', {
-				col: 2,
+				col: 7,
 				text: this.name.val() + ' 行使判定',
 				value: 'C(' + this.value.val() + '+7'
 			}));
@@ -408,12 +426,12 @@ com.hiyoko.sweet.Battle.BattleCharacter.Part.AttackWay.prototype.bindEvent = fun
 	this.atkExec.click(function(e){
 		if (this.atkMode.attr('title') === '0') {
 			this.fireEvent(new $.Event('executeRequestFromAttackWay', {
-				col: 3,
+				col: 7,
 				text: this.name.val() + ' ダメージ',
 				value:  'k' + this.atk.val() + '+' + this.value.val()
 			}));
 			this.fireEvent(new $.Event('executeRequestFromAttackWay', {
-				col: 3,
+				col: 7,
 				text: this.name.val() + ' ダメージ (抵抗)',
 				value:  'k' + this.atk.val() + '@13+' + this.value.val()
 			}));

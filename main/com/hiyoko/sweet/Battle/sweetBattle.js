@@ -47,16 +47,45 @@ com.hiyoko.sweet.Battle.prototype.bindEvents = function() {
 		}
 		
 		var event = this.getAsyncEvent('tofRoomRequest').done(function(r){
-			this.$html.notify('ダイスが振られました', 'success');
+			$(e.target).notify('ダイスが振られました', {className: 'success', position: 'top'});
 		}.bind(this)).fail(function(r){
-			alert('送信に失敗しました\n' + r.result);
+			alert('ダイスを振るのに失敗しました\n' + r.result);
 		});
 		
 		event.args = [{name: e.name, message: text, bot:'SwordWorld2.0'}];
 		event.method = 'sendChat';
 		this.fireEvent(event);
-		this.$html.notify('コマンドを送信しました' + text, 'info');
+		$(e.target).notify('ダイスコマンドを送信しました' + text, {className: 'info', position: 'top'});
 	}.bind(this));
+	
+	this.$html.on('appendCharacterRequest', function(e) {
+		var event = this.getAsyncEvent('tofRoomRequest').done(function(r){
+			$(e.target).notify('キャラクターが追加されました', {className: 'success', position: 'top'});
+		}.bind(this)).fail(function(r){
+			alert('キャラクターの追加に失敗しました\n' + r.result);
+		});
+		
+		event.method = 'addCharacter';
+		
+		e.value.parts.forEach(function(p){
+			if(e.hide) {
+				event.args = [{
+					name:e.value.name + ':' + p.name
+				}];
+			} else {
+				event.args = [{
+					name:e.value.name + ':' + p.name,
+					HP: p.hp,
+					MP: p.mp,
+					'防護点': p.armor
+				}];
+			}
+			
+			this.fireEvent(event);
+		}.bind(this));
+		
+		$(e.target).notify('キャラクター追加のリクエストを送信しました (' + e.value.name + ')', {className: 'info', position: 'top'});
+	}.bind(this))
 	
 	this.$html.on('saveRequest', function(e){
 		this.enemyList[e.value.name] = e.value;

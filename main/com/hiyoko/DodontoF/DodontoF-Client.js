@@ -88,6 +88,11 @@ com.hiyoko.DodontoF.V2.Room = function(url, room, opt_pass) {
 			GET_MAP: 'refresh'
 	};
 	
+	tofRoom.CHARACTER_PARAMS = ['name', 'info','x', 'y',
+	                            'size', 'inisiative',
+	                            'rotation', 'image', 'dogTag', 'draggable',
+	                            'isHide', 'url'];
+	
 	tofRoom.prototype.buildRequest_ = function(params) {
 		var args = [];
 		for(var key in params) {
@@ -149,7 +154,7 @@ com.hiyoko.DodontoF.V2.Room = function(url, room, opt_pass) {
 				promise.reject(r);
 			});			
 		} else {
-			promise.reject({result:'Necessary infomration is lacked.'})
+			promise.reject({result:'Necessary infomration is lacked.'});
 		}
 		return promise;
 	};
@@ -206,6 +211,42 @@ com.hiyoko.DodontoF.V2.Room = function(url, room, opt_pass) {
 		return this.sendRequest_(tofRoom.API_NAMES.GET_CHARACTER, {'characters':0});
 	};
 	
+	tofRoom.prototype.addCharacter = function(args) {
+		var promise = new $.Deferred;
+		if(! args.name) {
+			promise.reject({result:'addCharacter reuqires name as argument property.'});
+		} else {
+			var param = {};
+			var counter = [];
+			
+			for(var key in args) {
+				if(tofRoom.CHARACTER_PARAMS.includes(key)) {
+					param[key] = args[key];
+				} else {
+					counter.push(key + ':' + args[key]);
+				}
+			}
+			if(counter.length > 0) {
+				param.counters = counter.join(',');
+			}
+			
+			this.sendRequest_(tofRoom.API_NAMES.ADD_CHARACTER, param).done(function(result){
+				result.tofMethod = tofRoom.API_NAMES.ADD_CHARACTER;
+				result.data = args;
+				if(result.result === 'OK') {
+					promise.resolve(result);
+				} else {
+					promise.reject(result);
+				}
+			}).fail(function(result){
+				result.tofMethod = tofRoom.API_NAMES.ADD_CHARACTER;
+				promise.reject(result);
+			});			
+		}
+		
+		return promise;
+	};
+	
 	  
 })(com.hiyoko.DodontoF.V2.Room);
 
@@ -213,8 +254,6 @@ com.hiyoko.DodontoF.V2.RoomDummy = com.hiyoko.DodontoF.V2.RoomDummy || {};
 com.hiyoko.DodontoF.V2.RoomDummy.getRoomInfo = function() {
 	return new $.Deferred;
 };
-
-
 
 com.hiyoko.DodontoF.V2.util = com.hiyoko.DodontoF.V2.util || {};
 
