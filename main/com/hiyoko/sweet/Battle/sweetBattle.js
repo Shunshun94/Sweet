@@ -120,7 +120,8 @@ com.hiyoko.sweet.Battle.prototype.appendCharacter = function() {
 
 com.hiyoko.sweet.Battle.prototype.destractCharacter = function(id) {
 	this.list[id].$html.remove();
-	delete this.list[id];	
+	this.nameList.remove(id);
+	delete this.list[id];
 };
 
 com.hiyoko.sweet.Battle.NameIndex = function() {
@@ -147,6 +148,7 @@ com.hiyoko.sweet.Battle.NameIndex.prototype.append = function(id, _name) {
 		name = String(_name) + '_' + i;
 		while(this.enemyNameIdList[name]) {
 			i++;
+			name = String(_name) + '_' + i;
 		}
 		this.enemyNameIdList[name] = id;
 		this.enemyIdNameList[id] = name;
