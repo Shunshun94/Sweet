@@ -63,15 +63,17 @@ com.hiyoko.sweet.Battle.BattleCharacter.prototype.bindEvents = function() {
 	}.bind(this));
 
 	this.addToTof.click(function(e) {
+		var splitedId = this.id.split('-');
 		this.fireEvent(new $.Event('appendCharacterRequest', {
-			value: this.getValue(), hide: false
+			value: this.getValue(), hide: false, id: splitedId.pop()
 		}));
 	}.bind(this));
 	
 	this.addToTofAsUnknown.click(function(e) {
+		var splitedId = this.id.split('-');
 		this.name.val(com.hiyoko.util.rndString(3, 'UNKNOWN＃'));
 		this.fireEvent(new $.Event('appendCharacterRequest', {
-			value: this.getValue(), hide: true
+			value: this.getValue(), hide: true, id: splitedId.pop()
 		}));
 	}.bind(this));
 	
@@ -88,47 +90,45 @@ com.hiyoko.sweet.Battle.BattleCharacter.prototype.bindEvents = function() {
 	}.bind(this));
 	
 	this.vitalityRegistButton.click(function(e){
-		this.fireEvent(new $.Event('executeRequest', {
+		this.fireEvent(new $.Event('executeRequestFromPart', {
 			col: 5,
-			name: this.name.val(),
 			text: '生命抵抗判定',
 			value: '' + this.vitality.val() + '+2d6'
 		}));
 	}.bind(this));
 	
 	this.mentalityRegistButton.click(function(e){
-		this.fireEvent(new $.Event('executeRequest', {
+		this.fireEvent(new $.Event('executeRequestFromPart', {
 			col: 6,
-			name: this.name.val(),
 			text: '精神抵抗判定',
 			value: this.mentality.val() + '+2d6'
 		}));
 	}.bind(this));
 	
 	this.vitalityRegistStaticButton.click(function(e){
-		this.fireEvent(new $.Event('executeRequest', {
+		this.fireEvent(new $.Event('executeRequestFromPart', {
 			col: 5,
-			name: this.name.val(),
 			text: '生命抵抗判定 (固定値)',
 			value: 'C(' + this.vitality.val() + '+7'
 		}));
 	}.bind(this));
 	
 	this.mentalityRegistStaticButton.click(function(e){
-		this.fireEvent(new $.Event('executeRequest', {
+		this.fireEvent(new $.Event('executeRequestFromPart', {
 			col: 6,
-			name: this.name.val(),
 			text: '精神抵抗判定 (固定値)',
 			value: 'C(' + this.mentality.val() + '+7'
 		}));
 	}.bind(this));
 	
 	this.$html.on('executeRequestFromPart', function(e){
+		var splitedId = this.id.split('-');
 		this.fireEvent(new $.Event('executeRequest', {
 			col: e.col,
 			name: this.name.val(),
 			text: e.text,
-			value: e.value
+			value: e.value,
+			id: splitedId.pop()
 		}));
 	}.bind(this));
 	
@@ -144,7 +144,6 @@ com.hiyoko.sweet.Battle.BattleCharacter.prototype.bindEvents = function() {
 com.hiyoko.sweet.Battle.BattleCharacter.prototype.setValue = function(result) {
 	this.vitality.val(result.vitality);
 	this.mentality.val(result.mentality);
-	console.log(result);
 	
 	this.destractParts();
 	
@@ -191,7 +190,8 @@ com.hiyoko.sweet.Battle.BattleCharacter.prototype.destractPart = function(id) {
 }
 
 com.hiyoko.sweet.Battle.BattleCharacter.prototype.destract = function() {
-	this.$html.remove();
+	var splitedId = this.id.split('-');
+	this.fireEvent(new $.Event('removeCharacter', {id: splitedId.pop()}));
 };
 
 
