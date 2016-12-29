@@ -211,6 +211,42 @@ com.hiyoko.DodontoF.V2.Room = function(url, room, opt_pass) {
 		return this.sendRequest_(tofRoom.API_NAMES.GET_CHARACTER, {'characters':0});
 	};
 	
+	tofRoom.prototype.updateCharacter = function(args) {
+		var promise = new $.Deferred;
+		if(! args.name) {
+			promise.reject({result:'updateCharacter reuqires name as argument property.'});
+		} else {
+			var param = {};
+			var counter = [];
+			
+			for(var key in args) {
+				if(tofRoom.CHARACTER_PARAMS.includes(key)) {
+					param[key] = args[key];
+				} else {
+					counter.push(key + ':' + args[key]);
+				}
+			}
+			if(counter.length > 0) {
+				param.counters = counter.join(',');
+			}
+			
+			this.sendRequest_(tofRoom.API_NAMES.CHANGE_CHARACTER, param).done(function(result){
+				result.tofMethod = tofRoom.API_NAMES.CHANGE_CHARACTER;
+				result.data = args;
+				if(result.result === 'OK') {
+					promise.resolve(result);
+				} else {
+					promise.reject(result);
+				}
+			}).fail(function(result){
+				result.tofMethod = tofRoom.API_NAMES.CHANGE_CHARACTER;
+				promise.reject(result);
+			});			
+		}
+		
+		return promise;
+	};
+	
 	tofRoom.prototype.addCharacter = function(args) {
 		var promise = new $.Deferred;
 		if(! args.name) {

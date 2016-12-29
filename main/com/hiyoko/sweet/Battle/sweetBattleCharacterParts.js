@@ -9,6 +9,8 @@ com.hiyoko.sweet.Battle.BattleCharacter = function($html, opt_params) {
 	this.clazz = this.$html.attr('class');
 	this.parts = {};
 	this.nameList = false;
+	
+	this.added = false;
 
 	this.render();
 
@@ -54,6 +56,18 @@ com.hiyoko.sweet.Battle.BattleCharacter.prototype.render = function() {
 	var id = this.addPart();
 };
 
+com.hiyoko.sweet.Battle.BattleCharacter.prototype.afterAdd = function() {
+	this.addToTofAsUnknown.hide();
+	this.addToTof.hide();
+	this.name.attr('disabled', 'disabled');
+	this.added = true;
+	for(var key in this.parts) {
+		if(this.parts[key]) {
+			this.parts[key].afterAdd();
+		}
+	}
+};
+
 com.hiyoko.sweet.Battle.BattleCharacter.prototype.bindEvents = function() {
 	this.saveButton.click(function(e){
 		var result = this.getValue();
@@ -65,17 +79,17 @@ com.hiyoko.sweet.Battle.BattleCharacter.prototype.bindEvents = function() {
 
 	this.addToTof.click(function(e) {
 		var splitedId = this.id.split('-');
-		this.fireEvent(new $.Event('appendCharacterRequest', {
+		this.fireEvent(this.getAsyncEvent('appendCharacterRequest', {
 			value: this.getValue(), hide: false, id: splitedId.pop()
-		}));
+		}).done(function(r){this.afterAdd();}.bind(this)));
 	}.bind(this));
 	
 	this.addToTofAsUnknown.click(function(e) {
 		var splitedId = this.id.split('-');
 		this.name.val(com.hiyoko.util.rndString(3, 'UNKNOWN＃'));
-		this.fireEvent(new $.Event('appendCharacterRequest', {
+		this.fireEvent(this.getAsyncEvent('appendCharacterRequest', {
 			value: this.getValue(), hide: true, id: splitedId.pop()
-		}));
+		}).done(function(r){this.afterAdd();}.bind(this)));
 	}.bind(this));
 	
 	this.addPartButton.click(function(e){
@@ -168,10 +182,8 @@ com.hiyoko.sweet.Battle.BattleCharacter.prototype.getValue = function() {
 		for(var key in this.parts) {
 			if(this.parts[key]) {
 				var tmp = this.parts[key].getValue();
-				console.log(tmp);
 				tmp.name = this.nameList.append(key, tmp.name);
 				this.parts[key].setValue(tmp);
-				console.log(tmp);
 			}
 		}
 	}
@@ -233,6 +245,10 @@ com.hiyoko.sweet.Battle.BattleCharacter.Part = function($html, opt_original) {
 };
 
 com.hiyoko.util.extend(com.hiyoko.sweet.ApplicationBase, com.hiyoko.sweet.Battle.BattleCharacter.Part);
+
+com.hiyoko.sweet.Battle.BattleCharacter.Part.prototype.afterAdd = function() {
+	this.name.attr('disabled', 'disabled');
+};
 
 com.hiyoko.sweet.Battle.BattleCharacter.Part.prototype.render = function() {
 	var $table = $('<table border="1"></table>');

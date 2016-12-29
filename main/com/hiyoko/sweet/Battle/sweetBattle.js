@@ -63,6 +63,7 @@ com.hiyoko.sweet.Battle.prototype.bindEvents = function() {
 	this.$html.on('appendCharacterRequest', function(e) {
 		var event = this.getAsyncEvent('tofRoomRequest').done(function(r){
 			$(e.target).notify('キャラクターが追加されました', {className: 'success', position: 'top'});
+			e.resolve ? e.resolve() : false;
 		}.bind(this)).fail(function(r){
 			alert('キャラクターの追加に失敗しました\n' + r.result);
 		});
@@ -87,7 +88,37 @@ com.hiyoko.sweet.Battle.prototype.bindEvents = function() {
 		}.bind(this));
 		
 		$(e.target).notify('キャラクター追加のリクエストを送信しました (' + e.value.name + ')', {className: 'info', position: 'top'});
-	}.bind(this))
+	}.bind(this));
+	
+	this.$html.on('updateCharacterRequest', function(e) {
+		var event = this.getAsyncEvent('tofRoomRequest').done(function(r){
+			$(e.target).notify('情報を更新されました', {className: 'success', position: 'top'});
+			e.resolve ? e.resolve() : false;
+		}.bind(this)).fail(function(r){
+			alert('情報の更新に失敗しました\n' + r.result);
+		});
+		
+		event.method = 'updateCharacter';
+		
+		e.value.parts.forEach(function(p){
+			if(e.hide) {
+				event.args = [{
+					targetName:this.nameList.append(e.id, e.value.name) + ':' + p.name
+				}];
+			} else {
+				event.args = [{
+					targetName:this.nameList.append(e.id, e.value.name) + ':' + p.name,
+					HP: p.hp,
+					MP: p.mp,
+					'防護点': p.armor
+				}];
+			}
+			
+			this.fireEvent(event);
+		}.bind(this));
+		
+		$(e.target).notify('情報更新のリクエストを送信しました (' + e.value.name + ')', {className: 'info', position: 'top'});
+	}.bind(this));
 	
 	this.$html.on('saveRequest', function(e){
 		this.enemyList[e.value.name] = e.value;
