@@ -8,6 +8,7 @@ com.hiyoko.sweet.Battle.BattleCharacter = function($html, opt_params) {
 	this.id = this.$html.attr('id');
 	this.clazz = this.$html.attr('class');
 	this.parts = {};
+	this.nameList = false;
 
 	this.render();
 
@@ -161,6 +162,20 @@ com.hiyoko.sweet.Battle.BattleCharacter.prototype.getValue = function() {
 			vitality: Number(this.vitality.val()),
 			mentality: Number(this.mentality.val())
 	};
+	
+	if(! this.nameList) {
+		this.nameList = new com.hiyoko.sweet.Battle.NameIndex();
+		for(var key in this.parts) {
+			if(this.parts[key]) {
+				var tmp = this.parts[key].getValue();
+				console.log(tmp);
+				tmp.name = this.nameList.append(key, tmp.name);
+				this.parts[key].setValue(tmp);
+				console.log(tmp);
+			}
+		}
+	}
+	
 	for(var key in this.parts) {
 		if(this.parts[key]) {
 			result.parts.push(this.parts[key].getValue());
