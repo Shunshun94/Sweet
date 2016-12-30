@@ -176,7 +176,7 @@ com.hiyoko.sweet.TableBase.prototype.addMember = function() {
 		} else if (col.type === 'number') {
 			$input = $('<input value="0" type="number" name="' + i + '" class="com-hiyoko-sweet-table-base-member-number" />');
 		} else if (col.type === 'check') {
-			
+			$input = $('<input type="checkbox" name="' + i + '" class="com-hiyoko-sweet-table-base-member-check" />');
 		} else if (col.type === 'auto') {
 			$col.css('background-color', '#E0E0E0');
 		}
@@ -257,7 +257,7 @@ com.hiyoko.sweet.TableBase.prototype.getLine = function($tr) {
 		} else if (v.type === 'number') {
 			result.push($($(vals[i]).find('input')[0]).val());
 		} else if (v.type === 'check') {
-			
+			result.push($($(vals[i]).find('input')[0]).prop('checked'));
 		} else if (v.type === 'auto') {
 			result.push($(vals[i]).text());
 		}

@@ -34,7 +34,9 @@ com.hiyoko.sweet.AppList.prototype.buildList = function(){
 
 com.hiyoko.sweet.AppList.prototype.bindEvents = function() {
 	this.$menu.click(function(e){
-		this.fireEvent(new $.Event('clickMenu', {num:$(e.target).attr('title')}));
+		if($(e.target).hasClass(this.id + '-list-item')){
+			this.fireEvent(new $.Event('clickMenu', {num:$(e.target).attr('title')}));
+		}
 	}.bind(this));
 };
 

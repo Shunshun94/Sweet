@@ -90,6 +90,7 @@ com.hiyoko.sweet.Organizer.prototype.bindEvents = function(e) {
 
 com.hiyoko.sweet.Organizer.APPLICATION_LIST = [
 	com.hiyoko.sweet.Accounting,
+	com.hiyoko.sweet.Battle,
 	com.hiyoko.sweet.Circumstance,
 	com.hiyoko.sweet.Discussion,
 	com.hiyoko.sweet.Entry
