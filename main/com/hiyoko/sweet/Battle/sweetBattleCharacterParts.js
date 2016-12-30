@@ -60,6 +60,7 @@ com.hiyoko.sweet.Battle.BattleCharacter.prototype.render = function() {
 com.hiyoko.sweet.Battle.BattleCharacter.prototype.afterAdd = function() {
 	this.addToTofAsUnknown.hide();
 	this.addToTof.hide();
+	this.addPartButton.hide();
 	this.name.attr('disabled', 'disabled');
 	this.added = true;
 	for(var key in this.parts) {
