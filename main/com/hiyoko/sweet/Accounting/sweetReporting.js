@@ -58,6 +58,7 @@ com.hiyoko.sweet.Accounting.SummaryReport.prototype.draw = function(cost) {
 			cost.outCost.total));
 	
 	this.$html.append($table);
+	this.$html.append(this.textReport(cost));
 };
 
 com.hiyoko.sweet.Accounting.SummaryReport.prototype.renderInTable = function(raw_data) {
@@ -102,6 +103,31 @@ com.hiyoko.sweet.Accounting.SummaryReport.prototype.renderOutTableLine = functio
 	return com.hiyoko.util.format('<td class="%s">%s</td><td>%s</td><td>%s</td><td>%s</td>',
 			this.id + '-table-out-name',
 			detailData[1], detailData[2],detailData[3], detailData[4]).replace(/\n/gm, '<br/>');
+};
+
+com.hiyoko.sweet.Accounting.SummaryReport.prototype.textReport = function(cost) {
+	var $html = $('<pre></pre>')
+	var inbase = '%s\n\t%s × %s …… %s\n';
+	var outbase = '\t%s\n\t\t%s × %s …… %s\n';
+	
+	$html.append('＊収入＊\n');
+	cost.inCost.raw.forEach(function(v){
+		$html.append(com.hiyoko.util.format(inbase, v[0], v[1], v[2], v[3]));
+	});
+	$html.append('合計\n\t' + cost.inCost.total);
+	
+	
+	$html.append('\n\n＊支出＊\n');
+	var grouped_raw_data = com.hiyoko.util.groupArray(cost.outCost.raw, function(line){return line[0];});
+	for(var name in grouped_raw_data) {
+		$html.append('\n' + name +'\n');
+		grouped_raw_data[name].forEach(function(v){
+			$html.append(com.hiyoko.util.format(outbase, v[1], v[2], v[3], v[4]));
+		});	
+	}
+	$html.append('合計\n\t' + cost.outCost.total);
+	
+	return $html;
 };
 
 com.hiyoko.sweet.Accounting.FeePartition = function($html) {
