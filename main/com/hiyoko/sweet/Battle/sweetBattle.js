@@ -169,6 +169,10 @@ com.hiyoko.sweet.Battle.NameIndex.prototype.remove = function(id) {
 
 com.hiyoko.sweet.Battle.NameIndex.prototype.append = function(id, _name) {
 	if(this.enemyIdNameList[id]) {
+		if(_name && ! this.enemyIdNameList[id].startsWith(_name)) {
+			this.remove(id);
+			return this.append(id, _name);
+		}
 		return this.enemyIdNameList[id];
 	}
 	
