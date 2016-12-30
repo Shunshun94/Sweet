@@ -1,0 +1,152 @@
+@CHARSET "UTF-8";
+
+#com-hiyoko-sweet-battle {
+	position:relative;
+}
+
+#com-hiyoko-sweet-battle button {
+	font-size:100%;
+}
+
+#com-hiyoko-sweet-battle-appendCharacter {
+	border: coral 3px outset;
+	background-color:tomato;
+	position:absolute;
+	right:0px;
+	top:-15px;
+}
+
+#com-hiyoko-sweet-battle-optionalValues-table {
+	display:none;
+}
+
+.com-hiyoko-sweet-battle-character {
+	border: 5px inset #B0B0B0;
+	padding:4px;
+	background-color:#F0F0F0;
+	position:relative;
+	min-width:785px;
+}
+
+.com-hiyoko-sweet-battle-character table input {
+	width:98%;
+}
+
+.com-hiyoko-sweet-battle-character-add-tof,
+.com-hiyoko-sweet-battle-character-add-tof-unknown,
+.com-hiyoko-sweet-battle-character-mentality-exec,
+.com-hiyoko-sweet-battle-character-vitality-exec,
+.com-hiyoko-sweet-battle-character-mentality-static-exec,
+.com-hiyoko-sweet-battle-character-vitality-static-exec {
+	display: inline;
+}
+
+.com-hiyoko-sweet-battle-character-vitality-val,
+.com-hiyoko-sweet-battle-character-mentality-val {
+	width:40px;
+}
+
+.com-hiyoko-sweet-battle-character-save {
+	position:absolute;
+	top:0px;
+	right:4px;
+	border: coral 3px outset;
+	background-color:tomato;
+}
+
+.com-hiyoko-sweet-battle-character-addPart {
+	position:absolute;
+	top:26px;
+	right:4px;
+	border: coral 3px outset;
+	background-color:tomato;
+}
+
+.com-hiyoko-sweet-battle-character-remove {
+	position:absolute;
+	top:52px;
+	right:4px;
+	border: coral 3px outset;
+	background-color:tomato;
+}
+
+.com-hiyoko-sweet-battle-character-part {
+	border: 4px inset #A0A0A0;
+	padding:3px;
+	background-color:#E0E0E0;
+	position:relative;
+}
+
+.com-hiyoko-sweet-battle-character-part-delete {
+	position:absolute;
+	top:0px;
+	right:4px;
+	border: coral 3px outset;
+	background-color:tomato;
+}
+
+.com-hiyoko-sweet-battle-character-part-addAttackWay {
+	position:absolute;
+	top:0px;
+	right:92px;
+	border: coral 3px outset;
+	background-color:tomato;
+}
+
+.com-hiyoko-sweet-battle-character-part-dodge-exec {
+	position:absolute;
+	top:27px;
+	right:113px;
+}
+
+.com-hiyoko-sweet-battle-character-part-dodge-static-exec {
+	position:absolute;
+	top:27px;
+	right:4px;
+}
+
+.com-hiyoko-sweet-battle-character-part-number {
+	width:50px;
+}
+
+.com-hiyoko-sweet-battle-character-part-attackway {
+	border: 3px inset #909090;
+	padding:2px;
+	background-color:#D0D0D0;
+	position:relative;
+}
+
+.com-hiyoko-sweet-battle-character-part-attackway-name {
+	width:80px;
+}
+
+.com-hiyoko-sweet-battle-character-part-attackway-val {
+	width:40px;
+}
+
+.com-hiyoko-sweet-battle-character-part-attackway-name {
+	width:80px;
+}
+.com-hiyoko-sweet-battle-character-part-attackway-atk {
+	width:40px;
+}
+
+.com-hiyoko-sweet-battle-character-part-attackway > button {
+	display: inline;
+}
+ 
+.com-hiyoko-sweet-battle-character-part-attackway-exec {
+	margin-left:1em;
+}
+
+.com-hiyoko-sweet-battle-character-part-attackway-del {
+	border: coral 3px outset;
+	background-color:tomato;
+	position:absolute;
+	right:2px;
+}
+
+.com-hiyoko-sweet-battle-character-part-attackway-switch {
+	border: coral 3px outset;
+	background-color:tomato;
+}

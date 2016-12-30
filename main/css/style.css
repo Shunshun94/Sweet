@@ -8,18 +8,47 @@ button {
 	margin-top:4px;
 }
 
+#com-hiyoko-sweet-header {
+	border-bottom: solid 3px #D0C0C0;
+	background-color:#202040;
+	color:white;
+	padding:1em;
+	font-size:130%;
+}
+
 #com-hiyoko-sweet-body {
 	display:flex;
+	background-color:#E0E0E0;
 }
 
 #com-hiyoko-sweet-menu {
 	vertical-align:top;
 	height:100%;
+	color:black;
 	width:200px;
+}
+
+#com-hiyoko-sweet-menu-list {
+	list-style-type: none;
+	position:relative;
+}
+
+#com-hiyoko-sweet-menu-list > li{
+	background-color:white;
+	border-radius: 1em;
+	margin-bottom:4px;
+	padding:5px;
+	position:relative;
+	left:-2em;
+	width:170px;
 }
 
 #com-hiyoko-sweet-apps {
 	height:100%;
+	width:100%;
+	border-left: solid 3px #D0C0C0;
+	background-color:#F0F0F0;
+	padding:1em;
 }
 
 
@@ -130,6 +159,7 @@ td.com-hiyoko-sweet-accounting-summary-table-out-total {
 	border-left: double 6px black;
 }
 
+
 #com-hiyoko-sweet-circumstance table {
 	display:none;
 }
@@ -207,6 +237,13 @@ td.com-hiyoko-sweet-accounting-summary-table-out-total {
 	right:5px;
 	bottom:0px;
 	margin-top:0px;
+}
+
+#com-hiyoko-sweet-footer{
+	border-top: solid 3px #D0C0C0;
+	background-color:#F0E0E0;
+	padding:1em;
+	font-size:70%;
 }
 
 
