@@ -136,6 +136,7 @@ com.hiyoko.sweet.Accounting.FeePartition = function($html) {
 	
 	this.$memberCount = this.getElementById('memberCount');
 	this.$table = this.getElementById('table');
+	this.$text = this.getElementById('text');
 	
 	this.bindEvents();
 };
@@ -208,6 +209,9 @@ com.hiyoko.sweet.Accounting.FeePartition.prototype.print = function(data, opt_me
 	
 	this.$table.append(com.hiyoko.util.format('<tr class="%s"><td>合計</td><td>%s</td><td>%s</td><td class="%s">%s</td></tr>',
 			this.id + '-table-rowtotal', benefit, data.outCost.total, this.id + '-table-coltotal', data.inCost.total));
+	
+	this.$text.text('一人頭 ' + standardPaying + 'G' + (excess ? ' (+ 未分配金 ' + excess + 'G)' : ''));
+	
 }; 
 
 
