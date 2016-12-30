@@ -59,7 +59,7 @@ com.hiyoko.sweet.Battle.prototype.bindEvents = function() {
 		this.fireEvent(event);
 		$(e.target).notify('ダイスコマンドを送信しました' + text, {className: 'info', position: 'top'});
 	}.bind(this));
-	
+
 	this.$html.on('appendCharacterRequest', function(e) {
 		var event = this.getAsyncEvent('tofRoomRequest').done(function(r){
 			$(e.target).notify('キャラクターが追加されました', {className: 'success', position: 'top'});
@@ -93,9 +93,10 @@ com.hiyoko.sweet.Battle.prototype.bindEvents = function() {
 	this.$html.on('updateCharacterRequest', function(e) {
 		var event = this.getAsyncEvent('tofRoomRequest').done(function(r){
 			$(e.target).notify('情報を更新されました', {className: 'success', position: 'top'});
-			e.resolve ? e.resolve() : false;
+			e.resolve ? e.resolve(r) : false;
 		}.bind(this)).fail(function(r){
 			alert('情報の更新に失敗しました\n' + r.result);
+			e.reject ? e.reject(r) : false;
 		});
 		
 		event.method = 'updateCharacter';

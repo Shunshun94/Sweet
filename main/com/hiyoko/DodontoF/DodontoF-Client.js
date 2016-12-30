@@ -88,7 +88,7 @@ com.hiyoko.DodontoF.V2.Room = function(url, room, opt_pass) {
 			GET_MAP: 'refresh'
 	};
 	
-	tofRoom.CHARACTER_PARAMS = ['name', 'info','x', 'y',
+	tofRoom.CHARACTER_PARAMS = ['name', 'targetName', 'info','x', 'y',
 	                            'size', 'inisiative',
 	                            'rotation', 'image', 'dogTag', 'draggable',
 	                            'isHide', 'url'];
@@ -213,8 +213,8 @@ com.hiyoko.DodontoF.V2.Room = function(url, room, opt_pass) {
 	
 	tofRoom.prototype.updateCharacter = function(args) {
 		var promise = new $.Deferred;
-		if(! args.name) {
-			promise.reject({result:'updateCharacter reuqires name as argument property.'});
+		if(! args.targetName) {
+			promise.reject({result:'updateCharacter reuqires targetName as argument property.'});
 		} else {
 			var param = {};
 			var counter = [];

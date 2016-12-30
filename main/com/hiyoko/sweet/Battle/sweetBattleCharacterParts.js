@@ -11,6 +11,7 @@ com.hiyoko.sweet.Battle.BattleCharacter = function($html, opt_params) {
 	this.nameList = false;
 	
 	this.added = false;
+	this.isHide = false;
 
 	this.render();
 
@@ -91,7 +92,18 @@ com.hiyoko.sweet.Battle.BattleCharacter.prototype.bindEvents = function() {
 			value: this.getValue(), hide: true, id: splitedId.pop()
 		}).done(function(r){this.afterAdd();}.bind(this)));
 	}.bind(this));
-	
+
+	this.$html.change(function(e) {
+		if(! this.added) {
+			return;
+		}
+		
+		var splitedId = this.id.split('-');
+		this.fireEvent(new $.Event('updateCharacterRequest', {
+			value: this.getValue(), hide: this.name.val().startsWith('UNKNOWN＃'), id: splitedId.pop()
+		}));
+	}.bind(this));
+
 	this.addPartButton.click(function(e){
 		this.addPart();
 	}.bind(this));
