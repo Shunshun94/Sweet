@@ -136,7 +136,24 @@ com.hiyoko.sweet.Battle.prototype.bindEvents = function() {
 	
 	this.$html.on('removeCharacter', function(e){
 		this.destractCharacter(e.id);
-	}.bind(this))
+	}.bind(this));
+	
+	this.$html.on('renameByPartRemove', function(e){
+		var event = this.getAsyncEvent('tofRoomRequest').done(function(r){
+			e.resolve ? e.resolve(r) : false;
+		}.bind(this)).fail(function(r){
+			alert(e.name + 'の更新に失敗しました\n' + r.result);
+			e.reject ? e.reject(r) : false;
+		});
+		
+		event.method = 'updateCharacter';
+		event.args = [{
+			targetName:this.nameList.append(e.id) + ':' + e.name,
+			name: '[×] ' + this.nameList.append(e.id) + ':' + e.name
+		}];
+			
+		this.fireEvent(event);
+	}.bind(this));
 };
 
 com.hiyoko.sweet.Battle.prototype.appendCharacter = function() {
