@@ -225,11 +225,16 @@ com.hiyoko.sweet.Battle.BattleCharacter.prototype.destractParts = function() {
 }
 
 com.hiyoko.sweet.Battle.BattleCharacter.prototype.destractPart = function(id) {
+	if(this.added) {
+		var splitedId = this.id.split('-');
+		this.fireEvent(new $.Event('renameByPartRemove', {id:splitedId.pop(), name:this.parts[id].name.val()}));
+	}
 	this.parts[id].$html.remove();
 	delete this.parts[id];
 }
 
 com.hiyoko.sweet.Battle.BattleCharacter.prototype.destract = function() {
+	this.destractParts();
 	var splitedId = this.id.split('-');
 	this.fireEvent(new $.Event('removeCharacter', {id: splitedId.pop()}));
 };
