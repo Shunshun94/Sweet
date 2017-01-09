@@ -167,11 +167,21 @@ com.hiyoko.sweet.Battle.prototype.bindEvents = function() {
 					text: data.name
 				});
 			} else {
-				list.push({
+				var val = {
 					type: 'namednode',
 					value: k,
 					text: data.name
+				};
+				
+				val.list = data.parts.map(function(p, i){
+					return {
+						text: p.name,
+						value: i,
+						type: 'leaf'
+					};
 				});
+				
+				list.push(val);
 			}
 		});
 		this.counterRemoCon.injectList(list);

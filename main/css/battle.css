@@ -176,12 +176,13 @@
 #com-hiyoko-sweet-battle-counterRemoCon-list {
 	display:inline-block;
 	padding:1em;
+	background-color: #F0F0F0;
 }
 
 #com-hiyoko-sweet-battle-counterRemoCon-inputer {
 	display:inline-block;
 	padding:1em;
-	border-left:2px double black;
+
 }
 
 

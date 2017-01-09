@@ -296,28 +296,30 @@ com.hiyoko.sweet.UlCheckBox = function($html){};
 
 com.hiyoko.util.extend(com.hiyoko.sweet.ApplicationBase, com.hiyoko.sweet.UlCheckBox);
 
-com.hiyoko.sweet.UlCheckBox.prototype.buildList = function(list, option) {
-	$html.empty();
+com.hiyoko.sweet.UlCheckBox.prototype.renderDefaultLi = function($li, item) {
+	if(item.type !== 'node') {
+		$li.text(item.text);
+	}
+	$li.attr('title', item.value);
+	return $li;
+}
+
+com.hiyoko.sweet.UlCheckBox.prototype.buildList = function(list, opt_option) {
+	this.$html.empty();
 	var $ul = $('<ul></ul>');
+	var option = opt_option || {renderer: this.renderDefaultLi};
+	
 	
 	list.forEach(function(item){
 		var $li = $('<li></li>');
-		
-		if(item.type === 'namednode') {
-			$li.text(item.text);
-			$li.attr('title', item.value);
-			$li.append(this.buildList(item.list, option));
-		} else if(item.type === 'node') {
-			$li.attr('title', item.value);
-			$li.append(this.buildList(item.list, option));			
-		} else {
-			$li.text(item.text);
-			$li.attr('title', item.value);
+		$li = option.renderer($li, item);
+		if(item.type !== 'leaf') {
+			$li.append(this.buildList(item.list, option)); 
 		}
 		
 		$ul.append($li);
 	}.bind(this));
-	
+	this.$html.append($ul);
 	return $ul;
 };
 

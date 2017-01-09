@@ -19,11 +19,11 @@ com.hiyoko.sweet.Battle.CounterRemoCon = function($html, opt_params) {
 com.hiyoko.util.extend(com.hiyoko.sweet.ApplicationBase, com.hiyoko.sweet.Battle.CounterRemoCon);
 
 com.hiyoko.sweet.Battle.CounterRemoCon.prototype.buildComponents = function() {
-	
+	this.list = new com.hiyoko.sweet.Battle.CounterRemoCon.List(this.getElementById('list'));
 };
 
 com.hiyoko.sweet.Battle.CounterRemoCon.prototype.injectList = function(list) {
-	console.log(list)
+	this.list.buildList(list)
 };
 
 com.hiyoko.sweet.Battle.CounterRemoCon.prototype.bindEvents = function() {
@@ -48,3 +48,16 @@ com.hiyoko.sweet.Battle.CounterRemoCon.List = function($html, opt_params) {
 };
 
 com.hiyoko.util.extend(com.hiyoko.sweet.UlCheckBox, com.hiyoko.sweet.Battle.CounterRemoCon.List);
+
+com.hiyoko.sweet.Battle.CounterRemoCon.List.prototype.renderDefaultLi = function($li, item) {
+	if(item.type !== 'node') {
+		var $check = $('<input type="checkbox" value="' + item.value + '" />');
+		$check.attr('class', this.id + '-check');
+		$li.append($check);
+		
+		var $name = $('<span></span>');
+		$name.text(item.text);
+		$li.append($name)
+	}
+	return $li;
+}
