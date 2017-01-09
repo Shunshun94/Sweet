@@ -292,3 +292,35 @@ com.hiyoko.sweet.TableBase.prototype.getTableValue = function() {
 
 com.hiyoko.sweet.TableBase.prototype.calcTotal = undefined;
 
+com.hiyoko.sweet.UlCheckBox = function($html){};
+
+com.hiyoko.util.extend(com.hiyoko.sweet.ApplicationBase, com.hiyoko.sweet.UlCheckBox);
+
+com.hiyoko.sweet.UlCheckBox.prototype.buildList = function(list, option) {
+	$html.empty();
+	var $ul = $('<ul></ul>');
+	
+	list.forEach(function(item){
+		var $li = $('<li></li>');
+		
+		if(item.type === 'namednode') {
+			$li.text(item.text);
+			$li.attr('title', item.value);
+			$li.append(this.buildList(item.list, option));
+		} else if(item.type === 'node') {
+			$li.attr('title', item.value);
+			$li.append(this.buildList(item.list, option));			
+		} else {
+			$li.text(item.text);
+			$li.attr('title', item.value);
+		}
+		
+		$ul.append($li);
+	}.bind(this));
+	
+	return $ul;
+};
+
+
+
+

@@ -155,6 +155,27 @@ com.hiyoko.sweet.Battle.prototype.bindEvents = function() {
 			
 		this.fireEvent(event);
 	}.bind(this));
+	
+	this.$html.on('CounterRemoConInitializeRequest', function(e){
+		var list = [];
+		com.hiyoko.util.forEachMap(this.list, function(v, k){
+			var data = v.getValue();
+			if(data.parts.length === 1) {
+				list.push({
+					type: 'leaf',
+					value: k,
+					text: data.name
+				});
+			} else {
+				list.push({
+					type: 'namednode',
+					value: k,
+					text: data.name
+				});
+			}
+		});
+		this.counterRemoCon.injectList(list);
+	}.bind(this));
 };
 
 com.hiyoko.sweet.Battle.prototype.appendCharacter = function() {

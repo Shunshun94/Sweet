@@ -123,6 +123,12 @@ com.hiyoko.util.groupArray = function(array, groupBy) {
 	return result;
 }
 
+com.hiyoko.util.forEachMap = function(map, func) {
+	for(var key in map) {
+		func(map[key], key, map);
+	}
+};
+
 com.hiyoko.util.extend = function(superClass, subClass) {
 	var list = superClass.prototype;
 	for(var key in list) {

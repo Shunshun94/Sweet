@@ -155,7 +155,6 @@
 	width:60%;
 	min-width:650px;
 	margin:1.5em auto 0;
-	padding:1em;
 	border:2px double #aaa;
 	background:white;
 	z-index:2;
@@ -174,7 +173,15 @@
 	background-color:rgba(0,0,0,0.75);
 }
 
+#com-hiyoko-sweet-battle-counterRemoCon-list {
+	display:inline-block;
+	padding:1em;
+}
 
-
+#com-hiyoko-sweet-battle-counterRemoCon-inputer {
+	display:inline-block;
+	padding:1em;
+	border-left:2px double black;
+}
 
 
