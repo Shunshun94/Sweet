@@ -76,7 +76,13 @@ com.hiyoko.sweet.Battle.CounterRemoCon.List.prototype.onCheck = function(event) 
 	var $target = $(event.target);
 	$target.parent().find('input').prop('checked', $target.is(':checked'));
 	
-	if(! $target.is(':checked')) {
+	if((! $target.is(':checked')) && $target.parent().hasClass('com-hiyoko-sweet-ul-list-li-child')) {
 		$($target.parent().parent().parent().find('input')[0]).prop('checked', $target.is(':checked'));
 	}
+};
+
+com.hiyoko.sweet.Battle.CounterRemoCon.List.prototype.getValue = function() {
+	
+	
+	
 };
