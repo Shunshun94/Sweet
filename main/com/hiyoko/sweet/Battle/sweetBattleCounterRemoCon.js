@@ -45,6 +45,7 @@ com.hiyoko.sweet.Battle.CounterRemoCon.List = function($html, opt_params) {
 	this.$html = $($html);
 	this.id = this.$html.attr('id');
 	
+	this.bindEvents();
 };
 
 com.hiyoko.util.extend(com.hiyoko.sweet.UlList, com.hiyoko.sweet.Battle.CounterRemoCon.List);
@@ -61,4 +62,21 @@ com.hiyoko.sweet.Battle.CounterRemoCon.List.prototype.renderDefaultLi = function
 		$li.append($name)
 	}
 	return $li;
-}
+};
+
+com.hiyoko.sweet.Battle.CounterRemoCon.List.prototype.bindEvents = function() {
+	this.$html.change(function(e){
+		if($(e.target).is('input')){
+			this.onCheck(e);
+		}
+	}.bind(this));
+};
+
+com.hiyoko.sweet.Battle.CounterRemoCon.List.prototype.onCheck = function(event) {
+	var $target = $(event.target);
+	$target.parent().find('input').prop('checked', $target.is(':checked'));
+	
+	if(! $target.is(':checked')) {
+		$($target.parent().parent().parent().find('input')[0]).prop('checked', $target.is(':checked'));
+	}
+};

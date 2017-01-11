@@ -307,15 +307,14 @@ com.hiyoko.sweet.UlList.prototype.renderDefaultLi = function($li, item) {
 com.hiyoko.sweet.UlList.prototype.buildList = function(list, opt_option) {
 	this.$html.empty();
 	var $ul = $('<ul></ul>');
-	var option = opt_option || {renderer: this.renderDefaultLi};
-	
+	var option = opt_option || {renderer: this.renderDefaultLi.bind(this)};
 	
 	list.forEach(function(item){
 		var $li = $('<li></li>');
 		
 		$li = option.renderer($li, item, option);
 		if(item.type !== 'leaf') {
-			var tmpOption = opt_option || {renderer: this.renderDefaultLi};
+			var tmpOption = opt_option || {renderer: this.renderDefaultLi.bind(this)};
 			tmpOption.child = true;
 			$li.append(this.buildList(item.list, tmpOption)); 
 		}
