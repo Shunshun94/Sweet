@@ -10,6 +10,8 @@ com.hiyoko.sweet.Battle = function($html, opt_params) {
 	this.nameList = new com.hiyoko.sweet.Battle.NameIndex();
 	this.enemyList = {};
 	
+	this.$characters = this.getElementById('characters');
+	
 	this.optionalValues;
 	
 	this.datalist = this.getElementById('datalist');
@@ -36,6 +38,9 @@ com.hiyoko.sweet.Battle.prototype.buildComponents = function() {
 
 com.hiyoko.sweet.Battle.prototype.bindEvents = function() {
 	this.getElementById('appendCharacter').click(function(e){
+		this.appendCharacter();
+	}.bind(this));
+	this.getElementById('appendCharacter-bottom').click(function(e){
 		this.appendCharacter();
 	}.bind(this));
 	
@@ -136,13 +141,30 @@ com.hiyoko.sweet.Battle.prototype.bindEvents = function() {
 	
 	this.$html.on('removeCharacter', function(e){
 		this.destractCharacter(e.id);
-	}.bind(this))
+	}.bind(this));
+	
+	this.$html.on('renameByPartRemove', function(e){
+		var event = this.getAsyncEvent('tofRoomRequest').done(function(r){
+			e.resolve ? e.resolve(r) : false;
+		}.bind(this)).fail(function(r){
+			alert(e.name + 'の更新に失敗しました\n' + r.result);
+			e.reject ? e.reject(r) : false;
+		});
+		
+		event.method = 'updateCharacter';
+		event.args = [{
+			targetName:this.nameList.append(e.id) + ':' + e.name,
+			name: '[×] ' + this.nameList.append(e.id) + ':' + e.name
+		}];
+			
+		this.fireEvent(event);
+	}.bind(this));
 };
 
 com.hiyoko.sweet.Battle.prototype.appendCharacter = function() {
 	var newId = com.hiyoko.util.rndString(8);
 	
-	this.$html.append(com.hiyoko.util.format('<div class="%s" id="%s"></div>',
+	this.$characters.append(com.hiyoko.util.format('<div class="%s" id="%s"></div>',
 			this.id + '-character',
 			this.id + '-character-' + newId));
 	this.list[newId] = new com.hiyoko.sweet.Battle.BattleCharacter(this.getElementById('character-' + newId),
