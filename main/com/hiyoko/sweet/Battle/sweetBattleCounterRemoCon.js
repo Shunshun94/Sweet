@@ -38,6 +38,7 @@ com.hiyoko.sweet.Battle.CounterRemoCon.prototype.bindEvents = function() {
 	this.overlay.click(function(e){
 		this.body.hide();
 		this.overlay.hide();
+		console.log(this.list.getValue());
 	}.bind(this));
 };
 
@@ -53,12 +54,12 @@ com.hiyoko.util.extend(com.hiyoko.sweet.UlList, com.hiyoko.sweet.Battle.CounterR
 com.hiyoko.sweet.Battle.CounterRemoCon.List.prototype.renderDefaultLi = function($li, item) {
 	if(item.type !== 'node') {
 		var $check = $('<input type="checkbox" value="' + item.value + '" />');
-		$check.attr('class', this.id + '-check');
+		$check.addClass(this.id + '-check');
 		$li.append($check);
 		
 		var $name = $('<span></span>');
 		$name.text(item.text);
-		$name.attr('class', this.id + '-name');
+		$name.addClass(this.id + '-name');
 		$li.append($name)
 	}
 	return $li;
@@ -81,8 +82,27 @@ com.hiyoko.sweet.Battle.CounterRemoCon.List.prototype.onCheck = function(event) 
 	}
 };
 
-com.hiyoko.sweet.Battle.CounterRemoCon.List.prototype.getValue = function() {
+com.hiyoko.sweet.Battle.CounterRemoCon.List.prototype.getValueLi = function($li) {
+	var result = {};
 	
+	var text = $li.children('.' + this.id + '-name').text();
+	result.text = text;
 	
+	var $ul = $li.children('ul');
+	if($ul.length) {
+		result.list = this.getValue($ul);
+	}
 	
+	result.check = $li.children('.' + this.id + '-check').is(':checked');
+	result.value = $li.children('.' + this.id + '-check').val();
+	
+	if(result.text && result.list) {
+		result.type = 'namednode';
+	} else if(result.list) {
+		result.type = 'node';
+	} else {
+		result.type = 'leaf';
+	}
+	
+	return result;
 };
