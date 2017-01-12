@@ -10,6 +10,8 @@ com.hiyoko.sweet.Battle = function($html, opt_params) {
 	this.nameList = new com.hiyoko.sweet.Battle.NameIndex();
 	this.enemyList = {};
 	
+	this.$characters = this.getElementById('characters');
+	
 	this.optionalValues;
 	
 	this.datalist = this.getElementById('datalist');
@@ -36,6 +38,9 @@ com.hiyoko.sweet.Battle.prototype.buildComponents = function() {
 
 com.hiyoko.sweet.Battle.prototype.bindEvents = function() {
 	this.getElementById('appendCharacter').click(function(e){
+		this.appendCharacter();
+	}.bind(this));
+	this.getElementById('appendCharacter-bottom').click(function(e){
 		this.appendCharacter();
 	}.bind(this));
 	
@@ -159,7 +164,7 @@ com.hiyoko.sweet.Battle.prototype.bindEvents = function() {
 com.hiyoko.sweet.Battle.prototype.appendCharacter = function() {
 	var newId = com.hiyoko.util.rndString(8);
 	
-	this.$html.append(com.hiyoko.util.format('<div class="%s" id="%s"></div>',
+	this.$characters.append(com.hiyoko.util.format('<div class="%s" id="%s"></div>',
 			this.id + '-character',
 			this.id + '-character-' + newId));
 	this.list[newId] = new com.hiyoko.sweet.Battle.BattleCharacter(this.getElementById('character-' + newId),
