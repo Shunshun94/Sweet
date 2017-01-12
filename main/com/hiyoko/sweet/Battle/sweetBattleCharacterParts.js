@@ -60,6 +60,7 @@ com.hiyoko.sweet.Battle.BattleCharacter.prototype.render = function() {
 com.hiyoko.sweet.Battle.BattleCharacter.prototype.afterAdd = function() {
 	this.addToTofAsUnknown.hide();
 	this.addToTof.hide();
+	this.addPartButton.hide();
 	this.name.attr('disabled', 'disabled');
 	this.added = true;
 	for(var key in this.parts) {
@@ -224,11 +225,16 @@ com.hiyoko.sweet.Battle.BattleCharacter.prototype.destractParts = function() {
 }
 
 com.hiyoko.sweet.Battle.BattleCharacter.prototype.destractPart = function(id) {
+	if(this.added) {
+		var splitedId = this.id.split('-');
+		this.fireEvent(new $.Event('renameByPartRemove', {id:splitedId.pop(), name:this.parts[id].name.val()}));
+	}
 	this.parts[id].$html.remove();
 	delete this.parts[id];
 }
 
 com.hiyoko.sweet.Battle.BattleCharacter.prototype.destract = function() {
+	this.destractParts();
 	var splitedId = this.id.split('-');
 	this.fireEvent(new $.Event('removeCharacter', {id: splitedId.pop()}));
 };
