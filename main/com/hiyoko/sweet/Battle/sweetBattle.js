@@ -186,6 +186,10 @@ com.hiyoko.sweet.Battle.prototype.bindEvents = function() {
 		});
 		this.counterRemoCon.injectList(list);
 	}.bind(this));
+	
+	this.$html.on('CounterRemoConChangeHP', function(e){
+		console.log(e);
+	});
 };
 
 com.hiyoko.sweet.Battle.prototype.appendCharacter = function() {

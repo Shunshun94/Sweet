@@ -38,7 +38,10 @@ com.hiyoko.sweet.Battle.CounterRemoCon.prototype.bindEvents = function() {
 	this.overlay.click(function(e){
 		this.body.hide();
 		this.overlay.hide();
-		console.log(this.list.getValue());
+		this.fireEvent({
+			type: 'CounterRemoConChangeHP',
+			characters: this.list.getValue()
+		});
 	}.bind(this));
 };
 
