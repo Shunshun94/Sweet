@@ -189,3 +189,35 @@
 	color: #202020;
 }
 
+.com-hiyoko-sweet-battle-counterRemoCon-inputer-tabs-tab {
+	display:inline-block;
+	margin-left:0px;
+	margin-right:0px;
+	margin-top:0px;
+}
+
+.com-hiyoko-sweet-battle-counterRemoCon-inputer-active {
+ border: lemonchiffon 3px inset;
+	background-color:wheat;	
+}
+
+#com-hiyoko-sweet-battle-counterRemoCon-inputer-valuebase {
+	display:inline-block;
+}
+
+#com-hiyoko-sweet-battle-counterRemoCon-inputer-value {
+	width:50px;
+}
+
+#com-hiyoko-sweet-battle-counterRemoCon-inputer-members {
+	display:inline-block;
+	list-style-type:none;
+}
+
+.com-hiyoko-sweet-battle-counterRemoCon-inputer-fix {
+	width:50px;
+}
+
+#com-hiyoko-sweet-battle-counterRemoCon-inputer-execute {
+	display:inline-block;
+}

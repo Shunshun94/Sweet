@@ -20,6 +20,7 @@ com.hiyoko.util.extend(com.hiyoko.sweet.ApplicationBase, com.hiyoko.sweet.Battle
 
 com.hiyoko.sweet.Battle.CounterRemoCon.prototype.buildComponents = function() {
 	this.list = new com.hiyoko.sweet.Battle.CounterRemoCon.List(this.getElementById('list'));
+	this.inputer = new com.hiyoko.sweet.Battle.CounterRemoCon.Inputer(this.getElementById('inputer'));
 };
 
 com.hiyoko.sweet.Battle.CounterRemoCon.prototype.injectList = function(list) {
@@ -38,10 +39,16 @@ com.hiyoko.sweet.Battle.CounterRemoCon.prototype.bindEvents = function() {
 	this.overlay.click(function(e){
 		this.body.hide();
 		this.overlay.hide();
+		/*
 		this.fireEvent({
 			type: 'CounterRemoConChangeHP',
 			characters: this.list.getValue()
 		});
+		*/
+	}.bind(this));
+	
+	this.$html.on('CounterRemoConUpdated', function(e) {
+		this.inputer.buildCharacterList(e.characters);
 	}.bind(this));
 };
 
@@ -83,6 +90,11 @@ com.hiyoko.sweet.Battle.CounterRemoCon.List.prototype.onCheck = function(event) 
 	if((! $target.is(':checked')) && $target.parent().hasClass('com-hiyoko-sweet-ul-list-li-child')) {
 		$($target.parent().parent().parent().find('input')[0]).prop('checked', $target.is(':checked'));
 	}
+	
+	this.fireEvent({
+		type: 'CounterRemoConUpdated',
+		characters: this.getValue()
+	});
 };
 
 com.hiyoko.sweet.Battle.CounterRemoCon.List.prototype.getValueLi = function($li) {
@@ -109,3 +121,51 @@ com.hiyoko.sweet.Battle.CounterRemoCon.List.prototype.getValueLi = function($li)
 	
 	return result;
 };
+
+com.hiyoko.sweet.Battle.CounterRemoCon.Inputer = function($html) {
+	this.$html = $($html);
+	this.id = this.$html.attr('id');
+	
+	this.members = this.getElementById('members');
+	
+	this.bindEvents();	
+};
+
+com.hiyoko.util.extend(com.hiyoko.sweet.ApplicationBase, com.hiyoko.sweet.Battle.CounterRemoCon.Inputer);
+
+com.hiyoko.sweet.Battle.CounterRemoCon.Inputer.prototype.bindEvents = function(){
+	this.getElementsByClass('tabs-tab').click(function(e){
+		this.getElementsByClass('active').removeClass(this.id + '-active');
+		$(e.target).addClass(this.id + '-active');
+	}.bind(this));
+};
+
+com.hiyoko.sweet.Battle.CounterRemoCon.Inputer.prototype.buildCharacterList = function(list) {
+	this.members.empty();
+	list.forEach(function(character) {
+		if(character.type === 'leaf' && character.check) {
+			this.members.append(com.hiyoko.util.format(
+					'<li>+ <input class="%s" id="%s" value="0" /><span class="%s">%s</span></li>',
+					this.id + '-fix', character.value + '_0', this.id + '-name', character.text
+			));
+		} else if(character.type !== 'leaf') {
+			character.list.forEach(function(parts){
+				if(parts.check) {
+					this.members.append(com.hiyoko.util.format(
+							'<li>+ <input class="%s" id="%s" value="0" /><span class="%s">%s</span></li>',
+							this.id + '-fix', character.value + '_' + parts.value,
+							this.id + '-name', character.text + ' ' + parts.text
+					));
+				}
+			}.bind(this));
+		}
+	}.bind(this));
+};
+
+
+
+
+
+
+
+
