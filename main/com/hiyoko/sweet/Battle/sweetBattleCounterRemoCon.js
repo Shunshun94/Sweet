@@ -39,12 +39,6 @@ com.hiyoko.sweet.Battle.CounterRemoCon.prototype.bindEvents = function() {
 	this.overlay.click(function(e){
 		this.body.hide();
 		this.overlay.hide();
-		/*
-		this.fireEvent({
-			type: 'CounterRemoConChangeHP',
-			characters: this.list.getValue()
-		});
-		*/
 	}.bind(this));
 	
 	this.$html.on('CounterRemoConUpdated', function(e) {
@@ -146,6 +140,13 @@ com.hiyoko.sweet.Battle.CounterRemoCon.Inputer.prototype.bindEvents = function()
 			fix.val(Number(fix.val()) + Number(target.val()));
 		}
 	}.bind(this));
+	
+	this.getElementById('execute').click(function(e) {
+		this.fireEvent({
+			type: 'CounterRemoConChangeHP',
+			result: this.getValue()
+		});
+	}.bind(this));
 };
 
 com.hiyoko.sweet.Battle.CounterRemoCon.Inputer.prototype.buildCharacterList = function(list) {
@@ -178,8 +179,34 @@ com.hiyoko.sweet.Battle.CounterRemoCon.Inputer.prototype.buildCharacterList = fu
 	}.bind(this));
 };
 
-
-
+com.hiyoko.sweet.Battle.CounterRemoCon.Inputer.prototype.getValue = function() {
+	var result = {};
+	
+	var baseValue = Number(this.getElementById('value').val());
+	var damageType = this.getElementsByClass('active').val();
+	
+	if(damageType.endsWith('Half')) {
+		baseValue = Math.floor((baseValue / 2) + 0.5 );
+	}
+	
+	if(damageType.startsWith('magicDamage')) {
+		result.type = 'magic';
+	} else {
+		result.type = 'physical';
+	}
+	
+	result.values = [];
+	$.each(this.members.children(), function(i, v) {
+		var $v = $(v).children('.' + this.id + '-fix');
+		var cData = $v.attr('id').split('_');
+		result.values.push({
+			damage: Number($v.val()) + baseValue,
+			id: cData[0], part: Number(cData[1])
+		});
+	}.bind(this));
+	console.log(result);
+	return result;
+};
 
 
 
