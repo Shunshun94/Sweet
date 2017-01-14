@@ -138,6 +138,14 @@ com.hiyoko.sweet.Battle.CounterRemoCon.Inputer.prototype.bindEvents = function()
 		this.getElementsByClass('active').removeClass(this.id + '-active');
 		$(e.target).addClass(this.id + '-active');
 	}.bind(this));
+	
+	this.members.click(function(e) {
+		var target = $(e.target);
+		if(target.hasClass(this.id + '-input-fix')) {
+			var fix = target.parent().children('.' + this.id + '-fix');
+			fix.val(Number(fix.val()) + Number(target.val()));
+		}
+	}.bind(this));
 };
 
 com.hiyoko.sweet.Battle.CounterRemoCon.Inputer.prototype.buildCharacterList = function(list) {
@@ -145,16 +153,24 @@ com.hiyoko.sweet.Battle.CounterRemoCon.Inputer.prototype.buildCharacterList = fu
 	list.forEach(function(character) {
 		if(character.type === 'leaf' && character.check) {
 			this.members.append(com.hiyoko.util.format(
-					'<li>+ <input class="%s" id="%s" value="0" /><span class="%s">%s</span></li>',
-					this.id + '-fix', character.value + '_0', this.id + '-name', character.text
+					'<li>+ <input class="%s" id="%s" value="0" /><span class="%s">%s</span>' +
+					'<input type="button" value="2" class="%s" />' +
+					'<input type="button" value="3" class="%s" />' +
+					'</li>',
+					this.id + '-fix', character.value + '_0', this.id + '-name', character.text,
+					this.id + '-input-fix', this.id + '-input-fix'
 			));
 		} else if(character.type !== 'leaf') {
 			character.list.forEach(function(parts){
 				if(parts.check) {
 					this.members.append(com.hiyoko.util.format(
-							'<li>+ <input class="%s" id="%s" value="0" /><span class="%s">%s</span></li>',
+							'<li>+ <input class="%s" id="%s" value="0" /><span class="%s">%s</span>' +
+							'<input type="button" value="2" class="%s" />' +
+							'<input type="button" value="3" class="%s" />' +
+							'</li>',
 							this.id + '-fix', character.value + '_' + parts.value,
-							this.id + '-name', character.text + ' ' + parts.text
+							this.id + '-name', character.text + ' ' + parts.text,
+							this.id + '-input-fix', this.id + '-input-fix'
 					));
 				}
 			}.bind(this));
