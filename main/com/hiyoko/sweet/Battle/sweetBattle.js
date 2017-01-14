@@ -188,7 +188,7 @@ com.hiyoko.sweet.Battle.prototype.bindEvents = function() {
 	}.bind(this));
 	
 	this.$html.on('CounterRemoConChangeHP', function(e){
-		console.log(e);
+		console.log(e.damages);
 	});
 };
 

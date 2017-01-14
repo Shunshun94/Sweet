@@ -44,6 +44,10 @@ com.hiyoko.sweet.Battle.CounterRemoCon.prototype.bindEvents = function() {
 	this.$html.on('CounterRemoConUpdated', function(e) {
 		this.inputer.buildCharacterList(e.characters);
 	}.bind(this));
+	
+	this.$html.on('CounterRemoConChangeHP', function(e) {
+		this.overlay.click();
+	}.bind(this));
 };
 
 com.hiyoko.sweet.Battle.CounterRemoCon.List = function($html, opt_params) {
@@ -144,7 +148,7 @@ com.hiyoko.sweet.Battle.CounterRemoCon.Inputer.prototype.bindEvents = function()
 	this.getElementById('execute').click(function(e) {
 		this.fireEvent({
 			type: 'CounterRemoConChangeHP',
-			result: this.getValue()
+			damages: this.getValue()
 		});
 	}.bind(this));
 };
@@ -204,7 +208,6 @@ com.hiyoko.sweet.Battle.CounterRemoCon.Inputer.prototype.getValue = function() {
 			id: cData[0], part: Number(cData[1])
 		});
 	}.bind(this));
-	console.log(result);
 	return result;
 };
 
