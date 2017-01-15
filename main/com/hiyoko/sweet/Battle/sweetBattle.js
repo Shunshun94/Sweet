@@ -24,6 +24,7 @@ com.hiyoko.util.extend(com.hiyoko.sweet.ApplicationBase, com.hiyoko.sweet.Battle
 
 com.hiyoko.sweet.Battle.prototype.buildComponents = function() {
 	this.optionalValues = new com.hiyoko.sweet.Battle.OptionalValues(this.getElementById('optionalValues'));
+	this.counterRemoCon = new com.hiyoko.sweet.Battle.CounterRemoCon(this.getElementById('counterRemoCon'));
 	this.appendCharacter();
 	
 	this.getStorage('enemy-list', function(result){
@@ -158,6 +159,44 @@ com.hiyoko.sweet.Battle.prototype.bindEvents = function() {
 		}];
 			
 		this.fireEvent(event);
+	}.bind(this));
+	
+	this.$html.on('CounterRemoConInitializeRequest', function(e){
+		var list = [];
+		com.hiyoko.util.forEachMap(this.list, function(v, k){
+			var data = v.getValue();
+			if(data.parts.length === 1) {
+				list.push({
+					type: 'leaf',
+					value: k,
+					text: data.name
+				});
+			} else {
+				var val = {
+					type: 'namednode',
+					value: k,
+					text: data.name
+				};
+				
+				val.list = data.parts.map(function(p, i){
+					return {
+						text: p.name,
+						value: i,
+						type: 'leaf'
+					};
+				});
+				
+				list.push(val);
+			}
+		});
+		this.counterRemoCon.injectList(list);
+	}.bind(this));
+	
+	this.$html.on('CounterRemoConChangeHP', function(e){
+		var charDamage = com.hiyoko.util.groupArray(e.damages.values, function(v){return v.id;});
+		for(var key in charDamage) {
+			this.list[key].applyDamage(charDamage[key], e.damages.type, false);
+		} 
 	}.bind(this));
 };
 
