@@ -209,6 +209,27 @@ com.hiyoko.sweet.Battle.BattleCharacter.prototype.getValue = function() {
 	return result;
 };
 
+com.hiyoko.sweet.Battle.BattleCharacter.prototype.applyDamage = function(damages, type, opt_isMp) {
+	var query = opt_isMp ? '.' + this.clazz + '-part-mp' : '.' + this.clazz + '-part-hp';
+	
+	var $elems = this.getElement(query);
+	var $armor = this.getElement('.' + this.clazz + '-part-armor');
+	
+	damages.forEach(function(damage) {
+		var point = damage.damage;
+		
+		if(type === 'physical') {
+			point -= Number($($armor[damage.part]).val());
+			if(point < 0) {
+				point = 0;
+			}
+		}
+		
+		$($elems[damage.part]).val(Number($($elems[damage.part]).val()) - point);
+	});
+	this.$html.change();
+};
+
 com.hiyoko.sweet.Battle.BattleCharacter.prototype.addPart = function(opt_original) {
 	var newId = com.hiyoko.util.rndString(8);
 

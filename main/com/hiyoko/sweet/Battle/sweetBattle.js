@@ -188,8 +188,11 @@ com.hiyoko.sweet.Battle.prototype.bindEvents = function() {
 	}.bind(this));
 	
 	this.$html.on('CounterRemoConChangeHP', function(e){
-		console.log(e.damages);
-	});
+		var charDamage = com.hiyoko.util.groupArray(e.damages.values, function(v){return v.id;});
+		for(var key in charDamage) {
+			this.list[key].applyDamage(charDamage[key], e.damages.type, false);
+		} 
+	}.bind(this));
 };
 
 com.hiyoko.sweet.Battle.prototype.appendCharacter = function() {
