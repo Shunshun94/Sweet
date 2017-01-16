@@ -4,7 +4,7 @@ com.hiyoko.sweet = com.hiyoko.sweet || {};
 
 com.hiyoko.sweet.Battle = function($html, opt_params) {
 	this.$html = $($html);
-	this.LIST_NAME = 'SWEET Battle';
+	this.LIST_NAME = 'SWEET Battle - 戦闘';
 	this.id = this.$html.attr('id');
 	this.list = {};
 	this.nameList = new com.hiyoko.sweet.Battle.NameIndex();

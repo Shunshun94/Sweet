@@ -4,7 +4,7 @@ com.hiyoko.sweet = com.hiyoko.sweet || {};
 
 com.hiyoko.sweet.Circumstance = function($html) {
 	this.$html = $($html);
-	this.LIST_NAME = 'SWEET Circumstance';
+	this.LIST_NAME = 'SWEET Circumstance - 演出';
 	this.id = this.$html.attr('id');
 	
 	this.buildComponents();

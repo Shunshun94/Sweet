@@ -4,7 +4,7 @@ com.hiyoko.sweet = com.hiyoko.sweet || {};
 
 com.hiyoko.sweet.Entry = function($html) {
 	this.$html = $($html);
-	this.LIST_NAME = 'SWEET Entry';
+	this.LIST_NAME = 'SWEET Entry - 入室';
 	this.id = this.$html.attr('id');
 	
 	this.bindEvents();

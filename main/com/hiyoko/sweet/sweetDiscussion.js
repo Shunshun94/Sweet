@@ -4,7 +4,7 @@ com.hiyoko.sweet = com.hiyoko.sweet || {};
 
 com.hiyoko.sweet.Discussion = function($html, opt_params){
 	this.$html = $($html);
-	this.LIST_NAME = 'SWEET Discussion';
+	this.LIST_NAME = 'SWEET Discussion - 相談';
 	this.id = this.$html.attr('id');
 	 
 	this.memoId = '';
