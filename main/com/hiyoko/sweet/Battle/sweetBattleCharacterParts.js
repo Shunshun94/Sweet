@@ -61,7 +61,6 @@ com.hiyoko.sweet.Battle.BattleCharacter.prototype.afterAdd = function() {
 	this.addToTofAsUnknown.hide();
 	this.addToTof.hide();
 	this.addPartButton.hide();
-	this.name.attr('disabled', 'disabled');
 	this.added = true;
 	for(var key in this.parts) {
 		if(this.parts[key]) {
@@ -88,6 +87,7 @@ com.hiyoko.sweet.Battle.BattleCharacter.prototype.bindEvents = function() {
 	
 	this.addToTofAsUnknown.click(function(e) {
 		var splitedId = this.id.split('-');
+		this.isHide = true;
 		this.name.val(com.hiyoko.util.rndString(3, 'UNKNOWN＃'));
 		this.fireEvent(this.getAsyncEvent('appendCharacterRequest', {
 			value: this.getValue(), hide: true, id: splitedId.pop()
@@ -100,9 +100,16 @@ com.hiyoko.sweet.Battle.BattleCharacter.prototype.bindEvents = function() {
 		}
 		
 		var splitedId = this.id.split('-');
-		this.fireEvent(new $.Event('updateCharacterRequest', {
-			value: this.getValue(), hide: this.name.val().startsWith('UNKNOWN＃'), id: splitedId.pop()
-		}));
+		if($(e.target).attr('class').endsWith('-name')) {
+			this.fireEvent(new $.Event('updateCharacterNameRequest', {
+				value: this.getValue(), id: splitedId.pop()
+			}));
+		} else {
+			this.fireEvent(new $.Event('updateCharacterRequest', {
+				value: this.getValue(), hide: this.isHide, id: splitedId.pop()
+			}));
+		}
+
 	}.bind(this));
 
 	this.addPartButton.click(function(e){
@@ -161,6 +168,9 @@ com.hiyoko.sweet.Battle.BattleCharacter.prototype.bindEvents = function() {
 	}.bind(this));
 	
 	this.name.change(function(e) {
+		if(this.added) {
+			return;
+		}
 		var event = this.getAsyncEvent('loadRequest', {value:this.name.val()});
 		event.done(function(result){
 			this.setValue(result);
