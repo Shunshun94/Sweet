@@ -27,8 +27,13 @@ com.hiyoko.sweet.Battle.prototype.buildComponents = function() {
 	this.counterRemoCon = new com.hiyoko.sweet.Battle.CounterRemoCon(this.getElementById('counterRemoCon'));
 	this.appendCharacter();
 	
+	this.buildEnemyList();
+};
+
+com.hiyoko.sweet.Battle.prototype.buildEnemyList = function() {
 	this.getStorage('enemy-list', function(result){
 		if (result) {
+			this.datalist.empty();
 			this.enemyList = result;
 			for(var name in this.enemyList) {
 				this.datalist.append('<option>' + name + '</option>');
@@ -156,6 +161,7 @@ com.hiyoko.sweet.Battle.prototype.bindEvents = function() {
 	this.$html.on('saveRequest', function(e){
 		this.enemyList[e.value.name] = e.value;
 		this.setStorage('enemy-list', this.enemyList);
+		this.buildEnemyList();
 	}.bind(this));
 	
 	this.$html.on('loadRequest', function(e){
