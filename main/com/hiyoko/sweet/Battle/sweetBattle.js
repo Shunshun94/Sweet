@@ -16,18 +16,20 @@ com.hiyoko.sweet.Battle = function($html, opt_params) {
 	
 	this.datalist = this.getElementById('datalist');
 	
-	this.buildComponents();
 	this.bindEvents();
+	this.buildComponents();
+	
 };
 
 com.hiyoko.util.extend(com.hiyoko.sweet.ApplicationBase, com.hiyoko.sweet.Battle);
 
 com.hiyoko.sweet.Battle.prototype.buildComponents = function() {
+	this.buildEnemyList();
 	this.optionalValues = new com.hiyoko.sweet.Battle.OptionalValues(this.getElementById('optionalValues'));
 	this.counterRemoCon = new com.hiyoko.sweet.Battle.CounterRemoCon(this.getElementById('counterRemoCon'));
-	this.appendCharacter();
+	this.storagedList = new com.hiyoko.sweet.Battle.CharacterLister(this.getElementById('strogaedList'));
 	
-	this.buildEnemyList();
+	this.appendCharacter();
 };
 
 com.hiyoko.sweet.Battle.prototype.buildEnemyList = function() {
@@ -171,7 +173,11 @@ com.hiyoko.sweet.Battle.prototype.bindEvents = function() {
 			e.reject();
 		}
 	}.bind(this));
-	
+
+	this.$html.on('loadRequestAll', function(e){
+		e.resolve(this.enemyList);
+	}.bind(this));
+
 	this.$html.on('removeCharacter', function(e){
 		this.destractCharacter(e.id);
 	}.bind(this));
