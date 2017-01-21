@@ -42,7 +42,7 @@ com.hiyoko.util.extend(com.hiyoko.sweet.ApplicationBase, com.hiyoko.sweet.Battle
 
 com.hiyoko.sweet.Battle.BattleCharacter.prototype.render = function() {
 	this.$html.append(com.hiyoko.util.format(
-			'<button class="%s">SAVE</button><p>名前 <input value="NO NAME" type="text" class="%s" />' +
+			'<button class="%s">SAVE</button><p>名前 <input placeholder="NO NAME?" value="" type="text" class="%s" />' +
 			'<button class="%s">コマ追加</button><button class="%s">コマ追加 (正体不明)</button></p>' + 
 			'<div>生命抵抗力<input type="number" value="0" class="%s" />' +
 			'<button class="%s">判定</button><button class="%s">判定(固定値)</button>' +
@@ -71,6 +71,10 @@ com.hiyoko.sweet.Battle.BattleCharacter.prototype.afterAdd = function() {
 
 com.hiyoko.sweet.Battle.BattleCharacter.prototype.bindEvents = function() {
 	this.saveButton.click(function(e){
+		if(this.name.val() === '') {
+			this.name.notify('名前が空欄です', 'error');
+			return;
+		}
 		var result = this.getValue();
 		this.fireEvent(new $.Event('saveRequest', {
 			value: result
@@ -79,6 +83,10 @@ com.hiyoko.sweet.Battle.BattleCharacter.prototype.bindEvents = function() {
 	}.bind(this));
 
 	this.addToTof.click(function(e) {
+		if(this.name.val() === '') {
+			this.name.notify('名前が空欄です', 'error');
+			return;
+		}
 		var splitedId = this.id.split('-');
 		this.fireEvent(this.getAsyncEvent('appendCharacterRequest', {
 			value: this.getValue(), hide: false, id: splitedId.pop()
@@ -101,6 +109,10 @@ com.hiyoko.sweet.Battle.BattleCharacter.prototype.bindEvents = function() {
 		
 		var splitedId = this.id.split('-');
 		if($(e.target).attr('class').endsWith('-name')) {
+			if(this.name.val() === '') {
+				this.name.notify('名前が空欄です。', 'error');
+				this.name.val('仮の名前')
+			}
 			this.fireEvent(new $.Event('updateCharacterNameRequest', {
 				value: this.getValue(), id: splitedId.pop()
 			}));
