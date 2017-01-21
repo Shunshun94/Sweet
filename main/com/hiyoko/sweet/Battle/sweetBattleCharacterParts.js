@@ -111,7 +111,7 @@ com.hiyoko.sweet.Battle.BattleCharacter.prototype.bindEvents = function() {
 		if($(e.target).attr('class').endsWith('-name')) {
 			if(this.name.val() === '') {
 				this.name.notify('名前が空欄です。', 'error');
-				this.name.val('仮の名前')
+				this.name.val('仮の名前');
 			}
 			this.fireEvent(new $.Event('updateCharacterNameRequest', {
 				value: this.getValue(), id: splitedId.pop()
