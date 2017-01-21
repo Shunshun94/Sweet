@@ -4,7 +4,7 @@ com.hiyoko.sweet = com.hiyoko.sweet || {};
 
 com.hiyoko.sweet.Accounting = function($html, opt_params){
 	this.$html = $($html);
-	this.LIST_NAME = 'SWEET Accounting';
+	this.LIST_NAME = 'SWEET Accounting - 会計';
 	this.id = this.$html.attr('id');
 
 	this.buildComponents();

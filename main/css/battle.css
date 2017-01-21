@@ -154,3 +154,78 @@
 	border: coral 3px outset;
 	background-color:tomato;
 }
+
+#com-hiyoko-sweet-battle-counterRemoCon-body {
+	width:60%;
+	min-width:650px;
+	margin:1.5em auto 0;
+	border:2px double #aaa;
+	background:white;
+	z-index:2;
+	position:fixed;
+	display:none;
+}
+
+#com-hiyoko-sweet-battle-counterRemoCon-overlay{
+	z-index:1;
+	display:none;
+	position:fixed;
+	top:0;
+	left:0;
+	width:100%;
+	height:120%;
+	background-color:rgba(0,0,0,0.75);
+}
+
+#com-hiyoko-sweet-battle-counterRemoCon-list {
+	display:inline-block;
+	padding:1em;
+	background-color: #F0F0F0;
+}
+
+#com-hiyoko-sweet-battle-counterRemoCon-inputer {
+	display:inline-block;
+	padding:1em;
+
+}
+
+#com-hiyoko-sweet-battle-counterRemoCon .com-hiyoko-sweet-ul-list-li-child {
+	color: #202020;
+}
+
+.com-hiyoko-sweet-battle-counterRemoCon-inputer-tabs-tab {
+	display:inline-block;
+	margin-left:0px;
+	margin-right:0px;
+	margin-top:0px;
+}
+
+.com-hiyoko-sweet-battle-counterRemoCon-inputer-active {
+ border: lemonchiffon 3px inset;
+	background-color:wheat;	
+}
+
+#com-hiyoko-sweet-battle-counterRemoCon-inputer-valuebase {
+	display:inline-block;
+}
+
+#com-hiyoko-sweet-battle-counterRemoCon-inputer-value {
+	width:50px;
+}
+
+#com-hiyoko-sweet-battle-counterRemoCon-inputer-members {
+	display:inline-block;
+	list-style-type:none;
+}
+
+.com-hiyoko-sweet-battle-counterRemoCon-inputer-fix {
+	width:50px;
+}
+
+#com-hiyoko-sweet-battle-counterRemoCon-inputer-execute {
+	display:inline-block;
+}
+
+#com-hiyoko-sweet-battle-strogaedList-table{
+	display:none;
+}

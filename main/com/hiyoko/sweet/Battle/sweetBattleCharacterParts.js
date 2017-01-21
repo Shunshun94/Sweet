@@ -42,7 +42,7 @@ com.hiyoko.util.extend(com.hiyoko.sweet.ApplicationBase, com.hiyoko.sweet.Battle
 
 com.hiyoko.sweet.Battle.BattleCharacter.prototype.render = function() {
 	this.$html.append(com.hiyoko.util.format(
-			'<button class="%s">SAVE</button><p>名前 <input value="NO NAME" type="text" class="%s" />' +
+			'<button class="%s">SAVE</button><p>名前 <input placeholder="NO NAME?" value="" type="text" class="%s" />' +
 			'<button class="%s">コマ追加</button><button class="%s">コマ追加 (正体不明)</button></p>' + 
 			'<div>生命抵抗力<input type="number" value="0" class="%s" />' +
 			'<button class="%s">判定</button><button class="%s">判定(固定値)</button>' +
@@ -61,7 +61,6 @@ com.hiyoko.sweet.Battle.BattleCharacter.prototype.afterAdd = function() {
 	this.addToTofAsUnknown.hide();
 	this.addToTof.hide();
 	this.addPartButton.hide();
-	this.name.attr('disabled', 'disabled');
 	this.added = true;
 	for(var key in this.parts) {
 		if(this.parts[key]) {
@@ -72,6 +71,10 @@ com.hiyoko.sweet.Battle.BattleCharacter.prototype.afterAdd = function() {
 
 com.hiyoko.sweet.Battle.BattleCharacter.prototype.bindEvents = function() {
 	this.saveButton.click(function(e){
+		if(this.name.val() === '') {
+			this.name.notify('名前が空欄です', 'error');
+			return;
+		}
 		var result = this.getValue();
 		this.fireEvent(new $.Event('saveRequest', {
 			value: result
@@ -80,6 +83,10 @@ com.hiyoko.sweet.Battle.BattleCharacter.prototype.bindEvents = function() {
 	}.bind(this));
 
 	this.addToTof.click(function(e) {
+		if(this.name.val() === '') {
+			this.name.notify('名前が空欄です', 'error');
+			return;
+		}
 		var splitedId = this.id.split('-');
 		this.fireEvent(this.getAsyncEvent('appendCharacterRequest', {
 			value: this.getValue(), hide: false, id: splitedId.pop()
@@ -88,6 +95,7 @@ com.hiyoko.sweet.Battle.BattleCharacter.prototype.bindEvents = function() {
 	
 	this.addToTofAsUnknown.click(function(e) {
 		var splitedId = this.id.split('-');
+		this.isHide = true;
 		this.name.val(com.hiyoko.util.rndString(3, 'UNKNOWN＃'));
 		this.fireEvent(this.getAsyncEvent('appendCharacterRequest', {
 			value: this.getValue(), hide: true, id: splitedId.pop()
@@ -100,9 +108,20 @@ com.hiyoko.sweet.Battle.BattleCharacter.prototype.bindEvents = function() {
 		}
 		
 		var splitedId = this.id.split('-');
-		this.fireEvent(new $.Event('updateCharacterRequest', {
-			value: this.getValue(), hide: this.name.val().startsWith('UNKNOWN＃'), id: splitedId.pop()
-		}));
+		if($(e.target).attr('class').endsWith('-name')) {
+			if(this.name.val() === '') {
+				this.name.notify('名前が空欄です。', 'error');
+				this.name.val('仮の名前');
+			}
+			this.fireEvent(new $.Event('updateCharacterNameRequest', {
+				value: this.getValue(), id: splitedId.pop()
+			}));
+		} else {
+			this.fireEvent(new $.Event('updateCharacterRequest', {
+				value: this.getValue(), hide: this.isHide, id: splitedId.pop()
+			}));
+		}
+
 	}.bind(this));
 
 	this.addPartButton.click(function(e){
@@ -161,6 +180,9 @@ com.hiyoko.sweet.Battle.BattleCharacter.prototype.bindEvents = function() {
 	}.bind(this));
 	
 	this.name.change(function(e) {
+		if(this.added) {
+			return;
+		}
 		var event = this.getAsyncEvent('loadRequest', {value:this.name.val()});
 		event.done(function(result){
 			this.setValue(result);
@@ -172,6 +194,7 @@ com.hiyoko.sweet.Battle.BattleCharacter.prototype.bindEvents = function() {
 com.hiyoko.sweet.Battle.BattleCharacter.prototype.setValue = function(result) {
 	this.vitality.val(result.vitality);
 	this.mentality.val(result.mentality);
+	this.name.val(result.name);
 	
 	this.destractParts();
 	
@@ -207,6 +230,27 @@ com.hiyoko.sweet.Battle.BattleCharacter.prototype.getValue = function() {
 		}
 	}
 	return result;
+};
+
+com.hiyoko.sweet.Battle.BattleCharacter.prototype.applyDamage = function(damages, type, opt_isMp) {
+	var query = opt_isMp ? '.' + this.clazz + '-part-mp' : '.' + this.clazz + '-part-hp';
+	
+	var $elems = this.getElement(query);
+	var $armor = this.getElement('.' + this.clazz + '-part-armor');
+	
+	damages.forEach(function(damage) {
+		var point = damage.damage;
+		
+		if(type === 'physical') {
+			point -= Number($($armor[damage.part]).val());
+			if(point < 0) {
+				point = 0;
+			}
+		}
+		
+		$($elems[damage.part]).val(Number($($elems[damage.part]).val()) - point);
+	});
+	this.$html.change();
 };
 
 com.hiyoko.sweet.Battle.BattleCharacter.prototype.addPart = function(opt_original) {
