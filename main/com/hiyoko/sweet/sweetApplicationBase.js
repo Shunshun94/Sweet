@@ -110,16 +110,20 @@ com.hiyoko.sweet.TableBase.prototype.renderTable = function(cols, opt_data){
 	
 	$body.append($header);
 	
-	var $util = $(com.hiyoko.util.format('<tr colspan="%s"></tr>', this.cols.length));
-	$util.append(com.hiyoko.util.format(
-			'<button style="display:inline-block" id="%s">ADD</button>' +
-			'<button style="display:inline-block" id="%s">REMOVE</button>',
-			this.id + '-add',
-			this.id + '-remove'));
-	$util.addClass(this.id + '-util');
+	if(! this.isSimpleTable) {
+		var $util = $(com.hiyoko.util.format('<tr colspan="%s"></tr>', this.cols.length));
+		$util.append(com.hiyoko.util.format(
+				'<button style="display:inline-block" id="%s">ADD</button>' +
+				'<button style="display:inline-block" id="%s">REMOVE</button>',
+				this.id + '-add',
+				this.id + '-remove'));
+		$util.addClass(this.id + '-util');
+		
+		$body.append($util);
+		this.addTotal();
+	}
+
 	
-	$body.append($util);
-	this.addTotal();
 
 	this.getStorage('data', function(storage_data) {
 		var data = opt_data || storage_data;
@@ -177,6 +181,8 @@ com.hiyoko.sweet.TableBase.prototype.addMember = function() {
 			$input = $('<input value="0" type="number" name="' + i + '" class="com-hiyoko-sweet-table-base-member-number" />');
 		} else if (col.type === 'check') {
 			$input = $('<input type="checkbox" name="' + i + '" class="com-hiyoko-sweet-table-base-member-check" />');
+		} else if (col.type === 'button') {
+			$input = $('<input type="button" name="' + i + '" class="com-hiyoko-sweet-table-base-member-button" value="' + col.text + '" />');
 		} else if (col.type === 'auto') {
 			$col.css('background-color', '#E0E0E0');
 		}
@@ -192,8 +198,10 @@ com.hiyoko.sweet.TableBase.prototype.addMember = function() {
 	}.bind(this));
 	if(this.getElementById('total').length){
 		this.getElementById('total').before($member);
-	} else {
+	} else if (this.getElementsByClass('util').length){
 		this.getElementsByClass('util').before($member);
+	} else {
+		this.getElement('tbody').append($member);
 	}
 };
 
@@ -258,6 +266,8 @@ com.hiyoko.sweet.TableBase.prototype.getLine = function($tr) {
 			result.push($($(vals[i]).find('input')[0]).val());
 		} else if (v.type === 'check') {
 			result.push($($(vals[i]).find('input')[0]).prop('checked'));
+		} else if (v.type === 'button') {
+			result.push('');
 		} else if (v.type === 'auto') {
 			result.push($(vals[i]).text());
 		}
@@ -274,7 +284,7 @@ com.hiyoko.sweet.TableBase.prototype.setLine = function(line, opt_$tr) {
 			} else if (v.type === 'number') {
 				$($(vals[i]).find('input')[0]).val(line[i]);
 			} else if (v.type === 'check') {
-				
+			} else if (v.type === 'button') {
 			} else if (v.type === 'auto') {
 				$(vals[i]).text(line[i]);
 			}	
@@ -291,4 +301,81 @@ com.hiyoko.sweet.TableBase.prototype.getTableValue = function() {
 };
 
 com.hiyoko.sweet.TableBase.prototype.calcTotal = undefined;
+
+com.hiyoko.sweet.UlList = function($html){};
+
+com.hiyoko.util.extend(com.hiyoko.sweet.ApplicationBase, com.hiyoko.sweet.UlList);
+
+com.hiyoko.sweet.UlList.prototype.renderDefaultLi = function($li, item) {
+	if(item.type !== 'node') {
+		var $text = $('<span></span>')
+		$text.text(item.text);
+		$text.addClass('com-hiyoko-sweet-ul-list-li-text');
+		$li.append($text);
+	}
+	$li.attr('title', item.value);
+	return $li;
+}
+
+com.hiyoko.sweet.UlList.prototype.buildList = function(list, opt_option) {
+	this.$html.empty();
+	var $ul = $('<ul></ul>');
+	var option = opt_option || {renderer: this.renderDefaultLi.bind(this)};
+	
+	list.forEach(function(item){
+		var $li = $('<li></li>');
+		
+		$li = option.renderer($li, item, option);
+		if(item.type !== 'leaf') {
+			var tmpOption = opt_option || {renderer: this.renderDefaultLi.bind(this)};
+			tmpOption.child = true;
+			$li.append(this.buildList(item.list, tmpOption)); 
+		}
+		if(option.child) {
+			$li.addClass('com-hiyoko-sweet-ul-list-li-child');
+		} else {
+			$li.addClass('com-hiyoko-sweet-ul-list-li');
+		}
+		
+		$ul.append($li);
+	}.bind(this));
+	this.$html.append($ul);
+	return $ul;
+};
+
+com.hiyoko.sweet.UlList.prototype.getValueLi = function($li) {
+	var result = {};
+	
+	var text = $li.children('.com-hiyoko-sweet-ul-list-li-text').text();
+	result.text = text;
+	
+	var $ul = $li.children('ul');
+	if($ul.length) {
+		result.list = this.getValue($ul);
+	}
+	
+	if(result.text && result.list) {
+		result.type = 'namednode';
+	} else if(result.list) {
+		result.type = 'node';
+	} else {
+		result.type = 'leaf';
+	}
+	
+	return result;
+};
+
+com.hiyoko.sweet.UlList.prototype.getValue = function(opt_$html) {
+	if(opt_$html) {
+		var $html = $(opt_$html);
+		var result = [];
+		$.each($html.children('li'), function(i, v){
+			result.push(this.getValueLi($(v)));
+		}.bind(this));
+		return result;
+	} else {
+		return this.getValue(this.$html.children('ul'));
+	}
+};
+
 

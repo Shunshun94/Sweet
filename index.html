@@ -38,6 +38,10 @@
 		</div>
 	</section>
 	<section id="com-hiyoko-sweet-battle">
+		<div id="com-hiyoko-sweet-battle-strogaedList">
+			<button id="com-hiyoko-sweet-battle-strogaedList-toggle">データ一覧開閉</button>
+			<table id="com-hiyoko-sweet-battle-strogaedList-table" border="1"></table>
+		</div>
 		<datalist id="com-hiyoko-sweet-battle-datalist"></datalist>
 		<div id="com-hiyoko-sweet-battle-optionalValues">
 			<div>
@@ -45,6 +49,27 @@
 				<span id="com-hiyoko-sweet-battle-optionalValues-summary"></span>
 			</div>
 			<table id="com-hiyoko-sweet-battle-optionalValues-table" border="1"></table>
+		</div>
+		<div id="com-hiyoko-sweet-battle-counterRemoCon">
+			<div>
+				<button id="com-hiyoko-sweet-battle-counterRemoCon-open">カウンターリモコン表示</button>
+			</div>
+			<div id="com-hiyoko-sweet-battle-counterRemoCon-body">
+				<div id="com-hiyoko-sweet-battle-counterRemoCon-list">りすと</div>
+				<div id="com-hiyoko-sweet-battle-counterRemoCon-inputer">
+					<div id="com-hiyoko-sweet-battle-counterRemoCon-inputer-tabs">
+						<button value="physicalDamage" class="com-hiyoko-sweet-battle-counterRemoCon-inputer-tabs-tab com-hiyoko-sweet-battle-counterRemoCon-inputer-active">物理ダメージ</button>
+						<button value="magicDamage" class="com-hiyoko-sweet-battle-counterRemoCon-inputer-tabs-tab">魔法ダメージ</button>
+						<button value="magicDamageHalf" class="com-hiyoko-sweet-battle-counterRemoCon-inputer-tabs-tab">魔法ダメージ (半減)</button>
+					</div>
+					<div>
+						<p id="com-hiyoko-sweet-battle-counterRemoCon-inputer-valuebase">ダメージ<br/><input type="number" value="0" id="com-hiyoko-sweet-battle-counterRemoCon-inputer-value"/></p>
+						<ul id="com-hiyoko-sweet-battle-counterRemoCon-inputer-members"></ul>
+						<button id="com-hiyoko-sweet-battle-counterRemoCon-inputer-execute">反映</button>
+					</div>
+				</div>
+			</div>
+			<div id="com-hiyoko-sweet-battle-counterRemoCon-overlay"></div>
 		</div>
 		<button id="com-hiyoko-sweet-battle-appendCharacter">キャラクター追加</button>
 		<div id="com-hiyoko-sweet-battle-characters"></div>
@@ -91,7 +116,7 @@
 	</div>
 </div>
 <footer id="com-hiyoko-sweet-footer">
-<p id="com-hiyoko-sweet-footer-version">v20170113</p>
+<p id="com-hiyoko-sweet-footer-version">v20170122</p>
 <p id="com-hiyoko-sweet-footer-github"><a href="https://github.com/Shunshun94/Sweet">GitHub</a></p>
 <p id="com-hiyoko-sweet-footer-history"><a href="./history.html">HISTORY</a></p>
 </footer>
@@ -110,6 +135,8 @@
 <script src='main/com/hiyoko/sweet/Battle/sweetBattle.js'></script>
 <script src='main/com/hiyoko/sweet/Battle/sweetBattleOptionalValues.js'></script>
 <script src='main/com/hiyoko/sweet/Battle/sweetBattleCharacterParts.js'></script>
+<script src='main/com/hiyoko/sweet/Battle/sweetBattleCounterRemoCon.js'></script>
+<script src='main/com/hiyoko/sweet/Battle/sweetBattleCharacterLister.js'></script>
 <script src='main/com/hiyoko/sweet/sweetCircumstance.js'></script>
 <script src='main/com/hiyoko/sweet/sweetDiscussion.js'></script>
 <script src='main/com/hiyoko/sweet/sweetEntry.js'></script>
