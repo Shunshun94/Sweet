@@ -8,6 +8,10 @@ com.hiyoko.sweet.Battle.CharacterLister = function($html) {
 	this.id = this.$html.attr('id');
 	
 	this.table = new com.hiyoko.sweet.Battle.CharacterLister.Table(this.getElementById('table'));
+	
+	this.getElementById('toggle').click(function(e){
+		this.getElementById('table').toggle();
+	}.bind(this));
 };
 
 com.hiyoko.util.extend(com.hiyoko.sweet.ApplicationBase, com.hiyoko.sweet.Battle.CharacterLister);
@@ -45,8 +49,6 @@ com.hiyoko.sweet.Battle.CharacterLister.Table.prototype.bindEvents = function() 
 				this.onDeleteClick(target);
 			}			
 		}
-		
-
 	}.bind(this));
 };
 
