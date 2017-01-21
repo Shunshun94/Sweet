@@ -44,6 +44,68 @@ com.hiyoko.sweet.Battle.prototype.buildEnemyList = function() {
 	}.bind(this));
 };
 
+com.hiyoko.sweet.Battle.prototype.roleDice = function(e) {
+	var option = this.optionalValues.getOptionalValue(e.col);
+	var text = e.value.startsWith('C') ?
+		com.hiyoko.util.format('%s%s) / %s', e.value, option.value, e.text) : 
+		com.hiyoko.util.format('%s%s / %s', e.value, option.value, e.text);
+	if(option.text) {
+		text += ' (' + option.text + ')';
+	}
+	
+	var event = this.getAsyncEvent('tofRoomRequest').done(function(r){
+		$(e.target).notify('ダイスが振られました', {className: 'success', position: 'top'});
+	}.bind(this)).fail(function(r){
+		alert('ダイスを振るのに失敗しました\n' + r.result);
+	});
+	
+	event.args = [{name: this.nameList.append(e.id, e.name), message: text, bot:'SwordWorld2.0'}];
+	event.method = 'sendChat';
+	this.fireEvent(event);
+	$(e.target).notify('ダイスコマンドを送信しました' + text, {className: 'info', position: 'top'});
+};
+
+com.hiyoko.sweet.Battle.prototype.putCharacter = function(e) {
+	var event = this.getAsyncEvent('tofRoomRequest').done(function(r){
+		$(e.target).notify('キャラクターが追加されました', {className: 'success', position: 'top'});
+		e.resolve ? e.resolve() : false;
+	}.bind(this)).fail(function(r){
+		alert('キャラクターの追加に失敗しました\n' + r.result);
+	});
+	
+	event.method = 'addCharacter';
+	
+	e.value.parts.forEach(function(p){
+		if(e.hide) {
+			event.args = [{
+				name:this.nameList.append(e.id, e.value.name) + ':' + p.name
+			}];
+		} else {
+			event.args = [{
+				name:this.nameList.append(e.id, e.value.name) + ':' + p.name,
+				HP: p.hp,
+				MP: p.mp,
+				'防護点': p.armor
+			}];
+		}
+		
+		this.fireEvent(event);
+	}.bind(this));
+	
+	$(e.target).notify('キャラクター追加のリクエストを送信しました (' + e.value.name + ')', {className: 'info', position: 'top'});
+};
+
+com.hiyoko.sweet.Battle.prototype.appendCharacterFromCharacterList = function(e) {
+	var id = this.appendCharacter();
+	this.list[id].setValue(this.enemyList[e.name]);
+};
+
+com.hiyoko.sweet.Battle.prototype.deleteCharacterFromCharacterList = function(e) {
+	delete this.enemyList[e.name];
+	this.setStorage('enemy-list', this.enemyList);
+	this.buildEnemyList();
+};
+
 com.hiyoko.sweet.Battle.prototype.bindEvents = function() {
 	this.getElementById('appendCharacter').click(function(e){
 		this.appendCharacter();
@@ -52,56 +114,9 @@ com.hiyoko.sweet.Battle.prototype.bindEvents = function() {
 		this.appendCharacter();
 	}.bind(this));
 	
-	this.$html.on('executeRequest', function(e) {
-		var option = this.optionalValues.getOptionalValue(e.col);
-		var text = e.value.startsWith('C') ?
-			com.hiyoko.util.format('%s%s) / %s', e.value, option.value, e.text) : 
-			com.hiyoko.util.format('%s%s / %s', e.value, option.value, e.text);
-		if(option.text) {
-			text += ' (' + option.text + ')';
-		}
-		
-		var event = this.getAsyncEvent('tofRoomRequest').done(function(r){
-			$(e.target).notify('ダイスが振られました', {className: 'success', position: 'top'});
-		}.bind(this)).fail(function(r){
-			alert('ダイスを振るのに失敗しました\n' + r.result);
-		});
-		
-		event.args = [{name: this.nameList.append(e.id, e.name), message: text, bot:'SwordWorld2.0'}];
-		event.method = 'sendChat';
-		this.fireEvent(event);
-		$(e.target).notify('ダイスコマンドを送信しました' + text, {className: 'info', position: 'top'});
-	}.bind(this));
+	this.$html.on('executeRequest', this.roleDice.bind(this));
 
-	this.$html.on('appendCharacterRequest', function(e) {
-		var event = this.getAsyncEvent('tofRoomRequest').done(function(r){
-			$(e.target).notify('キャラクターが追加されました', {className: 'success', position: 'top'});
-			e.resolve ? e.resolve() : false;
-		}.bind(this)).fail(function(r){
-			alert('キャラクターの追加に失敗しました\n' + r.result);
-		});
-		
-		event.method = 'addCharacter';
-		
-		e.value.parts.forEach(function(p){
-			if(e.hide) {
-				event.args = [{
-					name:this.nameList.append(e.id, e.value.name) + ':' + p.name
-				}];
-			} else {
-				event.args = [{
-					name:this.nameList.append(e.id, e.value.name) + ':' + p.name,
-					HP: p.hp,
-					MP: p.mp,
-					'防護点': p.armor
-				}];
-			}
-			
-			this.fireEvent(event);
-		}.bind(this));
-		
-		$(e.target).notify('キャラクター追加のリクエストを送信しました (' + e.value.name + ')', {className: 'info', position: 'top'});
-	}.bind(this));
+	this.$html.on('appendCharacterRequest', this.putCharacter.bind(this));
 	
 	this.$html.on('updateCharacterRequest', function(e) {
 		var event = this.getAsyncEvent('tofRoomRequest').done(function(r){
@@ -236,6 +251,9 @@ com.hiyoko.sweet.Battle.prototype.bindEvents = function() {
 			this.list[key].applyDamage(charDamage[key], e.damages.type, false);
 		} 
 	}.bind(this));
+	
+	this.$html.on('battleAddFromCharacterLister', this.appendCharacterFromCharacterList.bind(this));
+	this.$html.on('battleDeleteFromCharacterLister', this.deleteCharacterFromCharacterList.bind(this));
 };
 
 com.hiyoko.sweet.Battle.prototype.appendCharacter = function() {

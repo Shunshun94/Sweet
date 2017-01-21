@@ -182,6 +182,7 @@ com.hiyoko.sweet.Battle.BattleCharacter.prototype.bindEvents = function() {
 com.hiyoko.sweet.Battle.BattleCharacter.prototype.setValue = function(result) {
 	this.vitality.val(result.vitality);
 	this.mentality.val(result.mentality);
+	this.name.val(result.name);
 	
 	this.destractParts();
 	
