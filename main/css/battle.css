@@ -15,9 +15,14 @@
 	right:0px;
 	top:-15px;
 }
-#com-hiyoko-sweet-battle-appendCharacter-bottom {
-	border: coral 3px outset;
-	background-color:tomato;
+#com-hiyoko-sweet-battle-jump-top {
+	opacity: 0.8;
+	color: #90AA90;
+	border-radius: 20px;
+ cursor: pointer;
+ position: fixed;
+	right: 30px;
+	bottom:0px;
 }
 
 #com-hiyoko-sweet-battle-optionalValues-table {

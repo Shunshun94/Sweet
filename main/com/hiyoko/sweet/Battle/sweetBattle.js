@@ -107,6 +107,10 @@ com.hiyoko.sweet.Battle.prototype.deleteCharacterFromCharacterList = function(e)
 };
 
 com.hiyoko.sweet.Battle.prototype.bindEvents = function() {
+	this.getElementById('jump-top').click(function(e) {
+		$('html,body').animate({scrollTop: '0px'},'slow');
+	});
+	
 	this.getElementById('appendCharacter').click(function(e){
 		this.appendCharacter();
 	}.bind(this));
