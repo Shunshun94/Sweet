@@ -151,63 +151,63 @@ com.hiyoko.sweet.Circumstance.Music = function($html) {
 		memo: '再生中の BGM を停止させます'
 	},{
 		command: 'BGM:休憩1',
-		url: 'https://dl.dropboxusercontent.com/u/55630724/rest01.mp3',
+		url: 'https://www.dropbox.com/s/ozdbu91awrwzmoz/rest01.mp3?dl=0',
 		memo: '音楽：魔王魂 http://maoudamashii.jokersounds.com/'
 	},{
 		command: 'BGM:休憩2',
-		url: 'https://dl.dropboxusercontent.com/u/55630724/rest02.mp3',
+		url: 'https://www.dropbox.com/s/vgfa9s1f7vmy8uy/rest02.mp3?dl=0',
 		memo: '音楽：魔王魂 http://maoudamashii.jokersounds.com/'
 	},{
 		command: 'BGM:休憩3',
-		url: 'https://dl.dropboxusercontent.com/u/55630724/rest03.mp3',
+		url: 'https://www.dropbox.com/s/jwvc0ndx37od1zy/rest03.mp3?dl=0',
 		memo: '音楽：魔王魂 http://maoudamashii.jokersounds.com/'
 	},{
 		command: 'BGM:緊張1',
-		url: 'https://dl.dropboxusercontent.com/u/55630724/tention01.mp3',
+		url: 'https://www.dropbox.com/s/3b3dvjdzrfouryz/tention01.mp3?dl=0',
 		memo: '音楽：魔王魂 http://maoudamashii.jokersounds.com/'
 	},{
 		command: 'BGM:緊張2',
-		url: 'https://dl.dropboxusercontent.com/u/55630724/tention02.mp3',
+		url: 'https://www.dropbox.com/s/6qbg6honyijmauu/tention02.mp3?dl=0',
 		memo: '音楽：魔王魂 http://maoudamashii.jokersounds.com/'
 	},{
 		command: 'BGM:緊張3',
-		url: 'https://dl.dropboxusercontent.com/u/55630724/tention03.mp3',
+		url: 'https://www.dropbox.com/s/5simtmgszfy3323/tention03.mp3?dl=0',
 		memo: '音楽：魔王魂 http://maoudamashii.jokersounds.com/'
 	},{
 		command: 'BGM:緊張4',
-		url: 'https://dl.dropboxusercontent.com/u/55630724/tention04.mp3',
+		url: 'https://www.dropbox.com/s/n8f650ygv2t9r2d/tention04.mp3?dl=0',
 		memo: '音楽：魔王魂 http://maoudamashii.jokersounds.com/'
 	},{
 		command: 'BGM:探索1',
-		url: 'https://dl.dropboxusercontent.com/u/55630724/dungeon01.mp3',
+		url: 'https://www.dropbox.com/s/lxx1eqa1inus8bk/dungeon01.mp3?dl=0',
 		memo: '音楽：魔王魂 http://maoudamashii.jokersounds.com/'
 	},{
 		command: 'BGM:探索2',
-		url: 'https://dl.dropboxusercontent.com/u/55630724/dungeon02.mp3',
+		url: 'https://www.dropbox.com/s/p3wyz91jut12uzb/dungeon02.mp3?dl=0',
 		memo: '音楽：魔王魂 http://maoudamashii.jokersounds.com/'
 	},{
 		command: 'BGM:探索3',
-		url: 'https://dl.dropboxusercontent.com/u/55630724/dungeon03.mp3',
+		url: 'https://www.dropbox.com/s/j50akn5v2nuc6ma/dungeon03.mp3?dl=0',
 		memo: '音楽：魔王魂 http://maoudamashii.jokersounds.com/'
 	},{
 		command: 'BGM:探索4',
-		url: 'https://dl.dropboxusercontent.com/u/55630724/dungeon04.mp3',
+		url: 'https://www.dropbox.com/s/g6vdajr2is3ez0o/dungeon04.mp3?dl=0',
 		memo: '音楽：魔王魂 http://maoudamashii.jokersounds.com/'
 	},{
 		command: 'BGM:戦闘1',
-		url: 'https://dl.dropboxusercontent.com/u/55630724/battle01.mp3',
+		url: 'https://www.dropbox.com/s/s2wozgdobwlmfbb/battle01.mp3?dl=0',
 		memo: '音楽：魔王魂 http://maoudamashii.jokersounds.com/'
 	},{
 		command: 'BGM:戦闘2',
-		url: 'https://dl.dropboxusercontent.com/u/55630724/battle02.mp3',
+		url: 'https://www.dropbox.com/s/3m8btkowvrebnhl/battle02.mp3?dl=0',
 		memo: '音楽：魔王魂 http://maoudamashii.jokersounds.com/'
 	},{
 		command: 'BGM:戦闘3',
-		url: 'https://dl.dropboxusercontent.com/u/55630724/battle03.mp3',
+		url: 'https://www.dropbox.com/s/1ijg5u5sbb35g4s/battle03.mp3?dl=0',
 		memo: '音楽：魔王魂 http://maoudamashii.jokersounds.com/'
 	},{
 		command: 'BGM:戦闘4',
-		url: 'https://dl.dropboxusercontent.com/u/55630724/battle04.mp3',
+		url: 'https://www.dropbox.com/s/ebsk9d10iguejup/battle04.mp3?dl=0',
 		memo: '音楽：魔王魂 http://maoudamashii.jokersounds.com/'
 	}];
 	
