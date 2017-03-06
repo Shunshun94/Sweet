@@ -151,63 +151,63 @@ com.hiyoko.sweet.Circumstance.Music = function($html) {
 		memo: '再生中の BGM を停止させます'
 	},{
 		command: 'BGM:休憩1',
-		url: 'https://www.dropbox.com/s/ozdbu91awrwzmoz/rest01.mp3?dl=0',
+		url: 'https://www.dropbox.com/s/ozdbu91awrwzmoz/rest01.mp3?dl=1',
 		memo: '音楽：魔王魂 http://maoudamashii.jokersounds.com/'
 	},{
 		command: 'BGM:休憩2',
-		url: 'https://www.dropbox.com/s/vgfa9s1f7vmy8uy/rest02.mp3?dl=0',
+		url: 'https://www.dropbox.com/s/vgfa9s1f7vmy8uy/rest02.mp3?dl=1',
 		memo: '音楽：魔王魂 http://maoudamashii.jokersounds.com/'
 	},{
 		command: 'BGM:休憩3',
-		url: 'https://www.dropbox.com/s/jwvc0ndx37od1zy/rest03.mp3?dl=0',
+		url: 'https://www.dropbox.com/s/jwvc0ndx37od1zy/rest03.mp3?dl=1',
 		memo: '音楽：魔王魂 http://maoudamashii.jokersounds.com/'
 	},{
 		command: 'BGM:緊張1',
-		url: 'https://www.dropbox.com/s/3b3dvjdzrfouryz/tention01.mp3?dl=0',
+		url: 'https://www.dropbox.com/s/3b3dvjdzrfouryz/tention01.mp3?dl=1',
 		memo: '音楽：魔王魂 http://maoudamashii.jokersounds.com/'
 	},{
 		command: 'BGM:緊張2',
-		url: 'https://www.dropbox.com/s/6qbg6honyijmauu/tention02.mp3?dl=0',
+		url: 'https://www.dropbox.com/s/6qbg6honyijmauu/tention02.mp3?dl=1',
 		memo: '音楽：魔王魂 http://maoudamashii.jokersounds.com/'
 	},{
 		command: 'BGM:緊張3',
-		url: 'https://www.dropbox.com/s/5simtmgszfy3323/tention03.mp3?dl=0',
+		url: 'https://www.dropbox.com/s/5simtmgszfy3323/tention03.mp3?dl=1',
 		memo: '音楽：魔王魂 http://maoudamashii.jokersounds.com/'
 	},{
 		command: 'BGM:緊張4',
-		url: 'https://www.dropbox.com/s/n8f650ygv2t9r2d/tention04.mp3?dl=0',
+		url: 'https://www.dropbox.com/s/n8f650ygv2t9r2d/tention04.mp3?dl=1',
 		memo: '音楽：魔王魂 http://maoudamashii.jokersounds.com/'
 	},{
 		command: 'BGM:探索1',
-		url: 'https://www.dropbox.com/s/lxx1eqa1inus8bk/dungeon01.mp3?dl=0',
+		url: 'https://www.dropbox.com/s/lxx1eqa1inus8bk/dungeon01.mp3?dl=1',
 		memo: '音楽：魔王魂 http://maoudamashii.jokersounds.com/'
 	},{
 		command: 'BGM:探索2',
-		url: 'https://www.dropbox.com/s/p3wyz91jut12uzb/dungeon02.mp3?dl=0',
+		url: 'https://www.dropbox.com/s/p3wyz91jut12uzb/dungeon02.mp3?dl=1',
 		memo: '音楽：魔王魂 http://maoudamashii.jokersounds.com/'
 	},{
 		command: 'BGM:探索3',
-		url: 'https://www.dropbox.com/s/j50akn5v2nuc6ma/dungeon03.mp3?dl=0',
+		url: 'https://www.dropbox.com/s/j50akn5v2nuc6ma/dungeon03.mp3?dl=1',
 		memo: '音楽：魔王魂 http://maoudamashii.jokersounds.com/'
 	},{
 		command: 'BGM:探索4',
-		url: 'https://www.dropbox.com/s/g6vdajr2is3ez0o/dungeon04.mp3?dl=0',
+		url: 'https://www.dropbox.com/s/g6vdajr2is3ez0o/dungeon04.mp3?dl=1',
 		memo: '音楽：魔王魂 http://maoudamashii.jokersounds.com/'
 	},{
 		command: 'BGM:戦闘1',
-		url: 'https://www.dropbox.com/s/s2wozgdobwlmfbb/battle01.mp3?dl=0',
+		url: 'https://www.dropbox.com/s/s2wozgdobwlmfbb/battle01.mp3?dl=1',
 		memo: '音楽：魔王魂 http://maoudamashii.jokersounds.com/'
 	},{
 		command: 'BGM:戦闘2',
-		url: 'https://www.dropbox.com/s/3m8btkowvrebnhl/battle02.mp3?dl=0',
+		url: 'https://www.dropbox.com/s/3m8btkowvrebnhl/battle02.mp3?dl=1',
 		memo: '音楽：魔王魂 http://maoudamashii.jokersounds.com/'
 	},{
 		command: 'BGM:戦闘3',
-		url: 'https://www.dropbox.com/s/1ijg5u5sbb35g4s/battle03.mp3?dl=0',
+		url: 'https://www.dropbox.com/s/1ijg5u5sbb35g4s/battle03.mp3?dl=1',
 		memo: '音楽：魔王魂 http://maoudamashii.jokersounds.com/'
 	},{
 		command: 'BGM:戦闘4',
-		url: 'https://www.dropbox.com/s/ebsk9d10iguejup/battle04.mp3?dl=0',
+		url: 'https://www.dropbox.com/s/ebsk9d10iguejup/battle04.mp3?dl=1',
 		memo: '音楽：魔王魂 http://maoudamashii.jokersounds.com/'
 	}];
 	
@@ -219,13 +219,22 @@ com.hiyoko.sweet.Circumstance.Music = function($html) {
 com.hiyoko.util.extend(com.hiyoko.sweet.Circumstance.CommandBase, com.hiyoko.sweet.Circumstance.Music);
 
 com.hiyoko.sweet.Circumstance.Music.prototype.sendCommand = function(e) {
+	var $button = this.getElementById('send');
+	if($button.text() !== '適用') {
+		$button.notify('設定中です……', 'warn');
+		return;
+	}
+	
 	var index = this.getElementById('selector').val();
 	var data = this.getData()[Number(index)];
+	$button.text('……');
 	
 	var event = this.getAsyncEvent('tofRoomRequest').done(function(r){
-		alert('設定しました');
+		$button.notify('BGM 設定しました', 'success');
+		$button.text('適用');
 	}).fail(function(r){
-		alert('設定に失敗しました\n' + r.result);
+		alert('BGM 設定に失敗しました\n' + r.result, 'warn');
+		$button.text('適用');
 	});
 	
 	event.args = [data.url, data.command, this.getElementById('volume').val(),'SWEET'];
