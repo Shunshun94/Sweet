@@ -167,7 +167,8 @@
 #com-hiyoko-sweet-battle-counterRemoCon-body {
 	width:60%;
 	min-width:650px;
-	margin:-100px auto 0;
+	top:15px;
+	margin:auto;
 	border:2px double #aaa;
 	background:white;
 	z-index:2;
