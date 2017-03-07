@@ -50,7 +50,7 @@ com.hiyoko.sweet.Battle.prototype.roleDice = function(e) {
 		com.hiyoko.util.format('%s%s) / %s', e.value, option.value, e.text) : 
 		com.hiyoko.util.format('%s%s / %s', e.value, option.value, e.text);
 	if(option.text) {
-		text += ' (' + option.text + ')';
+		text += ' (' + option.text + ')' + option.detail;
 	}
 	
 	var event = this.getAsyncEvent('tofRoomRequest').done(function(r){
