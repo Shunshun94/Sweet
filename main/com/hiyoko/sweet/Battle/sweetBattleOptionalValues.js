@@ -56,24 +56,32 @@ com.hiyoko.sweet.Battle.OptionalValues.Table.prototype.getOptionalValue = functi
 	var table = this.getTableValue();
 	var adjustedValue = 0;
 	var text = [];
+	var detail = '';
 
 	var col = opt_col || 3;
 	
 	table.forEach(function(l) {
 		if(l[0]) {
 			text.push(l[1]);
-			adjustedValue += Number(l[col]);
+			var val = Number(l[col]);
+			adjustedValue += val;
+			if(val < 0) {
+				detail += '\n　' + l[1] + '　' + Number(l[col]);
+			} else {
+				detail += '\n　' + l[1] + '　+' + Number(l[col]);
+			}
+			
 		}
 	});
 
 	if(opt_col) {
 		return {
 			value: (adjustedValue < 0 ? String(adjustedValue) : '+' + adjustedValue),
-			text: text.join(', ')
+			text: text.join(', '),
+			detail: detail
 		};
 	} else {
 		return text.join(',');
 	}
-	
 };
 
