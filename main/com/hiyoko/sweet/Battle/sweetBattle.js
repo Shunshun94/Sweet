@@ -21,6 +21,8 @@ com.hiyoko.sweet.Battle = function($html, opt_params) {
 	
 };
 
+com.hiyoko.sweet.Battle.SIGNATURE = 'By Sweet';
+
 com.hiyoko.util.extend(com.hiyoko.sweet.ApplicationBase, com.hiyoko.sweet.Battle);
 
 com.hiyoko.sweet.Battle.prototype.buildComponents = function() {
@@ -78,14 +80,16 @@ com.hiyoko.sweet.Battle.prototype.putCharacter = function(e) {
 	e.value.parts.forEach(function(p){
 		if(e.hide) {
 			event.args = [{
-				name:this.nameList.append(e.id, e.value.name) + ':' + p.name
+				name:this.nameList.append(e.id, e.value.name) + ':' + p.name,
+				info:com.hiyoko.sweet.Battle.SIGNATURE
 			}];
 		} else {
 			event.args = [{
 				name:this.nameList.append(e.id, e.value.name) + ':' + p.name,
 				HP: p.hp,
 				MP: p.mp,
-				'防護点': p.armor
+				'防護点': p.armor,
+				info:com.hiyoko.sweet.Battle.SIGNATURE
 			}];
 		}
 		
