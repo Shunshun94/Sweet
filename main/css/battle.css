@@ -12,12 +12,17 @@
 	border: coral 3px outset;
 	background-color:tomato;
 	position:absolute;
-	right:0px;
+	left:675px;
 	top:-15px;
 }
-#com-hiyoko-sweet-battle-appendCharacter-bottom {
-	border: coral 3px outset;
-	background-color:tomato;
+#com-hiyoko-sweet-battle-jump-top {
+	opacity: 0.8;
+	color: #90AA90;
+	border-radius: 20px;
+ cursor: pointer;
+ position: fixed;
+	right: 30px;
+	bottom:0px;
 }
 
 #com-hiyoko-sweet-battle-optionalValues-table {
@@ -29,7 +34,7 @@
 	padding:4px;
 	background-color:#F0F0F0;
 	position:relative;
-	min-width:785px;
+	width:803px;
 }
 
 .com-hiyoko-sweet-battle-character table input {
@@ -54,13 +59,14 @@
 	position:absolute;
 	top:0px;
 	right:4px;
+	padding:4px;
 	border: coral 3px outset;
 	background-color:tomato;
 }
 
 .com-hiyoko-sweet-battle-character-addPart {
 	position:absolute;
-	top:26px;
+	top:32px;
 	right:4px;
 	border: coral 3px outset;
 	background-color:tomato;
@@ -68,7 +74,7 @@
 
 .com-hiyoko-sweet-battle-character-remove {
 	position:absolute;
-	top:52px;
+	top:64px;
 	right:4px;
 	border: coral 3px outset;
 	background-color:tomato;
@@ -77,6 +83,8 @@
 .com-hiyoko-sweet-battle-character-part {
 	border: 4px inset #A0A0A0;
 	padding:3px;
+	padding-bottom:6px;
+	margin-top:4px;
 	background-color:#E0E0E0;
 	position:relative;
 }
@@ -92,20 +100,20 @@
 .com-hiyoko-sweet-battle-character-part-addAttackWay {
 	position:absolute;
 	top:0px;
-	right:92px;
+	right:87px;
 	border: coral 3px outset;
 	background-color:tomato;
 }
 
 .com-hiyoko-sweet-battle-character-part-dodge-exec {
 	position:absolute;
-	top:27px;
-	right:113px;
+	top:33px;
+	right:122px;
 }
 
 .com-hiyoko-sweet-battle-character-part-dodge-static-exec {
 	position:absolute;
-	top:27px;
+	top:33px;
 	right:4px;
 }
 
@@ -116,6 +124,7 @@
 .com-hiyoko-sweet-battle-character-part-attackway {
 	border: 3px inset #909090;
 	padding:2px;
+	margin-top:6px;
 	background-color:#D0D0D0;
 	position:relative;
 }
@@ -158,7 +167,8 @@
 #com-hiyoko-sweet-battle-counterRemoCon-body {
 	width:60%;
 	min-width:650px;
-	margin:1.5em auto 0;
+	top:15px;
+	margin:auto;
 	border:2px double #aaa;
 	background:white;
 	z-index:2;
