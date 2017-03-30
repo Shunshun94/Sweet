@@ -121,6 +121,22 @@ com.hiyoko.sweet.Battle.prototype.bindEvents = function() {
 	this.getElementById('appendCharacter-bottom').click(function(e){
 		this.appendCharacter();
 	}.bind(this));
+	this.getElementById('appendCharacter-ytSheetM').click(function(e){
+		var url = window.prompt('読み込むゆとシートMのURLを入力してください');
+		if(url) {
+			var event = this.getAsyncEvent('algorithmiaRequest').done(function(r){
+				var id = this.appendCharacter();
+				this.list[id].setValue(r);
+				$(e.target).notify('読み込みました', {className: 'success', position: 'top'});
+			}.bind(this)).fail(function(r){
+				console.log(r);
+				alert('読み込みに失敗しました\n' + r.message);
+			});
+			event.algorithm = 'algo://Shunshun94/ytSheetMParser/0.4.1';
+			event.params = url;
+			this.fireEvent(event);
+		}
+	}.bind(this));
 	
 	this.$html.on('executeRequest', this.roleDice.bind(this));
 

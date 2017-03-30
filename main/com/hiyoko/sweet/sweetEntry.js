@@ -20,4 +20,12 @@ com.hiyoko.sweet.Entry.prototype.bindEvents = function() {
 		"&room="  + this.getElementById('room').val()+
 		"&pass="  + this.getElementById('pass').val()
 	}.bind(this));
+	
+	this.getElementById('algorithmia').change(function(e){
+		this.setStorage('algorithmia', this.getElementById('algorithmia').val());
+	}.bind(this));
+};
+
+com.hiyoko.sweet.Entry.prototype.getAlgorithmiaClient = function() {
+	
 };

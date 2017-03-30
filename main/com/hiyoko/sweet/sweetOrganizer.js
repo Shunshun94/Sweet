@@ -76,6 +76,12 @@ com.hiyoko.sweet.Organizer.prototype.bindEvents = function(e) {
 		self.tofRoomAccess[e.method].apply(self.tofRoomAccess, e.args).done(e.resolve).fail(e.reject);
 	});
 	
+	this.$html.on('algorithmiaRequest', function(e){
+		// com-hiyoko-sweet-entry-algorithmia
+		var client = new com.hiyoko.Algorithmia(JSON.parse(localStorage.getItem('com-hiyoko-sweet-entry-algorithmia')));
+		client.request(e.algorithm, e.params).then(function(res){e.resolve(res);}, function(err){e.reject(err)});
+	});
+	
 	this.$html.on('getStorage', function(e){
 		e.callback(localStorage.getItem(e.key) ? JSON.parse(localStorage.getItem(e.key)) : null);
 	});
@@ -83,7 +89,6 @@ com.hiyoko.sweet.Organizer.prototype.bindEvents = function(e) {
 	this.$html.on('setStorage', function(e){
 		localStorage.setItem(e.id, JSON.stringify(e.value));
 	});
-	
 	
 	this.$html.on('clickMenu', this.onClickList.bind(this));
 };
