@@ -210,7 +210,9 @@ com.hiyoko.sweet.Battle.BattleCharacter.prototype.getValue = function() {
 			name: this.name.val(),
 			parts: [],
 			vitality: Number(this.vitality.val()),
-			mentality: Number(this.mentality.val())
+			mentality: Number(this.mentality.val()),
+			isAdded: this.added,
+			isHidden: this.isHide
 	};
 	
 	if(! this.nameList) {

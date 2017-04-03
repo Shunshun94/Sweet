@@ -19,7 +19,7 @@ com.hiyoko.sweet.Battle = function($html, opt_params) {
 	this.bindEvents();
 	this.buildComponents();
 	
-	(new com.hiyoko.sweet.Battle.TofLoader(this.$html));
+	//(new com.hiyoko.sweet.Battle.TofLoader(this.$html));
 };
 
 com.hiyoko.util.extend(com.hiyoko.sweet.ApplicationBase, com.hiyoko.sweet.Battle);
@@ -275,6 +275,10 @@ com.hiyoko.sweet.Battle.prototype.bindEvents = function() {
 		} 
 	}.bind(this));
 	
+	this.getElementById('appendCharacter-saveCurrentStatus').click(function(e) {
+		console.log(this.saveCurrentStatus());
+	}.bind(this));
+	
 	this.$html.on('battleAddFromCharacterLister', this.appendCharacterFromCharacterList.bind(this));
 	this.$html.on('battleDeleteFromCharacterLister', this.deleteCharacterFromCharacterList.bind(this));
 };
@@ -294,6 +298,19 @@ com.hiyoko.sweet.Battle.prototype.destractCharacter = function(id) {
 	this.list[id].$html.remove();
 	this.nameList.remove(id);
 	delete this.list[id];
+};
+
+com.hiyoko.sweet.Battle.prototype.saveCurrentStatus = function() {
+	var result = [];
+	com.hiyoko.util.forEachMap(this.list, function(v, k) {
+		var c = (v.getValue());
+		if(c.isAdded) {
+			c.name = this.nameList.append(k);
+		}
+		result.push(c);
+	}.bind(this));
+	this.setStorage('current-status', result);
+	return result;
 };
 
 com.hiyoko.sweet.Battle.NameIndex = function() {

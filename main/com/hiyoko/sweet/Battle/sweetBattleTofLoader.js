@@ -9,7 +9,7 @@ com.hiyoko.sweet.Battle.TofLoader = function($html) {
 	var self = this;
 	self.loadCharacters(function(tmpTofCharacterList) {
 		self.loadSavedData(function(enemyList){
-			var characterList = tmpTofCharacterList.characters.filter(function(character){
+			var characterList = com.hiyoko.util.groupArray(tmpTofCharacterList.characters.filter(function(character){
 				return (character.type === 'characterData') && (character.info.indexOf(com.hiyoko.sweet.Battle.TofLoader.SIGNATURE) !== -1)
 			}).map(function(character) {
 				var result = {};
@@ -25,6 +25,8 @@ com.hiyoko.sweet.Battle.TofLoader = function($html) {
 				result.mp = Number(character.counters.MP);
 				
 				return result;
+			}), function(character) {
+				return character.fullName;
 			});
 			
 			console.log(characterList);

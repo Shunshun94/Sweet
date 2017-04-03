@@ -24,6 +24,14 @@
 	top:20px;
 }
 
+#com-hiyoko-sweet-battle-appendCharacter-saveCurrentStatus {
+	border: coral 3px outset;
+	background-color:tomato;
+	position:absolute;
+	left:691px;
+	top:55px;
+}
+
 #com-hiyoko-sweet-battle-jump-top {
 	opacity: 0.8;
 	color: #90AA90;
