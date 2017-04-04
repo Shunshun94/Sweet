@@ -275,9 +275,8 @@ com.hiyoko.sweet.Battle.prototype.bindEvents = function() {
 		} 
 	}.bind(this));
 	
-	this.getElementById('appendCharacter-saveCurrentStatus').click(function(e) {
-		console.log(this.saveCurrentStatus());
-	}.bind(this));
+	this.getElementById('appendCharacter-saveCurrentStatus').click(this.saveCurrentStatus.bind(this));
+	this.getElementById('appendCharacter-loadCurrentStatus').click(this.loadCurrentStatus.bind(this));
 	
 	this.$html.on('battleAddFromCharacterLister', this.appendCharacterFromCharacterList.bind(this));
 	this.$html.on('battleDeleteFromCharacterLister', this.deleteCharacterFromCharacterList.bind(this));
@@ -292,6 +291,12 @@ com.hiyoko.sweet.Battle.prototype.appendCharacter = function() {
 	this.list[newId] = new com.hiyoko.sweet.Battle.BattleCharacter(this.getElementById('character-' + newId),
 			{autocomplete:this.datalist.attr('id')});
 	return newId;
+};
+
+com.hiyoko.sweet.Battle.prototype.destractAllCharacters = function() {
+	com.hiyoko.util.forEachMap(this.list, function(v,k) {
+		this.destractCharacter(k);
+	}.bind(this));
 };
 
 com.hiyoko.sweet.Battle.prototype.destractCharacter = function(id) {
@@ -311,6 +316,17 @@ com.hiyoko.sweet.Battle.prototype.saveCurrentStatus = function() {
 	}.bind(this));
 	this.setStorage('current-status', result);
 	return result;
+};
+
+com.hiyoko.sweet.Battle.prototype.loadCurrentStatus = function() {
+	this.getStorage('current-status', function(result){
+		console.log(result);
+		this.destractAllCharacters();
+		result.forEach(function(v, i){
+			var id = this.appendCharacter();
+			this.list[id].setValue(v);
+		}.bind(this));
+	}.bind(this));
 };
 
 com.hiyoko.sweet.Battle.NameIndex = function() {

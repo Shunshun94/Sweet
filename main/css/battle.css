@@ -20,8 +20,8 @@
 	border: coral 3px outset;
 	background-color:tomato;
 	position:absolute;
-	left:646px;
-	top:20px;
+	left:496px;
+	top:-15px;
 }
 
 #com-hiyoko-sweet-battle-appendCharacter-saveCurrentStatus {
@@ -29,7 +29,15 @@
 	background-color:tomato;
 	position:absolute;
 	left:691px;
-	top:55px;
+	top:20px;
+}
+
+#com-hiyoko-sweet-battle-appendCharacter-loadCurrentStatus {
+	border: coral 3px outset;
+	background-color:tomato;
+	position:absolute;
+	left:461px;
+	top:20px;
 }
 
 #com-hiyoko-sweet-battle-jump-top {
