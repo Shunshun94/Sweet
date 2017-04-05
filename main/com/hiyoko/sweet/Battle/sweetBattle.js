@@ -7,7 +7,10 @@ com.hiyoko.sweet.Battle = function($html, opt_params) {
 	this.LIST_NAME = 'SWEET Battle - 戦闘';
 	this.id = this.$html.attr('id');
 	this.list = {};
+	
 	this.nameList = new com.hiyoko.sweet.Battle.NameIndex();
+	this.tofLoader = new com.hiyoko.sweet.Battle.TofLoader(this.$html);
+	
 	this.enemyList = {};
 	
 	this.$characters = this.getElementById('characters');
@@ -18,8 +21,6 @@ com.hiyoko.sweet.Battle = function($html, opt_params) {
 	
 	this.bindEvents();
 	this.buildComponents();
-	
-	//(new com.hiyoko.sweet.Battle.TofLoader(this.$html));
 };
 
 com.hiyoko.util.extend(com.hiyoko.sweet.ApplicationBase, com.hiyoko.sweet.Battle);
@@ -319,14 +320,31 @@ com.hiyoko.sweet.Battle.prototype.saveCurrentStatus = function() {
 };
 
 com.hiyoko.sweet.Battle.prototype.loadCurrentStatus = function() {
-	this.getStorage('current-status', function(result){
-		console.log(result);
-		this.destractAllCharacters();
-		result.forEach(function(v, i){
-			var id = this.appendCharacter();
-			this.list[id].setValue(v);
+	this.tofLoader.loadCharacters(function(characterNames) {
+		console.log(characterNames);
+		this.getStorage('current-status', function(result){
+			this.destractAllCharacters();
+			result.forEach(function(v, i){
+				var id = this.appendCharacter();
+				this.list[id].setValue(v);
+				if(v.isAdded) {
+					if(characterNames.includes(v.name)) {
+						this.list[id].afterAdd();
+						this.nameList.append(id, v.name);
+					} else {
+						if(v.isHidden) {
+							this.list[id].addToTofAsUnknown.click();
+						} else {
+							this.list[id].addToTof.click();
+						}
+					}
+				}
+			}.bind(this));
 		}.bind(this));
-	}.bind(this));
+	}.bind(this), function(result) {
+		alert('読み込みに失敗しました\n原因：' + result.result);
+	});
+	
 };
 
 com.hiyoko.sweet.Battle.NameIndex = function() {

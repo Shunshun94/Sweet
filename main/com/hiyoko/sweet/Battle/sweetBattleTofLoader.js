@@ -5,40 +5,31 @@ com.hiyoko.sweet.Battle = com.hiyoko.sweet.Battle || {};
 
 com.hiyoko.sweet.Battle.TofLoader = function($html) {
 	this.$html = $html;
-	
-	var self = this;
-	self.loadCharacters(function(tmpTofCharacterList) {
-		self.loadSavedData(function(enemyList){
-			var characterList = com.hiyoko.util.groupArray(tmpTofCharacterList.characters.filter(function(character){
-				return (character.type === 'characterData') && (character.info.indexOf(com.hiyoko.sweet.Battle.TofLoader.SIGNATURE) !== -1)
-			}).map(function(character) {
-				var result = {};
-				var name = character.name.split(':');
-				
-				result.fullName = name[0];
-				result.fullPartsName = name[1];
-				
-				result.name = name[0].split('_')[0];
-				result.partsName = name[1].split('_')[0];
-				
-				result.hp = Number(character.counters.HP);
-				result.mp = Number(character.counters.MP);
-				
-				return result;
-			}), function(character) {
-				return character.fullName;
-			});
-			
-			console.log(characterList);
-		});
-	});
 };
 
 com.hiyoko.util.extend(com.hiyoko.sweet.ApplicationBase, com.hiyoko.sweet.Battle.TofLoader);
 
-com.hiyoko.sweet.Battle.TofLoader.prototype.loadCharacters = function(cb) {
-	this.fireEvent(this.getAsyncEvent('tofRoomRequest', {method: 'getCharacters'}).done(cb));
-	
+com.hiyoko.sweet.Battle.TofLoader.prototype.loadCharacters = function(cb, opt_fail) {
+	this.fireEvent(this.getAsyncEvent('tofRoomRequest', {method: 'getCharacters'}).done(function(result){
+		var arg = [];
+		com.hiyoko.util.forEachMap(com.hiyoko.util.groupArray(result.characters.filter(function(character){
+			return (character.type === 'characterData');
+		}).map(function(character) {
+			return character.name;
+		}), function(parts) {
+			return parts.split(':')[0];
+		}), function(v, k) {
+			arg.push(k);
+		});
+		
+		cb(arg);
+	}).fail(function(result) {
+		if(opt_fail) {
+			opt_fail(result);
+		} else {
+			alert(result.result);
+		}
+	}));
 };
 
 com.hiyoko.sweet.Battle.TofLoader.prototype.loadSavedData = function(cb) {
