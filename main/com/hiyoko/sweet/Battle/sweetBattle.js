@@ -321,7 +321,6 @@ com.hiyoko.sweet.Battle.prototype.saveCurrentStatus = function() {
 
 com.hiyoko.sweet.Battle.prototype.loadCurrentStatus = function() {
 	this.tofLoader.loadCharacters(function(characterNames) {
-		console.log(characterNames);
 		this.getStorage('current-status', function(result){
 			this.destractAllCharacters();
 			result.forEach(function(v, i){
