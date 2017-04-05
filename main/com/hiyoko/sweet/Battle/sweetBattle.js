@@ -7,7 +7,10 @@ com.hiyoko.sweet.Battle = function($html, opt_params) {
 	this.LIST_NAME = 'SWEET Battle - 戦闘';
 	this.id = this.$html.attr('id');
 	this.list = {};
+	
 	this.nameList = new com.hiyoko.sweet.Battle.NameIndex();
+	this.tofLoader = new com.hiyoko.sweet.Battle.TofLoader(this.$html);
+	
 	this.enemyList = {};
 	
 	this.$characters = this.getElementById('characters');
@@ -18,10 +21,7 @@ com.hiyoko.sweet.Battle = function($html, opt_params) {
 	
 	this.bindEvents();
 	this.buildComponents();
-	
 };
-
-com.hiyoko.sweet.Battle.SIGNATURE = 'By Sweet';
 
 com.hiyoko.util.extend(com.hiyoko.sweet.ApplicationBase, com.hiyoko.sweet.Battle);
 
@@ -81,7 +81,7 @@ com.hiyoko.sweet.Battle.prototype.putCharacter = function(e) {
 		if(e.hide) {
 			event.args = [{
 				name:this.nameList.append(e.id, e.value.name) + ':' + p.name,
-				info:com.hiyoko.sweet.Battle.SIGNATURE
+				info:com.hiyoko.sweet.Battle.TofLoader.SIGNATURE
 			}];
 		} else {
 			event.args = [{
@@ -89,7 +89,7 @@ com.hiyoko.sweet.Battle.prototype.putCharacter = function(e) {
 				HP: p.hp,
 				MP: p.mp,
 				'防護点': p.armor,
-				info:com.hiyoko.sweet.Battle.SIGNATURE
+				info:com.hiyoko.sweet.Battle.TofLoader.SIGNATURE
 			}];
 		}
 		
@@ -276,6 +276,9 @@ com.hiyoko.sweet.Battle.prototype.bindEvents = function() {
 		} 
 	}.bind(this));
 	
+	this.getElementById('appendCharacter-saveCurrentStatus').click(this.saveCurrentStatus.bind(this));
+	this.getElementById('appendCharacter-loadCurrentStatus').click(this.loadCurrentStatus.bind(this));
+	
 	this.$html.on('battleAddFromCharacterLister', this.appendCharacterFromCharacterList.bind(this));
 	this.$html.on('battleDeleteFromCharacterLister', this.deleteCharacterFromCharacterList.bind(this));
 };
@@ -291,10 +294,56 @@ com.hiyoko.sweet.Battle.prototype.appendCharacter = function() {
 	return newId;
 };
 
+com.hiyoko.sweet.Battle.prototype.destractAllCharacters = function() {
+	com.hiyoko.util.forEachMap(this.list, function(v,k) {
+		this.destractCharacter(k);
+	}.bind(this));
+};
+
 com.hiyoko.sweet.Battle.prototype.destractCharacter = function(id) {
 	this.list[id].$html.remove();
 	this.nameList.remove(id);
 	delete this.list[id];
+};
+
+com.hiyoko.sweet.Battle.prototype.saveCurrentStatus = function() {
+	var result = [];
+	com.hiyoko.util.forEachMap(this.list, function(v, k) {
+		var c = (v.getValue());
+		if(c.isAdded) {
+			c.name = this.nameList.append(k);
+		}
+		result.push(c);
+	}.bind(this));
+	this.setStorage('current-status', result);
+	return result;
+};
+
+com.hiyoko.sweet.Battle.prototype.loadCurrentStatus = function() {
+	this.tofLoader.loadCharacters(function(characterNames) {
+		this.getStorage('current-status', function(result){
+			this.destractAllCharacters();
+			result.forEach(function(v, i){
+				var id = this.appendCharacter();
+				this.list[id].setValue(v);
+				if(v.isAdded) {
+					if(characterNames.includes(v.name)) {
+						this.list[id].afterAdd();
+						this.nameList.append(id, v.name);
+					} else {
+						if(v.isHidden) {
+							this.list[id].addToTofAsUnknown.click();
+						} else {
+							this.list[id].addToTof.click();
+						}
+					}
+				}
+			}.bind(this));
+		}.bind(this));
+	}.bind(this), function(result) {
+		alert('読み込みに失敗しました\n原因：' + result.result);
+	});
+	
 };
 
 com.hiyoko.sweet.Battle.NameIndex = function() {
