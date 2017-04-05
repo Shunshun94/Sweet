@@ -203,6 +203,9 @@ com.hiyoko.sweet.Battle.BattleCharacter.prototype.setValue = function(result) {
 		this.parts[id].setValue(part);
 	}.bind(this));
 	
+	this.isHide = result.isHidden;
+	this.added = result.isAdded;
+	
 };
 
 com.hiyoko.sweet.Battle.BattleCharacter.prototype.getValue = function() {
