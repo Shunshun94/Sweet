@@ -25,7 +25,3 @@ com.hiyoko.sweet.Entry.prototype.bindEvents = function() {
 		this.setStorage('algorithmia', this.getElementById('algorithmia').val());
 	}.bind(this));
 };
-
-com.hiyoko.sweet.Entry.prototype.getAlgorithmiaClient = function() {
-	
-};
