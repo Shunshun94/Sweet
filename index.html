@@ -72,6 +72,9 @@
 			<div id="com-hiyoko-sweet-battle-counterRemoCon-overlay"></div>
 		</div>
 		<button id="com-hiyoko-sweet-battle-appendCharacter">キャラクター追加</button>
+		<button id="com-hiyoko-sweet-battle-appendCharacter-ytSheetM">ゆとシートMから追加</button>
+		<button id="com-hiyoko-sweet-battle-appendCharacter-saveCurrentStatus">今の状態を保存</button>
+		<button id="com-hiyoko-sweet-battle-appendCharacter-loadCurrentStatus">保存されたデータを読み込み</button>
 		<div id="com-hiyoko-sweet-battle-characters"></div>
 		<button id="com-hiyoko-sweet-battle-appendCharacter-bottom">キャラクター追加</button>
 		<button id="com-hiyoko-sweet-battle-jump-top">▲</button>
@@ -112,21 +115,27 @@
 		<p><label>部屋パスワード</label><input placeholder="不要ならば空欄でOK" type="text"
 				id="com-hiyoko-sweet-entry-pass" /></p>
 		<button id="com-hiyoko-sweet-entry-entry">指定した部屋に入る</button>
-
+  <hr/>
+  <p><label>Algorithmia API Key</label><input type="password"
+				list="tofChat-init-room-list"
+				id="com-hiyoko-sweet-entry-algorithmia" /><br/><a href="https://algorithmia.com/">Algorithmia</a> でユーザ登録した際に作ることのできる API Key を入力します</p>
 	</section>
 	</div>
 </div>
 <footer id="com-hiyoko-sweet-footer">
-<p id="com-hiyoko-sweet-footer-version">v20170309</p>
+<p id="com-hiyoko-sweet-footer-version">v20170407</p>
 <p id="com-hiyoko-sweet-footer-github"><a href="https://github.com/Shunshun94/Sweet">GitHub</a></p>
 <p id="com-hiyoko-sweet-footer-history"><a href="./history.html">HISTORY</a></p>
 </footer>
+<script src="https://algorithmia.com/v1/clients/js/algorithmia-0.2.0.js"></script>
+<script src="https://shunshun94.github.io/shared/other/com/hiyoko/algorithmia/algorithmia.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/notify/0.4.2/notify.min.js"></script>
-<script src='main/com/hiyoko/DodontoF/DodontoF-Client.js'></script>
-<script src='main/com/hiyoko/DodontoF/DodontoF-chatUtil.js'></script>
-<script src='main/com/hiyoko/util/utils.js'></script>
+<script src='https://shunshun94.github.io/shared/jquery/com/hiyoko/dodontof/v2/DodontoF-Client.js'></script>
+<script src='https://shunshun94.github.io/shared/jquery/com/hiyoko/dodontof/v2/DodontoF-chatUtil.js'></script>
+<script src='https://shunshun94.github.io/shared/jquery/com/hiyoko/util/v2/utils.js'></script>
+<script src="https://shunshun94.github.io/shared/other/com/hiyoko/dodontof/serverList.js"></script>
 <script src='main/com/hiyoko/sweet/sweetApplicationBase.js'></script>
 <script src='main/com/hiyoko/sweet/sweetAppList.js'></script>
 
@@ -138,6 +147,7 @@
 <script src='main/com/hiyoko/sweet/Battle/sweetBattleCharacterParts.js'></script>
 <script src='main/com/hiyoko/sweet/Battle/sweetBattleCounterRemoCon.js'></script>
 <script src='main/com/hiyoko/sweet/Battle/sweetBattleCharacterLister.js'></script>
+<script src='main/com/hiyoko/sweet/Battle/sweetBattleTofLoader.js'></script>
 <script src='main/com/hiyoko/sweet/sweetCircumstance.js'></script>
 <script src='main/com/hiyoko/sweet/sweetDiscussion.js'></script>
 <script src='main/com/hiyoko/sweet/sweetEntry.js'></script>
