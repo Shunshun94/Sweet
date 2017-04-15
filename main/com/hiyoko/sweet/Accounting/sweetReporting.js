@@ -11,7 +11,7 @@ com.hiyoko.sweet.Accounting.SummaryReport = function($html) {
 	this.bindEvents();
 };
 
-com.hiyoko.util.extend(com.hiyoko.sweet.ApplicationBase, com.hiyoko.sweet.Accounting.SummaryReport);
+com.hiyoko.util.extend(com.hiyoko.component.ApplicationBase, com.hiyoko.sweet.Accounting.SummaryReport);
 
 com.hiyoko.sweet.Accounting.SummaryReport.prototype.draw = function(cost) {
 	this.$html.empty();
@@ -141,7 +141,7 @@ com.hiyoko.sweet.Accounting.FeePartition = function($html) {
 	this.bindEvents();
 };
 
-com.hiyoko.util.extend(com.hiyoko.sweet.ApplicationBase, com.hiyoko.sweet.Accounting.FeePartition);
+com.hiyoko.util.extend(com.hiyoko.component.ApplicationBase, com.hiyoko.sweet.Accounting.FeePartition);
 
 com.hiyoko.sweet.Accounting.FeePartition.prototype.bindEvents = function() {
 	this.$memberCount.change(function(e) {

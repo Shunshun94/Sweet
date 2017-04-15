@@ -25,7 +25,7 @@ com.hiyoko.sweet.Accounting.InputTable = function($html) {
 	this.saveData = new com.hiyoko.sweet.Accounting.SaveDataManager(this.getElementById('savedData'));
 };
 
-com.hiyoko.util.extend(com.hiyoko.sweet.ApplicationBase, com.hiyoko.sweet.Accounting.InputTable);
+com.hiyoko.util.extend(com.hiyoko.component.ApplicationBase, com.hiyoko.sweet.Accounting.InputTable);
 
 com.hiyoko.sweet.Accounting.InputTable.prototype.bindEvents = function(){
 	this.$html.on('updateItemList', function(e) {
@@ -66,7 +66,7 @@ com.hiyoko.sweet.Accounting.DetailIn = function($html, cols) {
 	this.renderTable(cols);
 };
 
-com.hiyoko.util.extend(com.hiyoko.sweet.TableBase, com.hiyoko.sweet.Accounting.DetailIn);
+com.hiyoko.util.extend(com.hiyoko.component.TableBase, com.hiyoko.sweet.Accounting.DetailIn);
 
 com.hiyoko.sweet.Accounting.DetailIn.prototype.calcSubTotal = function(vals) {
 	return vals[1] * vals[2];
@@ -90,7 +90,7 @@ com.hiyoko.sweet.Accounting.DetailOut = function($html, cols) {
 	this.renderTable(cols);
 };
 
-com.hiyoko.util.extend(com.hiyoko.sweet.TableBase, com.hiyoko.sweet.Accounting.DetailOut);
+com.hiyoko.util.extend(com.hiyoko.component.TableBase, com.hiyoko.sweet.Accounting.DetailOut);
 
 com.hiyoko.sweet.Accounting.DetailOut.prototype.calcSubTotal = function(vals) {
 	return vals[2] * vals[3];
@@ -122,7 +122,9 @@ com.hiyoko.sweet.Accounting.DetailOut.prototype.calcTotal = function(e) {
 	this.getStorage('item-cost', function(result) {
 		var itemList = [];
 		table.forEach(function(v) {
-			result[v[1]] = v;
+			if(v[1]) {
+				result[v[1]] = v;
+			}
 		});
 		this.setStorage('item-cost', result);
 		for(var key in result) {
@@ -151,7 +153,7 @@ com.hiyoko.sweet.Accounting.SaveDataManager = function($html) {
 	this.bindEvents();
 };
 
-com.hiyoko.util.extend(com.hiyoko.sweet.ApplicationBase, com.hiyoko.sweet.Accounting.SaveDataManager);
+com.hiyoko.util.extend(com.hiyoko.component.ApplicationBase, com.hiyoko.sweet.Accounting.SaveDataManager);
 
 com.hiyoko.sweet.Accounting.SaveDataManager.prototype.bindEvents = function() {
 	this.toggler.click(function(e) {

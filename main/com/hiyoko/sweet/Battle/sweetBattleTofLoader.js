@@ -7,7 +7,7 @@ com.hiyoko.sweet.Battle.TofLoader = function($html) {
 	this.$html = $html;
 };
 
-com.hiyoko.util.extend(com.hiyoko.sweet.ApplicationBase, com.hiyoko.sweet.Battle.TofLoader);
+com.hiyoko.util.extend(com.hiyoko.component.ApplicationBase, com.hiyoko.sweet.Battle.TofLoader);
 
 com.hiyoko.sweet.Battle.TofLoader.prototype.loadCharacters = function(cb, opt_fail) {
 	this.fireEvent(this.getAsyncEvent('tofRoomRequest', {method: 'getCharacters'}).done(function(result){

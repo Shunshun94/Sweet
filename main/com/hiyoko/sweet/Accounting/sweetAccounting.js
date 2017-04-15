@@ -11,7 +11,7 @@ com.hiyoko.sweet.Accounting = function($html, opt_params){
 	this.bindEvents();
 };
 
-com.hiyoko.util.extend(com.hiyoko.sweet.ApplicationBase, com.hiyoko.sweet.Accounting);
+com.hiyoko.util.extend(com.hiyoko.component.ApplicationBase, com.hiyoko.sweet.Accounting);
 
 com.hiyoko.sweet.Accounting.prototype.buildComponents = function() {
 	this.input = new com.hiyoko.sweet.Accounting.InputTable(this.getElementById('detail'));

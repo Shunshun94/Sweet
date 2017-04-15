@@ -14,7 +14,7 @@ com.hiyoko.sweet.Battle.CharacterLister = function($html) {
 	}.bind(this));
 };
 
-com.hiyoko.util.extend(com.hiyoko.sweet.ApplicationBase, com.hiyoko.sweet.Battle.CharacterLister);
+com.hiyoko.util.extend(com.hiyoko.component.ApplicationBase, com.hiyoko.sweet.Battle.CharacterLister);
 
 com.hiyoko.sweet.Battle.CharacterLister.Table = function($html) {
 	this.$html = $($html);
@@ -35,7 +35,7 @@ com.hiyoko.sweet.Battle.CharacterLister.Table = function($html) {
 	this.bindEvents();
 };
 
-com.hiyoko.util.extend(com.hiyoko.sweet.TableBase, com.hiyoko.sweet.Battle.CharacterLister.Table);
+com.hiyoko.util.extend(com.hiyoko.component.TableBase, com.hiyoko.sweet.Battle.CharacterLister.Table);
 
 com.hiyoko.sweet.Battle.CharacterLister.Table.prototype.bindEvents = function() {
 	this.$html.click(function(e) {

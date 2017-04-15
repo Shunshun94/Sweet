@@ -15,7 +15,7 @@ com.hiyoko.sweet.Discussion = function($html, opt_params){
 
 };
 
-com.hiyoko.util.extend(com.hiyoko.sweet.ApplicationBase, com.hiyoko.sweet.Discussion);
+com.hiyoko.util.extend(com.hiyoko.component.ApplicationBase, com.hiyoko.sweet.Discussion);
 
 com.hiyoko.sweet.Discussion.prototype.buildComponents = function(){
 	this.chatStreams = new com.hiyoko.sweet.Discussion.ChatStreams(this.getElementById('chat'));
@@ -42,7 +42,7 @@ com.hiyoko.sweet.Discussion.Memo = function($html) {
 	this.bindEvents();
 };
 
-com.hiyoko.util.extend(com.hiyoko.sweet.ApplicationBase, com.hiyoko.sweet.Discussion.Memo);
+com.hiyoko.util.extend(com.hiyoko.component.ApplicationBase, com.hiyoko.sweet.Discussion.Memo);
 
 com.hiyoko.sweet.Discussion.Memo.prototype.add = function(msgObject) {
 	this.editor.val(com.hiyoko.util.format('%s\n┌────────────────\n│%s\n├────────────────\n%s',
@@ -103,7 +103,7 @@ com.hiyoko.sweet.Discussion.Vote = function($html) {
 	this.bindEvents();
 };
 
-com.hiyoko.util.extend(com.hiyoko.sweet.ApplicationBase, com.hiyoko.sweet.Discussion.Vote);
+com.hiyoko.util.extend(com.hiyoko.component.ApplicationBase, com.hiyoko.sweet.Discussion.Vote);
 
 com.hiyoko.sweet.Discussion.Vote.prototype.bindEvents = function() {
 	this.submit.click(function(e){
@@ -182,7 +182,7 @@ com.hiyoko.sweet.Discussion.ChatStreams = function($html) {
 	this.fireEvent(event);
 };
 
-com.hiyoko.util.extend(com.hiyoko.sweet.ApplicationBase, com.hiyoko.sweet.Discussion.ChatStreams);
+com.hiyoko.util.extend(com.hiyoko.component.ApplicationBase, com.hiyoko.sweet.Discussion.ChatStreams);
 
 com.hiyoko.sweet.Discussion.ChatStreams.prototype.bindEvents = function(){
 	var self = this;
@@ -231,7 +231,7 @@ com.hiyoko.sweet.Discussion.ChatStream = function($html, title, number) {
 	
 	this.bindEvents();
 };
-com.hiyoko.util.extend(com.hiyoko.sweet.ApplicationBase, com.hiyoko.sweet.Discussion.ChatStream);
+com.hiyoko.util.extend(com.hiyoko.component.ApplicationBase, com.hiyoko.sweet.Discussion.ChatStream);
 
 com.hiyoko.sweet.Discussion.ChatStream.prototype.render = function(){
 	this.$html.css(com.hiyoko.sweet.Discussion.ChatStream.COLOR[this.number % 6]);

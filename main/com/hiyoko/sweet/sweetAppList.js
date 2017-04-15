@@ -16,7 +16,7 @@ com.hiyoko.sweet.AppList = function($html, apps) {
 		this.disable();
 	}
 };
-com.hiyoko.util.extend(com.hiyoko.sweet.ApplicationBase, com.hiyoko.sweet.AppList);
+com.hiyoko.util.extend(com.hiyoko.component.ApplicationBase, com.hiyoko.sweet.AppList);
 
 com.hiyoko.sweet.AppList.prototype.activateSelectedItem = function(num) {
 	this.getElementsByClass('list-item').removeClass('active');
