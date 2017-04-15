@@ -23,7 +23,7 @@ com.hiyoko.sweet.Battle = function($html, opt_params) {
 	this.buildComponents();
 };
 
-com.hiyoko.util.extend(com.hiyoko.sweet.ApplicationBase, com.hiyoko.sweet.Battle);
+com.hiyoko.util.extend(com.hiyoko.component.ApplicationBase, com.hiyoko.sweet.Battle);
 
 com.hiyoko.sweet.Battle.prototype.buildComponents = function() {
 	this.buildEnemyList();

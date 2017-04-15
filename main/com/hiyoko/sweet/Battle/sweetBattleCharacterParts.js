@@ -38,7 +38,7 @@ com.hiyoko.sweet.Battle.BattleCharacter = function($html, opt_params) {
 	this.bindEvents();
 };
 
-com.hiyoko.util.extend(com.hiyoko.sweet.ApplicationBase, com.hiyoko.sweet.Battle.BattleCharacter);
+com.hiyoko.util.extend(com.hiyoko.component.ApplicationBase, com.hiyoko.sweet.Battle.BattleCharacter);
 
 com.hiyoko.sweet.Battle.BattleCharacter.prototype.render = function() {
 	this.$html.append(com.hiyoko.util.format(
@@ -310,7 +310,7 @@ com.hiyoko.sweet.Battle.BattleCharacter.Part = function($html, opt_original) {
 	this.bindEvents();
 };
 
-com.hiyoko.util.extend(com.hiyoko.sweet.ApplicationBase, com.hiyoko.sweet.Battle.BattleCharacter.Part);
+com.hiyoko.util.extend(com.hiyoko.component.ApplicationBase, com.hiyoko.sweet.Battle.BattleCharacter.Part);
 
 com.hiyoko.sweet.Battle.BattleCharacter.Part.prototype.afterAdd = function() {
 	this.name.attr('disabled', 'disabled');
@@ -471,7 +471,7 @@ com.hiyoko.sweet.Battle.BattleCharacter.Part.AttackWay = function($html, opt_par
 
 }; 
 
-com.hiyoko.util.extend(com.hiyoko.sweet.ApplicationBase, com.hiyoko.sweet.Battle.BattleCharacter.Part.AttackWay);
+com.hiyoko.util.extend(com.hiyoko.component.ApplicationBase, com.hiyoko.sweet.Battle.BattleCharacter.Part.AttackWay);
 
 com.hiyoko.sweet.Battle.BattleCharacter.Part.AttackWay.prototype.bindEvent = function() {
 	this.atkSwitch.click(function(e){

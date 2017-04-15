@@ -20,7 +20,7 @@ com.hiyoko.sweet.Battle.OptionalValues = function($html, opt_conf) {
 	this.bindEvent();
 };
 
-com.hiyoko.util.extend(com.hiyoko.sweet.ApplicationBase, com.hiyoko.sweet.Battle.OptionalValues);
+com.hiyoko.util.extend(com.hiyoko.component.ApplicationBase, com.hiyoko.sweet.Battle.OptionalValues);
 
 com.hiyoko.sweet.Battle.OptionalValues.prototype.bindEvent = function(){
 	this.$toggle.click(function(e) {
@@ -44,7 +44,7 @@ com.hiyoko.sweet.Battle.OptionalValues.Table = function($html, cols) {
 	this.bindEvent();
 };
 
-com.hiyoko.util.extend(com.hiyoko.sweet.TableBase, com.hiyoko.sweet.Battle.OptionalValues.Table);
+com.hiyoko.util.extend(com.hiyoko.component.TableBase, com.hiyoko.sweet.Battle.OptionalValues.Table);
 
 com.hiyoko.sweet.Battle.OptionalValues.Table.prototype.bindEvent = function(){
 	this.$html.change(function(e) {

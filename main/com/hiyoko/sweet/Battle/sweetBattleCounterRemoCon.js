@@ -16,7 +16,7 @@ com.hiyoko.sweet.Battle.CounterRemoCon = function($html, opt_params) {
 	this.bindEvents();
 };
 
-com.hiyoko.util.extend(com.hiyoko.sweet.ApplicationBase, com.hiyoko.sweet.Battle.CounterRemoCon);
+com.hiyoko.util.extend(com.hiyoko.component.ApplicationBase, com.hiyoko.sweet.Battle.CounterRemoCon);
 
 com.hiyoko.sweet.Battle.CounterRemoCon.prototype.buildComponents = function() {
 	this.list = new com.hiyoko.sweet.Battle.CounterRemoCon.List(this.getElementById('list'));
@@ -58,7 +58,7 @@ com.hiyoko.sweet.Battle.CounterRemoCon.List = function($html, opt_params) {
 	this.bindEvents();
 };
 
-com.hiyoko.util.extend(com.hiyoko.sweet.UlList, com.hiyoko.sweet.Battle.CounterRemoCon.List);
+com.hiyoko.util.extend(com.hiyoko.component.UlList, com.hiyoko.sweet.Battle.CounterRemoCon.List);
 
 com.hiyoko.sweet.Battle.CounterRemoCon.List.prototype.renderDefaultLi = function($li, item) {
 	if(item.type !== 'node') {
@@ -130,7 +130,7 @@ com.hiyoko.sweet.Battle.CounterRemoCon.Inputer = function($html) {
 	this.bindEvents();	
 };
 
-com.hiyoko.util.extend(com.hiyoko.sweet.ApplicationBase, com.hiyoko.sweet.Battle.CounterRemoCon.Inputer);
+com.hiyoko.util.extend(com.hiyoko.component.ApplicationBase, com.hiyoko.sweet.Battle.CounterRemoCon.Inputer);
 
 com.hiyoko.sweet.Battle.CounterRemoCon.Inputer.prototype.bindEvents = function(){
 	this.getElementsByClass('tabs-tab').click(function(e){

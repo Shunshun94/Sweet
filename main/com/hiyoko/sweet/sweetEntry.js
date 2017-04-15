@@ -9,7 +9,7 @@ com.hiyoko.sweet.Entry = function($html) {
 	
 	this.bindEvents();
 };
-com.hiyoko.util.extend(com.hiyoko.sweet.ApplicationBase, com.hiyoko.sweet.Entry);
+com.hiyoko.util.extend(com.hiyoko.component.ApplicationBase, com.hiyoko.sweet.Entry);
 
 com.hiyoko.sweet.Entry.prototype.bindEvents = function() {
 	this.getElementById('entry').click(function(e){

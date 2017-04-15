@@ -25,7 +25,7 @@ com.hiyoko.sweet.Organizer = function($html) {
 	this.buildComponents();
 
 };
-com.hiyoko.util.extend(com.hiyoko.sweet.ApplicationBase, com.hiyoko.sweet.Organizer);
+com.hiyoko.util.extend(com.hiyoko.component.ApplicationBase, com.hiyoko.sweet.Organizer);
 
 com.hiyoko.sweet.Organizer.prototype.buildComponents = function() {
 	if(this.query.url && this.query.room) {

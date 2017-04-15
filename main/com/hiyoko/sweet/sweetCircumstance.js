@@ -9,7 +9,7 @@ com.hiyoko.sweet.Circumstance = function($html) {
 	
 	this.buildComponents();
 };
-com.hiyoko.util.extend(com.hiyoko.sweet.ApplicationBase, com.hiyoko.sweet.Circumstance);
+com.hiyoko.util.extend(com.hiyoko.component.ApplicationBase, com.hiyoko.sweet.Circumstance);
 
 com.hiyoko.sweet.Circumstance.prototype.buildComponents = function() {
 	this.music = new com.hiyoko.sweet.Circumstance.Music(this.getElementById('music'));
@@ -18,7 +18,7 @@ com.hiyoko.sweet.Circumstance.prototype.buildComponents = function() {
 };
 
 com.hiyoko.sweet.Circumstance.CommandBase = function(){};
-com.hiyoko.util.extend(com.hiyoko.sweet.ApplicationBase, com.hiyoko.sweet.Circumstance.CommandBase);
+com.hiyoko.util.extend(com.hiyoko.component.ApplicationBase, com.hiyoko.sweet.Circumstance.CommandBase);
 
 com.hiyoko.sweet.Circumstance.CommandBase.prototype.render = function(){
 	var $selector = $('<select></select>');
