@@ -107,14 +107,14 @@
 	</section> 
 	<section id="com-hiyoko-sweet-entry">
 		<div id="com-hiyoko-sweet-entry-url">
-			<h2>使うどどんとふを選択してください</h2>
+			<h3>使うどどんとふを選択してください</h3>
 			<div id="com-hiyoko-sweet-entry-url-StaticInput">
-				<h3>リストから選択</h3>
+				<h4>リストから選択</h4>
 				<select id="com-hiyoko-sweet-entry-url-StaticInput-List"></select><br/>
 				<button id="com-hiyoko-sweet-entry-url-StaticInput-Hide">URL を手入力する場合はこちらから</button>
 			</div>
 			<div id="com-hiyoko-sweet-entry-url-FreeInput">
-				<h3>URL を手入力</h3>
+				<h4>URL を手入力</h4>
 				<input type="text" id="com-hiyoko-sweet-entry-url-FreeInput-Url" /><br/>
 				<button id="com-hiyoko-sweet-entry-url-FreeInput-Hide">リストから選択する場合はこちらから</button>
 			</div>
@@ -122,17 +122,20 @@
 		</div>
 		<div id="com-hiyoko-sweet-entry-room">
 			<button id="com-hiyoko-sweet-entry-room-back">戻る</button>
+			<h3>使うどどんとふの部屋を選択してください</h3>
 			<div id="com-hiyoko-sweet-entry-room-list"></div>
 		</div>
 		<div id="com-hiyoko-sweet-entry-password">
-			<button id="com-hiyoko-sweet-entry-password-back">戻る</button><br/>
+			<button id="com-hiyoko-sweet-entry-password-back">戻る</button>
+			<h3>入室に使うパスワードを入力してください</h3>
 			入室パスワード<input id="com-hiyoko-sweet-entry-password-password" type="text" /><br/>
 			<button id="com-hiyoko-sweet-entry-password-next">次へ</button>
 		</div>
 		<div id="com-hiyoko-sweet-entry-option">
-			<button id="com-hiyoko-sweet-entry-option-back">戻る</button><br/>
-			名前<input id="com-hiyoko-sweet-entry-option-name" type="text" /><br/>
-			更新間隔 (ミリ秒)<input id="com-hiyoko-sweet-entry-option-reload" type="number" value="10000" /><br/>
+			<button id="com-hiyoko-sweet-entry-option-back">戻る</button>
+			<h3>その他の情報を入力してください</h3>
+			<p><label>Algorithmia API Key</label><input type="password"
+				id="com-hiyoko-sweet-entry-option-algorithmia" /><br/><a href="https://algorithmia.com/">Algorithmia</a> でユーザ登録した際に作ることのできる API Key を入力します。<br/>ゆとシート取り込み機能を利用しない場合は不要です</p>
 			<button id="com-hiyoko-sweet-entry-option-next">ログイン</button>
 		</div>
 	</section>
@@ -156,7 +159,7 @@
 <script src='https://shunshun94.github.io/shared/jquery/com/hiyoko/components/v1/TableBase.js'></script>
 <script src='https://shunshun94.github.io/shared/jquery/com/hiyoko/components/v1/UlList.js'></script>
 <script src="https://shunshun94.github.io/shared/other/com/hiyoko/dodontof/serverList.js"></script>
-<script src='main/com/hiyoko/sweet/sweetApplicationBase.js'></script>
+<script src="https://shunshun94.github.io/shared/jquery/com/hiyoko/dodontof/v2/DodontoF-Entrance.js"></script>
 <script src='main/com/hiyoko/sweet/sweetAppList.js'></script>
 
 <script src='main/com/hiyoko/sweet/Accounting/sweetAccounting.js'></script>

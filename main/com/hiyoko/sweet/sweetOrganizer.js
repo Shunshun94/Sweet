@@ -14,10 +14,6 @@ com.hiyoko.sweet.Organizer = function($html) {
 	this.tofServerAccess;
 	this.tofRoomAccess;
 
-	//this.sheetAccess;
-	//this.sheetParser;
-	//this.userData;
-
 	this.applications;
 	this.list;
 	
@@ -48,8 +44,6 @@ com.hiyoko.sweet.Organizer.prototype.buildComponents = function() {
 		this.onClickList({num: (this.applications.length - 1)});
 		this.list.disable();
 	}
-
-
 };
 
 com.hiyoko.sweet.Organizer.prototype.buildApplications = function(){
@@ -69,6 +63,19 @@ com.hiyoko.sweet.Organizer.prototype.onClickList = function(e) {
 	this.list.activateSelectedItem(e.num);
 };
 
+com.hiyoko.sweet.Organizer.prototype.onChangeRoomRequest = function(e){
+	$('#entrance').hide();
+	var url = document.location.href + '&';
+	url += '&url=' + e.value.url;
+	url += '&room=' + e.value.room.no;
+	if(e.value.room.isLocked) {
+		url += '&pass=' + e.value.password.password;
+	}
+	localStorage.setItem(com.hiyoko.sweet.Entry.AlgorithmiaTokenStorage, JSON.stringify(e.value.option.algorithmia));
+	
+	document.location = url;
+};
+
 com.hiyoko.sweet.Organizer.prototype.bindEvents = function(e) {
 	var self = this;
 	
@@ -77,10 +84,11 @@ com.hiyoko.sweet.Organizer.prototype.bindEvents = function(e) {
 	});
 	
 	this.$html.on('algorithmiaRequest', function(e){
-		// com-hiyoko-sweet-entry-algorithmia
-		var client = new com.hiyoko.Algorithmia(JSON.parse(localStorage.getItem('com-hiyoko-sweet-entry-algorithmia')));
+		var client = new com.hiyoko.Algorithmia(JSON.parse(localStorage.getItem(com.hiyoko.sweet.Entry.AlgorithmiaTokenStorage)));
 		client.request(e.algorithm, e.params).then(function(res){e.resolve(res);}, function(err){e.reject(err)});
 	});
+	
+	this.$html.on(com.hiyoko.component.InputFlow.Events.Finish, this.onChangeRoomRequest.bind(this));
 	
 	this.$html.on('getStorage', function(e){
 		e.callback(localStorage.getItem(e.key) ? JSON.parse(localStorage.getItem(e.key)) : null);
