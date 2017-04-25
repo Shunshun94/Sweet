@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>そどわに判定てんぷれ～つ 2</title>
+<link rel="stylesheet" href="main/css/player.css" />
+</head>
+<body>
+
+<div id="com-hiyoko-sw2-player">
+	<h1 id="com-hiyoko-sw2-player-title"></h1>
+	<!--  
+	<div id="com-hiyoko-sw2-player-option">
+		<button id="com-hiyoko-sw2-player-option-toggle">修正値一覧開閉</button>
+		<p id="com-hiyoko-sw2-player-option-summary"></p>
+		<table border="1" id="com-hiyoko-sw2-player-option-table"></table>
+	</div>-->
+
+	<div id="com-hiyoko-sw2-player-commoncheck">
+		<h2>判定</h2>
+		<p>[技能] <select id="com-hiyoko-sw2-player-commoncheck-skill"></select> ＋
+		[能力値] <select id="com-hiyoko-sw2-player-commoncheck-status"></select> ＋
+		2d6</p>
+		<p>コメント (判定内容や対象等) <input type="text"  id="com-hiyoko-sw2-player-commoncheck-comment" /></p>
+		<div id="com-hiyoko-sw2-player-commoncheck-option">
+			<button id="com-hiyoko-sw2-player-commoncheck-option-toggle">修正値一覧開閉</button>
+			<p id="com-hiyoko-sw2-player-commoncheck-option-summary"></p>
+			<table border="1" id="com-hiyoko-sw2-player-commoncheck-option-table"></table>
+		</div>
+		<button id="com-hiyoko-sw2-player-commoncheck-exec">判定</button>
+	</div>
+	
+	<div id="com-hiyoko-sw2-player-entrance">
+		<div id="com-hiyoko-sw2-player-entrance-url">
+			<h2>使うどどんとふを選択してください</h2>
+			<div id="com-hiyoko-sw2-player-entrance-url-StaticInput">
+				<h3>リストから選択</h3>
+				<select id="com-hiyoko-sw2-player-entrance-url-StaticInput-List"></select><br/>
+				<button id="com-hiyoko-sw2-player-entrance-url-StaticInput-Hide">URL を手入力する場合はこちらから</button>
+			</div>
+			<div id="com-hiyoko-sw2-player-entrance-url-FreeInput">
+				<h3>URL を手入力</h3>
+				<input type="text" id="com-hiyoko-sw2-player-entrance-url-FreeInput-Url" /><br/>
+				<button id="com-hiyoko-sw2-player-entrance-url-FreeInput-Hide">リストから選択する場合はこちらから</button>
+			</div>
+			<br/><button id="com-hiyoko-sw2-player-entrance-url-Next">次へ</button>
+		</div>
+		<div id="com-hiyoko-sw2-player-entrance-room">
+			<button id="com-hiyoko-sw2-player-entrance-room-back">戻る</button>
+			<div id="com-hiyoko-sw2-player-entrance-room-list"></div>
+		</div>
+		<div id="com-hiyoko-sw2-player-entrance-password">
+			<button id="com-hiyoko-sw2-player-entrance-password-back">戻る</button><br/>
+			入室パスワード<input id="com-hiyoko-sw2-player-entrance-password-password" type="text" /><br/>
+			<button id="com-hiyoko-sw2-player-entrance-password-next">次へ</button>
+		</div>
+		<div id="com-hiyoko-sw2-player-entrance-option">
+			<button id="com-hiyoko-sw2-player-entrance-option-back">戻る</button><br/>
+			キャラクターシート ID <input id="com-hiyoko-sw2-player-entrance-option-sheetId" type="text" /><br/>
+			<button id="com-hiyoko-sw2-player-entrance-option-next">ログイン</button>
+		</div>
+	</div>
+</div>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/notify/0.4.2/notify.min.js"></script>
+
+<script src='https://shunshun94.github.io/shared/jquery/com/hiyoko/dodontof/v2/DodontoF-Client.js'></script>
+<script src='https://shunshun94.github.io/shared/jquery/com/hiyoko/util/v2/utils.js'></script>
+<script src="https://shunshun94.github.io/shared/jquery/com/hiyoko/vampireblood/client.js"></script>
+<script src="https://shunshun94.github.io/shared/jquery/com/hiyoko/vampireblood/sw2.js"></script>
+<script src='https://shunshun94.github.io/shared/jquery/com/hiyoko/components/v1/ApplicationBase.js'></script>
+<script src="https://shunshun94.github.io/shared/other/com/hiyoko/dodontof/serverList.js"></script>
+<script src="https://shunshun94.github.io/shared/jquery/com/hiyoko/components/v1/InputFlow.js"></script>
+<script src="https://shunshun94.github.io/shared/jquery/com/hiyoko/dodontof/v2/DodontoF-Entrance.js"></script>
+
+<script src='https://shunshun94.github.io/shared/jquery/com/hiyoko/components/v1/TableBase.js'></script>
+<script src='./main/com/hiyoko/sweet/Battle/sweetBattleOptionalValues.js'></script>
+<script src="./main/com/hiyoko/sweetplayer/CommonChecker/sweetCommonCheckOptionalValues.js"></script>
+<script src="./main/com/hiyoko/sweetplayer/CommonChecker/sweetCommonCheck.js"></script>
+<script src="./main/com/hiyoko/sweetplayer/sweetplayer.js"></script>
+<script>
+new com.hiyoko.sweet.Player($('#com-hiyoko-sw2-player'));
+</script>
+</body>
+</html>
