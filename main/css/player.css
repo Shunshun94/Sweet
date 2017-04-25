@@ -14,9 +14,16 @@ h1 {
 
 
 
+#com-hiyoko-sw2-player > div {
+	padding: 1em;
+}
 
-
-
+footer{
+	border-top: solid 3px #D0C0C0;
+	background-color:#F0E0E0;
+	padding:1em;
+	font-size:70%;
+}
 
 table {
 	display:none;
