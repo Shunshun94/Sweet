@@ -9,7 +9,11 @@ h1 {
 
 
 
-
+#com-hiyoko-sw2-player-playerbattle-option-table {
+	position:absolute;
+	z-index:3;
+	background-color:white;
+}
 
 
 
@@ -27,6 +31,10 @@ footer{
 
 table {
 	display:none;
+}
+
+.com-hiyoko-component-table-base-member-number {
+	width: 60px;
 }
 
 #com-hiyoko-sw2-player-entrance {

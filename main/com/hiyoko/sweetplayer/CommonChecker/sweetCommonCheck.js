@@ -25,7 +25,7 @@ com.hiyoko.sweet.CommonCheck.prototype.buildComponents = function() {
 	com.hiyoko.util.forEachMap(this.character.skills, function(v, name) {
 		this.getElementById('skill').append(com.hiyoko.util.format('<option value="%s">%s</option>',v, name));
 	}.bind(this));
-	for(var i = this.character.level - 1; i > 1; i--) {
+	for(var i = this.character.level - 1; i > 0; i--) {
 		this.getElementById('skill').append(com.hiyoko.util.format('<option value="%s">%s</option>',i, i));
 	}
 	this.option = new com.hiyoko.sweet.CommonChecker.OptionalValues(this.getElementById('option'));
