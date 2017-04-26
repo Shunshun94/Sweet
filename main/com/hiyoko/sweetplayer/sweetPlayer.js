@@ -7,11 +7,7 @@ com.hiyoko.sweet.Player = function($html) {
 	this.$html = $html;
 	this.id = this.$html.attr('id');
 
-	this.tofServerAccess;
 	this.tofRoomAccess;
-
-	this.applications;
-	this.list;
 	
 	this.bindEvents();	
 	this.buildComponents();
@@ -31,12 +27,12 @@ com.hiyoko.sweet.Player.prototype.initRoomTitle = function() {
 
 com.hiyoko.sweet.Player.prototype.buildComponents = function() {
 	if(this.query.url && this.query.room && this.query.sheetId) {
-		//this.options = new com.hiyoko.sweet.Battle.OptionalValues(this.getElementById('option'));
 		com.hiyoko.VampireBlood.SW2.getSheet(this.query.sheetId).done(function(character){
 			this.character = character;
 			this.tofRoomAccess = new com.hiyoko.DodontoF.V2.Room(this.query.url, this.query.room, this.query.pass);
 			this.initRoomTitle();
 			
+			this.battle = new com.hiyoko.sweet.PlayerBattle(this.getElementById('playerbattle'), this.character);
 			this.commonCheck = new com.hiyoko.sweet.CommonCheck(this.getElementById('commoncheck'), this.character);
 			
 		}.bind(this));
