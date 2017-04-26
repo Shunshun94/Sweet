@@ -21,34 +21,90 @@
 			<p>使用武器：<select id="com-hiyoko-sw2-player-playerbattle-weapons-list"></select></p>
 			<p>武器解説：<span id="com-hiyoko-sw2-player-playerbattle-weapons-detail"></span></p>
 			<p>出目操作：<select id="com-hiyoko-sw2-player-playerbattle-weapons-rolevalue">
-				<option value="%2B1">B (出目 +1)</option>
-				<option value="%2B2">A (出目 +2)</option>
-				<option value="%2B3">S (出目 +3)</option>
-				<option value="%2B6">SS (出目 +6)</option>
-				<option value="12">1廻目固定12</option>
-				<option value="11">1廻目固定11</option>
-				<option value="10">1廻目固定10</option>
-				<option value="9">1廻目固定9</option>
-				<option value="8">1廻目固定8</option>
-				<option value="7">1廻目固定7</option>
-				<option value="6">1廻目固定6</option>
-				<option value="5">1廻目固定5</option>
-				<option value="4">1廻目固定4</option>
-				<option value="3">1廻目固定3</option>
+			 <option value="">-</option>
+				<option value="$+1">B</option>
+				<option value="$+2">A</option>
+				<option value="$+3">S</option>
+				<option value="$+6">SS</option>
+				<option value="$12">1廻目固定12</option>
+				<option value="$11">1廻目固定11</option>
+				<option value="$10">1廻目固定10</option>
+				<option value="$9">1廻目固定9</option>
+				<option value="$8">1廻目固定8</option>
+				<option value="$7">1廻目固定7</option>
+				<option value="$6">1廻目固定6</option>
+				<option value="$5">1廻目固定5</option>
+				<option value="$4">1廻目固定4</option>
+				<option value="$3">1廻目固定3</option>
 			</select>
 			クリティカル値：<select id="com-hiyoko-sw2-player-playerbattle-weapons-critical">
-				<option value="13">13</option>
-				<option value="12">12</option>
-				<option value="11">11</option>
+				<option value="">デフォルト値</option>
+				<option value="@13">13</option>
+				<option value="@12">12</option>
+				<option value="@11">11</option>
+				<option value="@10">10</option>
+				<option value="@9">9</option>
+				<option value="@8">8</option>
+				<option value="@7">7</option>
+			</select>
+			<span id="com-hiyoko-sw2-player-playerbattle-weapons-ratelabel">威力：</span><select id="com-hiyoko-sw2-player-playerbattle-weapons-rate">
+				<option value="0">0</option>
 				<option value="10">10</option>
-				<option value="9">9</option>
-				<option value="8">8</option>
-				<option value="7">7</option>
+				<option value="20">20</option>
+				<option value="30">30</option>
+				<option value="40">40</option>
+				<option value="50">50</option>
+				<option value="60">60</option>
+				<option value="70">70</option>
+				<option value="80">80</option>
+				<option value="90">90</option>
+				<option value="100">100</option>
 			</select></p>
-			<p><button id="com-hiyoko-sw2-player-playerbattle-weapons-exec">命中判定</button></p>
+			<p>付加情報：<input placeholder="対象の情報とか" type="text" id="com-hiyoko-sw2-player-playerbattle-weapons-memo" /></p>
+			<p><button id="com-hiyoko-sw2-player-playerbattle-weapons-hitexec">命中判定</button>
+			<button id="com-hiyoko-sw2-player-playerbattle-weapons-damexec">ダメージ決定</button></p>
 		</div>
 		<div id="com-hiyoko-sw2-player-playerbattle-magics">
 			<h3>魔法行使</h3>
+			<p>魔法種類：<select id="com-hiyoko-sw2-player-playerbattle-magics-list"></select></p>
+			<p>出目操作：<select id="com-hiyoko-sw2-player-playerbattle-magics-rolevalue">
+			 <option value="">-</option>
+				<option value="$12">1廻目固定12</option>
+				<option value="$11">1廻目固定11</option>
+				<option value="$10">1廻目固定10</option>
+				<option value="$9">1廻目固定9</option>
+				<option value="$8">1廻目固定8</option>
+				<option value="$7">1廻目固定7</option>
+				<option value="$6">1廻目固定6</option>
+				<option value="$5">1廻目固定5</option>
+				<option value="$4">1廻目固定4</option>
+				<option value="$3">1廻目固定3</option>
+			</select>
+			クリティカル値：<select id="com-hiyoko-sw2-player-playerbattle-magics-critical">
+				<option value="@13">13</option>
+				<option value="@12">12</option>
+				<option value="@11">11</option>
+				<option value="@10">10</option>
+				<option value="@9">9</option>
+				<option value="@8">8</option>
+				<option value="@7">7</option>
+			</select>
+			<span id="com-hiyoko-sw2-player-playerbattle-magics-ratelabel">威力：</span><select id="com-hiyoko-sw2-player-playerbattle-magics-rate">
+				<option value="0">0</option>
+				<option value="10">10</option>
+				<option value="20">20</option>
+				<option value="30">30</option>
+				<option value="40">40</option>
+				<option value="50">50</option>
+				<option value="60">60</option>
+				<option value="70">70</option>
+				<option value="80">80</option>
+				<option value="90">90</option>
+				<option value="100">100</option>
+			</select></p>
+			<p>付加情報：<input placeholder="対象の情報とか" type="text" id="com-hiyoko-sw2-player-playerbattle-magics-memo" /></p>
+			<p><button id="com-hiyoko-sw2-player-playerbattle-magics-hitexec">行使判定</button>
+			<button id="com-hiyoko-sw2-player-playerbattle-magics-damexec">ダメージ決定</button></p>
 		</div>
 	</div>
 
