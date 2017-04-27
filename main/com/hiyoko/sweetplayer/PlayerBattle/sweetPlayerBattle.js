@@ -17,6 +17,7 @@ com.hiyoko.sweet.PlayerBattle.prototype.buildComponents = function() {
 	this.options = new com.hiyoko.sweet.Battle.OptionalValues(this.getElementById('option'));
 	this.weapons = new com.hiyoko.sweet.PlayerBattle.Weapons(this.getElementById('weapons'), this.character);
 	this.magics = new com.hiyoko.sweet.PlayerBattle.Magics(this.getElementById('magics'), this.character);
+	this.response = new com.hiyoko.sweet.PlayerBattle.Response(this.getElementById('response'), this.character);
 };
 
 com.hiyoko.sweet.PlayerBattle.prototype.bindEvents = function() {
