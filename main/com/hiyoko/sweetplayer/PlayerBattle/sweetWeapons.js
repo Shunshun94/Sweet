@@ -15,6 +15,11 @@ com.hiyoko.sweet.PlayerBattle.Weapons = function($html, character) {
 com.hiyoko.util.extend(com.hiyoko.component.ApplicationBase, com.hiyoko.sweet.PlayerBattle.Weapons);
 
 com.hiyoko.sweet.PlayerBattle.Weapons.prototype.buildComponents = function() {
+	if(this.weapons.length === 0) {
+		this.disable();
+		return;
+	}
+	
 	var list = this.getElementById('list');
 	this.weapons.forEach(function(v, i) {
 		list.append(com.hiyoko.util.format('<option value="%s">%s (%s %s)</option>',i, v.name, v.hand, v.category));

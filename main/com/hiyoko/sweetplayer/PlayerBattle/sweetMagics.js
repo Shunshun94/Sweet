@@ -17,6 +17,11 @@ com.hiyoko.sweet.PlayerBattle.Magics = function($html, character) {
 com.hiyoko.util.extend(com.hiyoko.component.ApplicationBase, com.hiyoko.sweet.PlayerBattle.Magics);
 
 com.hiyoko.sweet.PlayerBattle.Magics.prototype.buildComponents = function() {
+	if(this.magics.length === 0) {
+		this.disable();
+		return;
+	}
+	
 	var list = this.getElementById('list');
 	this.magics.forEach(function(v, i) {
 		list.append(com.hiyoko.util.format('<option value="%s">%s (魔力 %s)</option>',i, v.name, v.value));
