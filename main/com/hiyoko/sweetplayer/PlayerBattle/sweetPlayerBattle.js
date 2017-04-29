@@ -27,9 +27,34 @@ com.hiyoko.sweet.PlayerBattle.prototype.bindEvents = function() {
 		}.bind(this)).fail(function(r){
 			alert('ダイスを振るのに失敗しました\n' + r.result);
 		});
-		
-		var options = this.options.getOptionalValue(e.col);
+
+		var options;
+
+		if(Array.isArray(e.col)) {
+			options = e.col.map(function(col) {
+				return this.options.getOptionalValue(col);
+			}.bind(this)).reduce(function(p, c) {
+				return {
+					value: p.value + c.value,
+					text: p.text,
+					detail: com.hiyoko.util.mergeArray(
+							p.detail.split('\n'), c.detail.split('\n'), function(pd, cd) {
+								var cds = cd.split('　');
+								if(cds.length === 1) {
+									return cd;
+								} else {
+									console.log(cds);
+									return pd + cds[2];
+								}
+							}).join('\n')
+				}
+			});
+		} else {
+			options = this.options.getOptionalValue(e.col);			
+		}
 		var text = com.hiyoko.util.format(e.message, options.value) + options.detail;
+		
+
 		
 		event.args = [{name: this.character.name, message: text, bot:'SwordWorld2.0'}];
 		event.method = 'sendChat';

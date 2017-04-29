@@ -37,7 +37,7 @@ com.hiyoko.sweet.PlayerBattle.Magics.prototype.bindEvents = function() {
 			target: e.target,
 			type: com.hiyoko.sweet.PlayerBattle.Events.event,
 			message: com.hiyoko.util.format('2d6+%s\\%s / 行使判定 ：%s %s', magic.value, magic.name, this.getElementById('memo').val()),
-			col: 6
+			col: 7
 		});
 	}.bind(this));
 	
@@ -52,7 +52,7 @@ com.hiyoko.sweet.PlayerBattle.Magics.prototype.bindEvents = function() {
 					this.getElementById('critical').val(),
 					this.getElementById('rolevalue').val(),
 					magic.name, this.getElementById('memo').val()),
-			col: 3
+			col: [3, 7]
 		});
 	}.bind(this));
 };
