@@ -21,12 +21,13 @@ com.hiyoko.util.extend(com.hiyoko.component.ApplicationBase, com.hiyoko.sweet.Ap
 com.hiyoko.sweet.AppList.prototype.activateSelectedItem = function(num) {
 	this.getElementsByClass('list-item').removeClass('active');
 	$(this.getElementsByClass('list-item')[num]).addClass('active');
+	console.log($(this.getElementsByClass('list-item')[num]).text);
 };
 
 com.hiyoko.sweet.AppList.prototype.buildList = function(){
 	$.each(this.apps, function(i,v) {
 		var dom = $(
-				com.hiyoko.util.format('<li title="%s" class="%s-list-item">%s</li>', i, this.id, v.LIST_NAME)		
+			com.hiyoko.util.format('<li title="%s" class="%s-list-item">%s</li>', i, this.id, v.LIST_NAME)		
 		);
 		this.$menu.append(dom);
 	}.bind(this));

@@ -6,7 +6,7 @@ com.hiyoko.sweet.PlayerBattle = function($html, character) {
 	this.$html = $html;
 	this.id = this.$html.attr('id');
 	this.character = character;
-	console.log(this)
+	this.LIST_NAME = '戦闘';
 	this.buildComponents();
 	this.bindEvents();
 };
