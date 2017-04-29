@@ -26,7 +26,7 @@ com.hiyoko.sweet.AppList.prototype.activateSelectedItem = function(num) {
 com.hiyoko.sweet.AppList.prototype.buildList = function(){
 	$.each(this.apps, function(i,v) {
 		var dom = $(
-				com.hiyoko.util.format('<li title="%s" class="%s-list-item">%s</li>', i, this.id, v.LIST_NAME)		
+			com.hiyoko.util.format('<li title="%s" class="%s-list-item">%s</li>', i, this.id, v.LIST_NAME)		
 		);
 		this.$menu.append(dom);
 	}.bind(this));

@@ -4,11 +4,15 @@
 <meta charset="UTF-8">
 <title>そどわに判定てんぷれ～つ 2</title>
 <link rel="stylesheet" href="main/css/player.css" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 </head>
 <body>
 
 <div id="com-hiyoko-sw2-player">
 	<h1 id="com-hiyoko-sw2-player-title"></h1>
+		<div id="com-hiyoko-sw2-player-list">
+			<ul id="com-hiyoko-sw2-player-list-list"></ul>
+		</div>
 	<div id="com-hiyoko-sw2-player-playerbattle">
 		<h2>戦闘</h2>
 		<div id="com-hiyoko-sw2-player-playerbattle-option">
@@ -104,7 +108,13 @@
 			</select></p>
 			<p>付加情報：<input placeholder="対象の情報とか" type="text" id="com-hiyoko-sw2-player-playerbattle-magics-memo" /></p>
 			<p><button id="com-hiyoko-sw2-player-playerbattle-magics-hitexec">行使判定</button>
-			<button id="com-hiyoko-sw2-player-playerbattle-magics-damexec">ダメージ決定</button></p>
+			<button id="com-hiyoko-sw2-player-playerbattle-magics-damexec">ダメージ決定 (ダメージの増減は追加Dで)</button></p>
+		</div>
+		<div id="com-hiyoko-sw2-player-playerbattle-response">
+			<h3>回避・防御</h3>
+			<p><button id="com-hiyoko-sw2-player-playerbattle-response-dodge">回避</button>
+			　<button id="com-hiyoko-sw2-player-playerbattle-response-physical">生命抵抗</button>
+			　<button id="com-hiyoko-sw2-player-playerbattle-response-mental">精神抵抗</button></p>
 		</div>
 	</div>
 
@@ -153,7 +163,7 @@
 		</div>
 	</div>
 	<footer id="com-hiyoko-sw2-player-footer">
-		<p id="com-hiyoko-sw2-player-footer-version">v20170425</p>
+		<p id="com-hiyoko-sw2-player-footer-version">v20170429</p>
 		<p>「ソードワールド2.0」は北沢慶氏およびグループSNEの著作物です。</p>
 		<p id="com-hiyoko-sw2-player-footer-github"><a href="https://github.com/Shunshun94/Sweet">GitHub</a></p>
 		<p id="com-hiyoko-sw2-player-footer-history"><a href="./history.html">HISTORY</a></p>
@@ -181,6 +191,8 @@
 <script src="./main/com/hiyoko/sweetplayer/PlayerBattle/sweetPlayerBattle.js"></script>
 <script src="./main/com/hiyoko/sweetplayer/PlayerBattle/sweetWeapons.js"></script>
 <script src="./main/com/hiyoko/sweetplayer/PlayerBattle/sweetMagics.js"></script>
+<script src="./main/com/hiyoko/sweetplayer/PlayerBattle/sweetResponse.js"></script>
+<script src='./main/com/hiyoko/sweet/sweetAppList.js'></script>
 <script src="./main/com/hiyoko/sweetplayer/sweetPlayer.js"></script>
 <script>
 new com.hiyoko.sweet.Player($('#com-hiyoko-sw2-player'));

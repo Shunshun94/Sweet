@@ -21,7 +21,7 @@ com.hiyoko.util.extend(com.hiyoko.component.ApplicationBase, com.hiyoko.sweet.Co
 
 com.hiyoko.sweet.CommonChecker.OptionalValues.prototype.bindEvent = function(){
 	this.$toggle.click(function(e) {
-		this.$table.toggle();
+		this.$table.toggle(400);
 		this.$summary.text(this.table.getOptionalValue().text);
 	}.bind(this));
 };

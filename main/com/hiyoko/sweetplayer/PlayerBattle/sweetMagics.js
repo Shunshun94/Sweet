@@ -17,6 +17,11 @@ com.hiyoko.sweet.PlayerBattle.Magics = function($html, character) {
 com.hiyoko.util.extend(com.hiyoko.component.ApplicationBase, com.hiyoko.sweet.PlayerBattle.Magics);
 
 com.hiyoko.sweet.PlayerBattle.Magics.prototype.buildComponents = function() {
+	if(this.magics.length === 0) {
+		this.disable();
+		return;
+	}
+	
 	var list = this.getElementById('list');
 	this.magics.forEach(function(v, i) {
 		list.append(com.hiyoko.util.format('<option value="%s">%s (魔力 %s)</option>',i, v.name, v.value));
@@ -32,7 +37,7 @@ com.hiyoko.sweet.PlayerBattle.Magics.prototype.bindEvents = function() {
 			target: e.target,
 			type: com.hiyoko.sweet.PlayerBattle.Events.event,
 			message: com.hiyoko.util.format('2d6+%s\\%s / 行使判定 ：%s %s', magic.value, magic.name, this.getElementById('memo').val()),
-			col: 6
+			col: 7
 		});
 	}.bind(this));
 	
@@ -47,7 +52,7 @@ com.hiyoko.sweet.PlayerBattle.Magics.prototype.bindEvents = function() {
 					this.getElementById('critical').val(),
 					this.getElementById('rolevalue').val(),
 					magic.name, this.getElementById('memo').val()),
-			col: 3
+			col: [3, 7]
 		});
 	}.bind(this));
 };

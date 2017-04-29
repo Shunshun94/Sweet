@@ -6,7 +6,7 @@ com.hiyoko.sweet.CommonCheck = function($html, character) {
 	this.$html = $html;
 	this.id = $html.attr('id');
 	this.character = character;
-	
+	this.LIST_NAME = 'その他の判定';
 	this.buildComponents();
 	
 	this.getElementById('exec').click(this.sendCommand.bind(this));
