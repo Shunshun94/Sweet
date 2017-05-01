@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<style type="text/css">
+.com-hiyoko-dodontof-map-object-characterData {
+	z-index:6;
+	border: 3px yellow outset;
+}
+
+.dodontof-map-rangeCircle {
+	z-index:4;
+	position:absolute;
+	opacity: 0.3;
+	box-sizing: border-box;
+	border-radius: 50%;
+	border: 4px solid blue;
+	text-align: center;
+}
+
+.dodontof-map-rangeCircle-text {
+	background-color:rgba(255,255,255,1);
+}
+
+#dodontof-map-canvas {
+	position: absolute;
+	z-index:5;
+	top: 0px;
+	left: 0px;
+}
+</style>
+<title>Sweet Map Viewer</title>
+</head>
+<body>
+	<div id="dodontof">
+		<div id="dodontof-map"></div>
+	</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+<script src='https://shunshun94.github.io/shared/jquery/com/hiyoko/dodontof/v2/DodontoF-Client.js'></script>
+<script src='https://shunshun94.github.io/shared/jquery/com/hiyoko/util/v2/utils.js'></script>
+<script src='https://shunshun94.github.io/shared/jquery/com/hiyoko/components/v1/ApplicationBase.js'></script>
+<script src="https://shunshun94.github.io/shared/jquery/com/hiyoko/dodontof/v2/DodontoF-Map.js"></script>
+<script src="./main/com/hiyoko/map/mapOrganizer.js"></script>
+<script src="./main/com/hiyoko/map/sweetMap.js"></script>
+<script>
+new com.hiyoko.sweet.MapOrganizer($('#dodontof'));
+</script>
+</body>
+</html>
