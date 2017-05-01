@@ -134,24 +134,33 @@ com.hiyoko.sweet.Discussion.Vote.prototype.bindEvents = function() {
 		});
 		
 		if(confirm('以下の条件で投票を開始します。よろしいですか?\n\n' + message.join('\n\n'))) {
-			var event = this.getAsyncEvent('tofRoomRequest', {
-				method: 'sendChat',
-				args: [{
-					name: 'SWEET',
-					message: message.join('\n')
-				}]
-			}).done(function(r){
-				this.submit.notify('投票を開始しました');
-			}.bind(this)).fail(function(r){
-				this.submit.notify('投票の開始に失敗しました\n理由:' + r.result);
-			}.bind(this));
-
-			this.fireEvent(event);
+			this.sendVoteChoice(message);
 		}
 		
 	}.bind(this));
-
 };
+
+com.hiyoko.sweet.Discussion.Vote.prototype.sendVoteChoice = function(list) {
+	if(list.length === 0) {
+		this.submit.notify('投票を開始しました', 'success');
+	} else {
+		var event = this.getAsyncEvent('tofRoomRequest', {
+			method: 'sendChat',
+			args: [{
+				name: 'SWEET',
+				message: list.shift()
+			}]
+		}).done(function(r){
+			this.sendVoteChoice(list);
+		}.bind(this)).fail(function(r){
+			this.submit.notify('投票の開始に失敗しました\n理由:' + r.result, 'warn');
+		}.bind(this));
+
+		this.fireEvent(event);	
+	}
+};
+
+
 
 com.hiyoko.sweet.Discussion.ChatStreams = function($html) {
 	this.$html = $($html);
