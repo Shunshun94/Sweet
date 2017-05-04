@@ -30,7 +30,7 @@ com.hiyoko.sweet.MapOrganizer.Map.prototype.bindEvents = function() {
 	this.$html.click(function(e) {
 		var $target = $(e.target);
 		this.clearCircles();
-		this.canvas.clearRect(0, 0, Number(this.$html.css('width').replace('px', '')), Number(this.$html.css('height').replace('px', '')));
+		this.clearCanvas();
 		if(! $target.hasClass('com-hiyoko-dodontof-map-object-characterData')) {
 			return;
 		}
@@ -52,6 +52,10 @@ com.hiyoko.sweet.MapOrganizer.Map.prototype.addCanvas = function(size) {
 	canvas.strokeStyle = "rgb(0, 255, 0)";
 	canvas.save();
 	return canvas;
+};
+
+com.hiyoko.sweet.MapOrganizer.Map.prototype.clearCanvas = function() {
+	this.canvas.clearRect(0, 0, Number(this.$html.css('width').replace('px', '')), Number(this.$html.css('height').replace('px', '')));
 };
 
 com.hiyoko.sweet.MapOrganizer.Map.prototype.clearCircles = function() {
@@ -84,7 +88,7 @@ com.hiyoko.sweet.MapOrganizer.Map.prototype.drawCircle = function($base, range, 
 };
 
 com.hiyoko.sweet.MapOrganizer.Map.prototype.drawLine = function($base, e) {
-	this.canvas.clearRect(0, 0, Number(this.$html.css('width').replace('px', '')), Number(this.$html.css('height').replace('px', '')));
+	this.clearCanvas();
 	this.canvas.beginPath();
 	var basePoint = $base.position();
 	basePoint.top += (Number($base.css('width').replace('px', '')) / 2);
