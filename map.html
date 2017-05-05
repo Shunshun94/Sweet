@@ -8,6 +8,10 @@
 	border: 3px yellow outset;
 }
 
+.dodontof-map-background-col {
+	z-index:5;
+}
+
 .dodontof-map-rangeCircle {
 	z-index:4;
 	position:absolute;
@@ -18,8 +22,9 @@
 	text-align: center;
 }
 
-.dodontof-map-rangeCircle-text {
+.dodontof-map-range-text {
 	background-color:rgba(255,255,255,1);
+	text-align:right;
 }
 
 #dodontof-map-canvas {
@@ -42,6 +47,7 @@
 <script src="https://shunshun94.github.io/shared/jquery/com/hiyoko/dodontof/v2/DodontoF-Map.js"></script>
 <script src="./main/com/hiyoko/map/mapOrganizer.js"></script>
 <script src="./main/com/hiyoko/map/sweetMap.js"></script>
+<script src="./main/com/hiyoko/map/sweetMapRanges.js"></script>
 <script>
 new com.hiyoko.sweet.MapOrganizer($('#dodontof'));
 </script>

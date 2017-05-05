@@ -1,0 +1,24 @@
+#com-hiyoko-sw2-player-entrance {
+	background-color: #D0C0C0;
+}
+
+.com-hiyoko-sw2-player-entrance-room-rooms-room {
+	border: 4px double #b8860b;
+	background-color: #600000;
+	color: #B0C0C0;
+	border-radius: 1em;
+	padding: 1em;
+	margin-top:1em;
+}
+
+.com-hiyoko-sw2-player-entrance-room-rooms-room-name:before {content:'"';}
+.com-hiyoko-sw2-player-entrance-room-rooms-room-name:after {content:'"';}
+
+.com-hiyoko-sw2-player-entrance-room-rooms-room-entry {
+	margin-top: 8px;
+}
+
+#com-hiyoko-sw2-player-entrance-password-back,
+#com-hiyoko-sw2-player-entrance-option-back {
+	margin-bottom: 1em;
+}
