@@ -57,7 +57,7 @@ com.hiyoko.sweet.MapOrganizer.Map.prototype.addCanvas = function(size) {
 			this.id, size.x * this.size, size.y * this.size));
 	this.$html.append($canvas);
 	var canvas = document.getElementById(this.id + '-canvas').getContext('2d');
-	canvas.strokeStyle = "rgb(0, 255, 0)";
+	canvas.strokeStyle = "#ff42ff";
 	canvas.save();
 	return canvas;
 };
