@@ -5,7 +5,11 @@ com.hiyoko.sweet.MapOrganizer = com.hiyoko.sweet.MapOrganizer || {};
 com.hiyoko.sweet.MapOrganizer.Map = com.hiyoko.sweet.MapOrganizer.Map || {};
 
 com.hiyoko.sweet.MapOrganizer.Map.getRange = function(args) {
-	return com.hiyoko.sweet.MapOrganizer.Map.CircleRange;
+	if(args.range === 'circle') {
+		return com.hiyoko.sweet.MapOrganizer.Map.CircleRange;
+	} else {
+		return com.hiyoko.sweet.MapOrganizer.Map.SRWRange;
+	}
 };
 
 com.hiyoko.sweet.MapOrganizer.Map.CircleRange = {};
@@ -19,7 +23,7 @@ com.hiyoko.sweet.MapOrganizer.Map.CircleRange.drawRanges = function($base, range
 	var length = ranges.length;
 	var drawCircle = com.hiyoko.sweet.MapOrganizer.Map.CircleRange.drawCircle.bind(this);
 	ranges.sort(function(a, b){return b-a;}).forEach(function(range, i) {
-		var color = com.hiyoko.util.format('rgb(%s,0,%s)', Math.floor((255/length) * i), Math.floor((255/length) * (length - i)));
+		var color = com.hiyoko.util.format('rgb(%s,0,0)', Math.floor((255/length) * i));
 		drawCircle($base, range, color);
 	}.bind(this));
 	this.$base = $base;
@@ -40,3 +44,32 @@ com.hiyoko.sweet.MapOrganizer.Map.CircleRange.drawCircle = function($base, range
 	this.$html.append($circle);
 };
 
+com.hiyoko.sweet.MapOrganizer.Map.SRWRange = {};
+
+com.hiyoko.sweet.MapOrganizer.Map.SRWRange.clearRanges = function() {
+	this.getElementsByClass('background-col-box').css({
+		'z-index':'auto', 'background-color': 'transparent'
+	});
+	this.$base = null;
+};
+
+com.hiyoko.sweet.MapOrganizer.Map.SRWRange.drawRanges = function($base, ranges) {
+	var basePoint = $base.position();
+	basePoint.top += (Number($base.css('width').replace('px', '')) / 2);
+	basePoint.left += (Number($base.css('width').replace('px', '')) / 2);
+	console.log(Math.floor(basePoint.top / this.size), Math.floor(basePoint.left / this.size));
+	var drawRange = com.hiyoko.sweet.MapOrganizer.Map.SRWRange.drawRange;
+	
+	this.getElementsByClass('background-col-box').css({
+		'z-index':'7',
+		'background-color':'blue'
+	});
+	console.log(this.getElementsByClass('background-col-box').css('z-index'));
+	ranges.sort(function(a, b){return b-a;}).forEach(function(range, i) {
+		var color = com.hiyoko.util.format('rgb(%s,0,0)', Math.floor((255/length) * i));
+		drawRange(basePoint, range, color);
+	}.bind(this));
+	this.$base = $base;
+};
+
+com.hiyoko.sweet.MapOrganizer.Map.SRWRange.drawRange = function() {};
