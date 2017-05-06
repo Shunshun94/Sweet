@@ -18,10 +18,7 @@ com.hiyoko.util.extend(com.hiyoko.component.ApplicationBase, com.hiyoko.sweet.Ma
 com.hiyoko.sweet.MapOrganizer.prototype.buildComponents = function() {
 	if(this.query.url && this.query.room) {
 		this.tofRoomAccess = new com.hiyoko.DodontoF.V2.Room(this.query.url, this.query.room, this.query.pass);
-		this.map = new com.hiyoko.sweet.MapOrganizer.Map(this.getElementById('map'), {
-			range: this.query.range || 'circle',
-			scale: Number(this.query.scale),
-			size: 30});
+		this.map = new com.hiyoko.sweet.MapOrganizer.Map(this.getElementById('map'), this.query);
 	} else {
 		alert('どどんとふの URL と部屋番号が入力されていません');
 		throw 'DodontoF URL and Room No. aren\'t inputted.'

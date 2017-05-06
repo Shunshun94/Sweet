@@ -12,9 +12,10 @@ com.hiyoko.sweet.MapOrganizer.Map = function($html, opt_options) {
 	this.addMethods(com.hiyoko.sweet.MapOrganizer.Map.getRange(options));
 	
 	this.scale = options.scale || 1;
-	this.size = options.size || 20;
+	this.size = options.size || 30;
 	this.maxSize = options.maxSize || 0;
-	
+	this.ranges = options.distances ?
+			options.distances.split(',').map(function(r){return Number(r)}) : [50,30,20,10,5,3];
 	if(this.$html.css('position') === 'static') {
 		this.$html.css('position', 'relative');
 	}
@@ -41,7 +42,7 @@ com.hiyoko.sweet.MapOrganizer.Map.prototype.bindEvents = function() {
 		if(! $target.hasClass('com-hiyoko-dodontof-map-object-characterData')) {
 			return;
 		}
-		this.drawRanges($target, [50,30,20,10,5,3]);
+		this.drawRanges($target, this.ranges);
 	}.bind(this));
 	
 	this.$html.mousemove(function(e) {
