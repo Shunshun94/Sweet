@@ -31,7 +31,6 @@ com.hiyoko.sweet.MapOrganizer.Map.prototype.addMethods = function(base) {
 	com.hiyoko.util.forEachMap(base, function(v, k){
 		this[k] = v.bind(this);
 	}.bind(this));
-	console.log(this);
 };
 
 com.hiyoko.sweet.MapOrganizer.Map.prototype.bindEvents = function() {
