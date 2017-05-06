@@ -124,13 +124,57 @@
 		<p>[技能] <select id="com-hiyoko-sw2-player-commoncheck-skill"></select> ＋
 		[能力値] <select id="com-hiyoko-sw2-player-commoncheck-status"></select> ＋
 		2d6</p>
-		<p>コメント (判定内容や対象等) <input type="text"  id="com-hiyoko-sw2-player-commoncheck-comment" /></p>
+		<p>コメント (判定内容や対象等) <input type="text" list="com-hiyoko-sw2-player-commoncheck-comment-candidate" id="com-hiyoko-sw2-player-commoncheck-comment" /></p>
+		<datalist id="com-hiyoko-sw2-player-commoncheck-comment-candidate">
+			<option value="探索" />
+			<option value="足跡追跡" />
+			<option value="聞き耳" />
+			<option value="解除" />
+			<option value="隠蔽" />
+			<option value="罠設置" />
+			<option value="軽業" />
+			<option value="受身" />
+			<option value="隠密" />
+			
+			<option value="危険感知" />
+			<option value="罠感知" />
+			
+			<option value="水泳" />
+			<option value="登攀" />
+			<option value="幅跳び、高飛び" />
+			
+			
+			<option value="真偽" />
+			<option value="聞き込み" />
+			<option value="文献" />
+			<option value="尾行" />
+			<option value="変装" />
+			<option value="加工" />
+			<option value="騎乗" />
+			<option value="スリ" />
+			
+			<option value="見識" />
+			<option value="構造解析" />
+			<option value="地図作成" />
+			<option value="天候予測" />
+			<option value="病気知識" />
+			<option value="宝物鑑定" />
+			<option value="薬品学" />
+			
+			<option value="先制" />
+			<option value="魔物知識" />
+			<option value="生死" />
+			<option value="応急手当" />
+			<option value="呪歌" />
+			<option value="占瞳" />
+			<option value="弱点隠蔽" />
+		</datalist>
 		<div id="com-hiyoko-sw2-player-commoncheck-option">
 			<button id="com-hiyoko-sw2-player-commoncheck-option-toggle">修正値一覧開閉</button>
 			<p id="com-hiyoko-sw2-player-commoncheck-option-summary"></p>
 			<table border="1" id="com-hiyoko-sw2-player-commoncheck-option-table"></table>
 		</div>
-		<button id="com-hiyoko-sw2-player-commoncheck-exec">判定</button>
+		<button id="com-hiyoko-sw2-player-commoncheck-exec">判定</button>　<button id="com-hiyoko-sw2-player-commoncheck-execNoSkill">平目で判定</button>
 	</div>
 	
 	<div id="com-hiyoko-sw2-player-entrance">

@@ -10,6 +10,7 @@ com.hiyoko.sweet.CommonCheck = function($html, character) {
 	this.buildComponents();
 	
 	this.getElementById('exec').click(this.sendCommand.bind(this));
+	this.getElementById('execNoSkill').click(this.sendCommandNoSkill.bind(this));
 };
 
 com.hiyoko.util.extend(com.hiyoko.component.ApplicationBase, com.hiyoko.sweet.CommonCheck);
@@ -39,11 +40,29 @@ com.hiyoko.sweet.CommonCheck.prototype.sendCommand = function(e) {
 	});
 	
 	var option = this.option.getOptionalValue();
-	var text = com.hiyoko.util.format('2d6+%s+%s%s / %s%s',
+	var text = com.hiyoko.util.format('2d6+%s+%s%s / %s (基準値：%s+%s)%s',
 			this.getElementById('skill').val(),
 			this.getElementById('status').val(),
 			option.value, this.getElementById('comment').val(),
+			this.getElementById('skill').children(':selected').text(), this.getElementById('status').children(':selected').text(),
 			option.detail);
+	
+	event.args = [{name: this.character.name, message: text, bot:'SwordWorld2.0'}];
+	event.method = 'sendChat';
+	
+	this.fireEvent(event);
+};
+
+com.hiyoko.sweet.CommonCheck.prototype.sendCommandNoSkill = function(e) {
+	var event = this.getAsyncEvent('tofRoomRequest').done(function(r){
+		$(e.target).notify('ダイスが振られました', {className: 'success', position: 'top'});
+	}.bind(this)).fail(function(r){
+		alert('ダイスを振るのに失敗しました\n' + r.result);
+	});
+	
+	var option = this.option.getOptionalValue();
+	var text = com.hiyoko.util.format('2d6%s / %s (基準値：平目)%s',
+			option.value, this.getElementById('comment').val(), option.detail);
 	
 	event.args = [{name: this.character.name, message: text, bot:'SwordWorld2.0'}];
 	event.method = 'sendChat';
