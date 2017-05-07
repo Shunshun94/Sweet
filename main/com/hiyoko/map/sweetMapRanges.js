@@ -63,20 +63,18 @@ com.hiyoko.sweet.MapOrganizer.Map.SRWRange.drawRanges = function($base, ranges) 
 	basePoint.top = Math.floor(basePoint.top / this.size);
 	basePoint.left = Math.floor(basePoint.left / this.size);
 	var drawRange = com.hiyoko.sweet.MapOrganizer.Map.SRWRange.drawRange.bind(this);
-	console.log(
-			'style   =', this.getElementsByClass('background-col').attr('style'),
-			'\nclass   =', this.getElementsByClass('background-col').attr('class'),
-			'\nz-index =', this.getElementsByClass('background-col').css('zIndex'))
-	ranges.sort(function(a, b){return b-a;}).forEach(function(range, i) {
+	ranges.filter(function(a){
+		return a >= this.scale;
+	}.bind(this)).sort(function(a, b){
+		return b-a;
+	}).forEach(function(range, i) {
 		var bgcolor = com.hiyoko.util.format('rgba(%s, 201, %s, 0.38)',
 				(i % 2) ? 147 : 255,
 				(i % 2) ? 255 : 147);
 		var bdcolor = com.hiyoko.util.format('rgba(%s, 192, %s, 1)',
 				(i % 2) ? 127 : 255,
 				(i % 2) ? 255 : 127);
-		if(range > this.scale) {
-			drawRange(basePoint, range, bgcolor, bdcolor);			
-		}
+		drawRange(basePoint, range, bgcolor, bdcolor);
 	}.bind(this));
 	this.$base = $base;
 };

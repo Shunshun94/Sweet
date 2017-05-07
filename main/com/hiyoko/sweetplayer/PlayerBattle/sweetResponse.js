@@ -22,7 +22,7 @@ com.hiyoko.sweet.PlayerBattle.Response.prototype.bindEvents = function() {
 	this.getElementById('dodge').click(function(e) {
 		this.fireEvent({
 			target: e.target,
-			type: com.hiyoko.sweet.PlayerBattle.Events.event,
+			type: com.hiyoko.sweet.PlayerBattle.Events.role,
 			message: com.hiyoko.util.format('2d6+%s\\%s / 回避判定 ', this.responses.dodge),
 			col: 4
 		});
@@ -31,7 +31,7 @@ com.hiyoko.sweet.PlayerBattle.Response.prototype.bindEvents = function() {
 	this.getElementById('physical').click(function(e) {
 		this.fireEvent({
 			target: e.target,
-			type: com.hiyoko.sweet.PlayerBattle.Events.event,
+			type: com.hiyoko.sweet.PlayerBattle.Events.role,
 			message: com.hiyoko.util.format('2d6+%s\\%s / 生命抵抗判定 ', this.responses.physical),
 			col: 5
 		});
@@ -40,7 +40,7 @@ com.hiyoko.sweet.PlayerBattle.Response.prototype.bindEvents = function() {
 	this.getElementById('mental').click(function(e) {
 		this.fireEvent({
 			target: e.target,
-			type: com.hiyoko.sweet.PlayerBattle.Events.event,
+			type: com.hiyoko.sweet.PlayerBattle.Events.role,
 			message: com.hiyoko.util.format('2d6+%s\\%s / 精神抵抗判定 ', this.responses.mental),
 			col: 6
 		});

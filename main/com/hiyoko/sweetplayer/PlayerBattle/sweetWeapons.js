@@ -28,6 +28,17 @@ com.hiyoko.sweet.PlayerBattle.Weapons.prototype.buildComponents = function() {
 
 com.hiyoko.sweet.PlayerBattle.Weapons.prototype.bindEvents = function() {
 	var list = this.getElementById('list');
+
+	this.getElementById('getCharacterList').click(function(e) {
+		var event = this.getAsyncEvent(com.hiyoko.sweet.PlayerBattle.Events.charList).done(function(r){
+			this.getElementById('memo').val(this.getElementById('memo').val() + ' ＞ ' + r);
+		}.bind(this)).fail(function(r) {
+			// No Action
+		});
+		event.method = 'getCharacters';
+		this.fireEvent(event);
+	}.bind(this));
+
 	list.change(function(e) {
 		var weapon = this.weapons[list.val()];
 		this.getElementById('detail').text(com.hiyoko.util.format(
@@ -48,7 +59,7 @@ com.hiyoko.sweet.PlayerBattle.Weapons.prototype.bindEvents = function() {
 		var weapon = this.weapons[list.val()];
 		this.fireEvent({
 			target: e.target,
-			type: com.hiyoko.sweet.PlayerBattle.Events.event,
+			type: com.hiyoko.sweet.PlayerBattle.Events.role,
 			message: com.hiyoko.util.format('2d6+%s\\%s / 命中判定 ：%s %s', weapon.hit, weapon.name, this.getElementById('memo').val()),
 			col: 2
 		});
@@ -58,7 +69,7 @@ com.hiyoko.sweet.PlayerBattle.Weapons.prototype.bindEvents = function() {
 		var weapon = this.weapons[list.val()];
 		this.fireEvent({
 			target: e.target,
-			type: com.hiyoko.sweet.PlayerBattle.Events.event,
+			type: com.hiyoko.sweet.PlayerBattle.Events.role,
 			message: com.hiyoko.util.format('k%s+%s\\%s%s%s / ダメージ ：%s %s',
 					(weapon.category === 'ガン') ? this.getElementById('rate').val() :weapon.rate,
 					weapon.damage,
