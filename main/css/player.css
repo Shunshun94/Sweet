@@ -80,6 +80,11 @@ h1 {
 	width: 333px;
 }
 
+#com-hiyoko-sw2-player-links-map-exec {
+	color:blue;
+	text-decoration: underline;
+}
+
 #com-hiyoko-sw2-player > div {
 	padding: 1em;
 }

@@ -16,8 +16,8 @@ com.hiyoko.sweet.Player = function($html) {
 com.hiyoko.util.extend(com.hiyoko.component.ApplicationBase, com.hiyoko.sweet.Player);
 
 com.hiyoko.sweet.Player.Children = {
-	components: [com.hiyoko.sweet.PlayerBattle, com.hiyoko.sweet.CommonCheck],
-	domIds: ['playerbattle', 'commoncheck']
+	components: [com.hiyoko.sweet.PlayerBattle, com.hiyoko.sweet.CommonCheck, com.hiyoko.sweet.Links],
+	domIds: ['playerbattle', 'commoncheck', 'links']
 };
 
 com.hiyoko.sweet.Player.prototype.initRoomTitle = function() {
