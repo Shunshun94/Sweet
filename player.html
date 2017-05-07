@@ -16,6 +16,14 @@
 		</div>
 	<div id="com-hiyoko-sw2-player-playerbattle">
 		<h2>戦闘</h2>
+		<div id="com-hiyoko-sw2-player-playerbattle-nameSelector">
+			<div id="com-hiyoko-sw2-player-playerbattle-nameSelector-body">
+				<div id="com-hiyoko-sw2-player-playerbattle-nameSelector-body-list"></div>
+				<p dir="rtl"><button id="com-hiyoko-sw2-player-playerbattle-nameSelector-body-exec">決定</button>
+				<button id="com-hiyoko-sw2-player-playerbattle-nameSelector-body-cancel">キャンセル</button></p>
+			</div>
+			<div id="com-hiyoko-sw2-player-playerbattle-nameSelector-overlay"></div>
+		</div>
 		<div id="com-hiyoko-sw2-player-playerbattle-option">
 			<button id="com-hiyoko-sw2-player-playerbattle-option-toggle">修正値一覧開閉</button>
 			<p id="com-hiyoko-sw2-player-playerbattle-option-summary"></p>
@@ -65,7 +73,8 @@
 				<option value="90">90</option>
 				<option value="100">100</option>
 			</select></p>
-			<p>付加情報：<input placeholder="対象の情報とか" type="text" id="com-hiyoko-sw2-player-playerbattle-weapons-memo" /></p>
+			<p>付加情報：<input placeholder="対象の情報とか" type="text" id="com-hiyoko-sw2-player-playerbattle-weapons-memo" /><br/>
+			<button id="com-hiyoko-sw2-player-playerbattle-weapons-getCharacterList">対象候補一覧から入力</button></p>
 			<p><button id="com-hiyoko-sw2-player-playerbattle-weapons-hitexec">命中判定</button>
 			<button id="com-hiyoko-sw2-player-playerbattle-weapons-damexec">ダメージ決定</button></p>
 		</div>
@@ -107,7 +116,8 @@
 				<option value="90">90</option>
 				<option value="100">100</option>
 			</select></p>
-			<p>付加情報：<input placeholder="対象の情報とか" type="text" id="com-hiyoko-sw2-player-playerbattle-magics-memo" /></p>
+			<p>付加情報：<input placeholder="対象の情報とか" type="text" id="com-hiyoko-sw2-player-playerbattle-magics-memo" /><br/>
+			<button id="com-hiyoko-sw2-player-playerbattle-magics-getCharacterList">対象候補一覧から入力</button></p>
 			<p><button id="com-hiyoko-sw2-player-playerbattle-magics-hitexec">行使判定</button>
 			<button id="com-hiyoko-sw2-player-playerbattle-magics-damexec">ダメージ決定 (ダメージの増減は追加Dで)</button></p>
 		</div>
@@ -126,6 +136,7 @@
 		2d6</p>
 		<p>コメント (判定内容や対象等) <input type="text" list="com-hiyoko-sw2-player-commoncheck-comment-candidate" id="com-hiyoko-sw2-player-commoncheck-comment" /></p>
 		<datalist id="com-hiyoko-sw2-player-commoncheck-comment-candidate">
+			<!-- ダンジョン内頻出 -->
 			<option value="探索" />
 			<option value="足跡追跡" />
 			<option value="聞き耳" />
@@ -135,15 +146,9 @@
 			<option value="軽業" />
 			<option value="受身" />
 			<option value="隠密" />
-			
 			<option value="危険感知" />
 			<option value="罠感知" />
-			
-			<option value="水泳" />
-			<option value="登攀" />
-			<option value="幅跳び、高飛び" />
-			
-			
+			<!-- 町内頻出 -->
 			<option value="真偽" />
 			<option value="聞き込み" />
 			<option value="文献" />
@@ -152,7 +157,7 @@
 			<option value="加工" />
 			<option value="騎乗" />
 			<option value="スリ" />
-			
+			<!-- その他探索時 -->
 			<option value="見識" />
 			<option value="構造解析" />
 			<option value="地図作成" />
@@ -160,7 +165,10 @@
 			<option value="病気知識" />
 			<option value="宝物鑑定" />
 			<option value="薬品学" />
-			
+			<option value="水泳" />
+			<option value="登攀" />
+			<option value="幅跳び、高飛び" />
+			<!-- 戦闘関係 -->
 			<option value="先制" />
 			<option value="魔物知識" />
 			<option value="生死" />
@@ -226,10 +234,12 @@
 <script src='https://shunshun94.github.io/shared/jquery/com/hiyoko/components/v1/ApplicationBase.js'></script>
 <script src="https://shunshun94.github.io/shared/other/com/hiyoko/dodontof/serverList.js"></script>
 <script src="https://shunshun94.github.io/shared/jquery/com/hiyoko/components/v1/InputFlow.js"></script>
+<script src="https://shunshun94.github.io/shared/jquery/com/hiyoko/components/v1/UlList.js"></script>
 <script src="https://shunshun94.github.io/shared/jquery/com/hiyoko/dodontof/v2/DodontoF-Entrance.js"></script>
 
 <script src='https://shunshun94.github.io/shared/jquery/com/hiyoko/components/v1/TableBase.js'></script>
 <script src='./main/com/hiyoko/sweet/Battle/sweetBattleOptionalValues.js'></script>
+<script src='./main/com/hiyoko/sweet/Battle/sweetBattleCounterRemoCon.js'></script>
 <script src="./main/com/hiyoko/sweetplayer/CommonChecker/sweetCommonCheckOptionalValues.js"></script>
 <script src="./main/com/hiyoko/sweetplayer/CommonChecker/sweetCommonCheck.js"></script>
 
@@ -237,6 +247,7 @@
 <script src="./main/com/hiyoko/sweetplayer/PlayerBattle/sweetWeapons.js"></script>
 <script src="./main/com/hiyoko/sweetplayer/PlayerBattle/sweetMagics.js"></script>
 <script src="./main/com/hiyoko/sweetplayer/PlayerBattle/sweetResponse.js"></script>
+<script src="./main/com/hiyoko/sweetplayer/PlayerBattle/sweetNameSelector.js"></script>
 <script src='./main/com/hiyoko/sweet/sweetAppList.js'></script>
 <script src="./main/com/hiyoko/sweetplayer/sweetPlayer.js"></script>
 <script>

@@ -31,11 +31,21 @@ com.hiyoko.sweet.PlayerBattle.Magics.prototype.buildComponents = function() {
 com.hiyoko.sweet.PlayerBattle.Magics.prototype.bindEvents = function() {
 	var list = this.getElementById('list');
 	
+	this.getElementById('getCharacterList').click(function(e) {
+		var event = this.getAsyncEvent(com.hiyoko.sweet.PlayerBattle.Events.charList).done(function(r){
+			this.getElementById('memo').val(this.getElementById('memo').val() + ' ＞ ' + r);
+		}.bind(this)).fail(function(r) {
+			// No Action
+		});
+		event.method = 'getCharacters';
+		this.fireEvent(event);
+	}.bind(this));
+	
 	this.getElementById('hitexec').click(function(e) {
 		var magic = this.magics[list.val()];
 		this.fireEvent({
 			target: e.target,
-			type: com.hiyoko.sweet.PlayerBattle.Events.event,
+			type: com.hiyoko.sweet.PlayerBattle.Events.role,
 			message: com.hiyoko.util.format('2d6+%s\\%s / 行使判定 ：%s %s', magic.value, magic.name, this.getElementById('memo').val()),
 			col: 7
 		});
@@ -45,7 +55,7 @@ com.hiyoko.sweet.PlayerBattle.Magics.prototype.bindEvents = function() {
 		var magic = this.magics[list.val()];
 		this.fireEvent({
 			target: e.target,
-			type: com.hiyoko.sweet.PlayerBattle.Events.event,
+			type: com.hiyoko.sweet.PlayerBattle.Events.role,
 			message: com.hiyoko.util.format('k%s+%s\\%s%s%s / ダメージ ：%s %s',
 					this.getElementById('rate').val(),
 					magic.value,

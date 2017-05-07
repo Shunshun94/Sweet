@@ -18,51 +18,63 @@ com.hiyoko.sweet.PlayerBattle.prototype.buildComponents = function() {
 	this.weapons = new com.hiyoko.sweet.PlayerBattle.Weapons(this.getElementById('weapons'), this.character);
 	this.magics = new com.hiyoko.sweet.PlayerBattle.Magics(this.getElementById('magics'), this.character);
 	this.response = new com.hiyoko.sweet.PlayerBattle.Response(this.getElementById('response'), this.character);
+	this.characterList = new com.hiyoko.sweet.PlayerBattle.NameSelector(this.getElementById('nameSelector'));
+};
+
+com.hiyoko.sweet.PlayerBattle.prototype.getCharacters = function(e) {
+	var event = this.getAsyncEvent('tofRoomRequest').done(function(r){
+		this.characterList.open(r.characters.filter(function(c){
+			return c.isHide === false && c.type === 'characterData';
+		}).map(function(c) {
+			return c.dogTag ? c.name + '＃' + c.dogTag : c.name;
+		}), e.resolve, e.reject);
+	}.bind(this));
+	event.method = 'getCharacters';
+	this.fireEvent(event);
+};
+
+com.hiyoko.sweet.PlayerBattle.prototype.sendCommand = function(e){
+	var event = this.getAsyncEvent('tofRoomRequest').done(function(r){
+		$(e.target).notify('ダイスが振られました', {className: 'success', position: 'top'});
+	}.bind(this)).fail(function(r){
+		alert('ダイスを振るのに失敗しました\n' + r.result);
+	});
+
+	var options;
+
+	if(Array.isArray(e.col)) {
+		options = e.col.map(function(col) {
+			return this.options.getOptionalValue(col);
+		}.bind(this)).reduce(function(p, c) {
+			return {
+				value: p.value + c.value,
+				text: p.text,
+				detail: com.hiyoko.util.mergeArray(
+						p.detail.split('\n'), c.detail.split('\n'), function(pd, cd) {
+							var cds = cd.split('　');
+							if(cds.length === 1) {
+								return cd;
+							} else {
+								return pd + cds[2];
+							}
+						}).join('\n')
+			}
+		});
+	} else {
+		options = this.options.getOptionalValue(e.col);			
+	}
+	var text = com.hiyoko.util.format(e.message, options.value) + options.detail;
+	event.args = [{name: this.character.name, message: text, bot:'SwordWorld2.0'}];
+	event.method = 'sendChat';
+	this.fireEvent(event);
 };
 
 com.hiyoko.sweet.PlayerBattle.prototype.bindEvents = function() {
-	this.$html.on(com.hiyoko.sweet.PlayerBattle.Events.event, function(e){
-		var event = this.getAsyncEvent('tofRoomRequest').done(function(r){
-			$(e.target).notify('ダイスが振られました', {className: 'success', position: 'top'});
-		}.bind(this)).fail(function(r){
-			alert('ダイスを振るのに失敗しました\n' + r.result);
-		});
-
-		var options;
-
-		if(Array.isArray(e.col)) {
-			options = e.col.map(function(col) {
-				return this.options.getOptionalValue(col);
-			}.bind(this)).reduce(function(p, c) {
-				return {
-					value: p.value + c.value,
-					text: p.text,
-					detail: com.hiyoko.util.mergeArray(
-							p.detail.split('\n'), c.detail.split('\n'), function(pd, cd) {
-								var cds = cd.split('　');
-								if(cds.length === 1) {
-									return cd;
-								} else {
-									console.log(cds);
-									return pd + cds[2];
-								}
-							}).join('\n')
-				}
-			});
-		} else {
-			options = this.options.getOptionalValue(e.col);			
-		}
-		var text = com.hiyoko.util.format(e.message, options.value) + options.detail;
-		
-
-		
-		event.args = [{name: this.character.name, message: text, bot:'SwordWorld2.0'}];
-		event.method = 'sendChat';
-		this.fireEvent(event);
-	}.bind(this));
-	
-
+	this.$html.on(com.hiyoko.sweet.PlayerBattle.Events.role, this.sendCommand.bind(this));
+	this.$html.on(com.hiyoko.sweet.PlayerBattle.Events.charList, this.getCharacters.bind(this));
 };
 
-com.hiyoko.sweet.PlayerBattle.Events = {};
-com.hiyoko.sweet.PlayerBattle.Events.event = 'com-hiyoko-sweet-PlayerBattle-Events-event';
+com.hiyoko.sweet.PlayerBattle.Events = {
+	role: 'com-hiyoko-sweet-PlayerBattle-Events-sendCommand',
+	charList: 'com-hiyoko-sweet-PlayerBattle-Events-getCharacters'
+};
