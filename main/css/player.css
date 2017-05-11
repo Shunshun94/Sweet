@@ -11,23 +11,21 @@ h1 {
 	position:relative;
 }
 
-#com-hiyoko-sw2-player-list {
+#com-hiyoko-sw2-player > div#com-hiyoko-sw2-player-list {
 	background-color:#E0E0E0;
 	position:relative;
 	top: -13px;
-	height: 2em;
+	padding:0px;
 }
 
 #com-hiyoko-sw2-player-list-list {
-	position:absolute;
-	top:-4px;
+	position:relative;
 	left:2px;
 }
 
 .com-hiyoko-sw2-player-list-list-item {
 	display: inline-block;
 	background-color:white;
-	padding:5px;
 	position:relative;
 	width:200px; 
 	margin-left:4px;
