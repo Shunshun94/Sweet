@@ -16,17 +16,20 @@ com.hiyoko.sweet.ResourceManage.prototype.initialize = function() {
 	this.getCharacters(function(list) {
 		if(list.length === 0) {
 			this.getElementById('append').show();
+		} else {
+			this.getElementById('resources').show();
+			var data = list[0].counters;
+			
+			this.character.hp = data.HP || data.hp;
+			this.character.mp = data.MP || data.mp;
 		}
-		
-		
 		this.bindEvents();
 		this.buildComponents();
-		
 	}.bind(this));
 };
 
 com.hiyoko.sweet.ResourceManage.prototype.buildComponents = function() {
-	
+	this.resources = new com.hiyoko.sweet.ResourceManage.ResourceTable(this.getElementById('resources'), this.character);
 };
 
 com.hiyoko.sweet.ResourceManage.prototype.bindEvents = function() {
@@ -36,7 +39,11 @@ com.hiyoko.sweet.ResourceManage.prototype.bindEvents = function() {
 	
 	this.getElementById('append').click(function(e) {
 		this.putCharacter(e);
+		this.getElementById('resources').show();
+		this.getElementById('append').hide();
 	}.bind(this));
+	
+	this.$html.on(com.hiyoko.sweet.ResourceManage.ResourceTable.HPMP.UPDATE_EVENT, this.updateCharacter.bind(this));
 };
 
 com.hiyoko.sweet.ResourceManage.prototype.getCharacters = function(callback) {
@@ -46,6 +53,19 @@ com.hiyoko.sweet.ResourceManage.prototype.getCharacters = function(callback) {
 	event.method = 'getCharacters';
 	this.fireEvent(event);
 };
+
+com.hiyoko.sweet.ResourceManage.prototype.updateCharacter = function(e) {
+	var event = this.getAsyncEvent('tofRoomRequest').done(function(r){
+		$(e.target).notify('更新されました', {className: 'success', position: 'top'});
+	}.bind(this)).fail(function(r){
+		alert('更新に失敗しました\n' + r.result);
+	});
+	
+	event.method = 'updateCharacter';
+	 
+	event.args = [e.params];	
+	this.fireEvent(event);
+}
 
 com.hiyoko.sweet.ResourceManage.prototype.putCharacter = function(e) {
 	var event = this.getAsyncEvent('tofRoomRequest').done(function(r){
@@ -60,8 +80,7 @@ com.hiyoko.sweet.ResourceManage.prototype.putCharacter = function(e) {
 		name:this.character.name,
 		HP: this.character.hp,
 		MP: this.character.mp,
-		'防護点': this.character.gard,
-		info:com.hiyoko.sweet.ResourceManage.SIGNATURE
+ 		info:com.hiyoko.sweet.ResourceManage.SIGNATURE
 	}];	
 	this.fireEvent(event);
 };

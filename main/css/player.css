@@ -89,6 +89,7 @@ h1 {
 
 #com-hiyoko-sw2-player-resourceManage-base {
 	display:none;
+	z-index:2;
 }
 
 #com-hiyoko-sw2-player-resourceManage-append {
@@ -97,6 +98,10 @@ h1 {
 
 #com-hiyoko-sw2-player-resourceManage-resources {
 	display: none;
+}
+
+#com-hiyoko-sw2-player-resourceManage-resources-points {
+	display: table;
 }
 
 #com-hiyoko-sw2-player-links-map-exec {
