@@ -78,6 +78,27 @@ h1 {
 	width: 333px;
 }
 
+#com-hiyoko-sw2-player > div#com-hiyoko-sw2-player-resourceManage {
+	display: none;
+	position:fixed;
+	top:14px;
+	background-color: #ff7f7f;
+	opacity:0.9;
+	padding: 4px;
+}
+
+#com-hiyoko-sw2-player-resourceManage-base {
+	display:none;
+}
+
+#com-hiyoko-sw2-player-resourceManage-append {
+	display: none;
+}
+
+#com-hiyoko-sw2-player-resourceManage-resources {
+	display: none;
+}
+
 #com-hiyoko-sw2-player-links-map-exec {
 	color:blue;
 	text-decoration: underline;

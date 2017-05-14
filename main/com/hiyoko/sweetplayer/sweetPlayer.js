@@ -44,6 +44,7 @@ com.hiyoko.sweet.Player.prototype.buildComponents = function() {
 						newComponent.disable();
 						return newComponent;
 					}.bind(this));
+			this.resources = new com.hiyoko.sweet.ResourceManage(this.getElementById('resourceManage'), this.character);
 			this.list = new com.hiyoko.sweet.AppList(this.getElementById('list'), this.components);
 			this.onClickList({num: 0});
 		}.bind(this));
