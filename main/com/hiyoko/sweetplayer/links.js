@@ -49,7 +49,8 @@ com.hiyoko.sweet.Links.prototype.bindEvents = function() {
 		if(this.options.pass) {
 			url += '&pass=' + this.options.pass;
 		}
-		document.location = url;
+		window.open(url, 'map');
+		//document.location = url;
 	}.bind(this));
 };
 

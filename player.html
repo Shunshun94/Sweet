@@ -11,9 +11,53 @@
 
 <div id="com-hiyoko-sw2-player">
 	<h1 id="com-hiyoko-sw2-player-title"></h1>
-		<div id="com-hiyoko-sw2-player-list">
-			<ul id="com-hiyoko-sw2-player-list-list"></ul>
+	<div id="com-hiyoko-sw2-player-resourceManage">
+		<span id="com-hiyoko-sw2-player-resourceManage-toggle">≡</span>
+		<div id="com-hiyoko-sw2-player-resourceManage-base">
+				<h2>リソース管理</h2>
+				<button id="com-hiyoko-sw2-player-resourceManage-append">どどんとふにコマ追加</button>
+				<div id="com-hiyoko-sw2-player-resourceManage-resources">
+					<h3>HP/MP管理</h3>
+					<table border="1" id="com-hiyoko-sw2-player-resourceManage-resources-points">
+						<caption>HP/MP 現在値</caption>
+						<tr>
+							<th>HP</th>
+							<td><input type="number" id="com-hiyoko-sw2-player-resourceManage-resources-points-hp"/></td>
+						</tr>
+						<tr>
+							<th>MP</th>
+							<td><input type="number" id="com-hiyoko-sw2-player-resourceManage-resources-points-mp"/></td>
+						</tr>
+					</table>
+					<div id="com-hiyoko-sw2-player-resourceManage-resources-RemoCon">
+						<h4>カウンターリモコン</h4>
+						<div id="com-hiyoko-sw2-player-resourceManage-resources-RemoCon-physical">
+							<h5>物理ダメージ</h5>
+							<p><input value="0" type="number" id="com-hiyoko-sw2-player-resourceManage-resources-RemoCon-physical-base"/> －
+							<input value="0" type="number" id="com-hiyoko-sw2-player-resourceManage-resources-RemoCon-physical-guard"/> ＋
+							<input value="0" type="number" id="com-hiyoko-sw2-player-resourceManage-resources-RemoCon-physical-help"/>
+							<button id="com-hiyoko-sw2-player-resourceManage-resources-RemoCon-physical-exec">反映</button></p>
+						</div>
+						<div id="com-hiyoko-sw2-player-resourceManage-resources-RemoCon-magical">
+							<h5>魔法ダメージ</h5>
+							<p><input value="0" type="number" id="com-hiyoko-sw2-player-resourceManage-resources-RemoCon-magical-base"/> +
+							<input value="0" type="number" id="com-hiyoko-sw2-player-resourceManage-resources-RemoCon-magical-help"/>
+							<button id="com-hiyoko-sw2-player-resourceManage-resources-RemoCon-magical-exec">反映</button></p>
+						</div>
+						<div id="com-hiyoko-sw2-player-resourceManage-resources-RemoCon-mp">
+							<h5>MP</h5>
+							<p>(<input value="0" type="number" id="com-hiyoko-sw2-player-resourceManage-resources-RemoCon-mp-base"/> ×
+							<input value="1" type="number" id="com-hiyoko-sw2-player-resourceManage-resources-RemoCon-mp-times"/>) －
+							<input value="0" type="number" id="com-hiyoko-sw2-player-resourceManage-resources-RemoCon-mp-help"/>
+							<button id="com-hiyoko-sw2-player-resourceManage-resources-RemoCon-mp-exec">反映</button></p>
+						</div>
+					</div>
+				</div>
 		</div>
+	</div>
+	<div id="com-hiyoko-sw2-player-list">
+		<ul id="com-hiyoko-sw2-player-list-list"></ul>
+	</div>
 	<div id="com-hiyoko-sw2-player-playerbattle">
 		<h2>戦闘</h2>
 		<div id="com-hiyoko-sw2-player-playerbattle-nameSelector">
@@ -218,7 +262,7 @@
 		</div>
 	</div>
 	<footer id="com-hiyoko-sw2-player-footer">
-		<p id="com-hiyoko-sw2-player-footer-version">v20170508</p>
+		<p id="com-hiyoko-sw2-player-footer-version">v20170516</p>
 		<p>「ソードワールド2.0」は北沢慶氏およびグループSNEの著作物です。</p>
 		<p id="com-hiyoko-sw2-player-footer-github"><a href="https://github.com/Shunshun94/Sweet">GitHub</a></p>
 		<p id="com-hiyoko-sw2-player-footer-history"><a href="./history.html">HISTORY</a></p>
@@ -238,13 +282,15 @@
 <script src="https://shunshun94.github.io/shared/jquery/com/hiyoko/components/v1/InputFlow.js"></script>
 <script src="https://shunshun94.github.io/shared/jquery/com/hiyoko/components/v1/UlList.js"></script>
 <script src="https://shunshun94.github.io/shared/jquery/com/hiyoko/dodontof/v2/DodontoF-Entrance.js"></script>
-
 <script src='https://shunshun94.github.io/shared/jquery/com/hiyoko/components/v1/TableBase.js'></script>
+
 <script src='./main/com/hiyoko/sweet/Battle/sweetBattleOptionalValues.js'></script>
 <script src='./main/com/hiyoko/sweet/Battle/sweetBattleCounterRemoCon.js'></script>
 <script src="./main/com/hiyoko/sweetplayer/CommonChecker/sweetCommonCheckOptionalValues.js"></script>
 <script src="./main/com/hiyoko/sweetplayer/CommonChecker/sweetCommonCheck.js"></script>
-
+<script src="./main/com/hiyoko/sweetplayer/ResourceManage/sweetResourceManage.js"></script>
+<script src="./main/com/hiyoko/sweetplayer/ResourceManage/sweetResourceTable.js"></script>
+<script src="./main/com/hiyoko/sweetplayer/ResourceManage/sweetResourceTableRemoCon.js"></script>
 <script src="./main/com/hiyoko/sweetplayer/PlayerBattle/sweetPlayerBattle.js"></script>
 <script src="./main/com/hiyoko/sweetplayer/PlayerBattle/sweetWeapons.js"></script>
 <script src="./main/com/hiyoko/sweetplayer/PlayerBattle/sweetMagics.js"></script>
