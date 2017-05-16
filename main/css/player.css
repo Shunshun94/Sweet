@@ -100,8 +100,30 @@ h1 {
 	display: none;
 }
 
+#com-hiyoko-sw2-player-resourceManage-resources > h3 {
+	margin-top:3px;
+	margin-bottom: 3px;
+}
+
 #com-hiyoko-sw2-player-resourceManage-resources-points {
-	display: table;
+	display: inline-table;
+	position: relative;
+	top: -233px;
+}
+
+#com-hiyoko-sw2-player-resourceManage-resources-points > caption {
+	font-weight: bold;
+	text-align: left;
+}
+
+#com-hiyoko-sw2-player-resourceManage-resources-RemoCon {
+	display: inline-block;
+	border-left: 2px double #ffbf7f;
+	padding-left:5px;
+}
+
+#com-hiyoko-sw2-player-resourceManage-resources-RemoCon input {
+	width:40px;
 }
 
 #com-hiyoko-sw2-player-links-map-exec {
