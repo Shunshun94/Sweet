@@ -87,9 +87,12 @@ h1 {
 	padding: 4px;
 }
 
+#com-hiyoko-sw2-player-resourceManage {
+	z-index:2;
+}
+
 #com-hiyoko-sw2-player-resourceManage-base {
 	display:none;
-	z-index:2;
 }
 
 #com-hiyoko-sw2-player-resourceManage-append {
