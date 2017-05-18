@@ -34,6 +34,7 @@ com.hiyoko.sweet.Player.prototype.buildComponents = function() {
 	if(this.query.url && this.query.room && this.query.sheetId) {
 		com.hiyoko.VampireBlood.SW2.getSheet(this.query.sheetId).done(function(character){
 			this.character = character;
+			this.saveSheetIdList(this.query.sheetId, this.character.name);
 			this.tofRoomAccess = new com.hiyoko.DodontoF.V2.Room(this.query.url, this.query.room, this.query.pass);
 			this.initRoomTitle();
 			
@@ -51,9 +52,27 @@ com.hiyoko.sweet.Player.prototype.buildComponents = function() {
 	} else {
 		this.$html.children('div').hide();
 		new com.hiyoko.DodontoF.V2.Entrance(this.getElementById('entrance'));
+		var list = this.loadSheetIdList();
+		var $list = this.getElementById('entrance-option-sheetId-list');
+		com.hiyoko.util.forEachMap(list, function(v, k) {
+			$list.append(com.hiyoko.util.format('<option value="%s">%s</option>', k, v));
+		});
 		this.getElementById('entrance').show();
 	}
 };
+
+com.hiyoko.sweet.Player.prototype.loadSheetIdList = function() {
+	return JSON.parse(localStorage.getItem(com.hiyoko.sweet.Player.SheetIdListKey)) || {};
+};
+
+com.hiyoko.sweet.Player.prototype.saveSheetIdList = function(id, name) {
+	var data = this.loadSheetIdList();
+	data[id] = name;
+	localStorage.setItem(com.hiyoko.sweet.Player.SheetIdListKey, JSON.stringify(data));
+	return data;
+};
+
+com.hiyoko.sweet.Player.SheetIdListKey = 'com-hiyoko-sw2-player-entrance-option-sheetId-list';
 
 com.hiyoko.sweet.Player.prototype.onClickList = function(e) {
 	this.components.forEach(function(app) {
