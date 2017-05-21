@@ -79,4 +79,9 @@ com.hiyoko.sweet.PlayerBattle.Weapons.prototype.bindEvents = function() {
 			col: 3
 		});
 	}.bind(this));
+
+	this.getElementById('memo-clear').click(function(e) {
+		this.getElementById('memo').val('');
+		this.getElementById('memo').focus();
+	}.bind(this));
 };

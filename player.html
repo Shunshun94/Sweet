@@ -117,7 +117,7 @@
 				<option value="90">90</option>
 				<option value="100">100</option>
 			</select></p>
-			<p>付加情報：<input placeholder="対象の情報とか" type="text" id="com-hiyoko-sw2-player-playerbattle-weapons-memo" /><br/>
+			<p>付加情報：<input placeholder="対象の情報とか" type="text" id="com-hiyoko-sw2-player-playerbattle-weapons-memo" /> <button id="com-hiyoko-sw2-player-playerbattle-weapons-memo-clear">クリア</button><br/>
 			<button id="com-hiyoko-sw2-player-playerbattle-weapons-getCharacterList">対象候補一覧から入力</button></p>
 			<p><button id="com-hiyoko-sw2-player-playerbattle-weapons-hitexec">命中判定</button>
 			<button id="com-hiyoko-sw2-player-playerbattle-weapons-damexec">ダメージ決定</button></p>
@@ -160,7 +160,7 @@
 				<option value="90">90</option>
 				<option value="100">100</option>
 			</select></p>
-			<p>付加情報：<input placeholder="対象の情報とか" type="text" id="com-hiyoko-sw2-player-playerbattle-magics-memo" /><br/>
+			<p>付加情報：<input placeholder="対象の情報とか" type="text" id="com-hiyoko-sw2-player-playerbattle-magics-memo" /> <button id="com-hiyoko-sw2-player-playerbattle-magics-memo-clear">クリア</button><br/>
 			<button id="com-hiyoko-sw2-player-playerbattle-magics-getCharacterList">対象候補一覧から入力</button></p>
 			<p><button id="com-hiyoko-sw2-player-playerbattle-magics-hitexec">行使判定</button>
 			<button id="com-hiyoko-sw2-player-playerbattle-magics-damexec">ダメージ決定 (ダメージの増減は追加Dで)</button></p>
@@ -180,7 +180,7 @@
 		<p>[技能] <select id="com-hiyoko-sw2-player-commoncheck-skill"></select> ＋
 		[能力値] <select id="com-hiyoko-sw2-player-commoncheck-status"></select> ＋
 		2d6</p>
-		<p>コメント (判定内容や対象等) <input type="text" list="com-hiyoko-sw2-player-commoncheck-comment-candidate" id="com-hiyoko-sw2-player-commoncheck-comment" /></p>
+		<p>コメント (判定内容や対象等) <input type="text" list="com-hiyoko-sw2-player-commoncheck-comment-candidate" id="com-hiyoko-sw2-player-commoncheck-comment" /> <button id="com-hiyoko-sw2-player-commoncheck-comment-clear">クリア</button></p>
 		<datalist id="com-hiyoko-sw2-player-commoncheck-comment-candidate">
 			<!-- ダンジョン内頻出 -->
 			<option value="探索" />
@@ -229,6 +229,7 @@
 			<table border="1" id="com-hiyoko-sw2-player-commoncheck-option-table"></table>
 		</div>
 		<button id="com-hiyoko-sw2-player-commoncheck-exec">判定</button>　<button id="com-hiyoko-sw2-player-commoncheck-execNoSkill">平目で判定</button>
+		<p><input type="checkbox" id="com-hiyoko-sw2-player-commoncheck-comment-clear-everytime" checked />判定実施後、コメント欄を自動的に削除する</p>
 	</div>
 	
 	<div id="com-hiyoko-sw2-player-links"></div>
