@@ -65,8 +65,8 @@ com.hiyoko.sweet.Organizer.prototype.onClickList = function(e) {
 
 com.hiyoko.sweet.Organizer.prototype.onChangeRoomRequest = function(e){
 	$('#entrance').hide();
-	var url = document.location.href + '&';
-	url += '&url=' + e.value.url;
+	var url = './index.html?';
+	url += 'url=' + e.value.url;
 	url += '&room=' + e.value.room.no;
 	if(e.value.room.isLocked) {
 		url += '&pass=' + e.value.password.password;
