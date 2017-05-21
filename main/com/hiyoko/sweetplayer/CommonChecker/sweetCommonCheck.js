@@ -11,6 +11,11 @@ com.hiyoko.sweet.CommonCheck = function($html, character) {
 	
 	this.getElementById('exec').click(this.sendCommand.bind(this));
 	this.getElementById('execNoSkill').click(this.sendCommandNoSkill.bind(this));
+
+	this.getElementById('comment-clear').click(function(e) {
+		this.getElementById('comment').val('');
+		this.getElementById('comment').focus();
+	}.bind(this));
 };
 
 com.hiyoko.util.extend(com.hiyoko.component.ApplicationBase, com.hiyoko.sweet.CommonCheck);
@@ -35,6 +40,9 @@ com.hiyoko.sweet.CommonCheck.prototype.buildComponents = function() {
 com.hiyoko.sweet.CommonCheck.prototype.sendCommand = function(e) {
 	var event = this.getAsyncEvent('tofRoomRequest').done(function(r){
 		$(e.target).notify('ダイスが振られました', {className: 'success', position: 'top'});
+		if(this.isCommentClearEvertytime()) {
+			this.getElementById('comment').val('');
+		}
 	}.bind(this)).fail(function(r){
 		alert('ダイスを振るのに失敗しました\n' + r.result);
 	});
@@ -56,6 +64,9 @@ com.hiyoko.sweet.CommonCheck.prototype.sendCommand = function(e) {
 com.hiyoko.sweet.CommonCheck.prototype.sendCommandNoSkill = function(e) {
 	var event = this.getAsyncEvent('tofRoomRequest').done(function(r){
 		$(e.target).notify('ダイスが振られました', {className: 'success', position: 'top'});
+		if(this.isCommentClearEvertytime) {
+			this.getElementById('comment').val('');
+		}
 	}.bind(this)).fail(function(r){
 		alert('ダイスを振るのに失敗しました\n' + r.result);
 	});
@@ -69,3 +80,7 @@ com.hiyoko.sweet.CommonCheck.prototype.sendCommandNoSkill = function(e) {
 	this.fireEvent(event);
 };
 
+com.hiyoko.sweet.CommonCheck.prototype.isCommentClearEvertytime = function() {
+	return this.getElementById('comment-clear-everytime').prop('checked');
+	
+};

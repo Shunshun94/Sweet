@@ -65,4 +65,9 @@ com.hiyoko.sweet.PlayerBattle.Magics.prototype.bindEvents = function() {
 			col: [3, 7]
 		});
 	}.bind(this));
+
+	this.getElementById('memo-clear').click(function(e) {
+		this.getElementById('memo').val('');
+		this.getElementById('memo').focus();
+	}.bind(this));
 };
