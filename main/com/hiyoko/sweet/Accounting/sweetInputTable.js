@@ -121,6 +121,9 @@ com.hiyoko.sweet.Accounting.DetailOut.prototype.calcTotal = function(e) {
 	result.push(total);
 	this.getStorage('item-cost', function(result) {
 		var itemList = [];
+		if(! Boolean(result)) {
+			result = {};
+		}
 		table.forEach(function(v) {
 			if(v[1]) {
 				result[v[1]] = v;
