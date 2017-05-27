@@ -43,11 +43,32 @@ com.hiyoko.sweet.Pet.Character.prototype.mentalCheck = function(e) {
 	}));
 };
 
+com.hiyoko.sweet.Pet.Character.prototype.updateHpMp = function(e) {
+	var $tag = $(e.target);
+	var clazz = $tag.attr('class');
+	console.log(clazz);
+	if(clazz.endsWith('part-hp') || clazz.endsWith('part-mp')) {
+		var parts = [];
+		com.hiyoko.util.forEachMap(this.parts, function(v){
+			parts.push(v.getValue());
+		});
+		this.fireEvent(this.getAsyncEvent('executeUpdateCharacters', {
+			name: this.data.name,
+			parts: parts
+		}).done(function(result){
+			this.$html.notify('更新しました', {className: 'success', position: 'top'});
+		}.bind(this)).fail(function(r){
+			alert('更新に失敗しました\n' + r.result);
+		}));
+	}
+};
+
 com.hiyoko.sweet.Pet.Character.prototype.bindEvents = function() {
 	this.getElementById('appendParts').click(this.addPart.bind(this));
 	this.getElementById('physical').click(this.physicalCheck.bind(this));
 	this.getElementById('mental').click(this.mentalCheck.bind(this));
 	this.getElementById('append').click(this.appendCharacterToTof.bind(this));
+	this.$html.change(this.updateHpMp.bind(this));
 	
 	this.$html.on('executeRequestFromPart', this.rethrowEventFromParts.bind(this));
 };
@@ -63,6 +84,7 @@ com.hiyoko.sweet.Pet.Character.prototype.appendCharacterToTof = function(e) {
 	}).done(function(result){
 		$(e.target).hide();
 		this.$html.notify('コマを作成しました', {className: 'success', position: 'top'});
+		com.hiyoko.util.forEachMap(this.parts, function(v){v.afterAdd();});
 	}.bind(this)).fail(function(r){
 		alert('コマの作成に失敗しました\n' + r.result);
 	}));

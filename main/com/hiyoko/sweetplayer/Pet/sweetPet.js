@@ -31,7 +31,23 @@ com.hiyoko.sweet.Pet.prototype.bindEvents = function() {
 	this.getElementById('characterAppend').click(this.appendCharacter.bind(this));
 	this.$html.on('executeRequest', this.sendCommand.bind(this));
 	this.$html.on('executeAddCharacters', this.appendCharacterToTof.bind(this));
+	this.$html.on('executeUpdateCharacters', this.updateCharacterToTof.bind(this));
 };
+
+com.hiyoko.sweet.Pet.prototype.updateCharacterToTof = function(e) {
+	var event = this.getAsyncEvent('tofRoomRequest').done(e.resolve).fail(e.reject);
+	event.method = 'updateCharacter';
+	e.parts.forEach(function(p){
+		event.args = [{
+			targetName: e.name + ':' + p.name,
+			HP: p.hp,
+			MP: p.mp,
+			'防護点': p.armor
+		}];
+		this.fireEvent(event);
+	}.bind(this));
+};
+
 
 com.hiyoko.sweet.Pet.prototype.appendCharacterToTof = function(e) {
 	var event = this.getAsyncEvent('tofRoomRequest').done(e.resolve).fail(e.reject);
@@ -44,7 +60,6 @@ com.hiyoko.sweet.Pet.prototype.appendCharacterToTof = function(e) {
 			'防護点': p.armor,
 			info:com.hiyoko.sweet.Pet.SIGNATURE
 		}];
-		
 		this.fireEvent(event);
 	}.bind(this));
 };
