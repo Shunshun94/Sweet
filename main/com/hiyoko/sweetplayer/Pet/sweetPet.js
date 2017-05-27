@@ -20,6 +20,7 @@ com.hiyoko.sweet.Pet.prototype.buildComponents = function() {
 		this.petCharacter.forEach(function(v, i) {
 			this.getElementById('characterList').append(com.hiyoko.util.format('<option value="%s">%s</option>', i, v.name));
 		}.bind(this));
+		this.table = new com.hiyoko.sweet.Battle.OptionalValues(this.getElementById('options'));
 	} else {
 		this.getElementById('characterList').parent().hide();
 		this.$html.append('<p>騎獣やゴーレムがいません</p>');
@@ -28,6 +29,21 @@ com.hiyoko.sweet.Pet.prototype.buildComponents = function() {
 
 com.hiyoko.sweet.Pet.prototype.bindEvents = function() {
 	this.getElementById('characterAppend').click(this.appendCharacter.bind(this));
+	this.$html.on('executeRequest', this.sendCommand.bind(this));
+};
+
+com.hiyoko.sweet.Pet.prototype.sendCommand = function(e) {
+	var event = this.getAsyncEvent('tofRoomRequest').done(function(r){
+		$(e.target).notify('ダイスが振られました', {className: 'success', position: 'top'});
+	}.bind(this)).fail(function(r){
+		alert('ダイスを振るのに失敗しました\n' + r.result);
+	});
+	var option = this.table.getOptionalValue(e.col);
+	
+	var text = com.hiyoko.util.format('%s%s / %s%s', e.value, option.value, e.text, option.detail);
+	event.args = [{name: e.name, message: text, bot:'SwordWorld2.0'}];
+	event.method = 'sendChat';
+	this.fireEvent(event);
 };
 
 com.hiyoko.sweet.Pet.prototype.appendCharacter = function() {

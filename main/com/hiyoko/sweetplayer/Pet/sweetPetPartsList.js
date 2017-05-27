@@ -13,3 +13,7 @@ com.hiyoko.sweet.Pet.PartsList = function($html, partsCandidate) {
 };
 
 com.hiyoko.util.extend(com.hiyoko.component.ApplicationBase, com.hiyoko.sweet.Pet.PartsList);
+
+com.hiyoko.sweet.Pet.PartsList.prototype.getId = function() {
+	return this.$html.val();
+};
