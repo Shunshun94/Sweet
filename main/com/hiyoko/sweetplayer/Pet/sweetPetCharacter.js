@@ -45,11 +45,27 @@ com.hiyoko.sweet.Pet.Character.prototype.mentalCheck = function(e) {
 
 com.hiyoko.sweet.Pet.Character.prototype.bindEvents = function() {
 	this.getElementById('appendParts').click(this.addPart.bind(this));
-
-	this.$html.on('executeRequestFromPart', this.rethrowEventFromParts.bind(this));
-
 	this.getElementById('physical').click(this.physicalCheck.bind(this));
 	this.getElementById('mental').click(this.mentalCheck.bind(this));
+	this.getElementById('append').click(this.appendCharacterToTof.bind(this));
+	
+	this.$html.on('executeRequestFromPart', this.rethrowEventFromParts.bind(this));
+};
+
+com.hiyoko.sweet.Pet.Character.prototype.appendCharacterToTof = function(e) {
+	var parts = [];
+	com.hiyoko.util.forEachMap(this.parts, function(v){
+		parts.push(v.getValue());
+	});
+	this.fireEvent(this.getAsyncEvent('executeAddCharacters', {
+		name: this.data.name,
+		parts: parts
+	}).done(function(result){
+		$(e.target).hide();
+		this.$html.notify('コマを作成しました', {className: 'success', position: 'top'});
+	}.bind(this)).fail(function(r){
+		alert('コマの作成に失敗しました\n' + r.result);
+	}));
 };
 
 com.hiyoko.sweet.Pet.Character.prototype.addPart = function() {

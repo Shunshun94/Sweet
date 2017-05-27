@@ -30,6 +30,23 @@ com.hiyoko.sweet.Pet.prototype.buildComponents = function() {
 com.hiyoko.sweet.Pet.prototype.bindEvents = function() {
 	this.getElementById('characterAppend').click(this.appendCharacter.bind(this));
 	this.$html.on('executeRequest', this.sendCommand.bind(this));
+	this.$html.on('executeAddCharacters', this.appendCharacterToTof.bind(this));
+};
+
+com.hiyoko.sweet.Pet.prototype.appendCharacterToTof = function(e) {
+	var event = this.getAsyncEvent('tofRoomRequest').done(e.resolve).fail(e.reject);
+	event.method = 'addCharacter';
+	e.parts.forEach(function(p){
+		event.args = [{
+			name: e.name + ':' + p.name,
+			HP: p.hp,
+			MP: p.mp,
+			'防護点': p.armor,
+			info:com.hiyoko.sweet.Pet.SIGNATURE
+		}];
+		
+		this.fireEvent(event);
+	}.bind(this));
 };
 
 com.hiyoko.sweet.Pet.prototype.sendCommand = function(e) {
@@ -56,4 +73,4 @@ com.hiyoko.sweet.Pet.prototype.appendCharacter = function() {
 			this.petCharacter[this.getElementById('characterList').val()], this.petParts);
 };
 
-
+com.hiyoko.sweet.Pet.SIGNATURE = 'By PCSweet Pets';
