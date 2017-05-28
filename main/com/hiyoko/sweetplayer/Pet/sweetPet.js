@@ -5,6 +5,7 @@ com.hiyoko.sweet = com.hiyoko.sweet || {};
 com.hiyoko.sweet.Pet = function($html, character) {
 	this.$html = $html;
 	this.id = this.$html.attr('id');
+	this.masterName = character.name;
 	this.petCharacter = character.pets.character;
 	this.petParts = character.pets.parts;
 	this.pets = {};
@@ -92,8 +93,9 @@ com.hiyoko.sweet.Pet.prototype.appendCharacter = function() {
 	var render = com.hiyoko.sweet.Pet.Character.render.bind(this);
 	this.getElementById('characters').append(render(newId));
 	var index = 2;
-	var baseName = this.getElementById('characterList').find(':selected').text();
-
+	var baseName = this.masterName + '_' + this.getElementById('characterList').find(':selected').text();
+	character.name = baseName;
+	
 	for(var key in this.pets) {
 		if(this.pets[key].getName() === character.name) {
 			character.name = baseName + '_' + index;
