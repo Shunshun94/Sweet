@@ -78,6 +78,14 @@ com.hiyoko.sweet.Pet.prototype.sendCommand = function(e) {
 	this.fireEvent(event);
 };
 
+com.hiyoko.sweet.Pet.prototype.removeCharacterFromList = function() {
+	this.getElementById('characterList').find(':selected').remove();
+	if(this.getElementById('characterList').children().length === 0) {
+		this.getElementById('characterList').hide();
+		this.getElementById('characterAppend').hide();
+	}
+};
+
 com.hiyoko.sweet.Pet.prototype.appendCharacter = function() {
 	var newId = com.hiyoko.util.rndString(8);
 	var character = this.petCharacter[this.getElementById('characterList').val()];
@@ -86,6 +94,7 @@ com.hiyoko.sweet.Pet.prototype.appendCharacter = function() {
 	
 	this.pets[newId] = new com.hiyoko.sweet.Pet.Character(this.getElementById('character-' + newId),
 			this.petCharacter[this.getElementById('characterList').val()], this.petParts);
+	this.removeCharacterFromList();
 };
 
 com.hiyoko.sweet.Pet.SIGNATURE = 'By PCSweet Pets';
