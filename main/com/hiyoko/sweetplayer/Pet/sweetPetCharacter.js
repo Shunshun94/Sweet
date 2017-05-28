@@ -88,7 +88,6 @@ com.hiyoko.sweet.Pet.Character.prototype.mentalCheck = function(e) {
 com.hiyoko.sweet.Pet.Character.prototype.updateHpMp = function(e) {
 	var $tag = $(e.target);
 	var clazz = $tag.attr('class');
-	console.log(clazz);
 	if(clazz.endsWith('part-hp') || clazz.endsWith('part-mp')) {
 		var parts = [];
 		com.hiyoko.util.forEachMap(this.parts, function(v){
