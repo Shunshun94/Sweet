@@ -17,6 +17,10 @@ com.hiyoko.sweet.Pet.Character = function($html, data, partsCandidates) {
 
 com.hiyoko.util.extend(com.hiyoko.component.ApplicationBase, com.hiyoko.sweet.Pet.Character);
 
+com.hiyoko.sweet.Pet.Character.prototype.getName = function() {
+	return this.getElementById('name').text();
+};
+
 com.hiyoko.sweet.Pet.Character.prototype.initialize = function(list) {
 	this.buildComponents();
 	this.bindEvents();
@@ -54,7 +58,7 @@ com.hiyoko.sweet.Pet.Character.prototype.buildPartsList = function(list) {
 
 com.hiyoko.sweet.Pet.Character.prototype.getCharacters = function(callback) {
 	var event = this.getAsyncEvent('tofRoomRequest').done(function(r) {
-		callback(r.characters.filter(function(c) {return c.name.startsWith(this.data.name)}.bind(this)));
+		callback(r.characters.filter(function(c) {return c.name.startsWith(this.getElementById('name').text())}.bind(this)));
 	}.bind(this));
 	event.method = 'getCharacters';
 	this.fireEvent(event);
@@ -67,13 +71,13 @@ com.hiyoko.sweet.Pet.Character.prototype.buildComponents = function() {
 
 com.hiyoko.sweet.Pet.Character.prototype.rethrowEventFromParts = function(e) {
 	e.type = 'executeRequest';
-	e.name = this.data.name;
+	e.name = this.getElementById('name').text();
 	this.fireEvent(e);
 };
 
 com.hiyoko.sweet.Pet.Character.prototype.physicalCheck = function(e) {
 	this.fireEvent(new $.Event('executeRequest', {
-		col: 5, text: '生命抵抗判定', name: this.data.name,
+		col: 5, text: '生命抵抗判定', name: this.getElementById('name').text(),
 		value: '' + this.data.vitality + '+2d6'
 	}));
 };
@@ -94,7 +98,7 @@ com.hiyoko.sweet.Pet.Character.prototype.updateHpMp = function(e) {
 			parts.push(v.getValue());
 		});
 		this.fireEvent(this.getAsyncEvent('executeUpdateCharacters', {
-			name: this.data.name,
+			name: this.getElementById('name').text(),
 			parts: parts
 		}).done(function(result){
 			this.$html.notify('更新しました', {className: 'success', position: 'top'});
@@ -121,7 +125,7 @@ com.hiyoko.sweet.Pet.Character.prototype.appendCharacterToTof = function(e) {
 		parts.push(v.getValue());
 	});
 	this.fireEvent(this.getAsyncEvent('executeAddCharacters', {
-		name: this.data.name,
+		name: this.getElementById('name').text(),
 		parts: parts
 	}).done(function(result){
 		$(e.target).hide();
