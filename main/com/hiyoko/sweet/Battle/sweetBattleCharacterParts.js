@@ -297,13 +297,13 @@ com.hiyoko.sweet.Battle.BattleCharacter.Part = function($html, opt_original) {
 	this.render(); 
 	this.add = this.getElement('.' + this.clazz + '-addAttackWay');
 	this.remove = this.getElement('.' + this.clazz + '-delete');
-	
+
 	this.name = this.getElement('.' + this.clazz + '-name');
 	this.dodge = this.getElement('.' + this.clazz + '-dodge');
 	this.armor = this.getElement('.' + this.clazz + '-armor');
 	this.hp = this.getElement('.' + this.clazz + '-hp');
 	this.mp = this.getElement('.' + this.clazz + '-mp');
-	
+
 	this.dodgeExec = this.getElement('.' + this.clazz + '-dodge-exec');
 	this.staticDodgeExec = this.getElement('.' + this.clazz + '-dodge-static-exec');
 	
