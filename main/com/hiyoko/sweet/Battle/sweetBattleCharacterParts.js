@@ -294,16 +294,16 @@ com.hiyoko.sweet.Battle.BattleCharacter.Part = function($html, opt_original) {
 	this.clazz = this.$html.attr('class');
 	this.attackWays = {};
 
-	this.render();
+	this.render(); 
 	this.add = this.getElement('.' + this.clazz + '-addAttackWay');
 	this.remove = this.getElement('.' + this.clazz + '-delete');
-	
+
 	this.name = this.getElement('.' + this.clazz + '-name');
 	this.dodge = this.getElement('.' + this.clazz + '-dodge');
 	this.armor = this.getElement('.' + this.clazz + '-armor');
 	this.hp = this.getElement('.' + this.clazz + '-hp');
 	this.mp = this.getElement('.' + this.clazz + '-mp');
-	
+
 	this.dodgeExec = this.getElement('.' + this.clazz + '-dodge-exec');
 	this.staticDodgeExec = this.getElement('.' + this.clazz + '-dodge-static-exec');
 	
@@ -317,7 +317,7 @@ com.hiyoko.sweet.Battle.BattleCharacter.Part.prototype.afterAdd = function() {
 };
 
 com.hiyoko.sweet.Battle.BattleCharacter.Part.prototype.render = function() {
-	var $table = $('<table border="1"></table>');
+	var $table = $(com.hiyoko.util.format('<table class="%s" border="1"></table>', this.clazz + '-table'));
 	var $status = $('<tr></tr>');
 
 	$table.append('<tr><th>部位名</th><th>回避</th><th>防護</th><th>HP</th><th>MP</th></tr>');

@@ -12,7 +12,7 @@
 <div id="com-hiyoko-sw2-player">
 	<h1 id="com-hiyoko-sw2-player-title"></h1>
 	<div id="com-hiyoko-sw2-player-resourceManage">
-		<span id="com-hiyoko-sw2-player-resourceManage-toggle">≡</span>
+		<span id="com-hiyoko-sw2-player-resourceManage-toggle">リソース管理開閉</span>
 		<div id="com-hiyoko-sw2-player-resourceManage-base">
 				<h2>リソース管理</h2>
 				<button id="com-hiyoko-sw2-player-resourceManage-append">どどんとふにコマ追加</button>
@@ -172,7 +172,16 @@
 			　<button id="com-hiyoko-sw2-player-playerbattle-response-mental">精神抵抗</button></p>
 		</div>
 	</div>
-
+　<div id="com-hiyoko-sw2-player-pet">
+		<h2>騎獣・ゴーレムなど</h2>
+		<div id="com-hiyoko-sw2-player-pet-options">
+			<button id="com-hiyoko-sw2-player-pet-options-toggle">修正値一覧開閉</button>
+			<p>修正： <span id="com-hiyoko-sw2-player-pet-options-summary"></span></p>
+			<table border="1" id="com-hiyoko-sw2-player-pet-options-table"></table>
+		</div>
+		<p><select id="com-hiyoko-sw2-player-pet-characterList"></select> <button id="com-hiyoko-sw2-player-pet-characterAppend">追加</button></p>
+		<div id="com-hiyoko-sw2-player-pet-characters"></div>
+	</div>
 	<div id="com-hiyoko-sw2-player-commoncheck">
 		<h2>判定</h2>
 		<p>[技能] <select id="com-hiyoko-sw2-player-commoncheck-skill"></select> ＋
@@ -266,7 +275,7 @@
 		</div>
 	</div>
 	<footer id="com-hiyoko-sw2-player-footer">
-		<p id="com-hiyoko-sw2-player-footer-version">v20170522</p>
+		<p id="com-hiyoko-sw2-player-footer-version">v20170529</p>
 		<p>「ソードワールド2.0」は北沢慶氏およびグループSNEの著作物です。</p>
 		<p><a href="https://twitter.com/Shunshun94">作者 Twitter</a> | <a href="https://github.com/Shunshun94/Sweet">GitHub</a> | <a href="./history.html">HISTORY</a> | <a href="http://amzn.asia/8mNqdKy">ひよこのほしい物りすと</a></p>
 	</footer>
@@ -289,6 +298,7 @@
 
 <script src='./main/com/hiyoko/sweet/Battle/sweetBattleOptionalValues.js'></script>
 <script src='./main/com/hiyoko/sweet/Battle/sweetBattleCounterRemoCon.js'></script>
+<script src='./main/com/hiyoko/sweet/Battle/sweetBattleCharacterParts.js'></script>
 <script src="./main/com/hiyoko/sweetplayer/CommonChecker/sweetCommonCheckOptionalValues.js"></script>
 <script src="./main/com/hiyoko/sweetplayer/CommonChecker/sweetCommonCheck.js"></script>
 <script src="./main/com/hiyoko/sweetplayer/ResourceManage/sweetResourceManage.js"></script>
@@ -299,6 +309,9 @@
 <script src="./main/com/hiyoko/sweetplayer/PlayerBattle/sweetMagics.js"></script>
 <script src="./main/com/hiyoko/sweetplayer/PlayerBattle/sweetResponse.js"></script>
 <script src="./main/com/hiyoko/sweetplayer/PlayerBattle/sweetNameSelector.js"></script>
+<script src="./main/com/hiyoko/sweetplayer/Pet/sweetPet.js"></script>
+<script src="./main/com/hiyoko/sweetplayer/Pet/sweetPetCharacter.js"></script>
+<script src="./main/com/hiyoko/sweetplayer/Pet/sweetPetPartsList.js"></script>
 <script src="./main/com/hiyoko/sweetplayer/links.js"></script>
 <script src='./main/com/hiyoko/sweet/sweetAppList.js'></script>
 <script src="./main/com/hiyoko/sweetplayer/sweetPlayer.js"></script>

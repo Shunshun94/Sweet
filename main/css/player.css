@@ -90,7 +90,7 @@ h1 {
 #com-hiyoko-sw2-player-resourceManage {
 	z-index:2;
 }
-
+  
 #com-hiyoko-sw2-player-resourceManage-base {
 	display:none;
 }
@@ -128,6 +128,73 @@ h1 {
 #com-hiyoko-sw2-player-resourceManage-resources-RemoCon input {
 	width:40px;
 }
+
+#com-hiyoko-sw2-player-pet {
+	position:relative;
+}
+
+#com-hiyoko-sw2-player-pet-options {
+	position: absolute;
+	background-color: white;
+	top:-3em;
+}
+
+div.com-hiyoko-sw2-player-pet-character {
+	border: 4px double black;
+	padding: 4px;
+	position: relative;
+}
+
+div.com-hiyoko-sw2-player-pet-character button {
+	height: 2em;
+}
+
+.com-hiyoko-sw2-player-pet-character-physical,
+.com-hiyoko-sw2-player-pet-character-mental {
+	display:none;
+}
+
+div.com-hiyoko-sw2-player-pet-character-part {
+	border: 2px double black;
+	padding: 4px;
+	position: relative;
+}
+
+table.com-hiyoko-sw2-player-pet-character-part-table {
+	display:table;
+}
+
+table.com-hiyoko-sw2-player-pet-character-part-table > tr > td.com-hiyoko-sw2-player-pet-character-part-number > input {
+	width: 40px;
+}
+
+table.com-hiyoko-sw2-player-pet-character-part-table > tr > td.com-hiyoko-sw2-player-pet-character-part-text > input {
+	width: 120px;
+}
+
+div.com-hiyoko-sw2-player-pet-character-part-attackway {
+	border: 1px solid black;
+	padding: 4px;
+	position: relative;
+}
+
+.com-hiyoko-sw2-player-pet-character-part-attackway-val,
+.com-hiyoko-sw2-player-pet-character-part-attackway-atk {
+	width: 40px;
+}
+
+.com-hiyoko-sw2-player-pet-character-part-dodge-static-exec,
+.com-hiyoko-sw2-player-pet-character-part-attackway-static-exec {
+	display: none;
+}
+
+.com-hiyoko-sw2-player-pet-character-part-delete,
+.com-hiyoko-sw2-player-pet-character-part-attackway-del {
+	position:absolute;
+	top: 4px;
+	right: 4px;
+}
+
 
 #com-hiyoko-sw2-player-links-map-exec {
 	color:blue;
