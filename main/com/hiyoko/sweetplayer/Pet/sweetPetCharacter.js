@@ -24,7 +24,6 @@ com.hiyoko.sweet.Pet.Character.prototype.getName = function() {
 com.hiyoko.sweet.Pet.Character.prototype.initialize = function(list) {
 	this.buildComponents();
 	this.bindEvents();
-	
 	if(list.length) {
 		this.buildPartsList(list);
 		this.$html.notify('どどんとふにすでにデータがあったので読み込みました', {className: 'success', position: 'top'});
@@ -32,7 +31,7 @@ com.hiyoko.sweet.Pet.Character.prototype.initialize = function(list) {
 };
 
 com.hiyoko.sweet.Pet.Character.prototype.tofCharacterToPetParts = function(tofData) {
-	var name = tofData.name.split(':')[1];
+	var name = (tofData.name || '').split(':')[1];
 	var datas = this.partsCandidates.filter(function(v){return v.name === name});
 	if(datas.length) {
 		var data = datas[0];
@@ -58,7 +57,7 @@ com.hiyoko.sweet.Pet.Character.prototype.buildPartsList = function(list) {
 
 com.hiyoko.sweet.Pet.Character.prototype.getCharacters = function(callback) {
 	var event = this.getAsyncEvent('tofRoomRequest').done(function(r) {
-		callback(r.characters.filter(function(c) {return c.name.startsWith(this.getElementById('name').text())}.bind(this)));
+		callback(r.characters.filter(function(c) {return (c.name || '').startsWith(this.data.name)}.bind(this)));
 	}.bind(this));
 	event.method = 'getCharacters';
 	this.fireEvent(event);
