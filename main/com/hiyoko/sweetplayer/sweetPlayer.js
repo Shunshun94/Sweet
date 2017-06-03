@@ -97,6 +97,15 @@ com.hiyoko.sweet.Player.prototype.bindEvents = function(e) {
 		localStorage.setItem(e.id, JSON.stringify(e.value));
 	});
 	
+
+	this.$html.on('getStorageWithKey', function(e){
+		e.resolve(com.hiyoko.util.getLocalStorage(e.id, e.key));
+	});
+	
+	this.$html.on('setStorageWithKey', function(e){
+		e.resolve(com.hiyoko.util.updateLocalStorage(e.id, e.key, e.value));
+	});
+	
 	this.$html.on('clickMenu', this.onClickList.bind(this));
 	
 	this.$html.on(com.hiyoko.component.InputFlow.Events.Finish, function(e) {
