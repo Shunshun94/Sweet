@@ -5,6 +5,8 @@ com.hiyoko.sweet = com.hiyoko.sweet || {};
 com.hiyoko.sweet.Pet = function($html, character) {
 	this.$html = $html;
 	this.id = this.$html.attr('id');
+	this.masterName = character.name;
+	this.ownerId = character.id;
 	this.petCharacter = character.pets.character;
 	this.petParts = character.pets.parts;
 	this.pets = {};
@@ -15,12 +17,33 @@ com.hiyoko.sweet.Pet = function($html, character) {
 
 com.hiyoko.util.extend(com.hiyoko.component.ApplicationBase, com.hiyoko.sweet.Pet);
 
+com.hiyoko.sweet.Pet.prototype.setPrefixDom = function() {
+	var event = this.getAsyncEvent('getStorageWithKey').done(function(str) {
+		this.getElementById('prefix').val(str || this.masterName);
+	}.bind(this));
+	event.id = this.id + '-prefix';
+	event.key = this.ownerId;
+	this.fireEvent(event);
+};
+
+com.hiyoko.sweet.Pet.prototype.lockPrefix = function() {
+	this.getElementById('prefix').hide();
+	this.getElementById('prefixExplain').hide();
+	this.masterName = this.getElementById('prefix').val();
+	var event = this.getAsyncEvent('setStorageWithKey').done(function() {});
+	event.id = this.id + '-prefix';
+	event.key = this.ownerId;
+	event.value = this.masterName;
+	this.fireEvent(event);
+};
+
 com.hiyoko.sweet.Pet.prototype.buildComponents = function() {
 	if(this.petCharacter.length) {
 		this.petCharacter.forEach(function(v, i) {
 			this.getElementById('characterList').append(com.hiyoko.util.format('<option value="%s">%s</option>', i, v.name));
 		}.bind(this));
 		this.table = new com.hiyoko.sweet.Battle.OptionalValues(this.getElementById('options'));
+		this.setPrefixDom();
 	} else {
 		this.getElementById('characterList').parent().hide();
 		this.$html.append('<p>騎獣やゴーレムがいません</p>');
@@ -87,14 +110,23 @@ com.hiyoko.sweet.Pet.prototype.removeCharacterFromList = function() {
 };
 
 com.hiyoko.sweet.Pet.prototype.appendCharacter = function() {
+	this.lockPrefix();
 	var newId = com.hiyoko.util.rndString(8);
 	var character = this.petCharacter[this.getElementById('characterList').val()];
 	var render = com.hiyoko.sweet.Pet.Character.render.bind(this);
 	this.getElementById('characters').append(render(newId));
+	var index = 2;
+	var baseName = this.masterName + '_' + this.getElementById('characterList').find(':selected').text();
+	character.name = baseName;
 	
-	this.pets[newId] = new com.hiyoko.sweet.Pet.Character(this.getElementById('character-' + newId),
-			this.petCharacter[this.getElementById('characterList').val()], this.petParts);
-	this.removeCharacterFromList();
+	for(var key in this.pets) {
+		if(this.pets[key].getName() === character.name) {
+			character.name = baseName + '_' + index;
+		}
+		index++;
+	}
+
+	this.pets[newId] = new com.hiyoko.sweet.Pet.Character(this.getElementById('character-' + newId), character, this.petParts);
 };
 
 com.hiyoko.sweet.Pet.SIGNATURE = 'By PCSweet Pets';
