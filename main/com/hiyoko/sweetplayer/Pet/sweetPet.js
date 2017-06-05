@@ -28,6 +28,7 @@ com.hiyoko.sweet.Pet.prototype.setPrefixDom = function() {
 
 com.hiyoko.sweet.Pet.prototype.lockPrefix = function() {
 	this.getElementById('prefix').hide();
+	this.getElementById('prefixExplain').hide();
 	this.masterName = this.getElementById('prefix').val();
 	var event = this.getAsyncEvent('setStorageWithKey').done(function() {});
 	event.id = this.id + '-prefix';
