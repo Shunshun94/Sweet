@@ -173,8 +173,31 @@
 		</div>
 		<div id="com-hiyoko-sw2-player-playerbattle-call">
 			<h3>行動の宣言</h3>
-			<textarea rows="4" cols="40" id="com-hiyoko-sw2-player-playerbattle-call-editor"></textarea>
-			<button id="com-hiyoko-sw2-player-playerbattle-call-send">送信</button>
+			<div>
+				<textarea rows="4" cols="40" id="com-hiyoko-sw2-player-playerbattle-call-editor"></textarea>
+				<br/><button id="com-hiyoko-sw2-player-playerbattle-call-send">送信</button><button id="com-hiyoko-sw2-player-playerbattle-call-sendidea">案として送信</button>
+			</div>
+			<div>
+				<div id="com-hiyoko-sw2-player-playerbattle-call-move">
+					<select id="com-hiyoko-sw2-player-playerbattle-call-move-list">
+						<option value="制限移動">制限移動</option><option value="通常移動">通常移動</option><option value="全力移動">全力移動</option>
+					</select>
+					<select id="com-hiyoko-sw2-player-playerbattle-call-move-action">
+						<option value="前進">前進</option><option value="後退">後退</option><option value="に近接">近接</option><option value="から手前">～から手前</option>
+					</select>
+					<input value="0" type="number" min="0" id="com-hiyoko-sw2-player-playerbattle-call-move-distance" />
+					<span id="com-hiyoko-sw2-player-playerbattle-call-move-target"></span>
+					<button id="com-hiyoko-sw2-player-playerbattle-call-move-send">追加</button>
+				</div>
+			
+			
+				<div id="com-hiyoko-sw2-player-playerbattle-call-temptech">
+					<select id="com-hiyoko-sw2-player-playerbattle-call-temptech-list"></select>
+					<span id="com-hiyoko-sw2-player-playerbattle-call-temptech-target"></span>
+					<button id="com-hiyoko-sw2-player-playerbattle-call-temptech-getCharacterList">対象選択</button>
+					<button id="com-hiyoko-sw2-player-playerbattle-call-temptech-send">追加</button>
+				</div>
+			</div>
 		</div>
 	</div>
 　<div id="com-hiyoko-sw2-player-pet">
@@ -315,6 +338,7 @@
 <script src="./main/com/hiyoko/sweetplayer/PlayerBattle/sweetMagics.js"></script>
 <script src="./main/com/hiyoko/sweetplayer/PlayerBattle/sweetResponse.js"></script>
 <script src="./main/com/hiyoko/sweetplayer/PlayerBattle/sweetNameSelector.js"></script>
+<script src="./main/com/hiyoko/sweetplayer/PlayerBattle/sweetCall.js"></script>
 <script src="./main/com/hiyoko/sweetplayer/Pet/sweetPet.js"></script>
 <script src="./main/com/hiyoko/sweetplayer/Pet/sweetPetCharacter.js"></script>
 <script src="./main/com/hiyoko/sweetplayer/Pet/sweetPetPartsList.js"></script>
