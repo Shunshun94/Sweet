@@ -10,11 +10,21 @@ com.hiyoko.sweet.PlayerBattle.Magics = function($html, character) {
 	com.hiyoko.util.forEachMap(character.magic, function(v, k){
 		this.magics.push({name: k, value: v});
 	}.bind(this));
+	this.forRider(character);
 	this.buildComponents();
 	this.bindEvents();
 };
 
 com.hiyoko.util.extend(com.hiyoko.component.ApplicationBase, com.hiyoko.sweet.PlayerBattle.Magics);
+
+com.hiyoko.sweet.PlayerBattle.Magics.prototype.forRider = function(character) {
+	[{skill: 'ライダー', name: '騎獣の車載武器'},
+	 {skill: 'エンハンサー', name: '練技による攻撃'}].filter(function(w){
+		return character.skills[w.skill];
+	 }).forEach(function(w){
+		 this.magics.push({name:w.name,value:character.skills[w.skill] + character.status[4]});
+	 }.bind(this));
+};
 
 com.hiyoko.sweet.PlayerBattle.Magics.prototype.buildComponents = function() {
 	if(this.magics.length === 0) {
