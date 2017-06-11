@@ -19,6 +19,7 @@ com.hiyoko.sweet.PlayerBattle.Call = function($html, character) {
 com.hiyoko.util.extend(com.hiyoko.component.ApplicationBase, com.hiyoko.sweet.PlayerBattle.Call);
 
 com.hiyoko.sweet.PlayerBattle.Call.prototype.sendCall = function(isIdea) {
+	if(this.editor.val() === ''){return;}
 	var text = (isIdea ? '行動宣言 (案)\n' : '行動宣言\n') + this.editor.val();
 	var event = this.getAsyncEvent('tofRoomRequest').done(function(r) {
 		this.editor.notify('送信しました', {className: 'success', position: 'top'});
