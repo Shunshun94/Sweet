@@ -132,7 +132,7 @@ com.hiyoko.sweet.Battle.prototype.bindEvents = function() {
 				console.log(r);
 				alert('読み込みに失敗しました\n' + r.message);
 			});
-			event.algorithm = 'algo://Shunshun94/ytSheetMParser/0.4.1';
+			event.algorithm = 'algo://Shunshun94/ytSheetMParser/0.4.2';
 			event.params = url;
 			this.fireEvent(event);
 		}

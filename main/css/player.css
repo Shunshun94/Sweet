@@ -78,6 +78,18 @@ h1 {
 	width: 333px;
 }
 
+#com-hiyoko-sw2-player-playerbattle-call > div > div {
+	margin-bottom:4px;
+}
+
+#com-hiyoko-sw2-player-playerbattle-call-editor {
+	width: 480px;
+}
+
+#com-hiyoko-sw2-player-playerbattle-call-move-distance {
+	width:40px;
+}
+
 #com-hiyoko-sw2-player > div#com-hiyoko-sw2-player-resourceManage {
 	display: none;
 	position:fixed;
