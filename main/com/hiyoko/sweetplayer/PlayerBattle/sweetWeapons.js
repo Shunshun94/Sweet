@@ -16,9 +16,9 @@ com.hiyoko.sweet.PlayerBattle.Weapons = function($html, character) {
 com.hiyoko.util.extend(com.hiyoko.component.ApplicationBase, com.hiyoko.sweet.PlayerBattle.Weapons);
 
 com.hiyoko.sweet.PlayerBattle.Weapons.prototype.forRider = function(character) {
-	[{skill: 'ライダー', name: '車載武器 (ライダー技能)', note:'騎獣に搭載された武器で攻撃する場合に利用します', category: '車載武器'},
-	 {skill: 'シューター', name: '車載武器 (シューター技能)', note:'騎獣に搭載された武器で攻撃する場合に利用します', category: '車載武器'},
-	 {skill: 'エンハンサー', name: '練技による攻撃', note:'攻撃用の練技で攻撃する場合に利用します', category: '練技'}].filter(function(w){
+	[{skill: 'ライダー', name: '車載武器 (ライダー技能)', note:'騎獣に搭載された武器', category: '車載武器'},
+	 {skill: 'シューター', name: '車載武器 (シューター技能)', note:'騎獣に搭載された武器', category: '車載武器'},
+	 {skill: 'エンハンサー', name: '練技による攻撃', note:'攻撃用の練技', category: '練技'}].filter(function(w){
 		return character.skills[w.skill]; 
 	 }).forEach(function(w){
 		 this.weapons.push({
@@ -40,6 +40,26 @@ com.hiyoko.sweet.PlayerBattle.Weapons.prototype.buildComponents = function() {
 	});
 };
 
+com.hiyoko.sweet.PlayerBattle.Weapons.prototype.toggleRate = function(isEnabled) {
+	if (isEnabled) {
+		this.getElementById('rate').show();
+		this.getElementById('ratelabel').show();			
+	} else {
+		this.getElementById('rate').hide();
+		this.getElementById('ratelabel').hide();
+	}
+};
+
+com.hiyoko.sweet.PlayerBattle.Weapons.prototype.toggleDamage = function(isEnabled) {
+	if (isEnabled) {
+		this.getElementById('damage').show();
+		this.getElementById('damagelabel').show();			
+	} else {
+		this.getElementById('damage').hide();
+		this.getElementById('damagelabel').hide();
+	}
+};
+
 com.hiyoko.sweet.PlayerBattle.Weapons.prototype.bindEvents = function() {
 	var list = this.getElementById('list');
 
@@ -58,14 +78,18 @@ com.hiyoko.sweet.PlayerBattle.Weapons.prototype.bindEvents = function() {
 		this.getElementById('detail').text(com.hiyoko.util.format(
 				'%s/%s/%sランク 命中:%s C値:%s 追加ダメージ:%s 威力:%s …… %s',
 				weapon.hand, weapon.category, weapon.rank,
-				weapon.hit, weapon.crit, weapon.damage,
+				weapon.hit, weapon.crit,
+				('車載武器' === weapon.category) ? '攻撃手段による' : weapon.damage,
 				(['ガン', '車載武器', '練技'].includes(weapon.category)) ? '攻撃手段による' : weapon.rate, weapon.note || '-'));
-		if (['ガン', '車載武器', '練技'].includes(weapon.category)) {
-			this.getElementById('rate').show();
-			this.getElementById('ratelabel').show();			
+		if(weapon.category === '車載武器') {
+			this.toggleRate(true);
+			this.toggleDamage(true);
+		}else if (['ガン', '練技'].includes(weapon.category)) {
+			this.toggleRate(true);
+			this.toggleDamage(false);
 		} else {
-			this.getElementById('rate').hide();
-			this.getElementById('ratelabel').hide();
+			this.toggleRate(false);
+			this.toggleDamage(false);
 		}
 	}.bind(this));
 	
@@ -73,7 +97,7 @@ com.hiyoko.sweet.PlayerBattle.Weapons.prototype.bindEvents = function() {
 		var weapon = this.weapons[list.val()];
 		this.fireEvent({
 			target: e.target,
-			type: com.hiyoko.sweet.PlayerBattle.Events.role,
+			type: com.hiyoko.sweet.PlayerBattle.Events.role, 
 			message: com.hiyoko.util.format('2d6+%s\\%s / 命中判定 ：%s %s', weapon.hit, weapon.name, this.getElementById('memo').val()),
 			col: 2
 		});
@@ -85,8 +109,8 @@ com.hiyoko.sweet.PlayerBattle.Weapons.prototype.bindEvents = function() {
 			target: e.target,
 			type: com.hiyoko.sweet.PlayerBattle.Events.role,
 			message: com.hiyoko.util.format('k%s+%s\\%s%s%s / ダメージ ：%s %s',
-					(weapon.category === 'ガン') ? this.getElementById('rate').val() :weapon.rate,
-					weapon.damage,
+					(['ガン', '車載武器', '練技'].includes(weapon.category)) ? this.getElementById('rate').val() : weapon.rate,
+					('車載武器' === weapon.category) ? this.getElementById('damage').val() : weapon.damage,
 					(this.getElementById('critical').val() || '@' + weapon.crit),
 					this.getElementById('rolevalue').val(),
 					weapon.name, this.getElementById('memo').val()),
