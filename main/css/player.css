@@ -69,7 +69,14 @@ h1 {
 }
 
 #com-hiyoko-sw2-player-playerbattle-weapons-ratelabel,
-#com-hiyoko-sw2-player-playerbattle-weapons-rate {
+#com-hiyoko-sw2-player-playerbattle-weapons-rate,
+#com-hiyoko-sw2-player-playerbattle-weapons-damagelabel
+{
+	display: none;
+}
+
+#com-hiyoko-sw2-player-playerbattle-weapons-damage {
+	width: 43px;
 	display: none;
 }
 
