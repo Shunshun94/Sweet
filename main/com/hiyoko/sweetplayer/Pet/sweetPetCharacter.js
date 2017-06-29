@@ -83,7 +83,7 @@ com.hiyoko.sweet.Pet.Character.prototype.physicalCheck = function(e) {
 
 com.hiyoko.sweet.Pet.Character.prototype.mentalCheck = function(e) {
 	this.fireEvent(new $.Event('executeRequest', {
-		col: 6, text: '精神抵抗判定',
+		col: 6, text: '精神抵抗判定', name: this.getElementById('name').text(),
 		value: '' + this.data.mentality + '+2d6'
 	}));
 };
