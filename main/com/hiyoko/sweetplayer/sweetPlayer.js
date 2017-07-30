@@ -96,7 +96,6 @@ com.hiyoko.sweet.Player.prototype.bindEvents = function(e) {
 	this.$html.on('setStorage', function(e){
 		localStorage.setItem(e.id, JSON.stringify(e.value));
 	});
-	
 
 	this.$html.on('getStorageWithKey', function(e){
 		e.resolve(com.hiyoko.util.getLocalStorage(e.id, e.key));
