@@ -224,7 +224,57 @@ div.com-hiyoko-sw2-player-pet-character-part-attackway {
 	padding: 1em;
 }
 
+#com-hiyoko-sw2-player-playerbattle,
+#com-hiyoko-sw2-player-pet,
+#com-hiyoko-sw2-player-commoncheck,
+#com-hiyoko-sw2-player-links {
+	min-height: 630px;
+}
+
+#com-hiyoko-sw2-player-talk {
+	display:none;
+	position: fixed;
+	right: 2em;
+	bottom: 2em;
+	display: none;
+	background-color: #ff7f7f;
+	opacity:0.9;
+	border-radius:5px;
+	box-sizing:border-box;
+}
+
+#com-hiyoko-sw2-player-talk > p {
+	margin-top:0px;
+	margin-bottom:0px;
+}
+
+#com-hiyoko-sw2-player-talk-chat {
+	display:none;
+}
+
+#com-hiyoko-sw2-player-talk-chat-display {
+	max-width:380px;
+	max-height:500px;
+	background-color: white;
+	border-radius:2px;
+	padding:2px;
+	font-size:50%;
+}
+
+.com-hiyoko-sw2-player-talk-chat-display-log-name {
+	display:block;
+}
+.com-hiyoko-sw2-player-talk-chat-display-log-message {
+	display:block;
+	padding-left:1em;
+}
+
+#com-hiyoko-sw2-player-talk-toggle {
+	text-align:right;
+}
+
 footer{
+	position: relative;
 	border-top: solid 3px #D0C0C0;
 	background-color:#F0E0E0;
 	padding:1em;

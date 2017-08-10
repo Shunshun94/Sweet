@@ -46,6 +46,7 @@ com.hiyoko.sweet.Player.prototype.buildComponents = function() {
 						return newComponent;
 					}.bind(this));
 			this.resources = new com.hiyoko.sweet.ResourceManage(this.getElementById('resourceManage'), this.character);
+			this.talk = new com.hiyoko.sweet.Talk(this.getElementById('talk'), this.character);
 			this.list = new com.hiyoko.sweet.AppList(this.getElementById('list'), this.components);
 			this.onClickList({num: 0});
 		}.bind(this));
@@ -96,7 +97,6 @@ com.hiyoko.sweet.Player.prototype.bindEvents = function(e) {
 	this.$html.on('setStorage', function(e){
 		localStorage.setItem(e.id, JSON.stringify(e.value));
 	});
-	
 
 	this.$html.on('getStorageWithKey', function(e){
 		e.resolve(com.hiyoko.util.getLocalStorage(e.id, e.key));

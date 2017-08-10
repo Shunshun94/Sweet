@@ -289,9 +289,17 @@
 		<button id="com-hiyoko-sw2-player-commoncheck-exec">判定</button>　<button id="com-hiyoko-sw2-player-commoncheck-execNoSkill">平目で判定</button>
 		<p><input type="checkbox" id="com-hiyoko-sw2-player-commoncheck-comment-clear-everytime" checked />判定実施後、コメント欄を自動的に削除する</p>
 	</div>
-	
 	<div id="com-hiyoko-sw2-player-links"></div>
-	
+	<div id="com-hiyoko-sw2-player-talk">
+		<div id="com-hiyoko-sw2-player-talk-chat">
+			<div id="com-hiyoko-sw2-player-talk-chat-display"></div>
+			<div id="com-hiyoko-sw2-player-talk-chat-input">
+				<input id="com-hiyoko-sw2-player-talk-chat-input-text" type="text" />
+				<button id="com-hiyoko-sw2-player-talk-chat-input-exec">送信</button>
+			</div>
+		</div>
+		<p id="com-hiyoko-sw2-player-talk-toggle">💬</p>
+	</div>
 	<div id="com-hiyoko-sw2-player-entrance">
 		<div id="com-hiyoko-sw2-player-entrance-url">
 			<h2>使うどどんとふを選択してください</h2>
@@ -326,7 +334,7 @@
 		</div>
 	</div>
 	<footer id="com-hiyoko-sw2-player-footer">
-		<p id="com-hiyoko-sw2-player-footer-version">v20170612c </p>
+		<p id="com-hiyoko-sw2-player-footer-version">v20170810</p>
 		<p>「ソードワールド2.0」は北沢慶氏およびグループSNEの著作物です。</p>
 		<p><a href="https://twitter.com/Shunshun94">作者 Twitter</a> | <a href="https://github.com/Shunshun94/Sweet">GitHub</a> | <a href="./history.html">HISTORY</a> | <a href="http://amzn.asia/8mNqdKy">ひよこのほしい物りすと</a></p>
 	</footer>
@@ -345,6 +353,8 @@
 <script src="https://shunshun94.github.io/shared/jquery/com/hiyoko/components/v1/InputFlow.js"></script>
 <script src="https://shunshun94.github.io/shared/jquery/com/hiyoko/components/v1/UlList.js"></script>
 <script src="https://shunshun94.github.io/shared/jquery/com/hiyoko/dodontof/v2/DodontoF-Entrance.js"></script>
+<script src="https://shunshun94.github.io/shared/jquery/com/hiyoko/dodontof/v2/DodontoF-chatUtil.js"></script>
+<script src="https://shunshun94.github.io/shared/jquery/com/hiyoko/dodontof/v2/DodontoF-Chat.js"></script>
 <script src='https://shunshun94.github.io/shared/jquery/com/hiyoko/components/v1/TableBase.js'></script>
 
 <script src='./main/com/hiyoko/sweet/Battle/sweetBattleOptionalValues.js'></script>
@@ -352,6 +362,7 @@
 <script src='./main/com/hiyoko/sweet/Battle/sweetBattleCharacterParts.js'></script>
 <script src="./main/com/hiyoko/sweetplayer/CommonChecker/sweetCommonCheckOptionalValues.js"></script>
 <script src="./main/com/hiyoko/sweetplayer/CommonChecker/sweetCommonCheck.js"></script>
+<script src="./main/com/hiyoko/sweetplayer/Talk/sweetTalk.js"></script>
 <script src="./main/com/hiyoko/sweetplayer/ResourceManage/sweetResourceManage.js"></script>
 <script src="./main/com/hiyoko/sweetplayer/ResourceManage/sweetResourceTable.js"></script>
 <script src="./main/com/hiyoko/sweetplayer/ResourceManage/sweetResourceTableRemoCon.js"></script>

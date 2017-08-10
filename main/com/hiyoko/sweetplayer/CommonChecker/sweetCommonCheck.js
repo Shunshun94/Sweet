@@ -11,6 +11,7 @@ com.hiyoko.sweet.CommonCheck = function($html, character) {
 	
 	this.getElementById('exec').click(this.sendCommand.bind(this));
 	this.getElementById('execNoSkill').click(this.sendCommandNoSkill.bind(this));
+	this.getElementById('comment').change(this.autocompleteSkillAndStatus.bind(this))
 
 	this.getElementById('comment-clear').click(function(e) {
 		this.getElementById('comment').val('');
@@ -55,6 +56,15 @@ com.hiyoko.sweet.CommonCheck.prototype.sendCommand = function(e) {
 			this.getElementById('skill').children(':selected').text(), this.getElementById('status').children(':selected').text(),
 			option.detail);
 	
+	var kindOfCheck = this.getElementById('comment').val().split(/[ 　]/)[0];
+	if(kindOfCheck) {
+		var saveEvent = this.getAsyncEvent('setStorageWithKey').done(function() {});
+		saveEvent.id = this.id + '-check-skill-status-relationship';
+		saveEvent.key = this.character.id + '#' + kindOfCheck;
+		saveEvent.value = [this.getElementById('skill').children(':selected').text(), this.getElementById('status').children(':selected').text()];
+		this.fireEvent(saveEvent);
+	}
+	
 	event.args = [{name: this.character.name, message: text, bot:'SwordWorld2.0'}];
 	event.method = 'sendChat';
 	
@@ -77,6 +87,29 @@ com.hiyoko.sweet.CommonCheck.prototype.sendCommandNoSkill = function(e) {
 	
 	event.args = [{name: this.character.name, message: text, bot:'SwordWorld2.0'}];
 	event.method = 'sendChat';
+	this.fireEvent(event);
+};
+
+com.hiyoko.sweet.CommonCheck.prototype.autocompleteSkillAndStatus = function(e) {
+	var kindOfCheck = this.getElementById('comment').val().split(/[ 　]/)[0];
+	if(kindOfCheck === '') {
+		return;
+	}
+	
+	var event = this.getAsyncEvent('getStorageWithKey');
+	event.id = this.id + '-check-skill-status-relationship';
+	event.key = this.character.id + '#' + kindOfCheck;
+	event.done(function(result) {
+		if(result) {
+			this.getElementById('skill > option').filter(function(i) {
+				return result[0] === $(this).text();
+			}).prop('selected', true);
+			this.getElementById('status > option').filter(function(i) {
+				return result[1] === $(this).text();
+			}).prop('selected', true);
+		}
+	}.bind(this));
+	
 	this.fireEvent(event);
 };
 
