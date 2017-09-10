@@ -63,19 +63,21 @@ com.hiyoko.sweet.Circumstance.CommandBase.prototype.initialize = function(){
 com.hiyoko.sweet.Circumstance.CommandBase.prototype.renderTable = function(datalist) {
 	var table = this.getElementById('editor');
 	var self = this;
+	table.find('tr').remove();
 	datalist.forEach(function(data) {
 		table.append(com.hiyoko.util.format(
 						'<tr class="%s"><td contenteditable="">%s</td>' +
 						'<td contenteditable="">%s</td>' +
 						'<td contenteditable="">%s</td>' +
-						'<td><button class="%s">×</button></td></tr>',
+						(data.kept ? '<td></td>' : '<td><button class="%s">×</button></td>') +
+						'</tr>',
 						self.id + '-list',
 						data.command, data.url, data.memo,
 						self.id + '-list-delete'));
 	});
 	table.append(com.hiyoko.util.format(
-			'<tr><td colspan="4"><button id="%s">ADD</button></td></tr>',
-			self.id + '-add'));
+			'<tr><td colspan="4"><button id="%s">ADD</button><button id="%s">RESET</button></td></tr>',
+			self.id + '-add', self.id + '-reset'));
 };
 
 com.hiyoko.sweet.Circumstance.CommandBase.prototype.sendCommand = function(e) {
@@ -103,7 +105,8 @@ com.hiyoko.sweet.Circumstance.CommandBase.prototype.getData = function() {
 		data.push({
 			command: $(trdata[0]).text(),
 			url: $(trdata[1]).text(),
-			memo: $(trdata[2]).text()
+			memo: $(trdata[2]).text(),
+			kept: ! Boolean($(trdata[3]).text())
 		});
 	});
 	
@@ -133,6 +136,10 @@ com.hiyoko.sweet.Circumstance.CommandBase.prototype.bindEvents = function() {
 				this.id + '-list', this.id + '-list-delete'));
 	}.bind(this));
 	
+	this.getElementById('reset').click(function(e){
+		this.renderTable(this.defaultData);
+	}.bind(this));
+
 	this.getElementById('editor').click(function(e) {
 		var clicked = $(e.target);
 		if(clicked.hasClass(this.id + '-list-delete')) {
@@ -148,7 +155,8 @@ com.hiyoko.sweet.Circumstance.Music = function($html) {
 	this.defaultData = [{
 		command: 'BGM:停止',
 		url: '',
-		memo: '再生中の BGM を停止させます'
+		memo: '再生中の BGM を停止させます',
+		kept: true
 	},{
 		command: 'BGM:休憩1',
 		url: 'https://www.dropbox.com/s/ozdbu91awrwzmoz/rest01.mp3?dl=1',

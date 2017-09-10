@@ -7,58 +7,58 @@ Sword World Enjoy Easily Tool
 
 Copyright (c) 2005, 2016 jQuery Foundation, Inc.
 
-MIT ƒ‰ƒCƒZƒ“ƒX‚Å‚·B
+MIT ãƒ©ã‚¤ã‚»ãƒ³ã‚¹ã§ã™ã€‚
 
-ƒ‰ƒCƒZƒ“ƒXî•ñ:  https://jquery.org/license/
+ãƒ©ã‚¤ã‚»ãƒ³ã‚¹æƒ…å ±:  https://jquery.org/license/
 
 ### jQuery UI v.1.12.1
 
 Copyright (c) jQuery Foundation and other contributors
 
-MIT ƒ‰ƒCƒZƒ“ƒX‚Å‚·B
+MIT ãƒ©ã‚¤ã‚»ãƒ³ã‚¹ã§ã™ã€‚
 
-ƒ‰ƒCƒZƒ“ƒXî•ñ:  https://jquery.org/license/
+ãƒ©ã‚¤ã‚»ãƒ³ã‚¹æƒ…å ±:  https://jquery.org/license/
 
 ### Notify.js v0.4.2
 
 Copyright (c) 2015 Jaime Pillora 
 
-MIT ƒ‰ƒCƒZƒ“ƒX‚Å‚·B
+MIT ãƒ©ã‚¤ã‚»ãƒ³ã‚¹ã§ã™ã€‚
 
-ƒ‰ƒCƒZƒ“ƒXî•ñ:  https://github.com/jpillora/notifyjs
+ãƒ©ã‚¤ã‚»ãƒ³ã‚¹æƒ…å ±:  https://github.com/jpillora/notifyjs
 
 ### algorithmia-nodejs
 
 Copyright (c) 2015 Anthony Nowell
 
-MIT ƒ‰ƒCƒZƒ“ƒX‚Å‚·B
+MIT ãƒ©ã‚¤ã‚»ãƒ³ã‚¹ã§ã™ã€‚
 
-ƒ‰ƒCƒZƒ“ƒXî•ñ:  https://github.com/algorithmiaio/algorithmia-nodejs
+ãƒ©ã‚¤ã‚»ãƒ³ã‚¹æƒ…å ±:  https://github.com/algorithmiaio/algorithmia-nodejs
 
 ## Related products
 
-### ƒ\[ƒhƒ[ƒ‹ƒh2.0
+### ã‚½ãƒ¼ãƒ‰ãƒ¯ãƒ¼ãƒ«ãƒ‰2.0
 
-uƒ\[ƒhƒ[ƒ‹ƒh2.0v‚Í–k‘òŒc‚¨‚æ‚ÑƒOƒ‹[ƒvSNE‚Ì’˜ì•¨‚Å‚·B
+ã€Œã‚½ãƒ¼ãƒ‰ãƒ¯ãƒ¼ãƒ«ãƒ‰2.0ã€ã¯åŒ—æ²¢æ…¶æ°ãŠã‚ˆã³ã‚°ãƒ«ãƒ¼ãƒ—SNEã®è‘—ä½œç‰©ã§ã™ã€‚
 
 http://www.groupsne.co.jp/products/sw/index.html
 https://ssl.fujimi-trpg-online.jp/contents/sw
 
-### ‚ä‚ÆƒV[ƒg
+### ã‚†ã¨ã‚·ãƒ¼ãƒˆ
 
-‚ä‚Æ‚ç‚¢‚¸‚³‚ñìB
+ã‚†ã¨ã‚‰ã„ãšã•ã‚“ä½œã€‚
 
-ƒ‰ƒCƒ“ƒZƒ“ƒXî•ñ‚Í“Á‚É‹L‚³‚ê‚Ä‚¢‚Ü‚¹‚ñ‚ªAˆÈ‰º‚Ì‚æ‚¤‚È‹Lq‚ª‚ ‚è‚Ü‚·
+ãƒ©ã‚¤ãƒ³ã‚»ãƒ³ã‚¹æƒ…å ±ã¯ç‰¹ã«è¨˜ã•ã‚Œã¦ã„ã¾ã›ã‚“ãŒã€ä»¥ä¸‹ã®ã‚ˆã†ãªè¨˜è¿°ãŒã‚ã‚Šã¾ã™
 
->@”z•z‚µ‚Ä‚¢‚éCGI‚ÍAŠî–{“I‚É”z•zŒ³i‚ä‚Æ‚ç‚¢‚¸H–[j‚ğ–¾‹L‚·‚éŒÀ‚è©—R‚Ég—p‚µ‚Ä‚­‚¾‚³‚Á‚Ä\‚¢‚Ü‚¹‚ñB
->@‰ü‘¢EÄ”z•z‚à“¯—l‚Å‚·‚ªA‚»‚ê‚É‚æ‚Á‚Ä‹N‚«‚½ƒgƒ‰ƒuƒ‹‚È‚Ç‚É‚ÍˆêØŠÖ’m‚µ‚Ü‚¹‚ñB
+>ã€€é…å¸ƒã—ã¦ã„ã‚‹CGIã¯ã€åŸºæœ¬çš„ã«é…å¸ƒå…ƒï¼ˆã‚†ã¨ã‚‰ã„ãšå·¥æˆ¿ï¼‰ã‚’æ˜è¨˜ã™ã‚‹é™ã‚Šè‡ªç”±ã«ä½¿ç”¨ã—ã¦ãã ã•ã£ã¦æ§‹ã„ã¾ã›ã‚“ã€‚
+>ã€€æ”¹é€ ãƒ»å†é…å¸ƒã‚‚åŒæ§˜ã§ã™ãŒã€ãã‚Œã«ã‚ˆã£ã¦èµ·ããŸãƒˆãƒ©ãƒ–ãƒ«ãªã©ã«ã¯ä¸€åˆ‡é–¢çŸ¥ã—ã¾ã›ã‚“ã€‚
 
 https://github.com/RentalCat/SWProject/tree/master/monstersheet
 http://yutorize.2-d.jp/page/YtSheetM-for-SW2.0
 
 ## Thanks
 
-ƒAƒCƒfƒBƒAo‚µ‚É‹¦—Í‚µ‚Ä‚­‚¾‚³‚Á‚½•ûX
+ã‚¢ã‚¤ãƒ‡ã‚£ã‚¢å‡ºã—ã«å”åŠ›ã—ã¦ãã ã•ã£ãŸæ–¹ã€…
 
-- ‚©‚µ– ‚³‚ñ ([@_casi_note](https://twitter.com/_casi_note))
-- Noth ‚³‚ñ ([@Noth_Magna](https://twitter.com/Noth_Magna))
+- ã‹ã—ï¼Š ã•ã‚“ ([@_casi_note](https://twitter.com/_casi_note))
+- Noth ã•ã‚“ ([@Noth_Magna](https://twitter.com/Noth_Magna))
