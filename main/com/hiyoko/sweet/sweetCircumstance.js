@@ -65,7 +65,6 @@ com.hiyoko.sweet.Circumstance.CommandBase.prototype.renderTable = function(datal
 	var self = this;
 	table.find('tr').remove();
 	datalist.forEach(function(data) {
-		console.log(data.kept);
 		table.append(com.hiyoko.util.format(
 						'<tr class="%s"><td contenteditable="">%s</td>' +
 						'<td contenteditable="">%s</td>' +
