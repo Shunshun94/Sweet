@@ -49,7 +49,9 @@ com.hiyoko.sweet.PlayerBattle.Call.prototype.buildComponents = function() {
 	new com.hiyoko.sweet.PlayerBattle.Call.AlchemicCard(this.getElementById('alchemiccard'), this.character.subSkills.alchemicCard);
 	new com.hiyoko.sweet.PlayerBattle.Call.LeadersOrder(this.getElementById('leadersorder'), this.character.subSkills.leadersOrder);
 	new com.hiyoko.sweet.PlayerBattle.Call.SpellSong(this.getElementById('spellsong'), this.character.subSkills.spellSong);
-	new com.hiyoko.sweet.PlayerBattle.Call.FortuneTelling(this.getElementById('fortunetelling'), this.character.subSkills.fortuneTelling)
+	new com.hiyoko.sweet.PlayerBattle.Call.FortuneTelling(this.getElementById('fortunetelling'), this.character.subSkills.fortuneTelling);
+	new com.hiyoko.sweet.PlayerBattle.Call.SpellSeal(this.getElementById('spellSeal'), this.character.subSkills.spellSeal);
+	new com.hiyoko.sweet.PlayerBattle.Call.AristocratDignity(this.getElementById('aristocratDignity'), this.character.subSkills.aristocratDignity);
 	new com.hiyoko.sweet.PlayerBattle.Call.Move(this.getElementById('move'));
 };
 
@@ -204,4 +206,36 @@ com.hiyoko.util.extend(com.hiyoko.sweet.PlayerBattle.Call.Child, com.hiyoko.swee
 com.hiyoko.sweet.PlayerBattle.Call.FortuneTelling.prototype.getText = function() {
 	var tech = this.list[this.getElementById('list').val()];
 	return com.hiyoko.util.format('占瞳 %s%s | %s ', tech.name, this.getElementById('target').text(), tech.effect);
+};
+
+com.hiyoko.sweet.PlayerBattle.Call.SpellSeal = function($html, list) {
+	this.$html = $($html);
+	this.id = this.$html.attr('id');
+	this.list = list.filter(function(v){return v.name;});
+
+	this.buildComponents();
+	this.bindCommonEvents();	
+};
+com.hiyoko.util.extend(com.hiyoko.sweet.PlayerBattle.Call.Child, com.hiyoko.sweet.PlayerBattle.Call.SpellSeal);
+
+com.hiyoko.sweet.PlayerBattle.Call.SpellSeal.prototype.getText = function() {
+	var tech = this.list[this.getElementById('list').val()];
+	return com.hiyoko.util.format('呪印アクティベート %s | %s',
+			tech.name, tech.effect);
+};
+
+com.hiyoko.sweet.PlayerBattle.Call.AristocratDignity = function($html, list) {
+	this.$html = $($html);
+	this.id = this.$html.attr('id');
+	this.list = list.filter(function(v){return v.name;});
+
+	this.buildComponents();
+	this.bindCommonEvents();	
+};
+com.hiyoko.util.extend(com.hiyoko.sweet.PlayerBattle.Call.Child, com.hiyoko.sweet.PlayerBattle.Call.AristocratDignity);
+
+com.hiyoko.sweet.PlayerBattle.Call.AristocratDignity.prototype.getText = function() {
+	var tech = this.list[this.getElementById('list').val()];
+	return com.hiyoko.util.format('貴格 %s | %s',
+			tech.name, tech.effect);
 };
