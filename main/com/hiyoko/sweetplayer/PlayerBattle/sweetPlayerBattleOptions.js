@@ -15,7 +15,8 @@ com.hiyoko.sweet.PlayerBattle.OptionalValues = function($html, opt_conf) {
 					this.$table,
 					[{title:'', type:'check'}, {title:'名称', type:'text'},
 	                 {title:'命中', type:'number'}, {title:'追加 D', type:'number'}, {title:'回避', type:'number'},
-	                 {title:'生命抵抗', type:'number'}, {title:'精神抵抗', type:'number'}, {title:'魔力', type:'number'}]);
+	                 {title:'生命抵抗', type:'number'}, {title:'精神抵抗', type:'number'},
+	                 {title:'魔力', type:'number'}, {title:'威力', type:'number'}]);
 	
 	this.bindEvent();
 };
@@ -33,7 +34,7 @@ com.hiyoko.sweet.PlayerBattle.OptionalValues.prototype.getOptionalValue = functi
 	return this.table.getOptionalValue(col);
 };
 
-com.hiyoko.sweet.PlayerBattle.OptionalValues.COLS = {HIT:2, ATK:3, DODGE:4, VITALITY:5, MENTALITY:6};
+com.hiyoko.sweet.PlayerBattle.OptionalValues.COLS = {HIT:2, ATK:3, DODGE:4, VITALITY:5, MENTALITY:6, RATE:7};
 
 com.hiyoko.sweet.PlayerBattle.OptionalValues.Table = function($html, cols) {
 	this.$html = $($html);
