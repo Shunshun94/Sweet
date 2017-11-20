@@ -259,6 +259,7 @@ div.com-hiyoko-sw2-player-pet-character-part-attackway {
 	border-radius:2px;
 	padding:2px;
 	font-size:50%;
+	overflow:scroll;
 }
 
 .com-hiyoko-sw2-player-talk-chat-display-log-name {

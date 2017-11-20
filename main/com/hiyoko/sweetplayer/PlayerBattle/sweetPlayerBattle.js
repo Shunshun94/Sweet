@@ -46,12 +46,16 @@ com.hiyoko.sweet.PlayerBattle.prototype.sendCommand = function(e){
 	if(! Array.isArray(e.col)) {
 		e.col = [e.col]
 	}
+	
+	var optionValues = [];
+	var optionDetails = [];
+	
 	options = e.col.map(function(col) {
-		return this.options.getOptionalValue(col);
+		var val = this.options.getOptionalValue(col);
+		optionValues.push(val.value);
+		return val;
 	}.bind(this)).reduce(function(p, c) {
 		return {
-			value: p.value + c.value,
-			text: p.text,
 			detail: com.hiyoko.util.mergeArray(
 					p.detail.split('\n'), c.detail.split('\n'), function(pd, cd) {
 						var cds = cd.split('　');
@@ -63,7 +67,8 @@ com.hiyoko.sweet.PlayerBattle.prototype.sendCommand = function(e){
 					}).join('\n')
 		}
 	});
-	var text = com.hiyoko.util.format(e.message, options.value) + options.detail;
+	optionValues.unshift(e.message);
+	var text = com.hiyoko.util.format.apply(null, optionValues) + options.detail;
 	event.args = [{name: this.character.name, message: text, bot:'SwordWorld2.0'}];
 	event.method = 'sendChat';
 	this.fireEvent(event);
