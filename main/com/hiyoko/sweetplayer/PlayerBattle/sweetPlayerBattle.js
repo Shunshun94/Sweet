@@ -35,20 +35,19 @@ com.hiyoko.sweet.PlayerBattle.prototype.getCharacters = function(e) {
 };
 
 com.hiyoko.sweet.PlayerBattle.prototype.sendCommand = function(e){
-	var event = this.getAsyncEvent('tofRoomRequest').done(function(r){ 
+	var event = this.getAsyncEvent('tofRoomRequest').done(function(r){
 		$(e.target).notify('ダイスが振られました', {className: 'success', position: 'top'});
 	}.bind(this)).fail(function(r){
 		alert('ダイスを振るのに失敗しました\n' + r.result);
 	});
 
 	var options;
+	var optionValues = [];
 
 	if(! Array.isArray(e.col)) {
 		e.col = [e.col]
 	}
 	
-	var optionValues = [];
-	var optionDetails = [];
 	
 	options = e.col.map(function(col) {
 		var val = this.options.getOptionalValue(col);
