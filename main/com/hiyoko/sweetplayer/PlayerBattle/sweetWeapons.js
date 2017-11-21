@@ -108,13 +108,13 @@ com.hiyoko.sweet.PlayerBattle.Weapons.prototype.bindEvents = function() {
 		this.fireEvent({
 			target: e.target,
 			type: com.hiyoko.sweet.PlayerBattle.Events.role,
-			message: com.hiyoko.util.format('k%s+%s\\%s%s%s / ダメージ ：%s %s',
+			message: com.hiyoko.util.format('k(%s\\%s)+%s\\%s%s%s / ダメージ ：%s %s',
 					(['ガン', '車載武器', '練技'].includes(weapon.category)) ? this.getElementById('rate').val() : weapon.rate,
 					('車載武器' === weapon.category) ? this.getElementById('damage').val() : weapon.damage,
 					(this.getElementById('critical').val() || '@' + weapon.crit),
 					this.getElementById('rolevalue').val(),
 					weapon.name, this.getElementById('memo').val()),
-			col: 3
+			col: [8, 3]
 		});
 	}.bind(this));
 
