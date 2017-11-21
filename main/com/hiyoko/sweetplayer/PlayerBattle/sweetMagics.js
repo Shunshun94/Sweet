@@ -66,7 +66,7 @@ com.hiyoko.sweet.PlayerBattle.Magics.prototype.bindEvents = function() {
 		this.fireEvent({
 			target: e.target,
 			type: com.hiyoko.sweet.PlayerBattle.Events.role,
-			message: com.hiyoko.util.format('k%s+%s\\%s%s%s / ダメージ ：%s %s',
+			message: com.hiyoko.util.format('k%s+%s\\%s\\%s%s%s / ダメージ ：%s %s',
 					this.getElementById('rate').val(),
 					magic.value,
 					this.getElementById('critical').val(),
