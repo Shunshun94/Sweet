@@ -47,8 +47,7 @@ com.hiyoko.sweet.PlayerBattle.prototype.sendCommand = function(e){
 	if(! Array.isArray(e.col)) {
 		e.col = [e.col]
 	}
-	
-	
+
 	options = e.col.map(function(col) {
 		var val = this.options.getOptionalValue(col);
 		optionValues.push(val.value);
