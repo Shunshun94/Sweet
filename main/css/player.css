@@ -233,9 +233,9 @@ div.com-hiyoko-sw2-player-pet-character-part-attackway {
 
 #com-hiyoko-sw2-player-talk {
 	display:none;
-	position: fixed;
+	position: absolute;
 	right: 2em;
-	bottom: 2em;
+	bottom: 9em;
 	display: none;
 	background-color: #ff7f7f;
 	opacity:0.9;
@@ -259,6 +259,7 @@ div.com-hiyoko-sw2-player-pet-character-part-attackway {
 	border-radius:2px;
 	padding:2px;
 	font-size:50%;
+	overflow:scroll;
 }
 
 .com-hiyoko-sw2-player-talk-chat-display-log-name {
