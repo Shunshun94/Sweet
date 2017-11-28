@@ -35,6 +35,15 @@ MIT ライセンスです。
 
 ライセンス情報:  https://github.com/algorithmiaio/algorithmia-nodejs
 
+### encoding.js
+
+Copyright (c) 2013-2017 polygon planet
+
+MIT ライセンスです。
+
+ライセンス情報：  https://github.com/polygonplanet/encoding.js/blob/master/README.md
+
+
 ## Related products
 
 ### ソードワールド2.0
