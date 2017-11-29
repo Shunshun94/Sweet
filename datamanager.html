@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>データマネージャ</title>
+<link rel="stylesheet" href="main/css/datamanager.css" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+</head>
+<body>
+<div id="com-hiyoko-sw2-datamanager">
+	<h1 id="com-hiyoko-sw2-datamanager-title">データマネージャ</h1>
+	<div id="com-hiyoko-sw2-datamanager-list">
+		<ul id="com-hiyoko-sw2-datamanager-list-list">
+			<li><a href="./index.html">For GM</a></li>
+			<li><a href="./player.html">For PL</a></li>
+		</ul>
+	</div>
+	<div id="com-hiyoko-sw2-datamanager-export">
+	<h2>書き出し</h2>
+	<p>下記の内容をメモ帳などで保存してください</p>
+	<textarea id="com-hiyoko-sw2-datamanager-export-data"></textarea>
+	</div>
+	<hr/>
+	<div id="com-hiyoko-sw2-datamanager-import">
+	<h2>読み込み</h2>
+	<textarea id="com-hiyoko-sw2-datamanager-import-data"
+	placeholder="ここに保存した内容を貼り付けるか、保存したファイルをドロップしてください"></textarea>
+	<button id="com-hiyoko-sw2-datamanager-import-start">読み込む</button>
+	</div>
+	<footer id="com-hiyoko-sw2-datamanager-footer">
+		<p id="com-hiyoko-sw2-datamanager-footer-version">v2017</p>
+		<p><a href="https://twitter.com/Shunshun94">作者 Twitter</a> | <a href="https://github.com/Shunshun94/Sweet">GitHub</a> | <a href="./history.html">HISTORY</a> | <a href="http://amzn.asia/8mNqdKy">ひよこのほしい物りすと</a></p>
+	</footer>
+</div>
+<script src="http://shunshun94.web.fc2.com/lib/encoding.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+<script>
+var savedData = {};
+var fileReader = new FileReader();
+
+for(var i = 0; i < localStorage.length; i++) {
+	savedData[localStorage.key(i)] = localStorage.getItem(localStorage.key(i));
+}
+$('#com-hiyoko-sw2-datamanager-export-data').val(JSON.stringify(savedData, null, '  '));
+
+$('body').on('drop', function(e) {
+	e.preventDefault();
+});
+$('body').on('dragover', function(e) {
+	e.preventDefault();
+});
+
+$('#com-hiyoko-sw2-datamanager-import-data').on('drop', function(e) {
+	$('#com-hiyoko-sw2-datamanager-import-data').css('background-color', 'white');
+	fileReader.readAsArrayBuffer(e.originalEvent.dataTransfer.files[0]);
+	e.preventDefault();
+});
+$('#com-hiyoko-sw2-datamanager-import-data').on('dragleave', function(e) {
+	$('#com-hiyoko-sw2-datamanager-import-data').css('background-color', 'white');
+});
+$('#com-hiyoko-sw2-datamanager-import-data').on('dragover', function(e) {
+	$('#com-hiyoko-sw2-datamanager-import-data').css('background-color', 'lightyellow');
+	e.preventDefault();
+});
+$('#com-hiyoko-sw2-datamanager-import-start').click(function(e) {
+	try {
+		var parsed = JSON.parse($('#com-hiyoko-sw2-datamanager-import-data').val());
+	} catch(error) {
+		alert('読み込みに失敗しました。\n\n理由：\n' + error);
+		console.error(error);
+		return;
+	}
+	for(var key in parsed) {
+		localStorage.setItem(key, parsed[key]);
+	}
+	alert('読み込みました');
+});
+
+fileReader.onload = function(e){
+	// http://polygonplanet.github.io/encoding.js/tests/detect-file-encoding.html
+	var codes = new Uint8Array(fileReader.result);
+	$('#com-hiyoko-sw2-datamanager-import-data').val(Encoding.convert(codes, {
+		to: 'unicode',
+		from: Encoding.detect(codes),
+		type: 'string'
+	}));
+};
+</script>
+</body>
+</html>
