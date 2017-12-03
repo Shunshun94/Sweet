@@ -62,10 +62,6 @@
 	width:803px;
 }
 
-.com-hiyoko-sweet-battle-character table input {
-	width:98%;
-}
-
 .com-hiyoko-sweet-battle-character-add-tof,
 .com-hiyoko-sweet-battle-character-add-tof-unknown,
 .com-hiyoko-sweet-battle-character-mentality-exec,
@@ -84,7 +80,6 @@
 	position:absolute;
 	top:0px;
 	right:4px;
-	padding:4px;
 	border: coral 3px outset;
 	background-color:tomato;
 }
@@ -125,7 +120,7 @@
 .com-hiyoko-sweet-battle-character-part-addAttackWay {
 	position:absolute;
 	top:0px;
-	right:87px;
+	right:54px;
 	border: coral 3px outset;
 	background-color:tomato;
 }
@@ -133,7 +128,7 @@
 .com-hiyoko-sweet-battle-character-part-dodge-exec {
 	position:absolute;
 	top:33px;
-	right:122px;
+	right:113px;
 }
 
 .com-hiyoko-sweet-battle-character-part-dodge-static-exec {
@@ -143,7 +138,11 @@
 }
 
 .com-hiyoko-sweet-battle-character-part-number {
-	width:50px;
+	width:48px;
+}
+
+.com-hiyoko-sweet-battle-character-part-number > input {
+	width:44px;
 }
 
 .com-hiyoko-sweet-battle-character-part-attackway {

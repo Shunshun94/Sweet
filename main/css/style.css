@@ -195,10 +195,6 @@ td.com-hiyoko-sweet-accounting-summary-table-out-total {
 	width:490px;
 }
 
-#com-hiyoko-sweet-disscussion-memo-clear {
-	margin-left:10px;
-}
-
 #com-hiyoko-sweet-disscussion-chat {
 	display:flex;
 }
@@ -239,6 +235,12 @@ td.com-hiyoko-sweet-accounting-summary-table-out-total {
 	margin-top:0px;
 }
 
+#com-hiyoko-sweet-disscussion-memo-clear,
+#com-hiyoko-sweet-disscussion-vote-submit {
+	font-size: 100%;
+	margin-top: -5px;
+}
+
 #com-hiyoko-sweet-entry button {
 	display:block;
 	font-size:100%;
@@ -249,6 +251,13 @@ td.com-hiyoko-sweet-accounting-summary-table-out-total {
 
 #com-hiyoko-sweet-entry input {
 	font-size: 120%;
+}
+
+.com-hiyoko-sweet-entry-room-rooms-room {
+	border: gray outset 3px;
+	margin-bottom: 3px;
+	border-radius: 5px;
+	padding:3px;
 }
 
 #com-hiyoko-sweet-entry-url-FreeInput {
