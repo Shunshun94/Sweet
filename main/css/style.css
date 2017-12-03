@@ -253,6 +253,13 @@ td.com-hiyoko-sweet-accounting-summary-table-out-total {
 	font-size: 120%;
 }
 
+.com-hiyoko-sweet-entry-room-rooms-room {
+	border: gray outset 3px;
+	margin-bottom: 3px;
+	border-radius: 5px;
+	padding:3px;
+}
+
 #com-hiyoko-sweet-entry-url-FreeInput {
 	display:none;
 }
