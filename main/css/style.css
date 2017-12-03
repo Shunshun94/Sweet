@@ -195,10 +195,6 @@ td.com-hiyoko-sweet-accounting-summary-table-out-total {
 	width:490px;
 }
 
-#com-hiyoko-sweet-disscussion-memo-clear {
-	margin-left:10px;
-}
-
 #com-hiyoko-sweet-disscussion-chat {
 	display:flex;
 }
@@ -237,6 +233,12 @@ td.com-hiyoko-sweet-accounting-summary-table-out-total {
 	right:5px;
 	bottom:0px;
 	margin-top:0px;
+}
+
+#com-hiyoko-sweet-disscussion-memo-clear,
+#com-hiyoko-sweet-disscussion-vote-submit {
+	font-size: 100%;
+	margin-top: -5px;
 }
 
 #com-hiyoko-sweet-entry button {
