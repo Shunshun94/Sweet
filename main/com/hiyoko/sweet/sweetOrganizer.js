@@ -47,13 +47,13 @@ com.hiyoko.sweet.Organizer.prototype.buildComponents = function() {
 };
 
 com.hiyoko.sweet.Organizer.prototype.buildApplications = function(){
-	var $apps = this.getElementById('apps').children();
+	var $apps = this.getElementById('apps').children('section');
 	this.applications = com.hiyoko.util.mergeArray(
 			com.hiyoko.sweet.Organizer.APPLICATION_LIST,
 			$apps, 
 			function(app, dom){return new app(dom);});
 	this.list = new com.hiyoko.sweet.AppList(this.getElement('#com-hiyoko-sweet-menu'), this.applications);
-}
+};
 
 com.hiyoko.sweet.Organizer.prototype.onClickList = function(e) {
 	this.applications.forEach(function(app) {
