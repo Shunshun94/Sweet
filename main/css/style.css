@@ -49,6 +49,7 @@ button {
 	border-left: solid 3px #D0C0C0;
 	background-color:#F0F0F0;
 	padding:1em;
+	position:relative;
 }
 
 
@@ -63,6 +64,16 @@ button {
 
 .com-hiyoko-component-table-base-member-number {
 	width:97%;
+}
+
+#com-hiyoko-sweet-pcs {
+	position:absolute;
+	top: 1em;
+	left:850px;
+	background-color: darkblue;
+	opacity: 0.9;
+	width:170px;
+	height:380px;
 }
 
 #com-hiyoko-sweet-accounting-detail {

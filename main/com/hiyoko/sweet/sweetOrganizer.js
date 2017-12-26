@@ -52,6 +52,7 @@ com.hiyoko.sweet.Organizer.prototype.buildApplications = function(){
 			com.hiyoko.sweet.Organizer.APPLICATION_LIST,
 			$apps, 
 			function(app, dom){return new app(dom);});
+	this.pcManager = new com.hiyoko.sweet.PcManager(this.getElementById('pcs'));
 	this.list = new com.hiyoko.sweet.AppList(this.getElement('#com-hiyoko-sweet-menu'), this.applications);
 };
 
