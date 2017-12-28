@@ -43,6 +43,7 @@ com.hiyoko.sweet.Organizer.prototype.buildComponents = function() {
 		this.buildApplications();
 		this.onClickList({num: (this.applications.length - 1)});
 		this.list.disable();
+		this.pcManager.disable();
 	}
 };
 
