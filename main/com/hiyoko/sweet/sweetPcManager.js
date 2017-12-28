@@ -25,8 +25,6 @@ com.hiyoko.sweet.PcManager.prototype.bindEvents = function() {
 	this.$html.on(com.hiyoko.sweet.PcManager.Prepare.EVENTS.PUT, function(e) {
 		e.resolve(this.saveSheetIdList(e.id, e.name));
 	}.bind(this));
-	
-	this.$html.click(console.log);
 };
 
 com.hiyoko.sweet.PcManager.prototype.loadSheetIdList = function() {
@@ -45,11 +43,41 @@ com.hiyoko.sweet.PcManager.Prepare = function($html) {
 	this.id = $html.attr('id');
 	
 	this.buildComponents();
+	
+	this.$html.on('change', function(e) {
+		var $target = $(e.target);
+		var text = $target.val();
+		
+		// もう少し効率的な書き方ができると思うけど疲れている時に書いたので後で考える
+		if($target.hasClass(this.id + '-id-last')) {
+			if(text.length > 0) {
+				$target.css(
+						'background-color',
+						io.github.shunshun94.util.Color.HslToRgb((Number(text) % 360), 100, 80).code);
+				this.appendNewInputBox();
+			}
+			return;
+		}
+		if($target.hasClass(this.id + '-id')) {
+			if(text.length === 0) {
+				$target.remove();				
+			} else {
+				$target.css(
+						'background-color',
+						io.github.shunshun94.util.Color.HslToRgb((Number(text) % 360), 100, 80).code);	
+			}			
+		}
+	}.bind(this));
 };
 com.hiyoko.util.extend(com.hiyoko.component.ApplicationBase, com.hiyoko.sweet.PcManager.Prepare);
 com.hiyoko.sweet.PcManager.Prepare.prototype.getInputBox = function() {
-	return com.hiyoko.util.format('<input class="%s-id" list="%s-characterList" type="text" />',
-			this.id, this.id);
+	return com.hiyoko.util.format('<input autocomplete="on" class="%s-id %s-id-last" list="%s-characterList" type="text" />',
+			this.id, this.id, this.id);
+};
+
+com.hiyoko.sweet.PcManager.Prepare.prototype.appendNewInputBox = function() {
+	this.getElementsByClass('id-last').removeClass(this.id + '-id-last');
+	this.getElementById('characterList').before(this.getInputBox());
 };
 
 com.hiyoko.sweet.PcManager.Prepare.prototype.buildComponents = function() {
@@ -58,7 +86,7 @@ com.hiyoko.sweet.PcManager.Prepare.prototype.buildComponents = function() {
 		com.hiyoko.util.forEachMap(list, function(v, k) {
 			$list.append(com.hiyoko.util.format('<option value="%s">%s</option>', k, v));
 		});
-		//$list.before(this.getInputBox());
+		this.appendNewInputBox();
 	}.bind(this));
 	this.fireEvent(dataListBuildEvent);
 };
