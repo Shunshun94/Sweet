@@ -76,6 +76,14 @@ button {
 	height:380px;
 }
 
+.com-hiyoko-sweet-pcs-manager-character {
+	font-size: 80%;
+}
+
+.com-hiyoko-sweet-pcs-manager-character-skills {
+	font-size: 50%;
+}
+
 #com-hiyoko-sweet-accounting-detail {
 	position:relative;
 }
