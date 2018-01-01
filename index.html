@@ -25,7 +25,6 @@
 		<ul id="com-hiyoko-sweet-menu-list"></ul>
 	</nav>
 	<div id="com-hiyoko-sweet-apps">
-	
 	<section id="com-hiyoko-sweet-accounting">
 		<div id="com-hiyoko-sweet-accounting-detail">
 			<div id="com-hiyoko-sweet-accounting-detail-savedData">
@@ -151,6 +150,17 @@
 			<button id="com-hiyoko-sweet-entry-option-next">ログイン</button>
 		</div>
 	</section>
+	<div id="com-hiyoko-sweet-pcs">
+		<button id="com-hiyoko-sweet-pcs-toggle">PC 一覧開閉</button>
+		<div id="com-hiyoko-sweet-pcs-pcs">
+				<div id="com-hiyoko-sweet-pcs-pcs-prepare">
+					<datalist id="com-hiyoko-sweet-pcs-pcs-prepare-characterList"></datalist>
+					<button id="com-hiyoko-sweet-pcs-pcs-prepare-exec">リストアップ</button>
+				</div>
+				<div id="com-hiyoko-sweet-pcs-pcs-manager"></div>
+		</div>
+	</div>
+	
 	</div>
 </div>
 <footer id="com-hiyoko-sweet-footer">
@@ -166,11 +176,15 @@
 <script src='https://shunshun94.github.io/shared/jquery/com/hiyoko/dodontof/v2/DodontoF-Client.js'></script>
 <script src='https://shunshun94.github.io/shared/jquery/com/hiyoko/dodontof/v2/DodontoF-chatUtil.js'></script>
 <script src='https://shunshun94.github.io/shared/jquery/com/hiyoko/util/v2/utils.js'></script>
+<script src="https://shunshun94.github.io/shared/jquery/com/hiyoko/vampireblood/client.js"></script>
+<script src="https://shunshun94.github.io/shared/jquery/com/hiyoko/vampireblood/sw2.js"></script>
 <script src='https://shunshun94.github.io/shared/jquery/com/hiyoko/components/v1/ApplicationBase.js'></script>
 <script src='https://shunshun94.github.io/shared/jquery/com/hiyoko/components/v1/InputFlow.js'></script>
 <script src='https://shunshun94.github.io/shared/jquery/com/hiyoko/components/v1/TableBase.js'></script>
 <script src='https://shunshun94.github.io/shared/jquery/com/hiyoko/components/v1/UlList.js'></script>
 <script src="https://shunshun94.github.io/shared/other/com/hiyoko/dodontof/serverList.js"></script>
+<script src="https://shunshun94.github.io/shared/other/io/github/shunshun94/trpg/characterManager.js"></script>
+<script src="https://shunshun94.github.io/shared/other/io/github/shunshun94/util/colorutil.js"></script>
 <script src="https://shunshun94.github.io/shared/jquery/com/hiyoko/dodontof/v2/DodontoF-Entrance.js"></script>
 <script src='main/com/hiyoko/sweet/sweetAppList.js'></script>
 
@@ -186,6 +200,7 @@
 <script src='main/com/hiyoko/sweet/sweetCircumstance.js'></script>
 <script src='main/com/hiyoko/sweet/sweetDiscussion.js'></script>
 <script src='main/com/hiyoko/sweet/sweetEntry.js'></script>
+<script src='main/com/hiyoko/sweet/sweetPcManager.js'></script>
 <script src='main/com/hiyoko/sweet/sweetOrganizer.js'></script>
 <script>
   new com.hiyoko.sweet.Organizer($('#com-hiyoko-sweet'));

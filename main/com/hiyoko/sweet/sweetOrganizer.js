@@ -43,17 +43,19 @@ com.hiyoko.sweet.Organizer.prototype.buildComponents = function() {
 		this.buildApplications();
 		this.onClickList({num: (this.applications.length - 1)});
 		this.list.disable();
+		this.pcManager.disable();
 	}
 };
 
 com.hiyoko.sweet.Organizer.prototype.buildApplications = function(){
-	var $apps = this.getElementById('apps').children();
+	var $apps = this.getElementById('apps').children('section');
 	this.applications = com.hiyoko.util.mergeArray(
 			com.hiyoko.sweet.Organizer.APPLICATION_LIST,
 			$apps, 
 			function(app, dom){return new app(dom);});
+	this.pcManager = new com.hiyoko.sweet.PcManager(this.getElementById('pcs'));
 	this.list = new com.hiyoko.sweet.AppList(this.getElement('#com-hiyoko-sweet-menu'), this.applications);
-}
+};
 
 com.hiyoko.sweet.Organizer.prototype.onClickList = function(e) {
 	this.applications.forEach(function(app) {
@@ -81,6 +83,10 @@ com.hiyoko.sweet.Organizer.prototype.bindEvents = function(e) {
 	
 	this.$html.on('tofRoomRequest', function(e){
 		self.tofRoomAccess[e.method].apply(self.tofRoomAccess, e.args).done(e.resolve).fail(e.reject);
+	});
+	
+	this.$html.on(io.github.shunshun94.trpg.HiyokoSheetHandler.EVENTS.REQUEST, function(event) {
+		com.hiyoko.VampireBlood.SW2.getSheet(event.sheet).done(event.resolve).fail(event.reject);
 	});
 	
 	this.$html.on('algorithmiaRequest', function(e){

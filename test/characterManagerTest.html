@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Character Manager Test</title>
+<style type="text/css">
+	input {display: block;}
+</style>
+</head>
+<body>
+<div id="pcs">
+ <button id="pcs-toggle">PC 一覧開閉</button>
+	<div id="pcs-pcs">
+		<div id="pcs-pcs-prepare">
+			<datalist id="pcs-pcs-prepare-characterList"></datalist>
+			<button id="pcs-pcs-prepare-exec">リストアップ</button>
+		</div>
+		<div id="pcs-pcs-manager"></div>
+	</div>
+</div>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+<script src='https://shunshun94.github.io/shared/jquery/com/hiyoko/util/v2/utils.js'></script>
+
+<script src="https://shunshun94.github.io/shared/jquery/com/hiyoko/vampireblood/client.js"></script>
+<script src="https://shunshun94.github.io/shared/jquery/com/hiyoko/vampireblood/sw2.js"></script>
+<script src='https://shunshun94.github.io/shared/jquery/com/hiyoko/dodontof/v2/DodontoF-Client.js'></script>
+<script src='https://shunshun94.github.io/shared/jquery/com/hiyoko/components/v1/ApplicationBase.js'></script>
+<script src="https://shunshun94.github.io/shared/other/io/github/shunshun94/trpg/characterManager.js"></script>
+<script src="https://shunshun94.github.io/shared/other/io/github/shunshun94/util/colorutil.js"></script>
+<script src='../main/com/hiyoko/sweet/sweetPcManager.js'></script>
+<script>
+var query = com.hiyoko.util.getQueries();
+var client = new com.hiyoko.DodontoF.V2.Room(
+		query.url || 'http://127.0.0.1:3001',
+		query.room || '0',
+		query.pass || '');
+$('body').on(io.github.shunshun94.trpg.TofHandler.EVENTS.ROOM, function(event) {
+	client[event.method].apply(client, event.args).done(event.resolve).fail(event.reject);
+});
+$('body').on(io.github.shunshun94.trpg.HiyokoSheetHandler.EVENTS.REQUEST, function(event) {
+	com.hiyoko.VampireBlood.SW2.getSheet(event.sheet).done(event.resolve).fail(event.reject);
+});
+new com.hiyoko.sweet.PcManager($('#pcs'));
+</script>
+
+
+
+</body>
+</html>
