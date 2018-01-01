@@ -52,6 +52,44 @@ button {
 	position:relative;
 }
 
+#com-hiyoko-sweet-pcs {
+	position:absolute;
+	left:0px;
+	top: -4px;
+}
+
+#com-hiyoko-sweet-pcs-pcs {
+	display: none;
+	background-color: gray;
+	opacity: 0.98;
+	padding: 2px;
+	max-width: 454px;
+}
+
+#com-hiyoko-sweet-pcs button {
+	display:block;
+	font-size:80%;
+	border: lightyellow 3px none;
+	background-color:lemonchiffon;
+}
+
+.com-hiyoko-sweet-pcs-pcs-prepare-id {
+	display: block;
+}
+
+.com-hiyoko-sweet-pcs-pcs-manager-character {
+	display: inline-block;
+	width: 150px;
+	font-size: 60%;
+}
+
+.com-hiyoko-sweet-pcs-pcs-manager-character-skills {
+	font-size: 50%;
+}
+
+.com-hiyoko-sweet-pcs-pcs-manager-character-skills {
+	font-size: 50%;
+}
 
 .com-hiyoko-sweet-table-base-total > td {
 	border-top: double 8px black;
@@ -64,24 +102,6 @@ button {
 
 .com-hiyoko-component-table-base-member-number {
 	width:97%;
-}
-
-#com-hiyoko-sweet-pcs {
-	position:absolute;
-	top: 1em;
-	left:850px;
-	background-color: darkblue;
-	opacity: 0.9;
-	width:170px;
-	height:380px;
-}
-
-.com-hiyoko-sweet-pcs-manager-character {
-	font-size: 80%;
-}
-
-.com-hiyoko-sweet-pcs-manager-character-skills {
-	font-size: 50%;
 }
 
 #com-hiyoko-sweet-accounting-detail {
