@@ -54,6 +54,9 @@ com.hiyoko.sweet.PcManager.PcManager.prototype.bindEvents = function() {
 			alert(failedReason);
 		});
 	}.bind(this));
+	this.$html.on(com.hiyoko.sweet.PcManager.PcManager.Console.EVENTS.PUT, function(e) {
+		this.saveSheetIdList(e.id, e.name);
+	}.bind(this));
 };
 
 com.hiyoko.sweet.PcManager.PcManager.prototype.loadSheetIdList = function() {
@@ -180,10 +183,14 @@ com.hiyoko.sweet.PcManager.PcManager.Console.prototype.insertCharacters = functi
 	this.getElementsByClass('character').remove();
 	this.sheets = characters;
 	characters.forEach(function(character) {
+		this.fireEvent(new $.Event(com.hiyoko.sweet.PcManager.PcManager.Console.EVENTS.PUT, {
+			id: character.id, name: character.name
+		}))
 		this.getElementById('update').before(this.generateCharacterDom(character));
 	}.bind(this));
 };
 
 com.hiyoko.sweet.PcManager.PcManager.Console.EVENTS = {
-	UPDATE: 'com-hiyoko-sweet-PcManager-Console-EVENTS-update'
+	UPDATE: 'com-hiyoko-sweet-PcManager-Console-EVENTS-update',
+	PUT: 'com-hiyoko-sweet-PcManager-Console-EVENTS-put'
 };
