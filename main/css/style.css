@@ -49,8 +49,47 @@ button {
 	border-left: solid 3px #D0C0C0;
 	background-color:#F0F0F0;
 	padding:1em;
+	position:relative;
 }
 
+#com-hiyoko-sweet-pcs {
+	position:absolute;
+	left:0px;
+	top: -4px;
+}
+
+#com-hiyoko-sweet-pcs-pcs {
+	display: none;
+	background-color: gray;
+	opacity: 0.98;
+	padding: 2px;
+	max-width: 454px;
+}
+
+#com-hiyoko-sweet-pcs button {
+	display:block;
+	font-size:80%;
+	border: lightyellow 3px none;
+	background-color:lemonchiffon;
+}
+
+.com-hiyoko-sweet-pcs-pcs-prepare-id {
+	display: block;
+}
+
+.com-hiyoko-sweet-pcs-pcs-manager-character {
+	display: inline-block;
+	width: 150px;
+	font-size: 60%;
+}
+
+.com-hiyoko-sweet-pcs-pcs-manager-character-skills {
+	font-size: 50%;
+}
+
+.com-hiyoko-sweet-pcs-pcs-manager-character-skills {
+	font-size: 50%;
+}
 
 .com-hiyoko-sweet-table-base-total > td {
 	border-top: double 8px black;
@@ -195,10 +234,6 @@ td.com-hiyoko-sweet-accounting-summary-table-out-total {
 	width:490px;
 }
 
-#com-hiyoko-sweet-disscussion-memo-clear {
-	margin-left:10px;
-}
-
 #com-hiyoko-sweet-disscussion-chat {
 	display:flex;
 }
@@ -239,6 +274,12 @@ td.com-hiyoko-sweet-accounting-summary-table-out-total {
 	margin-top:0px;
 }
 
+#com-hiyoko-sweet-disscussion-memo-clear,
+#com-hiyoko-sweet-disscussion-vote-submit {
+	font-size: 100%;
+	margin-top: -5px;
+}
+
 #com-hiyoko-sweet-entry button {
 	display:block;
 	font-size:100%;
@@ -249,6 +290,13 @@ td.com-hiyoko-sweet-accounting-summary-table-out-total {
 
 #com-hiyoko-sweet-entry input {
 	font-size: 120%;
+}
+
+.com-hiyoko-sweet-entry-room-rooms-room {
+	border: gray outset 3px;
+	margin-bottom: 3px;
+	border-radius: 5px;
+	padding:3px;
 }
 
 #com-hiyoko-sweet-entry-url-FreeInput {

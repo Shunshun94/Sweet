@@ -42,13 +42,13 @@ com.hiyoko.util.extend(com.hiyoko.component.ApplicationBase, com.hiyoko.sweet.Ba
 
 com.hiyoko.sweet.Battle.BattleCharacter.prototype.render = function() {
 	this.$html.append(com.hiyoko.util.format(
-			'<button class="%s">SAVE</button><p>名前 <input placeholder="NO NAME?" value="" type="text" class="%s" />' +
+			'<button class="%s">保存</button><p>名前 <input placeholder="NO NAME?" value="" type="text" class="%s" />' +
 			'<button class="%s">コマ追加</button><button class="%s">コマ追加 (正体不明)</button></p>' + 
 			'<div>生命抵抗力<input type="number" value="0" class="%s" />' +
 			'<button class="%s">判定</button><button class="%s">判定(固定値)</button>' +
 			' 　/　精神抵抗力<input type="number" value="0" class="%s" />' +
 			'<button class="%s">判定</button><button class="%s">判定(固定値)</button></div>' +
-			'<button class="%s">部位追加</button><button class="%s">REMOVE</button>',
+			'<button class="%s">部位追加</button><button class="%s">削除</button>',
 			this.clazz + '-save', this.clazz + '-name',
 			this.clazz + '-add-tof', this.clazz + '-add-tof-unknown',
 			this.clazz + '-vitality-val', this.clazz + '-vitality-exec', this.clazz + '-vitality-static-exec',
@@ -330,7 +330,7 @@ com.hiyoko.sweet.Battle.BattleCharacter.Part.prototype.render = function() {
 	}.bind(this));
 
 	$table.append($status)
-	this.$html.append(com.hiyoko.util.format('<button class="%s">REMOVE</button>' +
+	this.$html.append(com.hiyoko.util.format('<button class="%s">削除</button>' +
 			'<button class="%s">攻撃手段追加</button>' + 
 			'<button class="%s">回避</button><button class="%s">回避(固定値)</button>',
 			this.clazz + '-delete', this.clazz + '-addAttackWay', this.clazz + '-dodge-exec', this.clazz + '-dodge-static-exec'));
@@ -552,7 +552,7 @@ com.hiyoko.sweet.Battle.BattleCharacter.Part.AttackWay.prototype.render = functi
 	this.$html.append(com.hiyoko.util.format('<button class="%s">判定</button>' +
 			'<button class="%s">判定(固定値)</button>' +
 			'<button class="%s">ダメージ</button>' +
-			'<button class="%s">威力切替</button><button class="%s">REMOVE</button>',
+			'<button class="%s">威力切替</button><button class="%s">削除</button>',
 			this.clazz + '-exec', this.clazz + '-static-exec', this.clazz + '-atk-exec',
 			this.clazz + '-switch', this.clazz + '-del'));
 };
