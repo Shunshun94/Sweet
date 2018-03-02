@@ -82,7 +82,25 @@ com.hiyoko.sweet.Organizer.prototype.bindEvents = function(e) {
 	var self = this;
 	
 	this.$html.on('tofRoomRequest', function(e){
-		self.tofRoomAccess[e.method].apply(self.tofRoomAccess, e.args).done(e.resolve).fail(e.reject);
+		self.tofRoomAccess[e.method].apply(self.tofRoomAccess, e.args).done(e.resolve).fail((data, text, error) => {
+			if(data.result) {
+				e.reject(data, text, error);
+			} else {
+				if(text === 'error' && error === 'error') {
+					console.log(data)
+					e.reject({
+						result: `${io.github.shunshun94.util.HTTP_STATUS_CODES[data.status]}`,
+						detail: data
+					});
+				} else {
+					e.reject({
+						result: `${text} (${error})`,
+						detail: data
+					});
+				}
+			}
+			console.warn('request is failed', JSON.stringify(e), JSON.stringify(data), JSON.stringify(text), JSON.stringify(error));
+		});
 	});
 	
 	this.$html.on(io.github.shunshun94.trpg.HiyokoSheetHandler.EVENTS.REQUEST, function(event) {
