@@ -78,11 +78,32 @@ com.hiyoko.sweet.Organizer.prototype.onChangeRoomRequest = function(e){
 	document.location = url;
 };
 
+com.hiyoko.sweet.Organizer.prototype.retriableRequest = function(e, max, count = 0) {
+	this.tofRoomAccess[e.method].apply(this.tofRoomAccess, e.args).then(
+			(result) => {
+				if(count) {
+					console.log(`PASSED ${e.method} (${count + 1} / ${max})`);
+				}
+				e.resolve(result);
+			},
+			(result) => {
+				if((count !== max) && (! Boolean(result.suppressRetry))) {
+					setTimeout(function() {
+						this.retriableRequest(e, max, count + 1)
+					}.bind(this), Math.pow(2, count) * 1000);
+					console.warn(`FAILED ${e.method} (${count + 1} / ${max}): ${result.result}`);
+				} else {
+					e.reject(result);
+				}
+			}
+	);
+};
+
 com.hiyoko.sweet.Organizer.prototype.bindEvents = function(e) {
 	var self = this;
 	
 	this.$html.on('tofRoomRequest', function(e){
-		self.tofRoomAccess[e.method].apply(self.tofRoomAccess, e.args).done(e.resolve).fail(e.reject);
+		self.retriableRequest(e, 7);
 	});
 	
 	this.$html.on(io.github.shunshun94.trpg.HiyokoSheetHandler.EVENTS.REQUEST, function(event) {
@@ -114,5 +135,3 @@ com.hiyoko.sweet.Organizer.APPLICATION_LIST = [
 	com.hiyoko.sweet.Discussion,
 	com.hiyoko.sweet.Entry
 ];
-
-
