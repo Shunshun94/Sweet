@@ -95,7 +95,7 @@ com.hiyoko.sweet.Player.prototype.retriableRequest = function(e, max, count = 0)
 				if((count !== max) && (! Boolean(result.suppressRetry))) {
 					setTimeout(function() {
 						this.retriableRequest(e, max, count + 1)
-					}.bind(this), Math.pow(2, count) * 1000);
+					}.bind(this), Math.pow(2, count) * 500);
 					console.warn(`FAILED ${e.method} (${count + 1} / ${max}): ${result.result}`);
 				} else {
 					e.reject(result);
@@ -108,7 +108,7 @@ com.hiyoko.sweet.Player.prototype.bindEvents = function(e) {
 	var self = this;
 	
 	this.$html.on('tofRoomRequest', function(e){
-		self.retriableRequest(e, 7);
+		self.retriableRequest(e, 4);
 	});
 	
 	this.$html.on('getStorage', function(e){
