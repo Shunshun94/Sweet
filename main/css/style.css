@@ -208,7 +208,7 @@ td.com-hiyoko-sweet-accounting-summary-table-out-total {
 }
 
 #com-hiyoko-sweet-disscussion-vote {
-	height:260px;
+	height:177px;
 	border:6px inset gray;
 	padding-left:3px;
 	padding-right:3px;
@@ -216,62 +216,53 @@ td.com-hiyoko-sweet-accounting-summary-table-out-total {
 
 #com-hiyoko-sweet-disscussion-vote-list {
 	border:3px inset gray;
-	height:140px;
-	width:490px;
+	height:90px;
+	width:390px;
 }
 
 #com-hiyoko-sweet-disscussion-memo {
 	border:6px inset gray;
+	padding-top:1px;
 	padding-left:3px;
 	padding-right:3px;
-	height:400px;
-	width:500px;
+	height:270px;
+	width:400px;
+}
+
+#com-hiyoko-sweet-disscussion-memo > h2,
+#com-hiyoko-sweet-disscussion-vote > h2 {
+	margin-top:2px;
+	margin-bottom: 2px;
 }
 
 #com-hiyoko-sweet-disscussion-memo-editor {
 	border:3px inset gray;
-	height:280px;
-	width:490px;
+	height:180px;
+	width:390px;
 }
 
 #com-hiyoko-sweet-disscussion-chat {
-	display:flex;
-}
-
-.com-hiyoko-sweet-disscussion-chat-stream { 
-	width:300px;
+	width:400px;
+	height:460px;
 	border:6px inset black;
-}
-
-.com-hiyoko-sweet-disscussion-chat-stream-messages {
-	height:600px;
 	overflow:scroll;
 }
 
-.com-hiyoko-sweet-disscussion-chat-stream-messages-message {
+.com-hiyoko-sweet-disscussion-chat-display-log {
 	position:relative;
 	border-bottom:1px gray solid;
 }
 
-.com-hiyoko-sweet-disscussion-chat-stream-messages-message-name {
-	font-size:120%;
+.com-hiyoko-sweet-disscussion-chat-display-log-name {
+	font-size:80%;
+	display: block;
 }
 
-.com-hiyoko-sweet-disscussion-chat-stream-messages-message-text {
+.com-hiyoko-sweet-disscussion-chat-display-log-message {
+	font-size:70%;
 	width:280px;
 	word-break:break-all;
 	padding:3px;
-}
-.com-hiyoko-sweet-disscussion-chat-stream-messages-message-button {
-	display:inline;
-	font-size:100%;
-	border:gray 3px outset;
-	background-color:#A0A0A0;
-	opacity:0.5;
-	position:absolute;
-	right:5px;
-	bottom:0px;
-	margin-top:0px;
 }
 
 #com-hiyoko-sweet-disscussion-memo-clear,

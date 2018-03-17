@@ -18,7 +18,7 @@ com.hiyoko.sweet.Discussion = function($html, opt_params){
 com.hiyoko.util.extend(com.hiyoko.component.ApplicationBase, com.hiyoko.sweet.Discussion);
 
 com.hiyoko.sweet.Discussion.prototype.buildComponents = function(){
-	this.chatStreams = new com.hiyoko.sweet.Discussion.ChatStreams(this.getElementById('chat'));
+	this.chatStreams = new com.hiyoko.DodontoF.V2.ChatClient(this.getElementById('chat'), {displayLimit: 256});
 	this.memo = new com.hiyoko.sweet.Discussion.Memo(this.getElementById('memo'));
 	this.vote = new com.hiyoko.sweet.Discussion.Vote(this.getElementById('vote'));
 };
