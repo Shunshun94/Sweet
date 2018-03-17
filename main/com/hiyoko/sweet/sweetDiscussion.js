@@ -23,7 +23,6 @@ com.hiyoko.sweet.Discussion.prototype.buildComponents = function(){
 			display: com.hiyoko.sweet.Discussion.ChatDisplay,
 			tabs: r.chatTab
 		});
-		this.bindEvents();
 	}).fail(function(r){
 		alert('Couldn\'t get DodontoF Room Info. Is URL correct?\n' + r.result);
 	});
@@ -31,14 +30,11 @@ com.hiyoko.sweet.Discussion.prototype.buildComponents = function(){
 	this.fireEvent(event);
 };
 
-com.hiyoko.sweet.Discussion.prototype.bindEvents  = function($html){
-	var tempFix = [];
+com.hiyoko.sweet.Discussion.prototype.bindEvents = function($html){
+
 	this.$html.on(com.hiyoko.sweet.Discussion.COPY_CHAT_LOG_EVENT, (e) => {
-		console.log(tempFix, e.msgId, tempFix.includes(e.msgId))
-		if(! tempFix.includes(e.msgId)) {
-			tempFix.push(e.msgId);
-			this.memo.add(e);
-		}
+		tempFix.push(e.msgId);
+		this.memo.add(e);
 	});
 };
 
@@ -55,7 +51,7 @@ com.hiyoko.sweet.Discussion.Memo = function($html) {
 
 com.hiyoko.util.extend(com.hiyoko.component.ApplicationBase, com.hiyoko.sweet.Discussion.Memo);
 
-com.hiyoko.sweet.Discussion.Memo.prototype.add = function(msgObject) {
+com.hiyoko.sweet.Discussion.Memo.prototype.add = function(msgObject)  {
 	this.editor.val(com.hiyoko.util.format('%s\n┌────────────────\n│%s\n├────────────────\n%s',
 			this.editor.val(), msgObject.name, msgObject.text));
 	this.update();
@@ -176,20 +172,16 @@ com.hiyoko.sweet.Discussion.ChatInputDummy = function($html) {};
 com.hiyoko.sweet.Discussion.ChatDisplay = class extends com.hiyoko.DodontoF.V2.ChatClient.SimpleDisplay {
 	constructor($dom, opts = {}) {
 		super($dom, opts);
-		
 		this.$html.click((e) => {
 			const clicked = $(e.target);
 			if(clicked.hasClass(`${this.id}-log-append`)) {
 				const $msg = clicked.parent();
 				this.fireEvent(new $.Event(com.hiyoko.sweet.Discussion.COPY_CHAT_LOG_EVENT, {
 					name: $msg.find(`.${this.id}-log-name`).text(),
-					text: $msg.find(`.${this.id}-log-message`).text(),
-					msgId: com.hiyoko.util.rndString(8)
+					text: $msg.find(`.${this.id}-log-message`).text()
 				}));
 			}
 		});
-		
-		console.log(this)
 	}
 	
 	updateLogs(logs) {
