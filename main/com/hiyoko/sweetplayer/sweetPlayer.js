@@ -83,11 +83,32 @@ com.hiyoko.sweet.Player.prototype.onClickList = function(e) {
 	this.list.activateSelectedItem(e.num);
 }; 
 
+com.hiyoko.sweet.Player.prototype.retriableRequest = function(e, max, count = 0) {
+	this.tofRoomAccess[e.method].apply(this.tofRoomAccess, e.args).then(
+			(result) => {
+				if(count) {
+					console.log(`PASSED ${e.method} (${count + 1} / ${max})`);
+				}
+				e.resolve(result);
+			},
+			(result) => {
+				if((count !== max) && (! Boolean(result.suppressRetry))) {
+					setTimeout(function() {
+						this.retriableRequest(e, max, count + 1)
+					}.bind(this), Math.pow(2, count) * 500);
+					console.warn(`FAILED ${e.method} (${count + 1} / ${max}): ${result.result}`);
+				} else {
+					e.reject(result);
+				}
+			}
+	);
+};
+
 com.hiyoko.sweet.Player.prototype.bindEvents = function(e) {
 	var self = this;
 	
 	this.$html.on('tofRoomRequest', function(e){
-		self.tofRoomAccess[e.method].apply(self.tofRoomAccess, e.args).done(e.resolve).fail(e.reject);
+		self.retriableRequest(e, 4);
 	});
 	
 	this.$html.on('getStorage', function(e){
