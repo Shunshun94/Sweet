@@ -251,6 +251,8 @@ td.com-hiyoko-sweet-accounting-summary-table-out-total {
 .com-hiyoko-sweet-disscussion-chat-display-log {
 	position:relative;
 	border-bottom:1px gray solid;
+	margin-top: 0px;
+	margin-bottom: 0px;
 }
 
 .com-hiyoko-sweet-disscussion-chat-display-log-name {
@@ -260,9 +262,18 @@ td.com-hiyoko-sweet-accounting-summary-table-out-total {
 
 .com-hiyoko-sweet-disscussion-chat-display-log-message {
 	font-size:70%;
-	width:280px;
 	word-break:break-all;
 	padding:3px;
+}
+
+.com-hiyoko-sweet-disscussion-chat-display-log-append {
+	display: block;
+	border: 2px inset gray;
+	background-color: white;
+	position:relative;
+	width: 80px;
+	left: 295px;
+	font-size:70%;
 }
 
 #com-hiyoko-sweet-disscussion-memo-clear,
