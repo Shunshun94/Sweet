@@ -6,29 +6,36 @@ com.hiyoko.sweet.Discussion = function($html, opt_params){
 	this.$html = $($html);
 	this.LIST_NAME = 'SWEET Discussion - 相談';
 	this.id = this.$html.attr('id');
-	 
 	this.memoId = '';
-	
-
 	this.buildComponents();
-	this.bindEvents();		
-
+	this.bindEvents();
 };
 
 com.hiyoko.util.extend(com.hiyoko.component.ApplicationBase, com.hiyoko.sweet.Discussion);
 
 com.hiyoko.sweet.Discussion.prototype.buildComponents = function(){
-	this.chatStreams = new com.hiyoko.sweet.Discussion.ChatStreams(this.getElementById('chat'));
 	this.memo = new com.hiyoko.sweet.Discussion.Memo(this.getElementById('memo'));
 	this.vote = new com.hiyoko.sweet.Discussion.Vote(this.getElementById('vote'));
+	var event = this.getAsyncEvent('tofRoomRequest').done((r) => {
+		this.chatStreams = new com.hiyoko.DodontoF.V2.ChatClient(this.getElementById('chat'), {
+			displayLimit: 256,
+			input: com.hiyoko.sweet.Discussion.ChatInputDummy,
+			display: com.hiyoko.sweet.Discussion.ChatDisplay,
+			tabs: r.chatTab
+		});
+	}).fail(function(r){
+		alert('Couldn\'t get DodontoF Room Info. Is URL correct?\n' + r.result);
+	});
+	event.method = 'getRoomInfo';
+	this.fireEvent(event);
 };
 
+com.hiyoko.sweet.Discussion.prototype.bindEvents = function($html){
 
-
-com.hiyoko.sweet.Discussion.prototype.bindEvents  = function($html){
-	this.$html.on('copyChatLog', function(e){
+	this.$html.on(com.hiyoko.sweet.Discussion.COPY_CHAT_LOG_EVENT, (e) => {
+		tempFix.push(e.msgId);
 		this.memo.add(e);
-	}.bind(this));
+	});
 };
 
 com.hiyoko.sweet.Discussion.Memo = function($html) {
@@ -44,7 +51,7 @@ com.hiyoko.sweet.Discussion.Memo = function($html) {
 
 com.hiyoko.util.extend(com.hiyoko.component.ApplicationBase, com.hiyoko.sweet.Discussion.Memo);
 
-com.hiyoko.sweet.Discussion.Memo.prototype.add = function(msgObject) {
+com.hiyoko.sweet.Discussion.Memo.prototype.add = function(msgObject)  {
 	this.editor.val(com.hiyoko.util.format('%s\n┌────────────────\n│%s\n├────────────────\n%s',
 			this.editor.val(), msgObject.name, msgObject.text));
 	this.update();
@@ -160,132 +167,54 @@ com.hiyoko.sweet.Discussion.Vote.prototype.sendVoteChoice = function(list) {
 	}
 };
 
+com.hiyoko.sweet.Discussion.ChatInputDummy = function($html) {};
 
-
-com.hiyoko.sweet.Discussion.ChatStreams = function($html) {
-	this.$html = $($html);
-	this.id = this.$html.attr('id');
-	this.chatLastUpdate = 0;
-	
-	this.chatStreams = [];
-	
-	var event = this.getAsyncEvent('tofRoomRequest').done(function(r){
-		r.chatTab.forEach(function(v, i) {
-			this.chatStreams.push(new com.hiyoko.sweet.Discussion.ChatStream(this.$html, v, i)); 
-		}.bind(this));
-		
-		this.bindEvents();
-	}.bind(this)).fail(function(r){
-		alert('Couldn\'t get DodontoF Room Info. Is URL correct?\n' + r.result);
-	});
-	event.method = 'getRoomInfo';
-	this.fireEvent(event);
-};
-
-com.hiyoko.util.extend(com.hiyoko.component.ApplicationBase, com.hiyoko.sweet.Discussion.ChatStreams);
-
-com.hiyoko.sweet.Discussion.ChatStreams.prototype.bindEvents = function(){
-	var self = this;
-	window.setInterval(self.updateChat.bind(self), 5000);
-};
-
-com.hiyoko.sweet.Discussion.ChatStreams.prototype.updateChat = function(){
-	var self = this;
-	var event = self.getAsyncEvent('tofRoomRequest').done(function(r){
-		var mapedByTab = com.hiyoko.util.groupArray(r.chatMessageDataLog.map(function(v){
-			try{
-				return com.hiyoko.DodontoF.V2.fixChatMsg(v);
-			} catch(e){
-				console.warn(e, v);
-				return {tab: -1};
+com.hiyoko.sweet.Discussion.ChatDisplay = class extends com.hiyoko.DodontoF.V2.ChatClient.SimpleDisplay {
+	constructor($dom, opts = {}) {
+		super($dom, opts);
+		this.$html.click((e) => {
+			const clicked = $(e.target);
+			if(clicked.hasClass(`${this.id}-log-append`)) {
+				const $msg = clicked.parent();
+				this.fireEvent(new $.Event(com.hiyoko.sweet.Discussion.COPY_CHAT_LOG_EVENT, {
+					name: $msg.find(`.${this.id}-log-name`).text(),
+					text: $msg.find(`.${this.id}-log-message`).text()
+				}));
 			}
-			
-		}), function(msg) {
-			self.chatLastUpdate = msg.time;
-			return msg.tab;
 		});
-		self.chatStreams.forEach(function(v,i){
-			v.updateChat(mapedByTab[i]);
-		});
-	}.bind(this)).fail(function(r){
-		alert('Failed to get data\nReason: ' + r.result);
-	});
-	event.method = 'getChat';
-	event.args = [this.chatLastUpdate];
-	this.fireEvent(event);
-};
-
-com.hiyoko.sweet.Discussion.ChatStream = function($html, title, number) {
-	this.id = $html.attr('id') + '-' + number;
-	this.clazz = $html.attr('id') + '-stream';
-	
-	$html.append(com.hiyoko.util.format('<div class="%s" id="%s"></div>',
-			this.clazz, this.id));
-	this.$html = $('#' + this.id);
-	
-	this.title = title;
-	this.number = number;
-	this.render();
-	
-	this.$messages = this.getElement('.' + this.clazz + '-messages');
-	
-	this.bindEvents();
-};
-com.hiyoko.util.extend(com.hiyoko.component.ApplicationBase, com.hiyoko.sweet.Discussion.ChatStream);
-
-com.hiyoko.sweet.Discussion.ChatStream.prototype.render = function(){
-	this.$html.css(com.hiyoko.sweet.Discussion.ChatStream.COLOR[this.number % 6]);
-	this.$html.append('<h2>' + this.title + '</h2>');
-	this.$html.append(com.hiyoko.util.format('<div class="%s"></div>',
-			this.clazz + '-messages'));
-};
-
-com.hiyoko.sweet.Discussion.ChatStream.prototype.bindEvents = function() {
-	this.$messages.click(function(e) {
-		var $msg = $(e.target).parent();
-		var event = {
-				type: 'copyChatLog',
-				name: $msg.find('.' + this.clazz + '-messages-message-name').text(),
-				text: $msg.find('.' + this.clazz + '-messages-message-text').text()
-		};
-		this.fireEvent(event);
-	}.bind(this));
-};
-
-
-com.hiyoko.sweet.Discussion.ChatStream.prototype.updateChat = function(msgs){
-	if(! msgs) {
-		return;
 	}
 	
-	var base = $('<div></div>');
-	msgs.forEach(function(v){
-		var msg = $('<div></div>');
-		msg.addClass(this.clazz + '-messages-message');
-		msg.css({'color': '#' + v.color});
+	updateLogs(logs) {
+		this.$html.append(logs.map((log) => {
+			const tab = log.tab || 0;
+			var $log = $(com.hiyoko.util.format('<p style="color:#%s" class="%s-log %s-log"></p>',
+					log.color, this.id, com.hiyoko.DodontoF.V2.ChatClient.SimpleDisplay.CLASS));
+			var $name = $(com.hiyoko.util.format('<span class="%s-log-name %s-log-name"></span>',
+					this.id, com.hiyoko.DodontoF.V2.ChatClient.SimpleDisplay.CLASS));
+			$name.text(`${log.name} @ ${this.options.tabs[tab]}`);
+			var $msg = $(com.hiyoko.util.format('<span class="%s-log-message %s-log-message"></span>',
+					this.id, com.hiyoko.DodontoF.V2.ChatClient.SimpleDisplay.CLASS));
+			var $appendButton = $(`<span class="${this.id}-log-append ` +
+					`${com.hiyoko.DodontoF.V2.ChatClient.SimpleDisplay.CLASS}-log-append">メモに追加する</span>`);
+			$msg.textWithLF(log.msg);
+			$log.append($name);
+			$log.append($msg);
+			$log.append($appendButton);
+			$log.css('background-color', com.hiyoko.sweet.Discussion.COLOR[tab % com.hiyoko.sweet.Discussion.COLOR.length]['background-color']);
+			return $log;
+		}));
 		
-		var name = $('<div></div>');
-		name.addClass(this.clazz + '-messages-message-name');
-		name.text(v.name);
-		
-		var text = $('<p></p>');
-		text.addClass(this.clazz + '-messages-message-text');
-		text.text(v.msg);
-		
-		var copy = $('<button>⇒</button>');
-		copy.addClass(this.clazz + '-messages-message-button');
-		copy.addClass(this.clazz + '-messages-message-copy');
-		
-		msg.append(name);
-		msg.append(text);
-		msg.append(copy);
-		base.append(msg);
-	}.bind(this));
-	this.$messages.append(base);
+		if(this.limit) {
+			var count = this.getElementsByClass(com.hiyoko.DodontoF.V2.ChatClient.SimpleDisplay.CLASS + '-log').length;
+			this.getElementsByClass('log:lt(' + (count - this.limit) + ')').remove();
+		}
+	}
 };
 
-com.hiyoko.sweet.Discussion.ChatStream.COLOR = [
-{'border-color': '#FF0000', 'background-color': '#FFF0 F0'},
+com.hiyoko.sweet.Discussion.COPY_CHAT_LOG_EVENT  = 'com-hiyoko-sweet-Discussion-COPY_CHAT_LOG_EVENT';
+
+com.hiyoko.sweet.Discussion.COLOR = [
+{'border-color': '#FF0000', 'background-color': '#FFF0F0'},
 {'border-color': '#00FF00', 'background-color': '#F0FFF0'},
 {'border-color': '#0000FF', 'background-color': '#F0F0FF'},
 {'border-color': '#FFFF00', 'background-color': '#FFFFF0'},
