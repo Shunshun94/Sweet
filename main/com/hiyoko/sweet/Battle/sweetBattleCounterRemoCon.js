@@ -29,8 +29,32 @@ com.hiyoko.sweet.Battle.CounterRemoCon.prototype.injectList = function(list) {
 
 com.hiyoko.sweet.Battle.CounterRemoCon.prototype.bindEvents = function() {
 	this.getElementById('open').click(function(e){
+		const $chatLog = this.getElementById('chatlog');
 		this.fireEvent({
-			type: 'CounterRemoConInitializeRequest'
+			type: 'CounterRemoConInitializeRequest',
+			resolve: (result) => {
+				const isCheckRE = new RegExp(" → ([0-9]+)$");
+				$chatLog.empty();
+				$chatLog.append(result.map((log) => {
+					const execResult = isCheckRE.exec(log.msg);
+					let $html = $('<span></span>');
+					let $name = $('<span></span>');
+					let $msg = $('<span></span>');
+					$name.text(log.name);
+					$msg.textWithLF(':' + log.msg);
+					$html.append($name);
+					$html.append($msg);
+					if(execResult) {
+						$html.append(` → <button class="${this.id}-chatlog-button" value="${execResult[1]}">この結果を適用</button>`);
+					}
+					$html.append('<br/>');
+					return $html;
+				}));
+			},
+			reject: (result) => {
+				$chatLog.empty();
+				$chatLog.append(`<span>$チャットログの取得に失敗しました<br/>理由： {result.result}</span>`);
+			}
 		});
 		this.body.show();
 		this.overlay.show();
@@ -49,6 +73,14 @@ com.hiyoko.sweet.Battle.CounterRemoCon.prototype.bindEvents = function() {
 	this.$html.on('CounterRemoConChangeHP', function(e) {
 		this.overlay.click();
 	}.bind(this));
+	
+
+	this.getElementById('chatlog').click((e) => {
+		const $target = $(e.target);
+		if($target.hasClass(`${this.id}-chatlog-button`)) {
+			this.inputer.setValue($target.val());
+		}
+	});
 };
 
 com.hiyoko.sweet.Battle.CounterRemoCon.List = function($html, opt_params) {
@@ -186,6 +218,10 @@ com.hiyoko.sweet.Battle.CounterRemoCon.Inputer.prototype.buildCharacterList = fu
 			}.bind(this));
 		}
 	}.bind(this));
+};
+
+com.hiyoko.sweet.Battle.CounterRemoCon.Inputer.prototype.setValue = function(value) {
+	this.getElementById('value').val(value);
 };
 
 com.hiyoko.sweet.Battle.CounterRemoCon.Inputer.prototype.getValue = function() {
