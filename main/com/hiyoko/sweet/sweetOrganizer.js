@@ -44,6 +44,7 @@ com.hiyoko.sweet.Organizer.prototype.buildComponents = function() {
 		this.onClickList({num: (this.applications.length - 1)});
 		this.list.disable();
 		this.pcManager.disable();
+		this.responseChat.disable();
 	}
 };
 
