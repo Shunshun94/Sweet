@@ -33,7 +33,6 @@ com.hiyoko.sweet.Discussion.prototype.buildComponents = function(){
 com.hiyoko.sweet.Discussion.prototype.bindEvents = function($html){
 
 	this.$html.on(com.hiyoko.sweet.Discussion.COPY_CHAT_LOG_EVENT, (e) => {
-		tempFix.push(e.msgId);
 		this.memo.add(e);
 	});
 };

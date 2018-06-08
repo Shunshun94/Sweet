@@ -266,6 +266,11 @@ com.hiyoko.sweet.Battle.prototype.bindEvents = function() {
 				list.push(val);
 			}
 		});
+		this.fireEvent(this.getAsyncEvent('tofRoomRequest', {method: 'getChat', args: [0]}).done((result) => {
+			e.resolve(result.chatMessageDataLog.reverse().slice(0, 15).map(function(log){return com.hiyoko.DodontoF.V2.fixChatMsg(log);}));
+		}).fail((failed) => {
+			e.reject(`<p>チャットログの取得に失敗しました<br/>理由： ${failed.result}</p>`);
+		}));
 		this.counterRemoCon.injectList(list);
 	}.bind(this));
 	

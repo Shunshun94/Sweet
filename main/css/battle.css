@@ -200,6 +200,24 @@
 	display:none;
 }
 
+#com-hiyoko-sweet-battle-counterRemoCon-chatlog {
+	padding: 4px;
+}
+
+#com-hiyoko-sweet-battle-counterRemoCon-chatlog > span {
+	font-size: 60%;
+	display:block;
+	padding: 4px;
+}
+
+#com-hiyoko-sweet-battle-counterRemoCon-chatlog > span:nth-child(odd) {
+	background-color: #E0E0E0;
+}
+
+#com-hiyoko-sweet-battle-counterRemoCon-chatlog > span > button {
+	display: inline;
+}
+
 #com-hiyoko-sweet-battle-counterRemoCon-overlay{
 	z-index:1;
 	display:none;
