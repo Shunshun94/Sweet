@@ -51,6 +51,24 @@ button {
 	padding:1em;
 	position:relative;
 }
+#com-hiyoko-sweet-responseChatBase {
+	position:absolute;
+	right:4px;
+	top: 4px;
+	background-color:white;
+}
+#com-hiyoko-sweet-responseChatBase-toggle {
+	display:block;
+	font-size:80%;
+	border: lightyellow 3px none;
+	background-color:lemonchiffon;
+	position:absolute;
+	top:0px;
+	right:0px;
+}
+#com-hiyoko-sweet-responseChatBase-chat {
+	display:none;
+}
 
 #com-hiyoko-sweet-pcs {
 	position:absolute;

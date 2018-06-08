@@ -54,6 +54,9 @@ com.hiyoko.sweet.Organizer.prototype.buildApplications = function(){
 			$apps, 
 			function(app, dom){return new app(dom);});
 	this.pcManager = new com.hiyoko.sweet.PcManager(this.getElementById('pcs'));
+	this.responseChat = new com.hiyoko.sweet.ResponseChat(this.getElementById('responseChatBase'), {
+		displayLimit: 15
+	});
 	this.list = new com.hiyoko.sweet.AppList(this.getElement('#com-hiyoko-sweet-menu'), this.applications);
 };
 
