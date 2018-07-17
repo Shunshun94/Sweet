@@ -47,7 +47,7 @@ MIT ライセンスです。
 
 ### ソードワールド2.0
 
-「ソードワールド2.0」は北沢慶氏およびグループSNEの著作物です。
+「ソードワールド2.0」は「グループＳＮＥ」及び「株式会社ＫＡＤＯＫＡＷＡ」の著作物です。
 
 http://www.groupsne.co.jp/products/sw/index.html   
 https://ssl.fujimi-trpg-online.jp/contents/sw
