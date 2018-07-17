@@ -27,7 +27,7 @@ com.hiyoko.sweet.Organizer.prototype.buildComponents = function() {
 	if(this.query.url && this.query.room) {
 		this.tofServerAccess = new com.hiyoko.DodontoF.V2.Server(this.query.url);
 		this.tofRoomAccess = this.tofServerAccess.getRoom(this.query.room, this.query.pass);
-		this.buildApplications();
+		this.buildApplications(true);
 		this.onClickList({num:0});
 		this.tofRoomAccess.getRoomInfo()
 		.done(function(r){
@@ -40,25 +40,26 @@ com.hiyoko.sweet.Organizer.prototype.buildComponents = function() {
 		}.bind(this));
 	} else {
 		this.tofRoomAccess = com.hiyoko.DodontoF.V2.RoomDummy;
-		this.buildApplications();
+		this.buildApplications(false);
 		this.onClickList({num: (this.applications.length - 1)});
 		this.list.disable();
 		this.pcManager.disable();
-		this.responseChat.disable();
 	}
 };
 
-com.hiyoko.sweet.Organizer.prototype.buildApplications = function(){
+com.hiyoko.sweet.Organizer.prototype.buildApplications = function(isActivated){
 	var $apps = this.getElementById('apps').children('section');
 	this.applications = com.hiyoko.util.mergeArray(
 			com.hiyoko.sweet.Organizer.APPLICATION_LIST,
 			$apps, 
 			function(app, dom){return new app(dom);});
 	this.pcManager = new com.hiyoko.sweet.PcManager(this.getElementById('pcs'));
-	this.responseChat = new com.hiyoko.sweet.ResponseChat(this.getElementById('responseChatBase'), {
-		displayLimit: 15
-	});
 	this.list = new com.hiyoko.sweet.AppList(this.getElement('#com-hiyoko-sweet-menu'), this.applications);
+	if(isActivated) {
+		this.responseChat = new com.hiyoko.sweet.ResponseChat(this.getElementById('responseChatBase'), {
+			displayLimit: 15, system:'SwordWorld2.0'
+		});
+	}
 };
 
 com.hiyoko.sweet.Organizer.prototype.onClickList = function(e) {
