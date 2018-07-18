@@ -31,24 +31,27 @@ com.hiyoko.sweet.Player.prototype.initRoomTitle = function() {
 };
 
 com.hiyoko.sweet.Player.prototype.buildComponents = function() {
-	if(this.query.url && this.query.room && this.query.sheetId) {
+	if(this.query.platform && this.query.sheetId) {
 		com.hiyoko.VampireBlood.SW2.getSheet(this.query.sheetId).done(function(character){
 			this.character = character;
 			this.saveSheetIdList(this.query.sheetId, this.character.name);
-			this.tofRoomAccess = new com.hiyoko.DodontoF.V2.Room(this.query.url, this.query.room, this.query.pass);
-			this.initRoomTitle();
-			
-			this.components = com.hiyoko.util.mergeArray(
-					com.hiyoko.sweet.Player.Children.components,
-					com.hiyoko.sweet.Player.Children.domIds, function(component, dom) {
-						var newComponent = new component(this.getElementById(dom), this.character);
-						newComponent.disable();
-						return newComponent;
-					}.bind(this));
-			this.resources = new com.hiyoko.sweet.ResourceManage(this.getElementById('resourceManage'), this.character);
-			this.talk = new com.hiyoko.sweet.Talk(this.getElementById('talk'), this.character);
-			this.list = new com.hiyoko.sweet.AppList(this.getElementById('list'), this.components);
-			this.onClickList({num: 0});
+			this.query.url = this.query.url || this.getElementById('entrance');
+			this.tofRoomAccess = io.github.shunshun94.trpg.RoomClientFactory(this.query);
+			setTimeout(()=>{
+				this.initRoomTitle();
+				this.components = com.hiyoko.util.mergeArray(
+						com.hiyoko.sweet.Player.Children.components,
+						com.hiyoko.sweet.Player.Children.domIds, function(component, dom) {
+							var newComponent = new component(this.getElementById(dom), this.character);
+							newComponent.disable();
+							return newComponent;
+						}.bind(this));
+				this.resources = new com.hiyoko.sweet.ResourceManage(this.getElementById('resourceManage'), this.character);
+				this.talk = new com.hiyoko.sweet.Talk(this.getElementById('talk'), this.character);
+				this.list = new com.hiyoko.sweet.AppList(this.getElementById('list'), this.components);
+				this.onClickList({num: 0});
+			}, 1500);
+
 		}.bind(this));
 	} else {
 		this.$html.children('div').hide();
@@ -59,6 +62,7 @@ com.hiyoko.sweet.Player.prototype.buildComponents = function() {
 			$list.append(com.hiyoko.util.format('<option value="%s">%s</option>', k, v));
 		});
 		this.getElementById('entrance').show();
+		new com.hiyoko.sweet.PlayerEntrance(this.getElementById('entrance'));
 	}
 };
 
@@ -128,17 +132,6 @@ com.hiyoko.sweet.Player.prototype.bindEvents = function(e) {
 	});
 	
 	this.$html.on('clickMenu', this.onClickList.bind(this));
-	
-	this.$html.on(com.hiyoko.component.InputFlow.Events.Finish, function(e) {
-		var url = './player.html?';
-		url += '&url=' + e.value.url;
-		url += '&room=' + e.value.room.no;
-		url += '&sheetId=' + e.value.option.sheetId;
-		if(e.value.room.isLocked) {
-			url += '&pass=' + e.value.password.password;
-		}
-		document.location = url;
-	});
 };
 
 

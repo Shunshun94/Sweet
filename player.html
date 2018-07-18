@@ -1,6 +1,16 @@
 <!DOCTYPE html>
 <html>
-<head>
+<head
+	　prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# article: http://ogp.me/ns/article#">
+<meta property="og:title" content="そどわに判定てんぷれ～つ2" />
+<meta property="og:type" content="website" />
+<meta property="og:image" content="https://shunshun94.github.io/Sweet/pl_ogp.png" />
+<meta property="og:site_name" content="そどわに判定てんぷれ～つ2" />
+<meta property="og:description"
+	content="SW2 の PL を煩雑な管理から解放し、セッションを楽しむことに集中させるツール" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@Shunshun94" />
+<meta name="twitter:text:title" content="そどわに判定てんぷれ～つ2" />
 <meta charset="UTF-8">
 <title>そどわに判定てんぷれ～つ 2</title>
 <link rel="stylesheet" href="main/css/player.css" />
@@ -15,7 +25,7 @@
 		<span id="com-hiyoko-sw2-player-resourceManage-toggle">リソース管理開閉</span>
 		<div id="com-hiyoko-sw2-player-resourceManage-base">
 				<h2>リソース管理</h2>
-				<button id="com-hiyoko-sw2-player-resourceManage-append">どどんとふにコマ追加</button>
+				<button id="com-hiyoko-sw2-player-resourceManage-append">コマ追加</button>
 				<div id="com-hiyoko-sw2-player-resourceManage-resources">
 					<h3>HP/MP管理</h3>
 					<table border="1" id="com-hiyoko-sw2-player-resourceManage-resources-points">
@@ -342,8 +352,8 @@
 		</div>
 	</div>
 	<footer id="com-hiyoko-sw2-player-footer">
-		<p id="com-hiyoko-sw2-player-footer-version">v20180317</p>
-		<p>「ソードワールド2.0」は北沢慶氏およびグループSNEの著作物です。</p>
+		<p id="com-hiyoko-sw2-player-footer-version">v20180719</p>
+		<p>「ソードワールド2.0」は「グループＳＮＥ」及び「株式会社ＫＡＤＯＫＡＷＡ」の著作物です。 <a href="https://fujimi-trpg-online.jp/info/entry-2587.html">【ソード・ワールド】二次創作ガイドライン</a></p>
 		<p><a href="./datamanager.html">データマネージャ</a> | <a href="https://twitter.com/Shunshun94">作者 Twitter</a> | <a href="https://github.com/Shunshun94/Sweet">GitHub</a> | <a href="./history.html">HISTORY</a> | <a href="http://amzn.asia/8mNqdKy">ひよこのほしい物りすと</a></p>
 	</footer>
 </div>
@@ -351,8 +361,8 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/notify/0.4.2/notify.min.js"></script>
+<script src="https://shunshun94.github.io/shared/external/discord.io/index.js"></script>
 
-<script src='https://shunshun94.github.io/shared/jquery/com/hiyoko/dodontof/v2/DodontoF-Client.js'></script>
 <script src='https://shunshun94.github.io/shared/jquery/com/hiyoko/util/v2/utils.js'></script>
 <script src="https://shunshun94.github.io/shared/jquery/com/hiyoko/vampireblood/client.js"></script>
 <script src="https://shunshun94.github.io/shared/jquery/com/hiyoko/vampireblood/sw2.js"></script>
@@ -364,6 +374,14 @@
 <script src="https://shunshun94.github.io/shared/jquery/com/hiyoko/dodontof/v2/DodontoF-chatUtil.js"></script>
 <script src="https://shunshun94.github.io/shared/jquery/com/hiyoko/dodontof/v2/DodontoF-Chat.js"></script>
 <script src='https://shunshun94.github.io/shared/jquery/com/hiyoko/components/v1/TableBase.js'></script>
+<script src="https://shunshun94.github.io/shared/jquery/com/hiyoko/bcdice-api/BCDice-API.js"></script> 
+<script src="https://shunshun94.github.io/shared/other/io/github/shunshun94/trpg/clientSpec.js"></script>
+<script src="https://shunshun94.github.io/shared/other/io/github/shunshun94/trpg/discord/client.js"></script>
+<script src="https://shunshun94.github.io/shared/jquery/io/github/shunshun94/trpg/dummy/client.js"></script>
+<script src='https://shunshun94.github.io/shared/jquery/com/hiyoko/dodontof/v2/DodontoF-Client.js'></script>
+<script src="https://shunshun94.github.io/shared/jquery/io/github/shunshun94/trpg/discord/entrance.js"></script>
+<script src="https://shunshun94.github.io/D.Crescent/main/entrance/entrance.js"></script>
+<script src="https://shunshun94.github.io/shared/other/io/github/shunshun94/trpg/clientFactory.js"></script>
 
 <script src='./main/com/hiyoko/sweet/Battle/sweetBattleOptionalValues.js'></script>
 <script src='./main/com/hiyoko/sweet/Battle/sweetBattleCounterRemoCon.js'></script>
@@ -386,6 +404,7 @@
 <script src="./main/com/hiyoko/sweetplayer/Pet/sweetPetPartsList.js"></script>
 <script src="./main/com/hiyoko/sweetplayer/links.js"></script>
 <script src='./main/com/hiyoko/sweet/sweetAppList.js'></script>
+<script src="./main/com/hiyoko/sweetplayer/entrance.js"></script>
 <script src="./main/com/hiyoko/sweetplayer/sweetPlayer.js"></script>
 <script>
 new com.hiyoko.sweet.Player($('#com-hiyoko-sw2-player'));

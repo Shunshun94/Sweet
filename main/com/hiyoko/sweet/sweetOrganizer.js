@@ -43,7 +43,6 @@ com.hiyoko.sweet.Organizer.prototype.buildComponents = function() {
 		this.buildApplications(false);
 		this.onClickList({num: (this.applications.length - 1)});
 		this.list.disable();
-		this.pcManager.disable();
 	}
 };
 
@@ -53,12 +52,16 @@ com.hiyoko.sweet.Organizer.prototype.buildApplications = function(isActivated){
 			com.hiyoko.sweet.Organizer.APPLICATION_LIST,
 			$apps, 
 			function(app, dom){return new app(dom);});
-	this.pcManager = new com.hiyoko.sweet.PcManager(this.getElementById('pcs'));
+	
 	this.list = new com.hiyoko.sweet.AppList(this.getElement('#com-hiyoko-sweet-menu'), this.applications);
 	if(isActivated) {
 		this.responseChat = new com.hiyoko.sweet.ResponseChat(this.getElementById('responseChatBase'), {
 			displayLimit: 15, system:'SwordWorld2.0'
 		});
+		this.pcManager = new com.hiyoko.sweet.PcManager(this.getElementById('pcs'));
+	} else {
+		this.getElementById('pcs').hide();
+		this.getElementById('responseChatBase').hide();
 	}
 };
 

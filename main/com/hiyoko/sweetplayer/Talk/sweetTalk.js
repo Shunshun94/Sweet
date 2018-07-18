@@ -14,7 +14,7 @@ com.hiyoko.util.extend(com.hiyoko.component.ApplicationBase, com.hiyoko.sweet.Ta
 
 com.hiyoko.sweet.Talk.prototype.initialize = function() {
 	this.$html.show();
-	this.chat = new com.hiyoko.DodontoF.V2.ChatClient(this.getElementById('chat'), {displayLimit: 10, name: this.character.name}); 
+	this.chat = new com.hiyoko.DodontoF.V2.ChatClient(this.getElementById('chat'), {displayLimit: 10, name: this.character.name, system: 'SwordWorld2.0'}); 
 };
 
 com.hiyoko.sweet.Talk.prototype.bindEvents = function() {
