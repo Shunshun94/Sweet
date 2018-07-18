@@ -1,5 +1,9 @@
 @charset "UTF-8";
 
+#com-hiyoko-sw2-player-entrance {
+	background-color: #D0C0C0;
+}
+
 #com-hiyoko-sw2-player-entrance-sheet > button {
 	height: 100px;
 	width: 400px;
