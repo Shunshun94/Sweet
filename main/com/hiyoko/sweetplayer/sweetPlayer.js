@@ -59,6 +59,7 @@ com.hiyoko.sweet.Player.prototype.buildComponents = function() {
 			$list.append(com.hiyoko.util.format('<option value="%s">%s</option>', k, v));
 		});
 		this.getElementById('entrance').show();
+		new com.hiyoko.sweet.PlayerEntrance(this.getElementById('entrance'));
 	}
 };
 
@@ -128,17 +129,6 @@ com.hiyoko.sweet.Player.prototype.bindEvents = function(e) {
 	});
 	
 	this.$html.on('clickMenu', this.onClickList.bind(this));
-	
-	this.$html.on(com.hiyoko.component.InputFlow.Events.Finish, function(e) {
-		var url = './player.html?';
-		url += '&url=' + e.value.url;
-		url += '&room=' + e.value.room.no;
-		url += '&sheetId=' + e.value.option.sheetId;
-		if(e.value.room.isLocked) {
-			url += '&pass=' + e.value.password.password;
-		}
-		document.location = url;
-	});
 };
 
 
