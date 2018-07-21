@@ -25,8 +25,13 @@ com.hiyoko.util.extend(com.hiyoko.component.ApplicationBase, com.hiyoko.sweet.Or
 com.hiyoko.sweet.Organizer.LongerPlatforms = ['discord'];
 com.hiyoko.sweet.Organizer.prototype.buildComponents = function() {
 	if(this.query.platform) {
-		this.tofServerAccess = io.github.shunshun94.trpg.ServerClientFactory(com.hiyoko.util.getQueries());
-		this.tofRoomAccess = io.github.shunshun94.trpg.RoomClientFactory(com.hiyoko.util.getQueries());
+		let query1 = com.hiyoko.util.getQueries();
+		query1.url = query1.url || this.getElementById('dummy_s');
+		let query2 = com.hiyoko.util.getQueries();
+		query2.url = query2.url || this.getElementById('dummy_r');
+
+		this.tofServerAccess = io.github.shunshun94.trpg.ServerClientFactory(query1);
+		this.tofRoomAccess = io.github.shunshun94.trpg.RoomClientFactory(query2);
 		setTimeout(()=>{
 			this.buildApplications(this.query.platform);
 			this.onClickList({num:0});
