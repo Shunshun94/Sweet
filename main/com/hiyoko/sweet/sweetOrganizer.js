@@ -22,22 +22,25 @@ com.hiyoko.sweet.Organizer = function($html) {
 
 };
 com.hiyoko.util.extend(com.hiyoko.component.ApplicationBase, com.hiyoko.sweet.Organizer);
-
+com.hiyoko.sweet.Organizer.LongerPlatforms = ['discord'];
 com.hiyoko.sweet.Organizer.prototype.buildComponents = function() {
-	if(this.query.url && this.query.room) {
-		this.tofServerAccess = new com.hiyoko.DodontoF.V2.Server(this.query.url);
-		this.tofRoomAccess = this.tofServerAccess.getRoom(this.query.room, this.query.pass);
-		this.buildApplications(true);
-		this.onClickList({num:0});
-		this.tofRoomAccess.getRoomInfo()
-		.done(function(r){
-			this.getElementById('header').text('【' + r.roomName + '】');
-		}.bind(this))
-		.fail(function(r){
-			alert('Couldn\'t get DodontoF Room Info. Is URL correct?');
-			this.onClickList({num: (this.applications.length - 1)});
-			this.list.disable();
-		}.bind(this));
+	if(this.query.platform) {
+		this.tofServerAccess = io.github.shunshun94.trpg.ServerClientFactory(com.hiyoko.util.getQueries());
+		this.tofRoomAccess = io.github.shunshun94.trpg.RoomClientFactory(com.hiyoko.util.getQueries());
+		setTimeout(()=>{
+			this.buildApplications(this.query.platform);
+			this.onClickList({num:0});
+			const getRoomEvent = this.getAsyncEvent('dummyEvent', {
+				method: 'getRoomInfo', args: {}
+			}).done((r) => {
+				this.getElementById('header').text('【' + r.roomName + '】');
+			}).fail((r) => {
+				alert('Couldn\'t get Room Info. Is URL correct?');
+				this.onClickList({num: (this.applications.length - 1)});
+				this.list.disable();
+			});
+			this.retriableRequest(getRoomEvent, 8);
+		}, com.hiyoko.sweet.Organizer.LongerPlatforms.includes(this.query.platform) ? 3000 : 0);
 	} else {
 		this.tofRoomAccess = com.hiyoko.DodontoF.V2.RoomDummy;
 		this.buildApplications(false);
@@ -46,15 +49,15 @@ com.hiyoko.sweet.Organizer.prototype.buildComponents = function() {
 	}
 };
 
-com.hiyoko.sweet.Organizer.prototype.buildApplications = function(isActivated){
+com.hiyoko.sweet.Organizer.prototype.buildApplications = function(platform){
 	var $apps = this.getElementById('apps').children('section');
 	this.applications = com.hiyoko.util.mergeArray(
 			com.hiyoko.sweet.Organizer.APPLICATION_LIST,
 			$apps, 
 			function(app, dom){return new app(dom);});
 	
-	this.list = new com.hiyoko.sweet.AppList(this.getElement('#com-hiyoko-sweet-menu'), this.applications);
-	if(isActivated) {
+	this.list = new com.hiyoko.sweet.AppList(this.getElement('#com-hiyoko-sweet-menu'), this.applications, platform);
+	if(platform) {
 		this.responseChat = new com.hiyoko.sweet.ResponseChat(this.getElementById('responseChatBase'), {
 			displayLimit: 15, system:'SwordWorld2.0'
 		});
@@ -71,19 +74,6 @@ com.hiyoko.sweet.Organizer.prototype.onClickList = function(e) {
 	});
 	this.applications[e.num].enable();
 	this.list.activateSelectedItem(e.num);
-};
-
-com.hiyoko.sweet.Organizer.prototype.onChangeRoomRequest = function(e){
-	$('#entrance').hide();
-	var url = './index.html?';
-	url += 'url=' + e.value.url;
-	url += '&room=' + e.value.room.no;
-	if(e.value.room.isLocked) {
-		url += '&pass=' + e.value.password.password;
-	}
-	localStorage.setItem(com.hiyoko.sweet.Entry.AlgorithmiaTokenStorage, JSON.stringify(e.value.option.algorithmia));
-	
-	document.location = url;
 };
 
 com.hiyoko.sweet.Organizer.prototype.retriableRequest = function(e, max, count = 0) {
@@ -122,8 +112,6 @@ com.hiyoko.sweet.Organizer.prototype.bindEvents = function(e) {
 		var client = new com.hiyoko.Algorithmia(JSON.parse(localStorage.getItem(com.hiyoko.sweet.Entry.AlgorithmiaTokenStorage)));
 		client.request(e.algorithm, e.params).then(function(res){e.resolve(res);}, function(err){e.reject(err)});
 	});
-	
-	this.$html.on(com.hiyoko.component.InputFlow.Events.Finish, this.onChangeRoomRequest.bind(this));
 	
 	this.$html.on('getStorage', function(e){
 		e.callback(localStorage.getItem(e.key) ? JSON.parse(localStorage.getItem(e.key)) : null);

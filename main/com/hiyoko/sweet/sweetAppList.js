@@ -2,14 +2,14 @@ var com = com || {};
 com.hiyoko = com.hiyoko || {};
 com.hiyoko.sweet = com.hiyoko.sweet || {};
 
-com.hiyoko.sweet.AppList = function($html, apps) {
+com.hiyoko.sweet.AppList = function($html, apps, opt_platform) {
 	this.$html = $html;
 	this.id = $html.attr('id');
 	this.$menu = this.getElementById('list');
 
 	this.apps = apps;
 
-	this.buildList();
+	this.buildList(opt_platform || false);
 	this.bindEvents();
 	
 	if(this.apps.length <= 1) {
@@ -23,13 +23,24 @@ com.hiyoko.sweet.AppList.prototype.activateSelectedItem = function(num) {
 	$(this.getElementsByClass('list-item')[num]).addClass('active');
 };
 
-com.hiyoko.sweet.AppList.prototype.buildList = function(){
-	$.each(this.apps, function(i,v) {
+com.hiyoko.sweet.AppList.prototype.isActivePlatform = (platform, component) => {
+	if(component.ACTIVE_PLATFORMS) {
+		console.log(`${component.ACTIVE_PLATFORMS}.includes(${platform}) => ${component.ACTIVE_PLATFORMS.includes(platform)}`)
+		return component.ACTIVE_PLATFORMS.includes(platform);
+	} else {
+		return true;
+	}
+};
+
+com.hiyoko.sweet.AppList.prototype.buildList = function(platform){
+	this.apps.forEach((v, i) => {
 		var dom = $(
-			com.hiyoko.util.format('<li title="%s" class="%s-list-item">%s</li>', i, this.id, v.LIST_NAME)		
+				com.hiyoko.util.format('<li title="%s" class="%s-list-item">%s</li>', i, this.id, v.LIST_NAME)		
 		);
-		this.$menu.append(dom);
-	}.bind(this));
+		if(this.isActivePlatform(platform, v)) {
+			this.$menu.append(dom);
+		}
+	});
 };
 
 com.hiyoko.sweet.AppList.prototype.bindEvents = function() {
