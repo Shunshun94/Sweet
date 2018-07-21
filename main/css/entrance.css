@@ -42,6 +42,10 @@
 .com-hiyoko-sweet-entry-tof-room-rooms-room-name:after,
 .com-hiyoko-sweet-entry-discord-room-room-name:after {content:'"';}
 
+.com-hiyoko-sweet-entry-discord-room-room-next {
+	color: #C0C0B0;
+}
+
 .com-hiyoko-sweet-entry-tof-room-rooms-room-entry,
 .com-hiyoko-sweet-entry-discord-room-room-entry {
 	margin-top: 8px;

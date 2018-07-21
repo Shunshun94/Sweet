@@ -40,7 +40,7 @@ com.hiyoko.sweet.Entry = class extends io.github.shunshun94.HiyokoCross.Entrance
 			`<div id="${this.id}-sheet">` +
 			`<p><a href="https://algorithmia.com/">Algorithmia</a> でユーザ登録した際に作ることのできる API Key を入力します。<br/>ゆとシート取り込み機能を利用しない場合は不要です<br/>` +
 			`Algorithmia API Key： <input type="password" id="${this.id}-algorithmia" /></p>` +
-			`<datalist id="${this.id}-sheet-list"></datalist>` + buttons + '</div>'
+			`<datalist id="${this.id}-sheet-list"></datalist><hr/>` + buttons + '</div>'
 		);
 		this.$html.append(
 				`<div id="${this.id}-tof">` +
