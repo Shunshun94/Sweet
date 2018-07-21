@@ -15,9 +15,12 @@
 <title>SWEET - Sword World 2.0 Enjoy Easily Tool</title>
 <link rel="stylesheet" href="main/css/style.css" />
 <link rel="stylesheet" href="main/css/battle.css" />
+<link rel="stylesheet" href="main/css/entrance.css" />
 <link rel="stylesheet" href="https://shunshun94.github.io/shared/jquery/io/github/shunshun94/trpg/ResponseChat/responseChat.css" type="text/css" />
 </head>
 <body id="com-hiyoko-sweet">
+<div style="display:none;" id="com-hiyoko-sweet-dummy_s"></div>
+<div style="display:none;" id="com-hiyoko-sweet-dummy_r"></div>
 <header id="com-hiyoko-sweet-header"></header>
 <div id="com-hiyoko-sweet-body">
 	<nav id="com-hiyoko-sweet-menu">
@@ -119,40 +122,7 @@
 			</div>
 		</div>
 	</section> 
-	<section id="com-hiyoko-sweet-entry">
-		<div id="com-hiyoko-sweet-entry-url">
-			<h3>使うどどんとふを選択してください</h3>
-			<div id="com-hiyoko-sweet-entry-url-StaticInput">
-				<h4>リストから選択</h4>
-				<select id="com-hiyoko-sweet-entry-url-StaticInput-List"></select><br/>
-				<button id="com-hiyoko-sweet-entry-url-StaticInput-Hide">URL を手入力する場合はこちらから</button>
-			</div>
-			<div id="com-hiyoko-sweet-entry-url-FreeInput">
-				<h4>URL を手入力</h4>
-				<input type="text" id="com-hiyoko-sweet-entry-url-FreeInput-Url" /><br/>
-				<button id="com-hiyoko-sweet-entry-url-FreeInput-Hide">リストから選択する場合はこちらから</button>
-			</div>
-			<br/><button id="com-hiyoko-sweet-entry-url-Next">次へ</button>
-		</div>
-		<div id="com-hiyoko-sweet-entry-room">
-			<button id="com-hiyoko-sweet-entry-room-back">戻る</button>
-			<h3>使うどどんとふの部屋を選択してください</h3>
-			<div id="com-hiyoko-sweet-entry-room-list"></div>
-		</div>
-		<div id="com-hiyoko-sweet-entry-password">
-			<button id="com-hiyoko-sweet-entry-password-back">戻る</button>
-			<h3>入室に使うパスワードを入力してください</h3>
-			入室パスワード<input id="com-hiyoko-sweet-entry-password-password" type="text" /><br/>
-			<button id="com-hiyoko-sweet-entry-password-next">次へ</button>
-		</div>
-		<div id="com-hiyoko-sweet-entry-option">
-			<button id="com-hiyoko-sweet-entry-option-back">戻る</button>
-			<h3>その他の情報を入力してください</h3>
-			<p><label>Algorithmia API Key</label><input type="password"
-				id="com-hiyoko-sweet-entry-option-algorithmia" /><br/><a href="https://algorithmia.com/">Algorithmia</a> でユーザ登録した際に作ることのできる API Key を入力します。<br/>ゆとシート取り込み機能を利用しない場合は不要です</p>
-			<button id="com-hiyoko-sweet-entry-option-next">ログイン</button>
-		</div>
-	</section>
+	<section id="com-hiyoko-sweet-entry"></section>
 	<div id="com-hiyoko-sweet-pcs">
 		<button id="com-hiyoko-sweet-pcs-toggle">PC 一覧開閉</button>
 		<div id="com-hiyoko-sweet-pcs-pcs">
@@ -180,6 +150,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/notify/0.4.2/notify.min.js"></script>
 <script src='https://shunshun94.github.io/shared/jquery/com/hiyoko/util/v2/utils.js'></script>
+<script src="https://shunshun94.github.io/shared/external/discord.io/index.js"></script>
 <script src='https://shunshun94.github.io/shared/jquery/com/hiyoko/components/v1/ApplicationBase.js'></script>
 <script src='https://shunshun94.github.io/shared/jquery/com/hiyoko/dodontof/v2/DodontoF-Client.js'></script>
 <script src='https://shunshun94.github.io/shared/jquery/com/hiyoko/dodontof/v2/DodontoF-chatUtil.js'></script>
@@ -194,8 +165,15 @@
 <script src="https://shunshun94.github.io/shared/other/io/github/shunshun94/util/colorutil.js"></script>
 <script src="https://shunshun94.github.io/shared/jquery/com/hiyoko/dodontof/v2/DodontoF-Entrance.js"></script>
 <script src="https://shunshun94.github.io/shared/jquery/io/github/shunshun94/trpg/ResponseChat/responseChat.js"></script>
+<script src="https://shunshun94.github.io/shared/jquery/com/hiyoko/bcdice-api/BCDice-API.js"></script> 
+<script src="https://shunshun94.github.io/shared/other/io/github/shunshun94/trpg/clientSpec.js"></script>
+<script src="https://shunshun94.github.io/shared/other/io/github/shunshun94/trpg/discord/client.js"></script>
+<script src="https://shunshun94.github.io/shared/jquery/io/github/shunshun94/trpg/dummy/client.js"></script>
+<script src='https://shunshun94.github.io/shared/jquery/com/hiyoko/dodontof/v2/DodontoF-Client.js'></script>
+<script src="https://shunshun94.github.io/shared/jquery/io/github/shunshun94/trpg/discord/entrance.js"></script>
+<script src="https://shunshun94.github.io/D.Crescent/main/entrance/entrance.js"></script>
+<script src="https://shunshun94.github.io/shared/other/io/github/shunshun94/trpg/clientFactory.js"></script>
 <script src='main/com/hiyoko/sweet/sweetAppList.js'></script>
-
 <script src='main/com/hiyoko/sweet/Accounting/sweetAccounting.js'></script>
 <script src='main/com/hiyoko/sweet/Accounting/sweetInputTable.js'></script>
 <script src='main/com/hiyoko/sweet/Accounting/sweetReporting.js'></script>

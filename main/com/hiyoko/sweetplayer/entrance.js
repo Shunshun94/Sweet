@@ -1,6 +1,6 @@
 com.hiyoko = com.hiyoko || {};
 com.hiyoko.sweet = com.hiyoko.sweet || {};
-com.hiyoko.sweet.PlayerEntrance = com.hiyoko.sweet.PlayerEntrance = class extends io.github.shunshun94.HiyokoCross.Entrance {
+com.hiyoko.sweet.PlayerEntrance = class extends io.github.shunshun94.HiyokoCross.Entrance {
 	constructor($html) {
 		super($html);
 	}
