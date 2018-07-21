@@ -40,11 +40,16 @@ com.hiyoko.sweet.Organizer.prototype.buildComponents = function() {
 			}).done((r) => {
 				this.getElementById('header').text('【' + r.roomName + '】');
 			}).fail((r) => {
-				alert('Couldn\'t get Room Info. Is URL correct?');
 				this.onClickList({num: (this.applications.length - 1)});
 				this.list.disable();
+				if(this.query.platform === 'discord') {
+					alert('Couldn\'t get Room Info. The token is incorrect or initial loading is failed.\nThis application will reload and try again.');
+					document.location = document.location;
+				} else {
+					alert('Couldn\'t get Room Info. Is URL correct?');
+				}
 			});
-			this.retriableRequest(getRoomEvent, 8);
+			this.retriableRequest(getRoomEvent, 3);
 		}, com.hiyoko.sweet.Organizer.LongerPlatforms.includes(this.query.platform) ? 3000 : 0);
 	} else {
 		this.tofRoomAccess = com.hiyoko.DodontoF.V2.RoomDummy;
