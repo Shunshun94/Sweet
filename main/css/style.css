@@ -300,29 +300,6 @@ td.com-hiyoko-sweet-accounting-summary-table-out-total {
 	margin-top: -5px;
 }
 
-#com-hiyoko-sweet-entry button {
-	display:block;
-	font-size:100%;
-	border: lightyellow 3px outset;
-	background-color:lemonchiffon;
-	margin-top:4px;
-}
-
-#com-hiyoko-sweet-entry input {
-	font-size: 120%;
-}
-
-.com-hiyoko-sweet-entry-room-rooms-room {
-	border: gray outset 3px;
-	margin-bottom: 3px;
-	border-radius: 5px;
-	padding:3px;
-}
-
-#com-hiyoko-sweet-entry-url-FreeInput {
-	display:none;
-}
-
 #com-hiyoko-sweet-footer{
 	border-top: solid 3px #D0C0C0;
 	background-color:#F0E0E0;
