@@ -25,7 +25,6 @@ com.hiyoko.sweet.AppList.prototype.activateSelectedItem = function(num) {
 
 com.hiyoko.sweet.AppList.prototype.isActivePlatform = (platform, component) => {
 	if(component.ACTIVE_PLATFORMS) {
-		console.log(`${component.ACTIVE_PLATFORMS}.includes(${platform}) => ${component.ACTIVE_PLATFORMS.includes(platform)}`)
 		return component.ACTIVE_PLATFORMS.includes(platform);
 	} else {
 		return true;
