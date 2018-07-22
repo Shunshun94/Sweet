@@ -151,6 +151,7 @@ com.hiyoko.sweet.Organizer.APPLICATION_LIST = [
 	com.hiyoko.sweet.Battle,
 	com.hiyoko.sweet.Circumstance,
 	com.hiyoko.sweet.Discussion,
+	com.hiyoko.sweet.Invite,
 	com.hiyoko.sweet.Entry
 ];
 
