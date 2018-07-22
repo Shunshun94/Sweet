@@ -4,12 +4,14 @@ com.hiyoko.sweet = com.hiyoko.sweet || {};
 com.hiyoko.sweet.RoomList = class extends com.hiyoko.component.ApplicationBase {
 	constructor($html, opt = {list:[]}) {
 		super($html, opt);
+		this.suffix = opt.suffix || '';
 		this.buildDom(opt.list);
 		this.buildEvent();
 	}
 
 	buildDom(list) {
 		this.$html.append(`<p>最近使った部屋</p>`);
+		this.$html.append(`<span id="${this.id}-close">×</span>`);
 		list.slice(1, 10).forEach((v) => {
 			let room = $(`<div class="${this.id}-item" title="${v.url}"></div>`);
 			room.text(v.name);
@@ -19,7 +21,10 @@ com.hiyoko.sweet.RoomList = class extends com.hiyoko.component.ApplicationBase {
 
 	buildEvent() {
 		this.getElementsByClass('item').click((e) => {
-			location.href = `${location.origin + location.pathname}${$(e.target).attr('title')}`;
+			location.href = `${location.origin + location.pathname}${$(e.target).attr('title')}${this.suffix}`;
+		});
+		this.getElementById('close').click((e) => {
+			this.toggle();
 		});
 	}
 

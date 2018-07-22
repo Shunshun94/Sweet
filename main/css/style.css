@@ -36,6 +36,21 @@ button {
 	padding: 4px;
 }
 
+#com-hiyoko-sweet-header-list-close {
+	position: absolute;
+	right: 8px;
+	top: 8px;
+	width:25px;
+	height:25px;
+	border: 3px outset #EEEEEE;
+	text-align:center;
+}
+
+#com-hiyoko-sweet-header-list-close:hover {
+	color:#202040;
+	background-color:white;
+}
+
 .com-hiyoko-sweet-header-list-item {
 	border-top: 1px white solid;
 }
