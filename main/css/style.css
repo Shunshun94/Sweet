@@ -14,6 +14,35 @@ button {
 	color:white;
 	padding:1em;
 	font-size:130%;
+	position: relative;
+}
+
+#com-hiyoko-sweet-header-menu {
+	border: 3px outset #EEEEEE;
+}
+
+#com-hiyoko-sweet-header-menu:hover {
+	color:#202040;
+	background-color:white;
+	border: 3px inset #EEEEEE;
+}
+
+#com-hiyoko-sweet-header-list {
+	display: none;
+	font-size:80%;
+	position: absolute;
+	background-color: #202040;
+	z-index:3;
+	padding: 4px;
+}
+
+.com-hiyoko-sweet-header-list-item {
+	border-top: 1px white solid;
+}
+
+.com-hiyoko-sweet-header-list-item:hover {
+	color:#202040;
+	background-color:white;
 }
 
 #com-hiyoko-sweet-body {
