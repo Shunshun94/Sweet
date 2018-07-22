@@ -15,7 +15,7 @@ com.hiyoko.sweet.Entry = class extends io.github.shunshun94.HiyokoCross.Entrance
 	}
 	buildTofUrl(e) {
 		this.saveAlgorithmiaToken();
-		document.location = `./index.html?platform=tof&url=${e.value.url}&room=${e.value.room.no}&pass=${e.value.password.password}`;
+		document.location = `./index.html?platform=DodontoF&url=${e.value.url}&room=${e.value.room.no}&pass=${e.value.password.password}`;
 	}
 	buildDiscordUrl(e) {
 		this.saveAlgorithmiaToken();
