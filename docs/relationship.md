@@ -52,7 +52,7 @@
 
 キャラクターシートの ID が必要です
 
-[https://charasheet.vampire-blood.net/e19be9d440e2996113998dc9399d193e (https://charasheet.vampire-blood.net/1955553)](https://charasheet.vampire-blood.net/1955553) を使う場合、 *1955553* を入力します
+[https://charasheet.vampire-blood.net/me19be9d440e2996113998dc9399d193e (https://charasheet.vampire-blood.net/1955553)](https://charasheet.vampire-blood.net/1955553) を使う場合、 *1955553* を入力します
 
 #### どどんとふを使う場合
 
