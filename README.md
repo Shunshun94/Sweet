@@ -1,6 +1,11 @@
 # Sweet
 Sword World Enjoy Easily Tool
 
+## とりあえず使う
+
+- [SWEET](http://shunshun94.web.fc2.com/sweet/) (GM 向けツール)
+- [そどわに判定てんぷれ～つ2](http://shunshun94.web.fc2.com/sweet/player.html) (PL 向けツール)
+
 ## License
 
 ### jQuery v.3.1.0
@@ -86,6 +91,9 @@ http://yutorize.2-d.jp/page/YtSheetM-for-SW2.0
 
 https://prcm.jp/album/ea2c1b19a8efd/pic/73195492
 
+## 資料
+
+- [各アプリとの関係](./docs/relationship.md)
 
 ## Thanks
 
