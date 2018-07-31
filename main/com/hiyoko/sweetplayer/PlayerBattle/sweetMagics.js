@@ -13,6 +13,7 @@ com.hiyoko.sweet.PlayerBattle.Magics = function($html, character) {
 	this.forRider(character);
 	this.buildComponents();
 	this.bindEvents();
+	this.targetList = [];
 };
 
 com.hiyoko.util.extend(com.hiyoko.component.ApplicationBase, com.hiyoko.sweet.PlayerBattle.Magics);
@@ -43,9 +44,10 @@ com.hiyoko.sweet.PlayerBattle.Magics.prototype.bindEvents = function() {
 	
 	this.getElementById('getCharacterList').click(function(e) {
 		var event = this.getAsyncEvent(com.hiyoko.sweet.PlayerBattle.Events.charList).done(function(r){
-			this.getElementById('memo').val(this.getElementById('memo').val() + ' ＞ ' + r.join(', '));
+			this.getElementById('targets').text(r.join(', '));
+			this.targetList = r;
 		}.bind(this)).fail(function(r) {
-			// No Action
+			this.targetList = [];
 		});
 		event.method = 'getCharacters';
 		this.fireEvent(event);
@@ -73,6 +75,7 @@ com.hiyoko.sweet.PlayerBattle.Magics.prototype.bindEvents = function() {
 		var magic = this.magics[list.val()];
 		this.fireEvent({
 			target: e.target,
+			targetList: this.targetList,
 			type: com.hiyoko.sweet.PlayerBattle.Events.role,
 			message: com.hiyoko.util.format('2d6+%s\\%s / 行使判定 ：%s %s', magic.value, magic.name, this.getElementById('memo').val()),
 			col: 7
@@ -84,6 +87,8 @@ com.hiyoko.sweet.PlayerBattle.Magics.prototype.bindEvents = function() {
 		this.fireEvent({
 			target: e.target,
 			type: com.hiyoko.sweet.PlayerBattle.Events.role,
+			isDamage: true,
+			targetList: this.targetList,
 			message: com.hiyoko.util.format('k%s+%s\\%s\\%s%s%s / ダメージ ：%s %s',
 					this.getElementById('rate').val(),
 					magic.value,
@@ -96,6 +101,8 @@ com.hiyoko.sweet.PlayerBattle.Magics.prototype.bindEvents = function() {
 
 	this.getElementById('memo-clear').click(function(e) {
 		this.getElementById('memo').val('');
+		this.getElementById('targets').text('');
 		this.getElementById('memo').focus();
+		this.targetList = [];
 	}.bind(this));
 };

@@ -66,10 +66,22 @@ com.hiyoko.sweet.PlayerBattle.prototype.sendCommand = function(e){
 		}
 	});
 	optionValues.unshift(e.message);
-	var text = com.hiyoko.util.format.apply(null, optionValues) + options.detail;
-	event.args = [{name: this.character.name, message: text, bot:'SwordWorld2.0'}];
-	event.method = 'sendChat';
-	this.fireEvent(event);
+	console.log(optionValues);
+	console.log(com.hiyoko.util.format.apply(null, optionValues));
+	if(this.getElementById('damageAll').prop('checked') && e.isDamage && e.targetList.length) {
+		e.targetList.forEach((target) => {
+			const text = com.hiyoko.util.format.apply(null, optionValues) + ' ＞ ' + target + options.detail;
+			event.args = [{name: this.character.name, message: text, bot:'SwordWorld2.0'}];
+			event.method = 'sendChat';
+			this.fireEvent(event);
+		})
+	} else {
+		const targets = (e.targetList || []).length ? ` ＞ ${e.targetList.join(', ')}` : '';
+		const text = com.hiyoko.util.format.apply(null, optionValues) + targets + options.detail;
+		event.args = [{name: this.character.name, message: text, bot:'SwordWorld2.0'}];
+		event.method = 'sendChat';
+		this.fireEvent(event);
+	}
 };
 
 com.hiyoko.sweet.PlayerBattle.prototype.bindEvents = function() {
