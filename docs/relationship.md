@@ -63,7 +63,7 @@
 
 #### Discord を使う場合
 
-事前に SWEET が使う Discord bot の用意が必要です
+事前にそどわに判定てんぷれ～つ2が使う Discord bot の用意が必要です
 
 * Discord の bot トークン …… Discord 上で動作する bot のトークンです
 * Discord のチャネル …… オンセで利用する Discord のチャネルです。 bot トークンを入れれば一覧が表示されるので選択が可能です
