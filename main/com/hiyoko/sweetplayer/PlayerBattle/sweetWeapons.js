@@ -7,6 +7,7 @@ com.hiyoko.sweet.PlayerBattle.Weapons = function($html, character) {
 	this.$html = $html;
 	this.id = this.$html.attr('id');
 	this.weapons = character.weapons;
+	this.targetList = [];
 	this.forRider(character);
 	this.buildComponents();
 	this.bindEvents();
@@ -65,9 +66,15 @@ com.hiyoko.sweet.PlayerBattle.Weapons.prototype.bindEvents = function() {
 
 	this.getElementById('getCharacterList').click(function(e) {
 		var event = this.getAsyncEvent(com.hiyoko.sweet.PlayerBattle.Events.charList).done(function(r){
-			this.getElementById('memo').val(this.getElementById('memo').val() + ' ＞ ' + r.join(', '));
+			this.targetList = r;
+			if(r.length === 0) {
+				this.getElementById('targets').text('-');
+			} else {
+				this.getElementById('targets').text(r.join(', '));
+			}
 		}.bind(this)).fail(function(r) {
-			// No Action
+			this.targetList = [];
+			this.getElementById('targets').text('-');
 		});
 		event.method = 'getCharacters';
 		this.fireEvent(event);  
@@ -97,6 +104,7 @@ com.hiyoko.sweet.PlayerBattle.Weapons.prototype.bindEvents = function() {
 		var weapon = this.weapons[list.val()];
 		this.fireEvent({
 			target: e.target,
+			targetList: this.targetList,
 			type: com.hiyoko.sweet.PlayerBattle.Events.role, 
 			message: com.hiyoko.util.format('2d6+%s\\%s / 命中判定 ：%s %s', weapon.hit, weapon.name, this.getElementById('memo').val()),
 			col: 2
@@ -107,6 +115,8 @@ com.hiyoko.sweet.PlayerBattle.Weapons.prototype.bindEvents = function() {
 		var weapon = this.weapons[list.val()];
 		this.fireEvent({
 			target: e.target,
+			isDamage: true,
+			targetList: this.targetList,
 			type: com.hiyoko.sweet.PlayerBattle.Events.role,
 			message: com.hiyoko.util.format('k(%s\\%s)+%s\\%s%s%s / ダメージ ：%s %s',
 					(['ガン', '車載武器', '練技'].includes(weapon.category)) ? this.getElementById('rate').val() : weapon.rate,
@@ -120,6 +130,8 @@ com.hiyoko.sweet.PlayerBattle.Weapons.prototype.bindEvents = function() {
 
 	this.getElementById('memo-clear').click(function(e) {
 		this.getElementById('memo').val('');
+		this.getElementById('targets').text('-');
 		this.getElementById('memo').focus();
+		this.targetList = [];
 	}.bind(this));
 };

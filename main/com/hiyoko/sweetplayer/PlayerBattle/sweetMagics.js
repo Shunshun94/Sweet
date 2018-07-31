@@ -7,13 +7,13 @@ com.hiyoko.sweet.PlayerBattle.Magics = function($html, character) {
 	this.$html = $html;
 	this.id = this.$html.attr('id');
 	this.magics = [];
+	this.targetList = [];
 	com.hiyoko.util.forEachMap(character.magic, function(v, k){
 		this.magics.push({name: k, value: v});
 	}.bind(this));
 	this.forRider(character);
 	this.buildComponents();
 	this.bindEvents();
-	this.targetList = [];
 };
 
 com.hiyoko.util.extend(com.hiyoko.component.ApplicationBase, com.hiyoko.sweet.PlayerBattle.Magics);
@@ -44,10 +44,15 @@ com.hiyoko.sweet.PlayerBattle.Magics.prototype.bindEvents = function() {
 	
 	this.getElementById('getCharacterList').click(function(e) {
 		var event = this.getAsyncEvent(com.hiyoko.sweet.PlayerBattle.Events.charList).done(function(r){
-			this.getElementById('targets').text(r.join(', '));
 			this.targetList = r;
+			if(r.length === 0) {
+				this.getElementById('targets').text('-');
+			} else {
+				this.getElementById('targets').text(r.join(', '));
+			}
 		}.bind(this)).fail(function(r) {
 			this.targetList = [];
+			this.getElementById('targets').text('-');
 		});
 		event.method = 'getCharacters';
 		this.fireEvent(event);
@@ -101,7 +106,7 @@ com.hiyoko.sweet.PlayerBattle.Magics.prototype.bindEvents = function() {
 
 	this.getElementById('memo-clear').click(function(e) {
 		this.getElementById('memo').val('');
-		this.getElementById('targets').text('');
+		this.getElementById('targets').text('-');
 		this.getElementById('memo').focus();
 		this.targetList = [];
 	}.bind(this));
