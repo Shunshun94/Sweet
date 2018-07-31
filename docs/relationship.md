@@ -40,12 +40,11 @@
 
 ### そどわに判定てんぷれ～つ2 各部の役割
 
-1. SWEET …… 各関係アプリを連携させ、セッションの円滑化を実現します
-2. どどんとふ …… セッション会場となります。SWEET はどどんとふに対して情報を送信し、他のプレイヤーに共有します ([どどんとふ＠えくすとり～む](http://www.dodontof.com/))
-3. Discord …… セッション会場となります。SWEET は Discord に対して情報を送信し、他のプレイヤーに共有します　([Discord](https://discordapp.com/))
+1. そどわに判定てんぷれ～つ2 …… 各関係アプリを連携させ、セッションの円滑化を実現します
+2. どどんとふ …… セッション会場となります。そどわに判定てんぷれ～つ2はどどんとふに対して情報を送信し、他のプレイヤーに共有します ([どどんとふ＠えくすとり～む](http://www.dodontof.com/))
+3. Discord …… セッション会場となります。そどわに判定てんぷれ～つ2は Discord に対して情報を送信し、他のプレイヤーに共有します　([Discord](https://discordapp.com/))
 4. BCDice-API …… ダイスサーバです。Discord を使う場合、ダイスは Discord 上ではなくこちらで振られます ([bcdice-api](https://github.com/ysakasin/bcdice-api))
-5. ytSheetMParser …… ゆとシートMの情報を SWEET に取り込むための中継サーバです。Algorithmia 上に配置されています ([ytSheetMParser](https://algorithmia.com/algorithms/Shunshun94/ytSheetMParser))
-6. ゆとシートM …… SW2.0 の魔物データを保管・共有するためのアプリです ([ゆとシートM for SW2.](http://yutorize.2-d.jp/page/YtSheetM-for-SW2.0))
+5. キャラクター保管所 …… キャラクターシート作成補助・共有サービスです。そどわに判定てんぷれ～つ2はここからキャラクター情報を取得します ([キャラクター保管所](https://charasheet.vampire-blood.net/))
 
 ### そどわに判定てんぷれ～つ2 が要求する情報
 
