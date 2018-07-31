@@ -25,7 +25,7 @@ com.hiyoko.sweet.PlayerBattle.prototype.buildComponents = function() {
 com.hiyoko.sweet.PlayerBattle.prototype.getCharacters = function(e) {
 	var event = this.getAsyncEvent('tofRoomRequest').done(function(r){
 		this.characterList.open(r.characters.filter(function(c){
-			return c.isHide === false && c.type === 'characterData';
+			return ! Boolean(c.isHide) && c.type === 'characterData';
 		}).map(function(c) {
 			return c.dogTag ? c.name + '＃' + c.dogTag : c.name;
 		}), e.resolve, e.reject);

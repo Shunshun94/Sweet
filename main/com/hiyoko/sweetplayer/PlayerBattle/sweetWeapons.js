@@ -65,7 +65,7 @@ com.hiyoko.sweet.PlayerBattle.Weapons.prototype.bindEvents = function() {
 
 	this.getElementById('getCharacterList').click(function(e) {
 		var event = this.getAsyncEvent(com.hiyoko.sweet.PlayerBattle.Events.charList).done(function(r){
-			this.getElementById('memo').val(this.getElementById('memo').val() + ' ＞ ' + r);
+			this.getElementById('memo').val(this.getElementById('memo').val() + ' ＞ ' + r.join(', '));
 		}.bind(this)).fail(function(r) {
 			// No Action
 		});

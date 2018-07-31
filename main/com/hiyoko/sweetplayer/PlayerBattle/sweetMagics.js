@@ -43,14 +43,32 @@ com.hiyoko.sweet.PlayerBattle.Magics.prototype.bindEvents = function() {
 	
 	this.getElementById('getCharacterList').click(function(e) {
 		var event = this.getAsyncEvent(com.hiyoko.sweet.PlayerBattle.Events.charList).done(function(r){
-			this.getElementById('memo').val(this.getElementById('memo').val() + ' ＞ ' + r);
+			this.getElementById('memo').val(this.getElementById('memo').val() + ' ＞ ' + r.join(', '));
 		}.bind(this)).fail(function(r) {
 			// No Action
 		});
 		event.method = 'getCharacters';
 		this.fireEvent(event);
 	}.bind(this));
-	
+
+	this.getElementById('toggleRegistedOrNot').click((e) => {
+		let text = this.getElementById('memo').val();
+		if(text.startsWith('素通し')) {
+			this.getElementById('memo').val(text.replace('素通し', '抵抗'));
+			this.getElementById('critical').val('@13');
+		} else if(text.startsWith('抵抗')) {
+			this.getElementById('memo').val(text.replace('抵抗', '素通し'));
+			this.getElementById('critical').val('@10');
+		} else {
+			this.getElementById('memo').val(`抵抗 ${text}`);
+			this.getElementById('critical').val('@13');
+		}
+		this.getElementById('critical').css('background-color', '#ff7f7f');
+		setTimeout(()=>{
+			this.getElementById('critical').css('background-color', 'white');
+		}, 500);
+	});
+
 	this.getElementById('hitexec').click(function(e) {
 		var magic = this.magics[list.val()];
 		this.fireEvent({
