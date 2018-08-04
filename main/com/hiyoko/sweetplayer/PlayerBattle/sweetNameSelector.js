@@ -22,7 +22,7 @@ com.hiyoko.sweet.PlayerBattle.NameSelector.prototype.decide = function(e) {
 		return c.check;
 	}).map(function(c) {
 		return c.text
-	}).join(', ');
+	});
 	this.body.hide();
 	this.overlay.hide();
 	if(resultText) {
@@ -42,7 +42,7 @@ com.hiyoko.sweet.PlayerBattle.NameSelector.prototype.open = function(list, resol
 	this.list.buildList(list.map(function(c){
 		return {type: 'leaf', value: c, text:c}
 	}));
-	
+
 	this.resolve = resolve;
 	this.reject = reject;
 	this.body.show();

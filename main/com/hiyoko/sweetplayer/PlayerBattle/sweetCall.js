@@ -64,7 +64,7 @@ com.hiyoko.sweet.PlayerBattle.Call.Child.prototype.getText = function() {throw('
 
 com.hiyoko.sweet.PlayerBattle.Call.Child.prototype.getCharacters = function() {
 	var event = this.getAsyncEvent(com.hiyoko.sweet.PlayerBattle.Events.charList).done(function(r){
-		this.getElementById('target').text(' ＞ ' + r);
+		this.getElementById('target').text(' ＞ ' + r.join(', '));
 	}.bind(this)).fail(function(r) {
 		this.getElementById('target').text('');
 	}.bind(this));

@@ -30,7 +30,7 @@ com.hiyoko.sweet.Battle.prototype.buildComponents = function() {
 	this.optionalValues = new com.hiyoko.sweet.Battle.OptionalValues(this.getElementById('optionalValues'));
 	this.counterRemoCon = new com.hiyoko.sweet.Battle.CounterRemoCon(this.getElementById('counterRemoCon'));
 	this.storagedList = new com.hiyoko.sweet.Battle.CharacterLister(this.getElementById('strogaedList'));
-	
+	this.nameSelector = new com.hiyoko.sweet.PlayerBattle.NameSelector(this.getElementById('nameSelector'))
 	this.appendCharacter();
 };
 
@@ -46,20 +46,23 @@ com.hiyoko.sweet.Battle.prototype.buildEnemyList = function() {
 	}.bind(this));
 };
 
+com.hiyoko.sweet.Battle.prototype.isDamageEach = function(e) {
+	return this.getElementById('isDamageEach > input').prop('checked');
+};
+
 com.hiyoko.sweet.Battle.prototype.roleDice = function(e) {
 	var option = this.optionalValues.getOptionalValue(e.col);
-	var text = e.value.startsWith('C') ?
-		com.hiyoko.util.format('%s%s) / %s', e.value, option.value, e.text) : 
-		com.hiyoko.util.format('%s%s / %s', e.value, option.value, e.text);
-	if(option.text) {
-		text += ' (' + option.text + ')' + option.detail;
-	}
-	
 	var event = this.getAsyncEvent('tofRoomRequest').done(function(r){
 		$(e.target).notify('ダイスが振られました', {className: 'success', position: 'top'});
 	}.bind(this)).fail(function(r){
 		alert('ダイスを振るのに失敗しました\n' + r.result);
 	});
+	var text = e.value.startsWith('C') ?
+			com.hiyoko.util.format('%s%s) / %s', e.value, option.value, e.text) : 
+			com.hiyoko.util.format('%s%s / %s', e.value, option.value, e.text);
+	if(option.text) {
+		text += ' (' + option.text + ')' + option.detail;
+	}
 	
 	event.args = [{name: this.nameList.append(e.id, e.name), message: text, bot:'SwordWorld2.0'}];
 	event.method = 'sendChat';
@@ -110,6 +113,20 @@ com.hiyoko.sweet.Battle.prototype.deleteCharacterFromCharacterList = function(e)
 	this.buildEnemyList();
 };
 
+com.hiyoko.sweet.Battle.prototype.openNameSelector = function(e) {
+	this.fireEvent(this.getAsyncEvent('tofRoomRequest', {method: 'getCharacters'}).done((result) => {
+		this.nameSelector.open(
+				result.characters.filter(function(character){
+					return (character.type === 'characterData');
+				}).map(function(character) {
+					return character.name;
+				}), e.resolve, e.reject);
+	}).fail((e)=> {
+		alert(`キャラクター一覧の取得に失敗しました\n理由: ${e.result}`)
+		console.error(e);
+	}));
+};
+
 com.hiyoko.sweet.Battle.prototype.bindEvents = function() {
 	this.getElementById('jump-top').click(function(e) {
 		$('html,body').animate({scrollTop: '0px'},'slow');
@@ -129,7 +146,7 @@ com.hiyoko.sweet.Battle.prototype.bindEvents = function() {
 				this.list[id].setValue(r);
 				$(e.target).notify('読み込みました', {className: 'success', position: 'top'});
 			}.bind(this)).fail(function(r){
-				console.log(r);
+				console.error(r);
 				alert('読み込みに失敗しました\n' + r.message);
 			});
 			event.algorithm = 'algo://Shunshun94/ytSheetMParser/0.4.2';
@@ -137,11 +154,13 @@ com.hiyoko.sweet.Battle.prototype.bindEvents = function() {
 			this.fireEvent(event);
 		}
 	}.bind(this));
-	
-	this.$html.on('executeRequest', this.roleDice.bind(this));
 
+	this.$html.on('callNameSelector', this.openNameSelector.bind(this));
+	this.$html.on('executeRequest', this.roleDice.bind(this));
 	this.$html.on('appendCharacterRequest', this.putCharacter.bind(this));
-	
+	this.$html.on('isDamageEach', (e) => {
+		e.resolve(this.isDamageEach());
+	});
 	this.$html.on('updateCharacterRequest', function(e) {
 		var event = this.getAsyncEvent('tofRoomRequest').done(function(r){
 			$(e.target).notify('情報が更新されました', {className: 'success', position: 'top'});

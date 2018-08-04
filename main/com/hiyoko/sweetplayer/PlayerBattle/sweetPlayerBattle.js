@@ -25,7 +25,7 @@ com.hiyoko.sweet.PlayerBattle.prototype.buildComponents = function() {
 com.hiyoko.sweet.PlayerBattle.prototype.getCharacters = function(e) {
 	var event = this.getAsyncEvent('tofRoomRequest').done(function(r){
 		this.characterList.open(r.characters.filter(function(c){
-			return c.isHide === false && c.type === 'characterData';
+			return ! Boolean(c.isHide) && c.type === 'characterData';
 		}).map(function(c) {
 			return c.dogTag ? c.name + '＃' + c.dogTag : c.name;
 		}), e.resolve, e.reject);
@@ -66,10 +66,20 @@ com.hiyoko.sweet.PlayerBattle.prototype.sendCommand = function(e){
 		}
 	});
 	optionValues.unshift(e.message);
-	var text = com.hiyoko.util.format.apply(null, optionValues) + options.detail;
-	event.args = [{name: this.character.name, message: text, bot:'SwordWorld2.0'}];
-	event.method = 'sendChat';
-	this.fireEvent(event);
+	if(this.getElementById('damageAll').prop('checked') && e.isDamage && e.targetList.length) {
+		e.targetList.forEach((target) => {
+			const text = com.hiyoko.util.format.apply(null, optionValues) + ' ＞ ' + target + options.detail;
+			event.args = [{name: this.character.name, message: text, bot:'SwordWorld2.0'}];
+			event.method = 'sendChat';
+			this.fireEvent(event);
+		})
+	} else {
+		const targets = (e.targetList || []).length ? ` ＞ ${e.targetList.join(', ')}` : '';
+		const text = com.hiyoko.util.format.apply(null, optionValues) + targets + options.detail;
+		event.args = [{name: this.character.name, message: text, bot:'SwordWorld2.0'}];
+		event.method = 'sendChat';
+		this.fireEvent(event);
+	}
 };
 
 com.hiyoko.sweet.PlayerBattle.prototype.bindEvents = function() {
