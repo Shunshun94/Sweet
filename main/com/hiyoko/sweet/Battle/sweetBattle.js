@@ -146,7 +146,7 @@ com.hiyoko.sweet.Battle.prototype.bindEvents = function() {
 				this.list[id].setValue(r);
 				$(e.target).notify('読み込みました', {className: 'success', position: 'top'});
 			}.bind(this)).fail(function(r){
-				console.log(r);
+				console.error(r);
 				alert('読み込みに失敗しました\n' + r.message);
 			});
 			event.algorithm = 'algo://Shunshun94/ytSheetMParser/0.4.2';

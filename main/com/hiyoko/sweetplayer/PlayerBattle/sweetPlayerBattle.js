@@ -66,8 +66,6 @@ com.hiyoko.sweet.PlayerBattle.prototype.sendCommand = function(e){
 		}
 	});
 	optionValues.unshift(e.message);
-	console.log(optionValues);
-	console.log(com.hiyoko.util.format.apply(null, optionValues));
 	if(this.getElementById('damageAll').prop('checked') && e.isDamage && e.targetList.length) {
 		e.targetList.forEach((target) => {
 			const text = com.hiyoko.util.format.apply(null, optionValues) + ' ＞ ' + target + options.detail;
