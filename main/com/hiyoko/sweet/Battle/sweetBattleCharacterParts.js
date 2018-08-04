@@ -451,6 +451,7 @@ com.hiyoko.sweet.Battle.BattleCharacter.Part.AttackWay = function($html, opt_par
 	this.$html = $html;
 	this.id = this.$html.attr('id');
 	this.clazz = this.$html.attr('class');
+	this.targets = [];
 	this.render();
 
 	this.name = this.getElement('.' + this.clazz + '-name');
@@ -462,6 +463,9 @@ com.hiyoko.sweet.Battle.BattleCharacter.Part.AttackWay = function($html, opt_par
 	this.exec = this.getElement('.' + this.clazz + '-exec');
 	this.staticExec = this.getElement('.' + this.clazz + '-static-exec');
 	this.del = this.getElement('.' + this.clazz + '-del');
+	this.targetSelect = this.getElement(`.${this.clazz}-targetSelect`);
+	this.targetClear = this.getElement(`.${this.clazz}-targetClear`);
+	this.targetList = this.getElement(`.${this.clazz}-targets`);
 	if(opt_param) {
 		this.name.val(opt_param.name || '');
 		this.value.val(opt_param.val || 0);
@@ -539,8 +543,23 @@ com.hiyoko.sweet.Battle.BattleCharacter.Part.AttackWay.prototype.bindEvent = fun
 				value:  '2d6+' + this.atk.val()
 			}));
 		}
-
 	}.bind(this));
+	
+	this.targetSelect.click((e) => {
+		this.fireEvent(new $.Event('callNameSelector', {
+			resolve: (list) => {
+				this.targetList.text(list.join(', '));
+				this.targets = list;
+			}, reject: () => {
+				this.targets = [];
+				this.targetList.text('-');
+			}
+		}));
+	});
+	this.targetClear.click((e) => {
+		this.targets = [];
+		this.targetList.text('-');
+	});
 };
 
 com.hiyoko.sweet.Battle.BattleCharacter.Part.AttackWay.prototype.render = function() {
@@ -555,6 +574,9 @@ com.hiyoko.sweet.Battle.BattleCharacter.Part.AttackWay.prototype.render = functi
 			'<button class="%s">威力切替</button><button class="%s">削除</button>',
 			this.clazz + '-exec', this.clazz + '-static-exec', this.clazz + '-atk-exec',
 			this.clazz + '-switch', this.clazz + '-del'));
+	this.$html.append(`<br/>対象: <span class="${this.clazz}-targets">-</span>
+			<button class="${this.clazz}-targetSelect">対象を選択する</button>
+			<button class="${this.clazz}-targetClear">クリア</button>`);
 };
 
 com.hiyoko.sweet.Battle.BattleCharacter.Part.AttackWay.prototype.setValue = function(value) {
