@@ -460,6 +460,7 @@ com.hiyoko.sweet.Battle.BattleCharacter.Part.AttackWay = function($html, opt_par
 	this.atkMode = this.getElement('.' + this.clazz + '-atk-mode');
 	this.atkSwitch = this.getElement('.' + this.clazz + '-switch');
 	this.atkExec = this.getElement('.' + this.clazz + '-atk-exec');
+	this.atkExecHalf = this.getElement('.' + this.clazz + '-atk-exec-half');
 	this.exec = this.getElement('.' + this.clazz + '-exec');
 	this.staticExec = this.getElement('.' + this.clazz + '-static-exec');
 	this.del = this.getElement('.' + this.clazz + '-del');
@@ -470,12 +471,37 @@ com.hiyoko.sweet.Battle.BattleCharacter.Part.AttackWay = function($html, opt_par
 		this.name.val(opt_param.name || '');
 		this.value.val(opt_param.val || 0);
 	}
-	
 	this.bindEvent();
-
 }; 
 
 com.hiyoko.util.extend(com.hiyoko.component.ApplicationBase, com.hiyoko.sweet.Battle.BattleCharacter.Part.AttackWay);
+
+
+com.hiyoko.sweet.Battle.BattleCharacter.Part.AttackWay.prototype.executeDanage = function(isDamageEach, isRegisted = false) {
+	var list = [];
+	if(isDamageEach && this.targets.length) {
+		list = this.targets;
+	} else {
+		list.push(this.targets.join(', '));
+	}
+	list.forEach((target) => {
+		const tag = target ? `> ${target}` : '';
+		if (this.atkMode.attr('title') === '0') {
+			const crit = isRegisted ? '@13' : '@10';
+			this.fireEvent(new $.Event('executeRequestFromAttackWay', {
+				col: 7,
+				text: `${this.name.val()} ダメージ${isRegisted ? ' (抵抗)' : ''} ${tag}`,
+				value:  `k${this.atk.val()}${crit}+${this.value.val()}`
+			}));
+		} else {
+			this.fireEvent(new $.Event('executeRequestFromAttackWay', {
+				col: 3,
+				text: `${this.name.val()} ダメージ${isRegisted ? ' (抵抗)' : ''} ${tag}`,
+				value:  '2d6+' + this.atk.val()
+			}));
+		}
+	});
+};
 
 com.hiyoko.sweet.Battle.BattleCharacter.Part.AttackWay.prototype.bindEvent = function() {
 	this.atkSwitch.click(function(e){
@@ -525,26 +551,20 @@ com.hiyoko.sweet.Battle.BattleCharacter.Part.AttackWay.prototype.bindEvent = fun
 	}.bind(this));
 	
 	this.atkExec.click(function(e){
-		if (this.atkMode.attr('title') === '0') {
-			this.fireEvent(new $.Event('executeRequestFromAttackWay', {
-				col: 7,
-				text: this.name.val() + ' ダメージ',
-				value:  'k' + this.atk.val() + '+' + this.value.val()
-			}));
-			this.fireEvent(new $.Event('executeRequestFromAttackWay', {
-				col: 7,
-				text: this.name.val() + ' ダメージ (抵抗)',
-				value:  'k' + this.atk.val() + '@13+' + this.value.val()
-			}));
-		} else {
-			this.fireEvent(new $.Event('executeRequestFromAttackWay', {
-				col: 3,
-				text: this.name.val() + ' ダメージ',
-				value:  '2d6+' + this.atk.val()
-			}));
-		}
+		this.fireEvent(new $.Event('isDamageEach', {
+			resolve: (isDamageEach) => {
+				this.executeDanage(isDamageEach);
+			}
+		}));
 	}.bind(this));
-	
+	this.atkExecHalf.click(function(e){
+		this.fireEvent(new $.Event('isDamageEach', {
+			resolve: (isDamageEach) => {
+				this.executeDanage(isDamageEach, true);
+			}
+		}));
+	}.bind(this));
+
 	this.targetSelect.click((e) => {
 		this.fireEvent(new $.Event('callNameSelector', {
 			resolve: (list) => {
@@ -571,8 +591,10 @@ com.hiyoko.sweet.Battle.BattleCharacter.Part.AttackWay.prototype.render = functi
 	this.$html.append(com.hiyoko.util.format('<button class="%s">判定</button>' +
 			'<button class="%s">判定(固定値)</button>' +
 			'<button class="%s">ダメージ</button>' +
-			'<button class="%s">威力切替</button><button class="%s">削除</button>',
-			this.clazz + '-exec', this.clazz + '-static-exec', this.clazz + '-atk-exec',
+			'<button class="%s">ダメージ (抵抗)</button>' +
+			'<button class="%s">威力切替</button><span class="%s">×</span>',
+			this.clazz + '-exec', this.clazz + '-static-exec',
+			this.clazz + '-atk-exec', this.clazz + '-atk-exec-half',
 			this.clazz + '-switch', this.clazz + '-del'));
 	this.$html.append(`<br/>対象: <span class="${this.clazz}-targets">-</span>
 			<button class="${this.clazz}-targetSelect">対象を選択する</button>

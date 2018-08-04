@@ -46,6 +46,10 @@ com.hiyoko.sweet.Battle.prototype.buildEnemyList = function() {
 	}.bind(this));
 };
 
+com.hiyoko.sweet.Battle.prototype.isDamageEach = function(e) {
+	return this.getElementById('isDamageEach > input').prop('checked');
+};
+
 com.hiyoko.sweet.Battle.prototype.roleDice = function(e) {
 	var option = this.optionalValues.getOptionalValue(e.col);
 	var event = this.getAsyncEvent('tofRoomRequest').done(function(r){
@@ -152,11 +156,11 @@ com.hiyoko.sweet.Battle.prototype.bindEvents = function() {
 	}.bind(this));
 
 	this.$html.on('callNameSelector', this.openNameSelector.bind(this));
-
 	this.$html.on('executeRequest', this.roleDice.bind(this));
-
 	this.$html.on('appendCharacterRequest', this.putCharacter.bind(this));
-	
+	this.$html.on('isDamageEach', (e) => {
+		e.resolve(this.isDamageEach());
+	});
 	this.$html.on('updateCharacterRequest', function(e) {
 		var event = this.getAsyncEvent('tofRoomRequest').done(function(r){
 			$(e.target).notify('情報が更新されました', {className: 'success', position: 'top'});
