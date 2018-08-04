@@ -38,13 +38,31 @@ com.hiyoko.sweet.Organizer.prototype.buildComponents = function() {
 			const getRoomEvent = this.getAsyncEvent('dummyEvent', {
 				method: 'getRoomInfo', args: {}
 			}).done((r) => {
-				this.getElementById('header').text('【' + r.roomName + '】');
+				const roomList = com.hiyoko.sweet.RoomList.updateList(
+					(	localStorage.getItem(com.hiyoko.sweet.Organizer.ROOM_LIST_STORE) ?
+						JSON.parse(localStorage.getItem(com.hiyoko.sweet.Organizer.ROOM_LIST_STORE)) : []  ),
+					`${r.roomName} (${this.query.platform})`
+				);
+				localStorage.setItem(com.hiyoko.sweet.Organizer.ROOM_LIST_STORE, JSON.stringify(roomList));
+				if(roomList.length > 1) {
+					this.getElementById('header').append(`<span id="${this.id}-header-menu">▼</span>`);
+					this.getElementById('header').append(`<div id="${this.id}-header-list"></div>`);
+					this.roomList = new com.hiyoko.sweet.RoomList(this.getElementById('header-list'), {list: roomList});
+					this.getElementById('header-menu').click((e) => {this.roomList.toggle();});
+				}
+				this.getElementById('header').append(`<span id="${this.id}-header-title"></span>`);
+				this.getElementById('header-title').text(`【${r.roomName}】`);
 			}).fail((r) => {
-				alert('Couldn\'t get Room Info. Is URL correct?');
 				this.onClickList({num: (this.applications.length - 1)});
 				this.list.disable();
+				if(this.query.platform === 'discord') {
+					alert('Couldn\'t get Room Info. The token is incorrect or initial loading is failed.\nThis application will reload and try again.');
+					document.location = document.location;
+				} else {
+					alert('Couldn\'t get Room Info. Is URL correct?');
+				}
 			});
-			this.retriableRequest(getRoomEvent, 8);
+			this.retriableRequest(getRoomEvent, 3);
 		}, com.hiyoko.sweet.Organizer.LongerPlatforms.includes(this.query.platform) ? 3000 : 0);
 	} else {
 		this.tofRoomAccess = com.hiyoko.DodontoF.V2.RoomDummy;
@@ -60,7 +78,6 @@ com.hiyoko.sweet.Organizer.prototype.buildApplications = function(platform){
 			com.hiyoko.sweet.Organizer.APPLICATION_LIST,
 			$apps, 
 			function(app, dom){return new app(dom);});
-	
 	this.list = new com.hiyoko.sweet.AppList(this.getElement('#com-hiyoko-sweet-menu'), this.applications, platform);
 	if(platform) {
 		this.responseChat = new com.hiyoko.sweet.ResponseChat(this.getElementById('responseChatBase'), {
@@ -104,28 +121,28 @@ com.hiyoko.sweet.Organizer.prototype.retriableRequest = function(e, max, count =
 
 com.hiyoko.sweet.Organizer.prototype.bindEvents = function(e) {
 	var self = this;
-	
+
 	this.$html.on('tofRoomRequest', function(e){
 		self.retriableRequest(e, 4);
 	});
-	
+
 	this.$html.on(io.github.shunshun94.trpg.HiyokoSheetHandler.EVENTS.REQUEST, function(event) {
 		com.hiyoko.VampireBlood.SW2.getSheet(event.sheet).done(event.resolve).fail(event.reject);
 	});
-	
+
 	this.$html.on('algorithmiaRequest', function(e){
 		var client = new com.hiyoko.Algorithmia(JSON.parse(localStorage.getItem(com.hiyoko.sweet.Entry.AlgorithmiaTokenStorage)));
 		client.request(e.algorithm, e.params).then(function(res){e.resolve(res);}, function(err){e.reject(err)});
 	});
-	
+
 	this.$html.on('getStorage', function(e){
 		e.callback(localStorage.getItem(e.key) ? JSON.parse(localStorage.getItem(e.key)) : null);
 	});
-	
+
 	this.$html.on('setStorage', function(e){
 		localStorage.setItem(e.id, JSON.stringify(e.value));
 	});
-	
+
 	this.$html.on('clickMenu', this.onClickList.bind(this));
 };
 
@@ -134,5 +151,8 @@ com.hiyoko.sweet.Organizer.APPLICATION_LIST = [
 	com.hiyoko.sweet.Battle,
 	com.hiyoko.sweet.Circumstance,
 	com.hiyoko.sweet.Discussion,
+	com.hiyoko.sweet.Invite,
 	com.hiyoko.sweet.Entry
 ];
+
+com.hiyoko.sweet.Organizer.ROOM_LIST_STORE = 'com-hiyoko-sweet-room_list_store';

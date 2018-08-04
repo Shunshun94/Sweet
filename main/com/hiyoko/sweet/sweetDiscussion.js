@@ -5,7 +5,7 @@ com.hiyoko.sweet = com.hiyoko.sweet || {};
 com.hiyoko.sweet.Discussion = function($html, opt_params){
 	this.$html = $($html);
 	this.LIST_NAME = 'SWEET Discussion - 相談';
-	this.ACTIVE_PLATFORMS = ['tof', 'dodontof',　'とふ', 'どどんとふ'];
+	this.ACTIVE_PLATFORMS = ['tof', 'DodontoF',　'とふ', 'どどんとふ'];
 	this.id = this.$html.attr('id');
 	this.memoId = '';
 	this.buildComponents();

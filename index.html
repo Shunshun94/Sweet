@@ -51,6 +51,17 @@
 		</div>
 	</section>
 	<section id="com-hiyoko-sweet-battle">
+		<div id="com-hiyoko-sweet-battle-isDamageEach">ダメージを個別に振る <input type="checkbox" checked /></div>
+		<div id="com-hiyoko-sweet-battle-nameSelector">
+			<div id="com-hiyoko-sweet-battle-nameSelector-body">
+				<div id="com-hiyoko-sweet-battle-nameSelector-body-list"></div>
+				<p dir="rtl">
+					<button id="com-hiyoko-sweet-battle-nameSelector-body-exec">決定</button>
+					<button id="com-hiyoko-sweet-battle-nameSelector-body-cancel">キャンセル</button>
+				</p>
+			</div>
+			<div id="com-hiyoko-sweet-battle-nameSelector-overlay"></div>
+		</div>
 		<div id="com-hiyoko-sweet-battle-strogaedList">
 			<button id="com-hiyoko-sweet-battle-strogaedList-toggle">データ一覧開閉</button>
 			<table id="com-hiyoko-sweet-battle-strogaedList-table" border="1"></table>
@@ -122,6 +133,7 @@
 			</div>
 		</div>
 	</section> 
+	<section id="com-hiyoko-sweet-invite"></section>
 	<section id="com-hiyoko-sweet-entry"></section>
 	<div id="com-hiyoko-sweet-pcs">
 		<button id="com-hiyoko-sweet-pcs-toggle">PC 一覧開閉</button>
@@ -140,7 +152,7 @@
 	</div>
 </div>
 <footer id="com-hiyoko-sweet-footer">
-<p id="com-hiyoko-sweet-footer-version">v20180721</p>
+<p id="com-hiyoko-sweet-footer-version">v20180804</p>
 <p>「ソードワールド2.0」は「グループＳＮＥ」及び「株式会社ＫＡＤＯＫＡＷＡ」の著作物です。 <a href="https://fujimi-trpg-online.jp/info/entry-2587.html">【ソード・ワールド】二次創作ガイドライン</a></p>
 <p><a href="./datamanager.html">データマネージャ</a> | <a href="https://twitter.com/Shunshun94">作者 Twitter</a> | <a href="https://github.com/Shunshun94/Sweet">GitHub</a> | <a href="./history.html">HISTORY</a> | <a href="http://amzn.asia/8mNqdKy">ひよこのほしい物りすと</a></p>
 </footer>
@@ -174,6 +186,7 @@
 <script src="https://shunshun94.github.io/D.Crescent/main/entrance/entrance.js"></script>
 <script src="https://shunshun94.github.io/shared/other/io/github/shunshun94/trpg/clientFactory.js"></script>
 <script src='main/com/hiyoko/sweet/sweetAppList.js'></script>
+<script src="main/com/hiyoko/sweetplayer/PlayerBattle/sweetNameSelector.js"></script>
 <script src='main/com/hiyoko/sweet/Accounting/sweetAccounting.js'></script>
 <script src='main/com/hiyoko/sweet/Accounting/sweetInputTable.js'></script>
 <script src='main/com/hiyoko/sweet/Accounting/sweetReporting.js'></script>
@@ -185,9 +198,11 @@
 <script src='main/com/hiyoko/sweet/Battle/sweetBattleTofLoader.js'></script>
 <script src='main/com/hiyoko/sweet/sweetCircumstance.js'></script>
 <script src='main/com/hiyoko/sweet/sweetDiscussion.js'></script>
+<script src='main/com/hiyoko/sweet/sweetInvite.js'></script>
 <script src='main/com/hiyoko/sweet/sweetEntry.js'></script>
 <script src='main/com/hiyoko/sweet/sweetPcManager.js'></script>
 <script src='main/com/hiyoko/sweet/sweetResponseChat.js'></script>
+<script src='main/com/hiyoko/sweet/sweetRoomList.js'></script>
 <script src='main/com/hiyoko/sweet/sweetOrganizer.js'></script>
 <script>
   new com.hiyoko.sweet.Organizer($('#com-hiyoko-sweet'));

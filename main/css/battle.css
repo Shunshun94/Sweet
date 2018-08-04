@@ -6,6 +6,13 @@
 
 #com-hiyoko-sweet-battle button {
 	font-size:100%;
+	padding: 0px;
+}
+
+#com-hiyoko-sweet-battle-isDamageEach {
+	position: absolute;
+	top: 4px;
+	left: 134px;
 }
 
 #com-hiyoko-sweet-battle-appendCharacter {
@@ -173,14 +180,21 @@
 }
  
 .com-hiyoko-sweet-battle-character-part-attackway-exec {
-	margin-left:1em;
+	margin-left:2px;
 }
 
 .com-hiyoko-sweet-battle-character-part-attackway-del {
-	border: coral 3px outset;
+	border: coral 2px solid;
+	font-size: 70%;
+	vertical-align:middle;
+	width: 14px;
+	height: 14px;
+	text-align:center;
+	font-weight:bold;
 	background-color:tomato;
 	position:absolute;
-	right:2px;
+	right:0px;
+	top:0px;
 }
 
 .com-hiyoko-sweet-battle-character-part-attackway-switch {
@@ -279,5 +293,29 @@
 }
 
 #com-hiyoko-sweet-battle-strogaedList-table{
+	display:none;
+}
+
+#com-hiyoko-sweet-battle-nameSelector-overlay {
+	z-index:1;
+	display:none;
+	position:fixed;
+	top:0;
+	left:0;
+	width:100%;
+	height:120%;
+	background-color:rgba(0,0,0,0.75);
+}
+
+#com-hiyoko-sweet-battle-nameSelector-body {
+	width:20%;
+	min-width:200px;
+	top:15px;
+	margin:auto;
+	padding:1em;
+	border:2px double #aaa;
+	background:white;
+	z-index:2;
+	position:fixed;
 	display:none;
 }
