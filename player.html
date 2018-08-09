@@ -15,6 +15,7 @@
 <title>そどわに判定てんぷれ～つ 2</title>
 <link rel="stylesheet" href="main/css/player.css" />
 <link rel="stylesheet" href="main/css/playerEntrance.css" />
+<link rel="stylesheet" href="https://shunshun94.github.io/shared/jquery/com/hiyoko/dodontof/v2/DodontoF-ChatV2.css" type="text/css" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 </head>
 <body>
@@ -263,19 +264,19 @@
 		2d6</p>
 		<p>コメント (判定内容や対象等) <input type="text" list="com-hiyoko-sw2-player-commoncheck-comment-candidate" id="com-hiyoko-sw2-player-commoncheck-comment" /> <button id="com-hiyoko-sw2-player-commoncheck-comment-clear">クリア</button></p>
 		<datalist id="com-hiyoko-sw2-player-commoncheck-comment-candidate">
-			<!-- ダンジョン内頻出 -->
+			<!-- ダンジョン内頻出判定 -->
 			<option value="探索" />
 			<option value="足跡追跡" />
 			<option value="聞き耳" />
 			<option value="解除" />
 			<option value="隠蔽" />
 			<option value="罠設置" />
-			<option value="軽業" />
-			<option value="受身" />
-			<option value="隠密" />
+			<!-- 受動判定 -->
+			<option value="異常感知" />
 			<option value="危険感知" />
 			<option value="罠感知" />
-			<!-- 町内頻出 -->
+			<option value="罠回避" />
+			<!-- 町内頻出判定 -->
 			<option value="真偽" />
 			<option value="聞き込み" />
 			<option value="文献" />
@@ -284,16 +285,23 @@
 			<option value="加工" />
 			<option value="騎乗" />
 			<option value="スリ" />
-			<!-- その他探索時 -->
+			<!-- 鑑定判定 -->
 			<option value="見識" />
 			<option value="構造解析" />
 			<option value="地図作成" />
 			<option value="天候予測" />
 			<option value="病気知識" />
 			<option value="宝物鑑定" />
+			<option value="文明鑑定" />
 			<option value="薬品学" />
+			<!-- 運動判定 -->
+			<option value="軽業" />
+			<option value="受身" />
+			<option value="隠密" />
 			<option value="水泳" />
 			<option value="登攀" />
+			<option value="跳躍" />
+			<option value="腕力" />
 			<option value="幅跳び、高飛び" />
 			<!-- 戦闘関係 -->
 			<option value="先制" />
@@ -315,11 +323,6 @@
 	<div id="com-hiyoko-sw2-player-links"></div>
 	<div id="com-hiyoko-sw2-player-talk">
 		<div id="com-hiyoko-sw2-player-talk-chat">
-			<div id="com-hiyoko-sw2-player-talk-chat-display"></div>
-			<div id="com-hiyoko-sw2-player-talk-chat-input">
-				<input id="com-hiyoko-sw2-player-talk-chat-input-text" type="text" />
-				<button id="com-hiyoko-sw2-player-talk-chat-input-exec">送信</button>
-			</div>
 		</div>
 		<p id="com-hiyoko-sw2-player-talk-toggle">💬</p>
 	</div>
@@ -357,7 +360,7 @@
 		</div>
 	</div>
 	<footer id="com-hiyoko-sw2-player-footer">
-		<p id="com-hiyoko-sw2-player-footer-version">v20180804</p>
+		<p id="com-hiyoko-sw2-player-footer-version">v20180810</p>
 		<p>「ソードワールド2.0」は「グループＳＮＥ」及び「株式会社ＫＡＤＯＫＡＷＡ」の著作物です。 <a href="https://fujimi-trpg-online.jp/info/entry-2587.html">【ソード・ワールド】二次創作ガイドライン</a></p>
 		<p><a href="./datamanager.html">データマネージャ</a> | <a href="https://twitter.com/Shunshun94">作者 Twitter</a> | <a href="https://github.com/Shunshun94/Sweet">GitHub</a> | <a href="./history.html">HISTORY</a> | <a href="http://amzn.asia/8mNqdKy">ひよこのほしい物りすと</a></p>
 	</footer>
@@ -367,6 +370,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/notify/0.4.2/notify.min.js"></script>
 <script src="https://shunshun94.github.io/shared/external/discord.io/index.js"></script>
+<script src="https://shunshun94.github.io/shared/other/io/github/shunshun94/util/colorutil.js"></script> 
 
 <script src='https://shunshun94.github.io/shared/jquery/com/hiyoko/util/v2/utils.js'></script>
 <script src="https://shunshun94.github.io/shared/jquery/com/hiyoko/vampireblood/client.js"></script>
@@ -377,7 +381,7 @@
 <script src="https://shunshun94.github.io/shared/jquery/com/hiyoko/components/v1/UlList.js"></script>
 <script src="https://shunshun94.github.io/shared/jquery/com/hiyoko/dodontof/v2/DodontoF-Entrance.js"></script>
 <script src="https://shunshun94.github.io/shared/jquery/com/hiyoko/dodontof/v2/DodontoF-chatUtil.js"></script>
-<script src="https://shunshun94.github.io/shared/jquery/com/hiyoko/dodontof/v2/DodontoF-Chat.js"></script>
+<script src='https://shunshun94.github.io/shared/jquery/com/hiyoko/dodontof/v2/DodontoF-ChatV2.js'></script>
 <script src='https://shunshun94.github.io/shared/jquery/com/hiyoko/components/v1/TableBase.js'></script>
 <script src="https://shunshun94.github.io/shared/jquery/com/hiyoko/bcdice-api/BCDice-API.js"></script> 
 <script src="https://shunshun94.github.io/shared/other/io/github/shunshun94/trpg/clientSpec.js"></script>

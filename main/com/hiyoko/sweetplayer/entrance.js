@@ -8,7 +8,8 @@ com.hiyoko.sweet.PlayerEntrance = class extends io.github.shunshun94.HiyokoCross
 		return this.getElementById('sheet-input').val();
 	}
 	buildTofUrl(e) {
-		document.location = `./player.html?platform=tof&sheetId=${this.getSheetId()}&url=${e.value.url}&room=${e.value.room.no}&pass=${e.value.password.password}`;
+		document.location = `./player.html?platform=tof&sheetId=${this.getSheetId()}&
+		url=${e.value.url}&room=${e.value.room.no}&pass=${e.value.password.password}&color=${e.value.option.color}`;
 	}
 	buildDiscordUrl(e) {
 		document.location = `./player.html?platform=discord&system=SwordWorld2.0&sheetId=${this.getSheetId()}&url=${e.value.url}&room=${e.value.room}&dicebot=${e.value.dicebot}`
@@ -51,6 +52,8 @@ com.hiyoko.sweet.PlayerEntrance = class extends io.github.shunshun94.HiyokoCross
 				`<button id="${this.id}-tof-password-next">次へ</button></div>` +
 				`<div id="${this.id}-tof-option">` +
 				`<button id="${this.id}-tof-option-back">戻る</button><br/>` +
+				`文字色: <input id="${this.id}-tof-option-color"  list="${this.id}-tof-option-colorList" type="text" /><br/>` +
+				`<datalist id="${this.id}-tof-option-colorList"></datalist>` +
 				`<button id="${this.id}-tof-option-next">入力完了</button>` +
 				`</div></div>`
 		);
@@ -77,6 +80,35 @@ com.hiyoko.sweet.PlayerEntrance = class extends io.github.shunshun94.HiyokoCross
 		this.getElementById('sheet > button').hide();
 		com.hiyoko.util.forEachMap(JSON.parse(localStorage.getItem('com-hiyoko-sw2-player-entrance-option-sheetId-list') || '{}'), (v, k) => {
 			$(`#${this.id}-sheet-list`).append(`<option value="${k}">${v}</option>`);
+		});
+	}
+};
+
+com.hiyoko.DodontoF.V2.Entrance.Option = class extends com.hiyoko.component.InputFlow.Child {
+	constructor($html, opt = {}) {
+		super($html, opt);
+		this.bindEvents();
+	}
+	bindEvents() {
+		this.getElementById('next').click(this.goNext.bind(this));
+		this.getElementById('back').click(this.goBack.bind(this));
+	};
+	setComponent(params) {
+		this.getElementById('colorList').empty();
+		(new com.hiyoko.DodontoF.V2.Room(params.url, params.room.no, params.password.password)).getChat().done((result)=>{
+			const colors = com.hiyoko.DodontoF.V2.getNameColorPairs(result);
+			const defaultColor = io.github.shunshun94.util.Color.getColorFromSeed($('#com-hiyoko-sw2-player-entrance-sheet-input').val()).code.substr(1);
+			this.getElementById('color').val(defaultColor);
+			this.getElementById('colorList').append(`<option value="${defaultColor}">デフォルトカラー</option>`);
+			for(var name in colors) {
+				for(var color in colors[name]) {
+					this.getElementById('colorList').append(`<option value="${color}">${name} が使用中</option>`);
+				}
+			}
+		}).fail((error) => {
+			alert('チャットの取得に失敗しました。\n理由：' + error.result);
+			console.error(error);
+			this.goBack.bind(this)
 		});
 	}
 }
