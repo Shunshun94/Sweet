@@ -106,7 +106,9 @@ com.hiyoko.DodontoF.V2.Entrance.Option = class extends com.hiyoko.component.Inpu
 				}
 			}
 		}).fail((error) => {
-			alert('チャットの取得に失敗しました。\n理由：' + result.result);
+			alert('チャットの取得に失敗しました。\n理由：' + error.result);
+			console.error(error);
+			this.goBack.bind(this)
 		});
 	}
 }
