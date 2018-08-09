@@ -234,13 +234,14 @@ div.com-hiyoko-sw2-player-pet-character-part-attackway {
 #com-hiyoko-sw2-player-talk {
 	display:none;
 	position: fixed;
-	right: 2em;
-	bottom: 9em;
+	right: 1em;
+	bottom: 1em;
 	display: none;
 	background-color: #ff7f7f;
 	opacity:0.9;
 	border-radius:5px;
 	box-sizing:border-box;
+	z-index:3;
 }
 
 #com-hiyoko-sw2-player-talk > p {

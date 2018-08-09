@@ -32,6 +32,7 @@ com.hiyoko.sweet.Player.prototype.initRoomTitle = function() {
 
 com.hiyoko.sweet.Player.prototype.buildComponents = function() {
 	if(this.query.platform && this.query.sheetId) {
+		this.color = this.query.color || io.github.shunshun94.util.Color.getColorFromSeed(this.query.sheetId).code.substr(1);
 		com.hiyoko.VampireBlood.SW2.getSheet(this.query.sheetId).done(function(character){
 			this.character = character;
 			this.saveSheetIdList(this.query.sheetId, this.character.name);
@@ -112,6 +113,9 @@ com.hiyoko.sweet.Player.prototype.bindEvents = function(e) {
 	var self = this;
 	
 	this.$html.on('tofRoomRequest', function(e){
+		if(e.method === 'sendChat') {
+			e.args[0].color = self.color;
+		}
 		self.retriableRequest(e, 4);
 	});
 	
