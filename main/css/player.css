@@ -18,6 +18,12 @@ h1 {
 	padding:0px;
 }
 
+#com-hiyoko-sw2-player-selectBot {
+	position: absolute;
+	top: 108px;
+	right: 8px;
+}
+
 #com-hiyoko-sw2-player-list-list {
 	position:relative;
 	left:2px;
