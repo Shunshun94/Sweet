@@ -3,12 +3,12 @@ com.hiyoko = com.hiyoko || {};
 com.hiyoko.sweet = com.hiyoko.sweet || {};
 com.hiyoko.sweet.Player = function($html) {
 	this.query = com.hiyoko.util.getQueries();
-	
+
 	this.$html = $html;
 	this.id = this.$html.attr('id');
 	this.components = [];
 	this.tofRoomAccess;
-	
+
 	this.bindEvents();	
 	this.buildComponents();
 };
@@ -50,6 +50,7 @@ com.hiyoko.sweet.Player.prototype.buildComponents = function() {
 				this.resources = new com.hiyoko.sweet.ResourceManage(this.getElementById('resourceManage'), this.character);
 				this.talk = new com.hiyoko.sweet.Talk(this.getElementById('talk'), this.character);
 				this.list = new com.hiyoko.sweet.AppList(this.getElementById('list'), this.components);
+				this.selectBot = new com.hiyoko.sweet.SelectBot(this.getElementById('selectBot'));
 				this.onClickList({num: 0});
 			}, 1500);
 
@@ -115,6 +116,7 @@ com.hiyoko.sweet.Player.prototype.bindEvents = function(e) {
 	this.$html.on('tofRoomRequest', function(e){
 		if(e.method === 'sendChat') {
 			e.args[0].color = self.color;
+			e.args[0].bot = self.selectBot.getBot();
 		}
 		self.retriableRequest(e, 4);
 	});
@@ -137,5 +139,3 @@ com.hiyoko.sweet.Player.prototype.bindEvents = function(e) {
 	
 	this.$html.on('clickMenu', this.onClickList.bind(this));
 };
-
-
