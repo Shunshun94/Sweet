@@ -25,6 +25,11 @@ com.hiyoko.sweet.PlayerBattle.Magics.prototype.forRider = function(character) {
 	 }).forEach(function(w){
 		 this.magics.push({name:w.name,value:character.skills[w.skill] + character.status[4]});
 	 }.bind(this));
+	[{skill: 'バード', name:'呪歌'}].filter((w) => {
+		return character.skills[w.skill];
+	}).forEach(function(w){
+		 this.magics.push({name:w.name,value:character.skills[w.skill] + character.status[5]});
+	 }.bind(this));
 };
 
 com.hiyoko.sweet.PlayerBattle.Magics.prototype.buildComponents = function() {
