@@ -43,7 +43,7 @@ com.hiyoko.sweet.PlayerBattle.OptionalValues.Table = function($html, cols) {
 	this.id = this.$html.attr('id');
 
 	this.renderTable(cols);
-	
+
 	this.bindEvent();
 };
 
