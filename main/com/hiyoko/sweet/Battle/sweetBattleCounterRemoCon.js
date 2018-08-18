@@ -33,7 +33,7 @@ com.hiyoko.sweet.Battle.CounterRemoCon.prototype.bindEvents = function() {
 		this.fireEvent({
 			type: 'CounterRemoConInitializeRequest',
 			resolve: (result) => {
-				const isCheckRE = new RegExp(" → ([0-9]+)$");
+				const isCheckRE = new RegExp(" [→＞] ([0-9]+)$");
 				$chatLog.empty();
 				$chatLog.append(result.map((log) => {
 					const execResult = isCheckRE.exec(log.msg);
