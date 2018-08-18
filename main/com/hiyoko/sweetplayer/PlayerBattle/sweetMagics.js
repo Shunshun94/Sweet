@@ -99,13 +99,13 @@ com.hiyoko.sweet.PlayerBattle.Magics.prototype.bindEvents = function() {
 			type: com.hiyoko.sweet.PlayerBattle.Events.role,
 			isDamage: true,
 			targetList: this.targetList,
-			message: com.hiyoko.util.format('k%s+%s\\%s\\%s%s%s / ダメージ ：%s %s',
+			message: com.hiyoko.util.format('k%s+%s\\%s\\%s%s%s#\\%s / ダメージ ：%s %s',
 					this.getElementById('rate').val(),
 					magic.value,
 					this.getElementById('critical').val(),
 					this.getElementById('rolevalue').val(),
 					magic.name, this.getElementById('memo').val()),
-			col: [3, 7]
+			col: [3, 7, 9]
 		});
 	}.bind(this));
 
