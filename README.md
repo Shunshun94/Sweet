@@ -58,9 +58,11 @@ MIT ライセンスです。
 
 ## Related products
 
-### ソードワールド2.0
+### ソードワールド2.0/2.5
 
-「ソードワールド2.0」は「グループＳＮＥ」及び「株式会社ＫＡＤＯＫＡＷＡ」の著作物です。
+本ツールは、「グループＳＮＥ」及び「株式会社ＫＡＤＯＫＡＷＡ」が権利を有する『ソード・ワールド2.0／2.5』での利用を目的に作られています。   
+(C)GroupSNE   
+(C)KADOKAWA   
 
 http://www.groupsne.co.jp/products/sw/index.html   
 https://ssl.fujimi-trpg-online.jp/contents/sw
@@ -83,6 +85,14 @@ https://charasheet.vampire-blood.net/
 >　改造・再配布も同様ですが、それによって起きたトラブルなどには一切関知しません。
 
 http://yutorize.2-d.jp/page/YtSheetM-for-SW2.0
+
+### BCDice-API
+
+酒田　シンジさん作。
+
+MIT ライセンスです。
+
+ライセンス情報：  https://github.com/ysakasin/bcdice-api/blob/master/LICENSE
 
 ### OGP 画像の背景
 
