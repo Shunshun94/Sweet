@@ -85,10 +85,12 @@ com.hiyoko.sweet.PcManager.PcManager.Prepare.prototype.onExec = function(e) {
 	this.getElementsByClass('id').each(function(i, v) {
 		list.push($(this).val());
 	});
+	list = list.filter(function(v){return Number(v) || v.startsWith('http')}).filter(function (x, i, self) {return self.indexOf(x) === i;});
 	this.fireEvent(new $.Event(com.hiyoko.sweet.PcManager.PcManager.Prepare.EVENTS.EXEC, {
 		// https://qiita.com/cocottejs/items/7afe6d5f27ee7c36c61f
-		sheets: list.filter(function(v){return Number(v)}).filter(function (x, i, self) {return self.indexOf(x) === i;})
+		sheets: list
 	}));
+	console.log(list);
 };
 
 com.hiyoko.sweet.PcManager.PcManager.Prepare.prototype.onInputBoxChange = function(e) {
