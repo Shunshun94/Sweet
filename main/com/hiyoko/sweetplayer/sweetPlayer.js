@@ -32,12 +32,10 @@ com.hiyoko.sweet.Player.prototype.initRoomTitle = function() {
 
 com.hiyoko.sweet.Player.prototype.buildComponents = function() {
 	if(this.query.platform && this.query.sheetId) {
-		const id = this.query.sheetId.replace(/\$/gm, '?').replace(/~/gm, '=');
-		this.color = this.query.color || io.github.shunshun94.util.Color.getColorFromSeed(id).code.substr(1);
-		const client = (this.query.sheetId.startsWith('http')) ? io.github.shunshun94.trpg.ytsheet.ytsheetSW2_5 : com.hiyoko.VampireBlood.SW2;
-		client.getSheet(id).done(function(character){
+		this.color = this.query.color || io.github.shunshun94.util.Color.getColorFromSeed(this.query.sheetId).code.substr(1);
+		com.hiyoko.VampireBlood.SW2.getSheet(this.query.sheetId).done(function(character){
 			this.character = character;
-			this.saveSheetIdList(id, this.character.name);
+			this.saveSheetIdList(this.query.sheetId, this.character.name);
 			this.query.url = this.query.url || this.getElementById('entrance');
 			this.tofRoomAccess = io.github.shunshun94.trpg.RoomClientFactory(this.query);
 			setTimeout(()=>{

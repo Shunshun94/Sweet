@@ -5,8 +5,7 @@ com.hiyoko.sweet.PlayerEntrance = class extends io.github.shunshun94.HiyokoCross
 		super($html);
 	}
 	getSheetId() {
-		let id = this.getElementById('sheet-input').val();
-		return id.replace(/\?/gm, '$').replace(/=/gm, '~').replace('https://charasheet.vampire-blood.net/', '');
+		return this.getElementById('sheet-input').val();
 	}
 	buildTofUrl(e) {
 		document.location = `./player.html?platform=tof&sheetId=${this.getSheetId()}&
@@ -31,10 +30,8 @@ com.hiyoko.sweet.PlayerEntrance = class extends io.github.shunshun94.HiyokoCross
 
 		this.$html.append(
 			`<div id="${this.id}-sheet">` +
-			'<p><a href="https://charasheet.vampire-blood.net/">キャラクター保管所</a>で作成したキャラクターの ID または<br/>' +
-			'<a href="http://yutorize.2-d.jp/ytsheet/sw2.5/">ゆとシート for SW2.5</a>で作成したキャラクターの URL を入力してください</p>' +
-			'<p>例<br/>　　https://charasheet.vampire-blood.net/116063 なら <strong>116063</strong><br/>' +
-			'　　http://yutorize.2-d.jp/ytsheet/sw2.5/?id=GYwVqv ならそのまま <strong>http://yutorize.2-d.jp/ytsheet/sw2.5/?id=GYwVqv</strong></p>' +
+			'<p><a href="https://charasheet.vampire-blood.net/">キャラクター保管所</a>で作成したキャラクターの ID を入力してください<br/>' +
+			'例<br/>　　https://charasheet.vampire-blood.net/116063 なら <strong>116063</strong></p>' +
 			`<p>キャラクターシートの ID： <input list="${this.id}-sheet-list" id="${this.id}-sheet-input" type="text" /></p>` +
 			`<datalist id="${this.id}-sheet-list"></datalist>` + buttons + '</div>'
 		);
