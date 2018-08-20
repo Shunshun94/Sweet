@@ -49,12 +49,11 @@ com.hiyoko.sweet.CommonCheck.prototype.sendCommand = function(e) {
 	});
 	
 	var option = this.option.getOptionalValue();
-	var text = com.hiyoko.util.format('2d6+%s+%s%s / %s (基準値：%s+%s)%s',
-			this.getElementById('skill').val(),
-			this.getElementById('status').val(),
-			option.value, this.getElementById('comment').val(),
-			this.getElementById('skill').children(':selected').text(), this.getElementById('status').children(':selected').text(),
-			option.detail);
+	const isHyper = Number(this.getElementById('skill').val()) >= 16;
+	var text =`2d6${isHyper ? '@10' : ''}+${this.getElementById('skill').val()}+${this.getElementById('status').val()}${option.value} / ` + 
+	`${this.getElementById('comment').val()} `+
+	`(基準値：${this.getElementById('skill').children(':selected').text()}+${this.getElementById('status').children(':selected').text()}${isHyper ? ' 超越判定' : ''})` +
+	`${option.detail}`;
 	
 	var kindOfCheck = this.getElementById('comment').val().split(/[ 　]/)[0];
 	if(kindOfCheck) {
