@@ -22,27 +22,19 @@ com.hiyoko.sweet.Links.prototype.buildComponents = function() {
 		queries.push(k + '=' + v);
 	});
 	
-	if(this.options.platform === 'tof' || this.options.platform === 'dodontof') {
-		$links.append(com.hiyoko.util.format('<li><a target="_blank" href="http://sy17.sakura.ne.jp/shunshun/hiyontof.html?%s&name=%s">ひよんとふ</a>',
-				queries.join('&'), this.character.name
-		));
-	}
+	$links.append(com.hiyoko.util.format('<li><a href="http://sy17.sakura.ne.jp/shunshun/hiyontof.html?%s&name=%s">ひよんとふ</a> (どどんとふ使用時のみ有効)',
+			queries.join('&'), this.character.name
+	));
+	$links.append(com.hiyoko.util.format('<li><a href="http://charasheet.vampire-blood.net/%s">キャラクターシート</a></li>', this.character.id));
 	
-	const id = this.options.sheetId.replace(/\$/gm, '?').replace(/~/gm, '=');
-	if(id.startsWith('http')) {
-		$links.append(`<li><a target="_blank" href="${id}">キャラクターシート</a></li>`);
-	} else {
-		$links.append(com.hiyoko.util.format('<li><a target="_blank" href="http://charasheet.vampire-blood.net/%s">キャラクターシート</a></li>', this.character.id));
-	}
-	if(this.options.platform !== 'dummy') {
-		var $map = $('<li></li>');
-	
-		$map.append(com.hiyoko.util.format('<a id="%s-map-exec">マップ</a><br/>', this.id));
-		$map.append(com.hiyoko.util.format('1マス辺りの距離<input value="1" id="%s-map-scale" type="number" />m<br/>', this.id));
-		$map.append(com.hiyoko.util.format('表示したい射程距離 (カンマ区切り)<input value="3,5,10,20,30,50" id="%s-map-distance" type="text" />m<br/>', this.id));
-		$map.append(com.hiyoko.util.format('表示方法<select id="%s-map-range"><option value="circle">同心円</option><option value="srw">スーパーロ〇ット〇戦風</option></select>', this.id));
-		$links.append($map);
-	}
+	var $map = $('<li></li>');
+
+	$map.append(com.hiyoko.util.format('<a id="%s-map-exec">マップ</a> (どどんとふ使用時のみ有効)<br/>', this.id));
+	$map.append(com.hiyoko.util.format('どどんとふ1マス辺りの距離<input value="1" id="%s-map-scale" type="number" />m<br/>', this.id));
+	$map.append(com.hiyoko.util.format('表示したい射程距離 (カンマ区切り)<input value="3,5,10,20,30,50" id="%s-map-distance" type="text" />m<br/>', this.id));
+	$map.append(com.hiyoko.util.format('表示方法<select id="%s-map-range"><option value="circle">同心円</option><option value="srw">スーパーロ〇ット〇戦風</option></select>', this.id));
+	$links.append($map);
+
 	this.$html.append($links);
 };
 
@@ -58,6 +50,7 @@ com.hiyoko.sweet.Links.prototype.bindEvents = function() {
 			url += '&pass=' + this.options.pass;
 		}
 		window.open(url, 'map');
+		//document.location = url;
 	}.bind(this));
 };
 
