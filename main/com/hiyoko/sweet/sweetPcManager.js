@@ -41,6 +41,10 @@ com.hiyoko.sweet.PcManager.PcManager.prototype.bindEvents = function() {
 	this.$html.on(com.hiyoko.sweet.PcManager.PcManager.Prepare.EVENTS.EXEC, function(e) {
 		this.manager.appendCharacters(e.sheets).then(function(characterList) {
 			this.prepare.disable();
+			characterList = characterList.map((d, i) => {
+				d.id = e.sheets[i];
+				return d;
+			});
 			this.console.insertCharacters(characterList);
 			this.console.enable();
 		}.bind(this), function(failedReason) {
@@ -90,7 +94,6 @@ com.hiyoko.sweet.PcManager.PcManager.Prepare.prototype.onExec = function(e) {
 		// https://qiita.com/cocottejs/items/7afe6d5f27ee7c36c61f
 		sheets: list
 	}));
-	console.log(list);
 };
 
 com.hiyoko.sweet.PcManager.PcManager.Prepare.prototype.onInputBoxChange = function(e) {
