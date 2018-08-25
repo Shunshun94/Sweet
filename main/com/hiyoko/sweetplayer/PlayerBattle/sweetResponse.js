@@ -29,7 +29,7 @@ com.hiyoko.sweet.PlayerBattle.Response.prototype.bindEvents = function() {
 		this.fireEvent({
 			target: e.target,
 			type: com.hiyoko.sweet.PlayerBattle.Events.role,
-			message: `2d6${this.isExceeded.dodge ? '@' : ''}+${this.responses.dodge}%s / 回避判定 `,
+			message: `2d6${this.isExceeded.dodge ? '@10' : ''}+${this.responses.dodge}%s / 回避判定 `,
 			col: 4
 		});
 	}.bind(this));
@@ -38,7 +38,7 @@ com.hiyoko.sweet.PlayerBattle.Response.prototype.bindEvents = function() {
 		this.fireEvent({
 			target: e.target,
 			type: com.hiyoko.sweet.PlayerBattle.Events.role,
-			message: `2d6${this.isExceeded.physical ? '@' : ''}+${this.responses.physical}%s / 生命抵抗判定 `,
+			message: `2d6${this.isExceeded.physical ? '@10' : ''}+${this.responses.physical}%s / 生命抵抗判定 `,
 			col: 5
 		});
 	}.bind(this));
@@ -47,7 +47,7 @@ com.hiyoko.sweet.PlayerBattle.Response.prototype.bindEvents = function() {
 		this.fireEvent({
 			target: e.target,
 			type: com.hiyoko.sweet.PlayerBattle.Events.role,
-			message: `2d6${this.isExceeded.mental ? '@' : ''}+${this.responses.mental}%s / 精神抵抗判定 `,
+			message: `2d6${this.isExceeded.mental ? '@10' : ''}+${this.responses.mental}%s / 精神抵抗判定 `,
 			col: 6
 		});
 	}.bind(this));
