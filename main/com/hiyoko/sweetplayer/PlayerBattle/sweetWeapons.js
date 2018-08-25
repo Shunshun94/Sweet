@@ -6,9 +6,13 @@ com.hiyoko.sweet.PlayerBattle = com.hiyoko.sweet.PlayerBattle || {};
 com.hiyoko.sweet.PlayerBattle.Weapons = function($html, character) {
 	this.$html = $html;
 	this.id = this.$html.attr('id');
-	this.weapons = character.weapons;
+	this.weapons = (character.weapons || []).map((w) => {
+		w.exceeded = (character.skills[w.skill] || 0) > 15;
+		return w;
+	});
 	this.targetList = [];
 	this.forRider(character);
+	console.log(this.weapons);
 	this.buildComponents();
 	this.bindEvents();
 	this.getElementById('list').change();
@@ -25,7 +29,8 @@ com.hiyoko.sweet.PlayerBattle.Weapons.prototype.forRider = function(character) {
 		 this.weapons.push({
 				name:w.name,rank:"B",hand:"-",note:w.note,category:w.category,rate:0,crit:10,
 				damage:character.skills[w.skill] + character.status[2],
-				hit:character.skills[w.skill] + character.status[0]});
+				hit:character.skills[w.skill] + character.status[0],
+				exceeded: character.skills[w.skill] > 15});
 	 }.bind(this));
 };
 
@@ -106,7 +111,7 @@ com.hiyoko.sweet.PlayerBattle.Weapons.prototype.bindEvents = function() {
 			target: e.target,
 			targetList: this.targetList,
 			type: com.hiyoko.sweet.PlayerBattle.Events.role, 
-			message: com.hiyoko.util.format('2d6+%s\\%s / 命中判定 ：%s %s', weapon.hit, weapon.name, this.getElementById('memo').val()),
+			message: com.hiyoko.util.format(`2d6${weapon.exceeded ? '@10' : ''}+${weapon.hit}\\%s / 命中判定 ：${weapon.name} ${this.getElementById('memo').val()}`),
 			col: 2
 		});
 	}.bind(this));
