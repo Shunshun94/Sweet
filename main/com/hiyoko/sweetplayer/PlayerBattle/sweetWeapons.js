@@ -12,7 +12,6 @@ com.hiyoko.sweet.PlayerBattle.Weapons = function($html, character) {
 	});
 	this.targetList = [];
 	this.forRider(character);
-	console.log(this.weapons);
 	this.buildComponents();
 	this.bindEvents();
 	this.getElementById('list').change();
@@ -111,7 +110,7 @@ com.hiyoko.sweet.PlayerBattle.Weapons.prototype.bindEvents = function() {
 			target: e.target,
 			targetList: this.targetList,
 			type: com.hiyoko.sweet.PlayerBattle.Events.role, 
-			message: com.hiyoko.util.format(`2d6${weapon.exceeded ? '@10' : ''}+${weapon.hit}\\%s / 命中判定 ：${weapon.name} ${this.getElementById('memo').val()}`),
+			message: `2d6${weapon.exceeded ? '@10' : ''}+${weapon.hit}%s / 命中判定 ：${weapon.name} ${this.getElementById('memo').val()}`,
 			col: 2
 		});
 	}.bind(this));
