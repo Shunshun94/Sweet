@@ -30,6 +30,10 @@ com.hiyoko.sweet.PlayerBattle.Magics.prototype.forRider = function(character) {
 	}).forEach(function(w){
 		 this.magics.push({name:w.name,value:character.skills[w.skill] + character.status[5]});
 	 }.bind(this));
+	if(character.race.startsWith('ドレイク') || character.race === 'バジリスク' || character.race === 'ウィークリング') {
+		this.magics.push({name:'ブレス', value:character.level + character.status[3]});
+		this.magics.push({name:'目線', value:character.level + character.status[5]});
+	}
 };
 
 com.hiyoko.sweet.PlayerBattle.Magics.prototype.buildComponents = function() {
