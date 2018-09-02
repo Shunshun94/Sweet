@@ -127,7 +127,11 @@ com.hiyoko.sweet.Organizer.prototype.bindEvents = function(e) {
 	});
 
 	this.$html.on(io.github.shunshun94.trpg.HiyokoSheetHandler.EVENTS.REQUEST, function(event) {
-		com.hiyoko.VampireBlood.SW2.getSheet(event.sheet).done(event.resolve).fail(event.reject);
+		if(event.sheet.startsWith('http')) {
+			io.github.shunshun94.trpg.ytsheet.ytsheetSW2_5.getSheet(event.sheet).done(event.resolve).fail(event.reject);
+		} else {
+			com.hiyoko.VampireBlood.SW2.getSheet(event.sheet).done(event.resolve).fail(event.reject);
+		}
 	});
 
 	this.$html.on('algorithmiaRequest', function(e){
