@@ -12,7 +12,13 @@ com.hiyoko.sweet.PlayerBattle.Response = function($html, character) {
 		physical: character.physical,
 		mental: character.mental
 	};
-	
+
+	this.isExceeded = {
+		dodge: (character.skills[character.dodgeSkill] || 0) > 15,
+		physical: character.level > 15,
+		mental: character.level > 15
+	};
+
 	this.bindEvents();
 };
 
@@ -23,7 +29,7 @@ com.hiyoko.sweet.PlayerBattle.Response.prototype.bindEvents = function() {
 		this.fireEvent({
 			target: e.target,
 			type: com.hiyoko.sweet.PlayerBattle.Events.role,
-			message: com.hiyoko.util.format('2d6+%s\\%s / 回避判定 ', this.responses.dodge),
+			message: `2d6${this.isExceeded.dodge ? '@10' : ''}+${this.responses.dodge}%s / 回避判定 `,
 			col: 4
 		});
 	}.bind(this));
@@ -32,7 +38,7 @@ com.hiyoko.sweet.PlayerBattle.Response.prototype.bindEvents = function() {
 		this.fireEvent({
 			target: e.target,
 			type: com.hiyoko.sweet.PlayerBattle.Events.role,
-			message: com.hiyoko.util.format('2d6+%s\\%s / 生命抵抗判定 ', this.responses.physical),
+			message: `2d6${this.isExceeded.physical ? '@10' : ''}+${this.responses.physical}%s / 生命抵抗判定 `,
 			col: 5
 		});
 	}.bind(this));
@@ -41,7 +47,7 @@ com.hiyoko.sweet.PlayerBattle.Response.prototype.bindEvents = function() {
 		this.fireEvent({
 			target: e.target,
 			type: com.hiyoko.sweet.PlayerBattle.Events.role,
-			message: com.hiyoko.util.format('2d6+%s\\%s / 精神抵抗判定 ', this.responses.mental),
+			message: `2d6${this.isExceeded.mental ? '@10' : ''}+${this.responses.mental}%s / 精神抵抗判定 `,
 			col: 6
 		});
 	}.bind(this));

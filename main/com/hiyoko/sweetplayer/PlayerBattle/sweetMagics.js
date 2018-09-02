@@ -9,7 +9,7 @@ com.hiyoko.sweet.PlayerBattle.Magics = function($html, character) {
 	this.magics = [];
 	this.targetList = [];
 	com.hiyoko.util.forEachMap(character.magic, function(v, k){
-		this.magics.push({name: k, value: v});
+		this.magics.push({name: k, value: v, exceeded: com.hiyoko.sweet.PlayerBattle.Magics.isExceeded(k, character.skills)});
 	}.bind(this));
 	this.forRider(character);
 	this.buildComponents();
@@ -23,13 +23,29 @@ com.hiyoko.sweet.PlayerBattle.Magics.prototype.forRider = function(character) {
 	 {skill: 'エンハンサー', name: '練技による攻撃'}].filter(function(w){
 		return character.skills[w.skill];
 	 }).forEach(function(w){
-		 this.magics.push({name:w.name,value:character.skills[w.skill] + character.status[4]});
+		this.magics.push({
+			name:w.name,value:character.skills[w.skill] + character.status[4],
+			exceeded: character.skills[w.skill] > 15
+		});
 	 }.bind(this));
 	[{skill: 'バード', name:'呪歌'}].filter((w) => {
 		return character.skills[w.skill];
 	}).forEach(function(w){
-		 this.magics.push({name:w.name,value:character.skills[w.skill] + character.status[5]});
-	 }.bind(this));
+		this.magics.push({
+			name:w.name,value:character.skills[w.skill] + character.status[5],
+			exceeded: character.skills[w.skill] > 15
+		});
+	}.bind(this));
+	if(character.race.startsWith('ドレイク') || character.race === 'バジリスク' || character.race === 'ウィークリング') {
+		this.magics.push({
+			name:'ブレス', value:character.level + character.status[3],
+			exceeded: character.level > 15
+		});
+		this.magics.push({
+			name:'目線', value:character.level + character.status[5],
+			exceeded: character.level > 15
+		});
+	}
 };
 
 com.hiyoko.sweet.PlayerBattle.Magics.prototype.buildComponents = function() {
@@ -87,7 +103,7 @@ com.hiyoko.sweet.PlayerBattle.Magics.prototype.bindEvents = function() {
 			target: e.target,
 			targetList: this.targetList,
 			type: com.hiyoko.sweet.PlayerBattle.Events.role,
-			message: com.hiyoko.util.format('2d6+%s\\%s / 行使判定 ：%s %s', magic.value, magic.name, this.getElementById('memo').val()),
+			message: `2d6${magic.exceeded ? '@10' : ''}+${magic.value}%s / 行使判定 ：${magic.name} ${this.getElementById('memo').val()}`,
 			col: 7
 		});
 	}.bind(this));
@@ -115,4 +131,25 @@ com.hiyoko.sweet.PlayerBattle.Magics.prototype.bindEvents = function() {
 		this.getElementById('memo').focus();
 		this.targetList = [];
 	}.bind(this));
+};
+
+com.hiyoko.sweet.PlayerBattle.Magics.isExceeded = (name, skills) => {
+	let level = 0;
+	com.hiyoko.sweet.PlayerBattle.Magics.SkillTable[name].forEach((skillName)=>{
+		if(level < (skills[skillName] || 0)) {
+			level = skills[skillName];
+		}
+	});
+	return level > 15;
+};
+
+com.hiyoko.sweet.PlayerBattle.Magics.SkillTable = {
+	'真語魔法': ['ソーサラー'],
+	'操霊魔法': ['コンジャラー'],
+	'神聖魔法': ['プリースト'],
+	'妖精魔法': ['フェアリーテイマー'],
+	'魔動機術': ['マギテック'],
+	'深智魔法': ['ソーサラー', 'コンジャラー'],
+	'召異魔法': ['デーモンルーラー'],
+	'秘奥魔法': ['グリモワール']
 };
