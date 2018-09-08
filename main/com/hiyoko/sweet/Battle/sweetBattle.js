@@ -8,17 +8,18 @@ com.hiyoko.sweet.Battle = function($html, opt_params = {}) {
 	this.id = this.$html.attr('id');
 	this.list = {};
 	this.param = opt_params;
+	this.param.isTableExist = com.hiyoko.sweet.Battle.hasInitTable(this.param);
 	this.nameList = new com.hiyoko.sweet.Battle.NameIndex();
 	this.tofLoader = new com.hiyoko.sweet.Battle.TofLoader(this.$html);
-	
+
 	this.enemyList = {};
-	
+
 	this.$characters = this.getElementById('characters');
-	
+
 	this.optionalValues;
-	
+
 	this.datalist = this.getElementById('datalist');
-	
+
 	this.bindEvents();
 	this.buildComponents();
 };
@@ -102,6 +103,45 @@ com.hiyoko.sweet.Battle.prototype.putCharacter = function(e) {
 	$(e.target).notify('キャラクター追加のリクエストを送信しました (' + e.value.name + ')', {className: 'info', position: 'top'});
 };
 
+com.hiyoko.sweet.Battle.prototype.shareEnemyData = function(e) {
+	var event = {type: 'tofRoomRequest'};
+	const text = '\n' + this.buildCharacterAsText(this.list[e.id].getValue());
+	event.args = [{name: 'GM', message: text}];
+	event.method = 'sendChat';
+	this.fireEvent(event);
+};
+com.hiyoko.sweet.Battle.prototype.shareEnemiesData = function(e) {
+	var event = {type: 'tofRoomRequest'};
+	var sharingList = [];
+	com.hiyoko.util.forEachMap(this.list, (v, k) =>{
+		const data = v.getValue();
+		sharingList.push(this.buildCharacterAsText(data));
+	});
+	const text = '\n' + sharingList.join('\n');
+	event.args = [{name: 'GM', message: text}];
+	event.method = 'sendChat';
+	this.fireEvent(event);
+};
+com.hiyoko.sweet.Battle.prototype.buildCharacterAsText = function(c) {
+	if(c.isHidden) {
+		if(c.parts.length === 1) {
+			return `**${c.name}**\n　HP:???　MP:???`;
+		} else {
+			return `**${c.name}**\n` + c.parts.map((p)=>{
+				return `　${p.name}　HP:???　MP:???`;
+			}).join('\n');
+		}
+	} else {
+		if(c.parts.length === 1) {
+			return `**${c.name}**\n　HP:${c.parts[0].hp}　MP:${c.parts[0].mp}`;
+		} else {
+			return `**${c.name}**\n` + c.parts.map((p)=>{
+				return `　${p.name}　HP:${p.hp}　MP:${p.mp}`;
+			}).join('\n');
+		}
+	}
+};
+
 com.hiyoko.sweet.Battle.prototype.appendCharacterFromCharacterList = function(e) {
 	var id = this.appendCharacter();
 	this.list[id].setValue(this.enemyList[e.name]);
@@ -154,10 +194,12 @@ com.hiyoko.sweet.Battle.prototype.bindEvents = function() {
 			this.fireEvent(event);
 		}
 	}.bind(this));
+	this.getElementById('sharingEnemiesData').click(this.shareEnemiesData.bind(this))
 
 	this.$html.on('callNameSelector', this.openNameSelector.bind(this));
 	this.$html.on('executeRequest', this.roleDice.bind(this));
 	this.$html.on('appendCharacterRequest', this.putCharacter.bind(this));
+	this.$html.on('sharingEnemyDataRequest', this.shareEnemyData.bind(this))
 	this.$html.on('isDamageEach', (e) => {
 		e.resolve(this.isDamageEach());
 	});
@@ -315,7 +357,7 @@ com.hiyoko.sweet.Battle.prototype.appendCharacter = function() {
 			this.id + '-character-' + newId));
 	this.param.autocomplete = this.datalist.attr('id');
 	this.list[newId] = new com.hiyoko.sweet.Battle.BattleCharacter(this.getElementById('character-' + newId),
-			this.param.autocomplete);
+			this.param);
 	return newId;
 };
 
@@ -351,7 +393,7 @@ com.hiyoko.sweet.Battle.prototype.loadCurrentStatus = function() {
 			result.forEach(function(v, i){
 				var id = this.appendCharacter();
 				this.list[id].setValue(v);
-				if(v.isAdded) {
+				if(this.param.isTableExist && v.isAdded) {
 					if(characterNames.includes(v.name)) {
 						this.list[id].afterAdd();
 						this.nameList.append(id, v.name);
@@ -372,7 +414,7 @@ com.hiyoko.sweet.Battle.prototype.loadCurrentStatus = function() {
 };
 
 com.hiyoko.sweet.Battle.hasInitTable = (query) => {
-	const platform = query.platform;
+	const platform = query.platform || '';
 	return ['tof', 'DodontoF',　'とふ', 'どどんとふ'].includes(platform) || platform.endsWith('tof');
 };
 

@@ -9,8 +9,7 @@ com.hiyoko.sweet.Battle.BattleCharacter = function($html, opt_params) {
 	this.clazz = this.$html.attr('class');
 	this.parts = {};
 	this.nameList = false;
-	this.isTableExist = opt_params ? opt_params.isTableExist || false; 
-	
+	this.isTableExist = opt_params ? opt_params.isTableExist : false;
 	this.added = false;
 	this.isHide = false;
 
@@ -24,6 +23,8 @@ com.hiyoko.sweet.Battle.BattleCharacter = function($html, opt_params) {
 	this.vitalityRegistStaticButton = this.getElement('.' + this.clazz + '-vitality-static-exec');
 	this.mentalityRegistStaticButton = this.getElement('.' + this.clazz + '-mentality-static-exec');
 	this.addPartButton = this.getElement('.' + this.clazz + '-addPart');
+	this.shareInfoButton = this.getElement(`.${this.clazz}-share-status`);
+	this.toggleUnknown = this.getElement(`.${this.clazz}-hide-toggle`);
 
 	this.addToTof = this.getElement('.' + this.clazz + '-add-tof');
 	this.addToTofAsUnknown = this.getElement('.' + this.clazz + '-add-tof-unknown');
@@ -42,19 +43,31 @@ com.hiyoko.sweet.Battle.BattleCharacter = function($html, opt_params) {
 com.hiyoko.util.extend(com.hiyoko.component.ApplicationBase, com.hiyoko.sweet.Battle.BattleCharacter);
 
 com.hiyoko.sweet.Battle.BattleCharacter.prototype.render = function() {
-	this.$html.append(com.hiyoko.util.format(
-			'<button class="%s">保存</button><p>名前 <input placeholder="NO NAME?" value="" type="text" class="%s" />' +
-			'<button class="%s">コマ追加</button><button class="%s">コマ追加 (正体不明)</button></p>' + 
-			'<div>生命抵抗力<input type="number" value="0" class="%s" />' +
-			'<button class="%s">判定</button><button class="%s">判定(固定値)</button>' +
-			' 　/　精神抵抗力<input type="number" value="0" class="%s" />' +
-			'<button class="%s">判定</button><button class="%s">判定(固定値)</button></div>' +
-			'<button class="%s">部位追加</button><button class="%s">削除</button>',
-			this.clazz + '-save', this.clazz + '-name',
-			this.clazz + '-add-tof', this.clazz + '-add-tof-unknown',
-			this.clazz + '-vitality-val', this.clazz + '-vitality-exec', this.clazz + '-vitality-static-exec',
-			this.clazz + '-mentality-val', this.clazz + '-mentality-exec', this.clazz + '-mentality-static-exec',
-			this.clazz + '-addPart', this.clazz + '-remove'));
+	if(this.isTableExist) {
+		this.$html.append(com.hiyoko.util.format(
+				'<button class="%s">保存</button><p>名前 <input placeholder="NO NAME?" value="" type="text" class="%s" />' +
+				'<button class="%s">コマ追加</button><button class="%s">コマ追加 (正体不明)</button></p>' + 
+				'<div>生命抵抗力<input type="number" value="0" class="%s" />' +
+				'<button class="%s">判定</button><button class="%s">判定(固定値)</button>' +
+				' 　/　精神抵抗力<input type="number" value="0" class="%s" />' +
+				'<button class="%s">判定</button><button class="%s">判定(固定値)</button></div>' +
+				'<button class="%s">部位追加</button><button class="%s">削除</button>',
+				this.clazz + '-save', this.clazz + '-name',
+				this.clazz + '-add-tof', this.clazz + '-add-tof-unknown',
+				this.clazz + '-vitality-val', this.clazz + '-vitality-exec', this.clazz + '-vitality-static-exec',
+				this.clazz + '-mentality-val', this.clazz + '-mentality-exec', this.clazz + '-mentality-static-exec',
+				this.clazz + '-addPart', this.clazz + '-remove'));
+	} else {
+		this.$html.append(
+				`<button class="${this.clazz + '-save'}">保存</button><p>名前 <input placeholder="NO NAME?" value="" type="text" class="${this.clazz + '-name'}" />
+				<button class="${this.clazz + '-share-status'}">データ共有</button><button class="${this.clazz + '-hide-toggle'}">未知の敵として扱う</button></p>
+				<div>生命抵抗力<input type="number" value="0" class="${this.clazz + '-vitality-val'}" />
+				<button class="${this.clazz + '-vitality-exec'}">判定</button><button class="${this.clazz + '-vitality-static-exec'}">判定(固定値)</button>
+				 　/　精神抵抗力<input type="number" value="0" class="${this.clazz + '-mentality-val'}" />
+				<button class="${this.clazz + '-mentality-exec'}">判定</button><button class="${this.clazz + '-mentality-static-exec'}">判定(固定値)</button></div>
+				<button class="${this.clazz + '-addPart'}">部位追加</button><button class="${this.clazz + '-remove'}">削除</button>`);
+	}
+
 	var id = this.addPart();
 };
 
@@ -88,6 +101,8 @@ com.hiyoko.sweet.Battle.BattleCharacter.prototype.bindEvents = function() {
 			this.name.notify('名前が空欄です', 'error');
 			return;
 		}
+		this.isHide = false;
+		this.$html.removeClass(`${this.clazz}-unknown`);
 		var splitedId = this.id.split('-');
 		this.fireEvent(this.getAsyncEvent('appendCharacterRequest', {
 			value: this.getValue(), hide: false, id: splitedId.pop()
@@ -97,17 +112,34 @@ com.hiyoko.sweet.Battle.BattleCharacter.prototype.bindEvents = function() {
 	this.addToTofAsUnknown.click(function(e) {
 		var splitedId = this.id.split('-');
 		this.isHide = true;
+		this.$html.addClass(`${this.clazz}-unknown`);
 		this.name.val(com.hiyoko.util.rndString(3, 'UNKNOWN＃'));
 		this.fireEvent(this.getAsyncEvent('appendCharacterRequest', {
 			value: this.getValue(), hide: true, id: splitedId.pop()
 		}).done(function(r){this.afterAdd();}.bind(this)));
 	}.bind(this));
 
+	this.shareInfoButton.click((e)=>{
+		this.fireEvent({
+			type: 'sharingEnemyDataRequest',
+			id: this.id.split('-').pop()
+		});
+	});
+	this.toggleUnknown.click((e)=>{
+		this.isHide = ! this.isHide;
+		if(this.isHide) {
+			this.toggleUnknown.text('既知の敵として扱う');
+		} else {
+			this.toggleUnknown.text('未知の敵として扱う');
+		}
+		this.$html.toggleClass(`${this.clazz}-unknown`);
+	});
+
 	this.$html.change(function(e) {
 		if(! this.added) {
 			return;
 		}
-		
+
 		var splitedId = this.id.split('-');
 		if($(e.target).attr('class').endsWith('-name')) {
 			if(this.name.val() === '') {
@@ -205,6 +237,12 @@ com.hiyoko.sweet.Battle.BattleCharacter.prototype.setValue = function(result) {
 	}.bind(this));
 	
 	this.isHide = result.isHidden;
+	if(this.isHide) {
+		this.$html.addClass(`${this.clazz}-unknown`);
+	} else {
+		this.$html.removeClass(`${this.clazz}-unknown`);
+	}
+	
 	this.added = result.isAdded;
 };
 

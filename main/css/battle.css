@@ -69,8 +69,16 @@
 	width:803px;
 }
 
+.com-hiyoko-sweet-battle-character-unknown {
+	background-color:#FFF0F0;
+}
+
+#com-hiyoko-sweet-battle-counterRemoCon-open,
+#com-hiyoko-sweet-battle-sharingEnemiesData,
 .com-hiyoko-sweet-battle-character-add-tof,
 .com-hiyoko-sweet-battle-character-add-tof-unknown,
+.com-hiyoko-sweet-battle-character-share-status,
+.com-hiyoko-sweet-battle-character-hide-toggle,
 .com-hiyoko-sweet-battle-character-mentality-exec,
 .com-hiyoko-sweet-battle-character-vitality-exec,
 .com-hiyoko-sweet-battle-character-mentality-static-exec,
