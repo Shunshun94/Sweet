@@ -22,6 +22,13 @@ com.hiyoko.sweet.ResourceManage.ResourceTable.prototype.bindEvent = function() {
 	this.remocon.$html.on(com.hiyoko.sweet.ResourceManage.ResourceTableRemoCon.APPLY_EVENT, function(e){
 		this.hpmp.applyValue(e.arg);
 	}.bind(this));
+	this.getElementById('shareAsText').click((e) => {
+		var event = {type: 'tofRoomRequest', resolve:function(){}, reject:function(){}};
+		const value = this.hpmp.getValue();
+		event.args = [{name: this.data.name, message: `HP:${value.HP}/${this.data.mhp}　MP:${value.MP}/${this.data.mmp}`}];
+		event.method = 'sendChat';
+		this.fireEvent(event);
+	});
 }
 
 com.hiyoko.sweet.ResourceManage.ResourceTable.HPMP = function($html, data) {

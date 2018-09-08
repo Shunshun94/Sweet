@@ -1,10 +1,11 @@
 var com = com || {};
 com.hiyoko = com.hiyoko || {};
 com.hiyoko.sweet = com.hiyoko.sweet || {};
-com.hiyoko.sweet.ResourceManage = function($html, character) {
+com.hiyoko.sweet.ResourceManage = function($html, character, query = {}) {
 	this.$html = $html;
 	this.id = this.$html.attr('id');
 	this.character = character;
+	this.isTableExist = com.hiyoko.sweet.ResourceManage.hasInitTable(query);
 	this.initialize();
 };
 com.hiyoko.sweet.ResourceManage.SIGNATURE = 'By PCSweet';
@@ -13,19 +14,26 @@ com.hiyoko.util.extend(com.hiyoko.component.ApplicationBase, com.hiyoko.sweet.Re
 
 com.hiyoko.sweet.ResourceManage.prototype.initialize = function() {
 	this.$html.show();
-	this.getCharacters(function(list) {
-		if(list.length === 0) {
-			this.getElementById('append').show();
-		} else {
-			this.getElementById('resources').show();
-			var data = list[0].counters;
-			
-			this.character.hp = data.HP || data.hp;
-			this.character.mp = data.MP || data.mp;
-		}
+	
+	if(this.isTableExist) {
+		this.getCharacters(function(list) {
+			if(list.length === 0) {
+				this.getElementById('append').show();
+			} else {
+				this.getElementById('resources').show();
+				var data = list[0].counters;
+				
+				this.character.hp = data.HP || data.hp;
+				this.character.mp = data.MP || data.mp;
+			}
+			this.bindEvents();
+			this.buildComponents();
+		}.bind(this));
+	} else {
+		this.getElementById('resources').show();
 		this.bindEvents();
 		this.buildComponents();
-	}.bind(this));
+	}
 };
 
 com.hiyoko.sweet.ResourceManage.prototype.buildComponents = function() {
@@ -36,14 +44,15 @@ com.hiyoko.sweet.ResourceManage.prototype.bindEvents = function() {
 	this.getElementById('toggle').click(function(e) {
 		this.getElementById('base').toggle(400);
 	}.bind(this));
-	
+
 	this.getElementById('append').click(function(e) {
 		this.putCharacter(e);
 		this.getElementById('resources').show();
 		this.getElementById('append').hide();
 	}.bind(this));
-	
-	this.$html.on(com.hiyoko.sweet.ResourceManage.ResourceTable.HPMP.UPDATE_EVENT, this.updateCharacter.bind(this));
+	if(this.isTableExist) {
+		this.$html.on(com.hiyoko.sweet.ResourceManage.ResourceTable.HPMP.UPDATE_EVENT, this.updateCharacter.bind(this));
+	}
 };
 
 com.hiyoko.sweet.ResourceManage.prototype.getCharacters = function(callback) {
@@ -85,3 +94,7 @@ com.hiyoko.sweet.ResourceManage.prototype.putCharacter = function(e) {
 	this.fireEvent(event);
 };
 
+com.hiyoko.sweet.ResourceManage.hasInitTable = (query) => {
+	const platform = query.platform || '';
+	return ['tof', 'DodontoF',　'とふ', 'どどんとふ'].includes(platform) || platform.endsWith('tof');
+};
