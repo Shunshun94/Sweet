@@ -2,12 +2,12 @@ var com = com || {};
 com.hiyoko = com.hiyoko || {};
 com.hiyoko.sweet = com.hiyoko.sweet || {};
 
-com.hiyoko.sweet.Battle = function($html, opt_params) {
+com.hiyoko.sweet.Battle = function($html, opt_params = {}) {
 	this.$html = $($html);
 	this.LIST_NAME = 'SWEET Battle - 戦闘';
 	this.id = this.$html.attr('id');
 	this.list = {};
-	
+	this.param = opt_params;
 	this.nameList = new com.hiyoko.sweet.Battle.NameIndex();
 	this.tofLoader = new com.hiyoko.sweet.Battle.TofLoader(this.$html);
 	
@@ -313,8 +313,9 @@ com.hiyoko.sweet.Battle.prototype.appendCharacter = function() {
 	this.$characters.append(com.hiyoko.util.format('<div class="%s" id="%s"></div>',
 			this.id + '-character',
 			this.id + '-character-' + newId));
+	this.param.autocomplete = this.datalist.attr('id');
 	this.list[newId] = new com.hiyoko.sweet.Battle.BattleCharacter(this.getElementById('character-' + newId),
-			{autocomplete:this.datalist.attr('id')});
+			this.param.autocomplete);
 	return newId;
 };
 
@@ -370,6 +371,11 @@ com.hiyoko.sweet.Battle.prototype.loadCurrentStatus = function() {
 	
 };
 
+com.hiyoko.sweet.Battle.hasInitTable = (query) => {
+	const platform = query.platform;
+	return ['tof', 'DodontoF',　'とふ', 'どどんとふ'].includes(platform) || platform.endsWith('tof');
+};
+
 com.hiyoko.sweet.Battle.NameIndex = function() {
 	this.enemyNameIdList = {};
 	this.enemyIdNameList = {};
@@ -408,5 +414,3 @@ com.hiyoko.sweet.Battle.NameIndex.prototype.append = function(id, _name) {
 	}
 	return name;
 };
-
-

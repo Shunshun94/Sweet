@@ -9,6 +9,7 @@ com.hiyoko.sweet.Battle.BattleCharacter = function($html, opt_params) {
 	this.clazz = this.$html.attr('class');
 	this.parts = {};
 	this.nameList = false;
+	this.isTableExist = opt_params ? opt_params.isTableExist || false; 
 	
 	this.added = false;
 	this.isHide = false;
