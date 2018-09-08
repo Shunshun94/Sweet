@@ -73,6 +73,24 @@
 	background-color:#FFF0F0;
 }
 
+.com-hiyoko-sweet-battle-character > p {
+	margin-top: 12px;
+	margin-bottom: 4px;
+}
+
+.com-hiyoko-sweet-battle-character-toggle {
+	border: lightyellow 2px solid;
+	font-size: 70%;
+	vertical-align:middle;
+	height: 14px;
+	text-align:center;
+	font-weight:bold;
+	background-color:lemonchiffon;
+	position:absolute;
+	left:0px;
+	top:0px;
+}
+
 #com-hiyoko-sweet-battle-counterRemoCon-open,
 #com-hiyoko-sweet-battle-sharingEnemiesData,
 .com-hiyoko-sweet-battle-character-add-tof,
@@ -93,7 +111,7 @@
 
 .com-hiyoko-sweet-battle-character-save {
 	position:absolute;
-	top:0px;
+	top:16px;
 	right:4px;
 	border: coral 3px outset;
 	background-color:tomato;
@@ -101,15 +119,7 @@
 
 .com-hiyoko-sweet-battle-character-addPart {
 	position:absolute;
-	top:32px;
-	right:4px;
-	border: coral 3px outset;
-	background-color:tomato;
-}
-
-.com-hiyoko-sweet-battle-character-remove {
-	position:absolute;
-	top:64px;
+	top:48px;
 	right:4px;
 	border: coral 3px outset;
 	background-color:tomato;
@@ -122,14 +132,6 @@
 	margin-top:4px;
 	background-color:#E0E0E0;
 	position:relative;
-}
-
-.com-hiyoko-sweet-battle-character-part-delete {
-	position:absolute;
-	top:0px;
-	right:4px;
-	border: coral 3px outset;
-	background-color:tomato;
 }
 
 .com-hiyoko-sweet-battle-character-part-addAttackWay {
@@ -191,6 +193,8 @@
 	margin-left:2px;
 }
 
+.com-hiyoko-sweet-battle-character-remove,
+.com-hiyoko-sweet-battle-character-part-delete,
 .com-hiyoko-sweet-battle-character-part-attackway-del {
 	border: coral 2px solid;
 	font-size: 70%;
