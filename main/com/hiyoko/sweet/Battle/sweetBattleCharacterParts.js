@@ -61,7 +61,7 @@ com.hiyoko.sweet.Battle.BattleCharacter.prototype.render = function() {
 	} else {
 		this.$html.append(
 				`<span class="${this.clazz + '-toggle'}">開閉</span><button class="${this.clazz + '-save'}">保存</button><p>名前 <input placeholder="NO NAME?" value="" type="text" class="${this.clazz + '-name'}" />
-				<button class="${this.clazz + '-share-status'}">データ共有</button><button class="${this.clazz + '-hide-toggle'}">未知の敵として扱う</button></p>
+				<button class="${this.clazz + '-share-status'}">データをテキストで共有</button><button class="${this.clazz + '-hide-toggle'}">未知の敵として扱う</button></p>
 				<div>生命抵抗力<input type="number" value="0" class="${this.clazz + '-vitality-val'}" />
 				<button class="${this.clazz + '-vitality-exec'}">判定</button><button class="${this.clazz + '-vitality-static-exec'}">判定(固定値)</button>
 				 　/　精神抵抗力<input type="number" value="0" class="${this.clazz + '-mentality-val'}" />
