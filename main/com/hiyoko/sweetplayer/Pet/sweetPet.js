@@ -2,13 +2,14 @@ var com = com || {};
 com.hiyoko = com.hiyoko || {};
 com.hiyoko.sweet = com.hiyoko.sweet || {};
 
-com.hiyoko.sweet.Pet = function($html, character) {
+com.hiyoko.sweet.Pet = function($html, character, option={}) {
 	this.$html = $html;
 	this.id = this.$html.attr('id');
 	this.masterName = character.name;
 	this.ownerId = character.id;
 	this.petCharacter = character.pets.character;
 	this.petParts = character.pets.parts;
+	this.isTableExist = com.hiyoko.sweet.Pet.hasInitTable(option);
 	this.pets = {};
 	this.LIST_NAME = '騎獣など';
 	this.buildComponents();
@@ -114,19 +115,25 @@ com.hiyoko.sweet.Pet.prototype.appendCharacter = function() {
 	var newId = com.hiyoko.util.rndString(8);
 	var character = this.petCharacter[this.getElementById('characterList').val()];
 	var render = com.hiyoko.sweet.Pet.Character.render.bind(this);
-	this.getElementById('characters').append(render(newId));
+	this.getElementById('characters').append(render(newId, this.isTableExist));
 	var index = 2;
-	var baseName = this.masterName + '_' + this.getElementById('characterList').find(':selected').text();
+	const connector = this.isTableExist ? '_' : ' ';
+	var baseName = this.masterName + connector + this.getElementById('characterList').find(':selected').text();
 	character.name = baseName;
 	
 	for(var key in this.pets) {
 		if(this.pets[key].getName() === character.name) {
-			character.name = baseName + '_' + index;
+			character.name = baseName + connector + index;
 		}
 		index++;
 	}
 
-	this.pets[newId] = new com.hiyoko.sweet.Pet.Character(this.getElementById('character-' + newId), character, this.petParts);
+	this.pets[newId] = new com.hiyoko.sweet.Pet.Character(this.getElementById('character-' + newId), character, this.petParts, this.isTableExist);
 };
 
 com.hiyoko.sweet.Pet.SIGNATURE = 'By PCSweet Pets';
+
+com.hiyoko.sweet.Pet.hasInitTable = (query) => {
+	const platform = query.platform || '';
+	return ['tof', 'DodontoF',　'とふ', 'どどんとふ'].includes(platform) || platform.endsWith('tof');
+};

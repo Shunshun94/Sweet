@@ -45,7 +45,7 @@ com.hiyoko.sweet.Player.prototype.buildComponents = function() {
 				this.components = com.hiyoko.util.mergeArray(
 						com.hiyoko.sweet.Player.Children.components,
 						com.hiyoko.sweet.Player.Children.domIds, function(component, dom) {
-							var newComponent = new component(this.getElementById(dom), this.character);
+							var newComponent = new component(this.getElementById(dom), this.character, this.query);
 							newComponent.disable();
 							return newComponent;
 						}.bind(this));
