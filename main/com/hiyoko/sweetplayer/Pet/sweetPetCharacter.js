@@ -3,13 +3,14 @@ com.hiyoko = com.hiyoko || {};
 com.hiyoko.sweet = com.hiyoko.sweet || {};
 com.hiyoko.sweet.Pet || com.hiyoko.sweet.Pet || {};
 
-com.hiyoko.sweet.Pet.Character = function($html, data, partsCandidates) {
+com.hiyoko.sweet.Pet.Character = function($html, data, partsCandidates, hasTable) {
 	this.$html = $html;
 	this.id = this.$html.attr('id');
 	this.clazz = this.$html.attr('class');
-	
+
 	this.data = data;
 	this.partsCandidates = partsCandidates;
+	this.hasTable = hasTable;
 	this.parts = {};
 	
 	this.getCharacters(this.initialize.bind(this));
@@ -45,8 +46,8 @@ com.hiyoko.sweet.Pet.Character.prototype.tofCharacterToPetParts = function(tofDa
 
 com.hiyoko.sweet.Pet.Character.prototype.buildPartsList = function(list) {
 	list.map(this.tofCharacterToPetParts.bind(this)).forEach(function(v){
-		var part = this.addPartGenerateHtml();
-		part.setValue(v);
+		var id = this.addPartGenerateHtml();
+		this.parts[id].setValue(v);
 		this.data.mentality = v.mentality;
 		this.data.vitality = v.vitality;
 	}.bind(this));
@@ -56,11 +57,15 @@ com.hiyoko.sweet.Pet.Character.prototype.buildPartsList = function(list) {
 };
 
 com.hiyoko.sweet.Pet.Character.prototype.getCharacters = function(callback) {
-	var event = this.getAsyncEvent('tofRoomRequest').done(function(r) {
-		callback(r.characters.filter(function(c) {return (c.name || '').startsWith(this.data.name)}.bind(this)));
-	}.bind(this));
-	event.method = 'getCharacters';
-	this.fireEvent(event);
+	if(this.hasTable) {
+		var event = this.getAsyncEvent('tofRoomRequest').done(function(r) {
+			callback(r.characters.filter(function(c) {return (c.name || '').startsWith(this.data.name)}.bind(this)));
+		}.bind(this));
+		event.method = 'getCharacters';
+		this.fireEvent(event);
+	} else {
+		callback([]);
+	}
 };
 
 com.hiyoko.sweet.Pet.Character.prototype.buildComponents = function() {
@@ -111,11 +116,32 @@ com.hiyoko.sweet.Pet.Character.prototype.bindEvents = function() {
 	this.getElementById('appendParts').click(this.addPart.bind(this));
 	this.getElementById('physical').click(this.physicalCheck.bind(this));
 	this.getElementById('mental').click(this.mentalCheck.bind(this));
-	this.getElementById('append').click(this.appendCharacterToTof.bind(this));
-	this.$html.change(this.updateHpMp.bind(this));
-	
+	this.getElementById('shareData').click(this.shareData.bind(this));
+	if(this.hasTable) {
+		this.getElementById('append').click(this.appendCharacterToTof.bind(this));
+		this.$html.change(this.updateHpMp.bind(this));		
+	}
+	this.$html.on('shareData', this.shareData.bind(this));
 	this.$html.on('executeRequestFromPart', this.rethrowEventFromParts.bind(this));
 	this.$html.on('removePart', this.removePart.bind(this));
+};
+
+com.hiyoko.sweet.Pet.Character.prototype.shareData = function(e) {
+	var parts = [];
+	com.hiyoko.util.forEachMap(this.parts, function(v){
+		parts.push(v.getValue());
+	});
+	let text = `\n **${this.data.name}** \n`;
+	if(parts.length === 1) {
+		text += `　HP:${parts[0].hp}　MP:${parts[0].mp}`;
+	} else {
+		text += parts.map((p)=>{return `　${p.name}　HP:${p.hp}　MP:${p.mp}`}).join('\n')
+	}
+	var event = {type: 'tofRoomRequest', resolve:function(){}, reject:function(){}};
+	event.args = [{name: this.data.name, message: text}];
+	event.method = 'sendChat';
+	
+	this.fireEvent(event);
 };
 
 com.hiyoko.sweet.Pet.Character.prototype.appendCharacterToTof = function(e) {
@@ -145,7 +171,7 @@ com.hiyoko.sweet.Pet.Character.prototype.addPartGenerateHtml = function() {
 	var $part = $(com.hiyoko.util.format('<div class="%s" id="%s"></tr>', this.clazz + '-part', this.id + '-' + newId));
 	this.$html.append($part);
 	this.parts[newId] = new com.hiyoko.sweet.Battle.BattleCharacter.Part(this.getElementById(newId));
-	return this.parts[newId];
+	return newId;
 };
 
 com.hiyoko.sweet.Pet.Character.prototype.addPart = function() {
@@ -159,9 +185,8 @@ com.hiyoko.sweet.Pet.Character.prototype.addPart = function() {
 		}
 	}
 
-	var part = this.addPartGenerateHtml();
-
-	part.setValue(data);
+	var newId = this.addPartGenerateHtml();
+	this.parts[newId].setValue(data);
 	this.data.mentality = data.mentality;
 	this.data.vitality = data.vitality;
 	this.getElementById('physical').show();
@@ -170,15 +195,17 @@ com.hiyoko.sweet.Pet.Character.prototype.addPart = function() {
 	return newId;
 }
 
-com.hiyoko.sweet.Pet.Character.render = function(idNo) {
+com.hiyoko.sweet.Pet.Character.render = function(idNo, isTableExist) {
 	var $base = $('<div></div>')
 	var id = this.id + '-character-' + idNo;
 	var clazz = this.id + '-character';
 	
 	$base.addClass(clazz);
 	$base.attr('id', id);
-	
-	$base.append(com.hiyoko.util.format('<button class="%s" id="%s">コマ追加</button>', clazz + '-append', id + '-append'));
+	if(isTableExist) {
+		$base.append(com.hiyoko.util.format('<button class="%s" id="%s">コマ追加</button>', clazz + '-append', id + '-append'));
+	}
+	$base.append(com.hiyoko.util.format('<button class="%s" id="%s">チャットで状態を共有</button>', clazz + '-shareData', id + '-shareData'));
 	$base.append(com.hiyoko.util.format('<p>名前： <span class="%s" id="%s"></span></p>', clazz + '-name', id + '-name'));
 	
 	$base.append(com.hiyoko.util.format('<select class="%s" id="%s"></select>', clazz + '-partsCandidates', id + '-partsCandidates'));
