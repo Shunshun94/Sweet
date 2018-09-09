@@ -26,7 +26,7 @@ com.hiyoko.sweet.Battle.BattleCharacter = function($html, opt_params) {
 	this.shareInfoButton = this.getElement(`.${this.clazz}-share-status`);
 	this.toggleUnknown = this.getElement(`.${this.clazz}-hide-toggle`);
 	this.toggleData = this.getElement(`.${this.clazz}-toggle`);
-
+	this.callOption = this.getElement(`.${this.clazz}-options`);
 	this.addToTof = this.getElement('.' + this.clazz + '-add-tof');
 	this.addToTofAsUnknown = this.getElement('.' + this.clazz + '-add-tof-unknown');
 	
@@ -47,7 +47,8 @@ com.hiyoko.sweet.Battle.BattleCharacter.prototype.render = function() {
 	if(this.isTableExist) {
 		this.$html.append(com.hiyoko.util.format(
 				'<span class="%s">開閉</span><button class="%s">保存</button><p>名前 <input placeholder="NO NAME?" value="" type="text" class="%s" />' +
-				'<button class="%s">コマ追加</button><button class="%s">コマ追加 (正体不明)</button></p>' + 
+				'<button class="%s">コマ追加</button><button class="%s">コマ追加 (正体不明)</button>' +
+				'<button class="%s">バフ・デバフ設定</button></p>' +
 				'<div>生命抵抗力<input type="number" value="0" class="%s" />' +
 				'<button class="%s">判定</button><button class="%s">判定(固定値)</button>' +
 				' 　/　精神抵抗力<input type="number" value="0" class="%s" />' +
@@ -55,13 +56,15 @@ com.hiyoko.sweet.Battle.BattleCharacter.prototype.render = function() {
 				'<button class="%s">部位追加</button><span class="%s">×</span>',
 				this.clazz + '-toggle', this.clazz + '-save', this.clazz + '-name',
 				this.clazz + '-add-tof', this.clazz + '-add-tof-unknown',
+				this.clazz + '-options',
 				this.clazz + '-vitality-val', this.clazz + '-vitality-exec', this.clazz + '-vitality-static-exec',
 				this.clazz + '-mentality-val', this.clazz + '-mentality-exec', this.clazz + '-mentality-static-exec',
 				this.clazz + '-addPart', this.clazz + '-remove'));
 	} else {
 		this.$html.append(
 				`<span class="${this.clazz + '-toggle'}">開閉</span><button class="${this.clazz + '-save'}">保存</button><p>名前 <input placeholder="NO NAME?" value="" type="text" class="${this.clazz + '-name'}" />
-				<button class="${this.clazz + '-share-status'}">データをテキストで共有</button><button class="${this.clazz + '-hide-toggle'}">未知の敵として扱う</button></p>
+				<button class="${this.clazz + '-share-status'}">データをテキストで共有</button><button class="${this.clazz + '-hide-toggle'}">未知の敵として扱う</button>
+				<button class="${this.clazz + '-options'}">バフ・デバフ設定</button></p>
 				<div>生命抵抗力<input type="number" value="0" class="${this.clazz + '-vitality-val'}" />
 				<button class="${this.clazz + '-vitality-exec'}">判定</button><button class="${this.clazz + '-vitality-static-exec'}">判定(固定値)</button>
 				 　/　精神抵抗力<input type="number" value="0" class="${this.clazz + '-mentality-val'}" />
@@ -135,7 +138,12 @@ com.hiyoko.sweet.Battle.BattleCharacter.prototype.bindEvents = function() {
 		}
 		this.$html.toggleClass(`${this.clazz}-unknown`);
 	});
-
+	this.callOption.click((e) => {
+		this.fireEvent({
+			type: 'callCharacterOption',
+			id: this.id.split('-').pop()
+		});
+	});
 	this.toggleData.click((e) => {
 		this.getElement('div').toggle(500);
 		this.getElement('button').toggle(500);

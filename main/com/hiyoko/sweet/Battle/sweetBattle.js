@@ -31,7 +31,8 @@ com.hiyoko.sweet.Battle.prototype.buildComponents = function() {
 	this.optionalValues = new com.hiyoko.sweet.Battle.OptionalValues(this.getElementById('optionalValues'));
 	this.counterRemoCon = new com.hiyoko.sweet.Battle.CounterRemoCon(this.getElementById('counterRemoCon'));
 	this.storagedList = new com.hiyoko.sweet.Battle.CharacterLister(this.getElementById('strogaedList'));
-	this.nameSelector = new com.hiyoko.sweet.PlayerBattle.NameSelector(this.getElementById('nameSelector'))
+	this.nameSelector = new com.hiyoko.sweet.PlayerBattle.NameSelector(this.getElementById('nameSelector'));
+	this.characterOptionalValues = new com.hiyoko.sweet.Battle.CharacterOptionalValues(this.getElementById('characterOptionValues'));
 	this.appendCharacter();
 };
 
@@ -69,6 +70,14 @@ com.hiyoko.sweet.Battle.prototype.roleDice = function(e) {
 	event.method = 'sendChat';
 	this.fireEvent(event);
 	$(e.target).notify('ダイスコマンドを送信しました' + text, {className: 'info', position: 'top'});
+};
+
+com.hiyoko.sweet.Battle.prototype.callCharacterOption = function(e) {
+	this.characterOptionalValues.enable();
+	this.characterOptionalValues.insertData(
+		this.list[e.id].getValue(),
+		this.optionalValues.getValueList()
+	);
 };
 
 com.hiyoko.sweet.Battle.prototype.putCharacter = function(e) {
@@ -200,9 +209,9 @@ com.hiyoko.sweet.Battle.prototype.bindEvents = function() {
 	this.$html.on('executeRequest', this.roleDice.bind(this));
 	this.$html.on('appendCharacterRequest', this.putCharacter.bind(this));
 	this.$html.on('sharingEnemyDataRequest', this.shareEnemyData.bind(this))
-	this.$html.on('isDamageEach', (e) => {
-		e.resolve(this.isDamageEach());
-	});
+	this.$html.on('isDamageEach', (e) => {e.resolve(this.isDamageEach());});
+	this.$html.on('getOptionalValueList', (e)=>{e.resolve(this.optionalValues.getValueList())});
+	this.$html.on('callCharacterOption', (e)=>{this.callCharacterOption(e);});
 	this.$html.on('updateCharacterRequest', function(e) {
 		var event = this.getAsyncEvent('tofRoomRequest').done(function(r){
 			$(e.target).notify('情報が更新されました', {className: 'success', position: 'top'});
@@ -211,9 +220,7 @@ com.hiyoko.sweet.Battle.prototype.bindEvents = function() {
 			alert('情報の更新に失敗しました\n' + r.result);
 			e.reject ? e.reject(r) : false;
 		});
-
 		event.method = 'updateCharacter';
-		
 		e.value.parts.forEach(function(p){
 			if(e.hide) {
 				event.args = [{

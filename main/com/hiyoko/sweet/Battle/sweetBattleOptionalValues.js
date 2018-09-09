@@ -29,6 +29,10 @@ com.hiyoko.sweet.Battle.OptionalValues.prototype.bindEvent = function(){
 	}.bind(this));
 };
 
+com.hiyoko.sweet.Battle.OptionalValues.prototype.getValueList = function() {
+	return this.table.getTableValue();
+};
+
 com.hiyoko.sweet.Battle.OptionalValues.prototype.getOptionalValue = function(col) {
 	return this.table.getOptionalValue(col);
 };
