@@ -10,7 +10,7 @@ com.hiyoko.sweet.Invite = class extends com.hiyoko.component.ApplicationBase {
 	
 	buildComponents() {
 		this.$html.append(`<h2>PL 用ツールの URL</h2>`);
-		this.$html.append(`<p> <code>${location.origin}/player.html${location.search}&sheetId=[キャラクターシートのID]</code></p>`);
-		this.$html.append(`<p>例： <code>${location.origin}/player.html${location.search}&sheetId=116063</code></p>`)
+		this.$html.append(`<p> <code>${location.origin}${location.pathname.replace('index.html', '')}player.html${location.search}&sheetId=[キャラクターシートのID]</code></p>`);
+		this.$html.append(`<p>例： <code>${location.origin}${location.pathname.replace('index.html', '')}player.html${location.search}&sheetId=116063</code></p>`)
 	}
 };
