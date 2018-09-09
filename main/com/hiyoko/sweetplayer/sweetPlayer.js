@@ -45,11 +45,11 @@ com.hiyoko.sweet.Player.prototype.buildComponents = function() {
 				this.components = com.hiyoko.util.mergeArray(
 						com.hiyoko.sweet.Player.Children.components,
 						com.hiyoko.sweet.Player.Children.domIds, function(component, dom) {
-							var newComponent = new component(this.getElementById(dom), this.character);
+							var newComponent = new component(this.getElementById(dom), this.character, this.query);
 							newComponent.disable();
 							return newComponent;
 						}.bind(this));
-				this.resources = new com.hiyoko.sweet.ResourceManage(this.getElementById('resourceManage'), this.character);
+				this.resources = new com.hiyoko.sweet.ResourceManage(this.getElementById('resourceManage'), this.character, this.query);
 				this.talk = new com.hiyoko.sweet.Talk(this.getElementById('talk'), this.character);
 				this.list = new com.hiyoko.sweet.AppList(this.getElementById('list'), this.components);
 				this.selectBot = new com.hiyoko.sweet.SelectBot(this.getElementById('selectBot'));

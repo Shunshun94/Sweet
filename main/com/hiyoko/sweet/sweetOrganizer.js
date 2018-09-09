@@ -77,7 +77,7 @@ com.hiyoko.sweet.Organizer.prototype.buildApplications = function(platform){
 	this.applications = com.hiyoko.util.mergeArray(
 			com.hiyoko.sweet.Organizer.APPLICATION_LIST,
 			$apps, 
-			function(app, dom){return new app(dom);});
+			(app, dom)=>{return new app(dom, this.query);});
 	this.list = new com.hiyoko.sweet.AppList(this.getElement('#com-hiyoko-sweet-menu'), this.applications, platform);
 	if(platform) {
 		this.responseChat = new com.hiyoko.sweet.ResponseChat(this.getElementById('responseChatBase'), {
