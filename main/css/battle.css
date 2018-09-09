@@ -331,3 +331,27 @@
 	position:fixed;
 	display:none;
 }
+
+.com-hiyoko-sweet-battle-optionalValues-table-header-0,
+.com-hiyoko-sweet-battle-optionalValues-table-member-0 {
+	display: none;
+}
+
+.com-hiyoko-sweet-battle-optionalValues-table-header-2,
+.com-hiyoko-sweet-battle-optionalValues-table-header-4,
+.com-hiyoko-sweet-battle-optionalValues-table-header-7,
+.com-hiyoko-sweet-battle-optionalValues-table-member-2,
+.com-hiyoko-sweet-battle-optionalValues-table-member-4,
+.com-hiyoko-sweet-battle-optionalValues-table-member-7 {
+	width: 50px;
+}
+
+
+.com-hiyoko-sweet-battle-optionalValues-table-header-3,
+.com-hiyoko-sweet-battle-optionalValues-table-header-5,
+.com-hiyoko-sweet-battle-optionalValues-table-header-6,
+.com-hiyoko-sweet-battle-optionalValues-table-member-3,
+.com-hiyoko-sweet-battle-optionalValues-table-member-5,
+.com-hiyoko-sweet-battle-optionalValues-table-member-6 {
+	width: 80px;
+}
