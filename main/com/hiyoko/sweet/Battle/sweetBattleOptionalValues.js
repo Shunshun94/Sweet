@@ -42,9 +42,9 @@ com.hiyoko.sweet.Battle.OptionalValues.COLS = {HIT:2, ATK:3, DODGE:4, VITALITY:5
 com.hiyoko.sweet.Battle.OptionalValues.Table = function($html, cols) {
 	this.$html = $($html);
 	this.id = this.$html.attr('id');
-
+	this.unsortable = true;
 	this.renderTable(cols);
-	
+
 	this.bindEvent();
 };
 

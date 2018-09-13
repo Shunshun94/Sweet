@@ -194,7 +194,19 @@
 	margin-left:2px;
 }
 
-.com-hiyoko-sweet-battle-character-remove,
+.com-hiyoko-sweet-battle-character-remove {
+	border: coral 2px solid;
+	font-size: 70%;
+	vertical-align:middle;
+	height: 14px;
+	text-align:center;
+	font-weight:bold;
+	background-color:tomato;
+	position:absolute;
+	right:0px;
+	top:0px;
+}
+
 .com-hiyoko-sweet-battle-character-part-delete,
 .com-hiyoko-sweet-battle-character-part-attackway-del {
 	border: coral 2px solid;
@@ -379,9 +391,25 @@
 	margin:auto;
 	position:relative;
 	max-width: 90%;
-	max-height:90%;
+	max-height:70%;
 	z-index:9;
 	background-color:white;
 	padding:8px;
 	overflow: scroll;
 }
+
+.com-hiyoko-sweet-battle-characterOptionValues-body-table-header-partsName,
+.com-hiyoko-sweet-battle-characterOptionValues-body-table-member-col
+ {
+	background-color: #E0E0FF
+}
+.com-hiyoko-sweet-battle-characterOptionValues-body-table-header-characterName,
+.com-hiyoko-sweet-battle-characterOptionValues-body-table-member-col-all {
+	background-color: #C0C0FF
+}
+
+.com-hiyoko-sweet-battle-characterOptionValues-body-table-header-empty,
+.com-hiyoko-sweet-battle-characterOptionValues-body-table-member-title {
+	background-color:#F0F0F0;
+}
+

@@ -53,7 +53,7 @@ com.hiyoko.sweet.Battle.BattleCharacter.prototype.render = function() {
 				'<button class="%s">判定</button><button class="%s">判定(固定値)</button>' +
 				' 　/　精神抵抗力<input type="number" value="0" class="%s" />' +
 				'<button class="%s">判定</button><button class="%s">判定(固定値)</button></div>' +
-				'<button class="%s">部位追加</button><span class="%s">×</span>',
+				'<button class="%s">部位追加</button><span class="%s">キャラクターを削除する</span>',
 				this.clazz + '-toggle', this.clazz + '-save', this.clazz + '-name',
 				this.clazz + '-add-tof', this.clazz + '-add-tof-unknown',
 				this.clazz + '-options',
@@ -69,7 +69,7 @@ com.hiyoko.sweet.Battle.BattleCharacter.prototype.render = function() {
 				<button class="${this.clazz + '-vitality-exec'}">判定</button><button class="${this.clazz + '-vitality-static-exec'}">判定(固定値)</button>
 				 　/　精神抵抗力<input type="number" value="0" class="${this.clazz + '-mentality-val'}" />
 				<button class="${this.clazz + '-mentality-exec'}">判定</button><button class="${this.clazz + '-mentality-static-exec'}">判定(固定値)</button></div>
-				<button class="${this.clazz + '-addPart'}">部位追加</button><span class="${this.clazz + '-remove'}">×</span>`);
+				<button class="${this.clazz + '-addPart'}">部位追加</button><span class="${this.clazz + '-remove'}">キャラクターを削除する</span>`);
 	}
 
 	var id = this.addPart();
@@ -141,7 +141,8 @@ com.hiyoko.sweet.Battle.BattleCharacter.prototype.bindEvents = function() {
 	this.callOption.click((e) => {
 		this.fireEvent({
 			type: 'callCharacterOption',
-			id: this.id.split('-').pop()
+			id: this.id.split('-').pop(),
+			callback: console.log
 		});
 	});
 	this.toggleData.click((e) => {

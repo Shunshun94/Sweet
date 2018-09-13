@@ -73,11 +73,11 @@ com.hiyoko.sweet.Battle.prototype.roleDice = function(e) {
 };
 
 com.hiyoko.sweet.Battle.prototype.callCharacterOption = function(e) {
-	this.characterOptionalValues.enable();
 	this.characterOptionalValues.insertData(
 		this.list[e.id].getValue(),
-		this.optionalValues.getValueList()
+		this.optionalValues.getValueList(0, e.callback)
 	);
+	this.characterOptionalValues.enable();
 };
 
 com.hiyoko.sweet.Battle.prototype.putCharacter = function(e) {
