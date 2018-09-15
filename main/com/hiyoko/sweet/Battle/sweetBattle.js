@@ -31,7 +31,8 @@ com.hiyoko.sweet.Battle.prototype.buildComponents = function() {
 	this.optionalValues = new com.hiyoko.sweet.Battle.OptionalValues(this.getElementById('optionalValues'));
 	this.counterRemoCon = new com.hiyoko.sweet.Battle.CounterRemoCon(this.getElementById('counterRemoCon'));
 	this.storagedList = new com.hiyoko.sweet.Battle.CharacterLister(this.getElementById('strogaedList'));
-	this.nameSelector = new com.hiyoko.sweet.PlayerBattle.NameSelector(this.getElementById('nameSelector'))
+	this.nameSelector = new com.hiyoko.sweet.PlayerBattle.NameSelector(this.getElementById('nameSelector'));
+	this.characterOptionalValues = new com.hiyoko.sweet.Battle.CharacterOptionalValues(this.getElementById('characterOptionValues'));
 	this.appendCharacter();
 };
 
@@ -51,8 +52,43 @@ com.hiyoko.sweet.Battle.prototype.isDamageEach = function(e) {
 	return this.getElementById('isDamageEach > input').prop('checked');
 };
 
+com.hiyoko.sweet.Battle.prototype.joinOptions = function(optionList, opt_col){
+	var table = this.optionalValues.getValueList();
+	var adjustedValue = 0;
+	var text = [];
+	var detail = '';
+
+	var col = opt_col || 3;
+	
+	table.filter((v, i)=> {
+		return optionList.includes(i);
+	}).forEach(function(l) {
+		text.push(l[1]);
+		const val = Number(l[col]);
+		adjustedValue += val;
+		if(val < 0) {
+			detail += '\n　' + l[1] + '　' + Number(l[col]);
+		} else {
+			detail += '\n　' + l[1] + '　+' + Number(l[col]);
+		}
+	});
+
+	if(opt_col) {
+		return {
+			value: (adjustedValue < 0 ? String(adjustedValue) : '+' + adjustedValue),
+			text: text.join(', '),
+			detail: detail
+		};
+	} else {
+		return text.join(',');
+	}
+}
+
 com.hiyoko.sweet.Battle.prototype.roleDice = function(e) {
-	var option = this.optionalValues.getOptionalValue(e.col);
+	const cols = e.col;
+	const options = e.options;
+	const option = this.joinOptions(options, cols);
+	
 	var event = this.getAsyncEvent('tofRoomRequest').done(function(r){
 		$(e.target).notify('ダイスが振られました', {className: 'success', position: 'top'});
 	}.bind(this)).fail(function(r){
@@ -69,6 +105,15 @@ com.hiyoko.sweet.Battle.prototype.roleDice = function(e) {
 	event.method = 'sendChat';
 	this.fireEvent(event);
 	$(e.target).notify('ダイスコマンドを送信しました' + text, {className: 'info', position: 'top'});
+};
+
+com.hiyoko.sweet.Battle.prototype.callCharacterOption = function(e) {
+	this.characterOptionalValues.insertData(
+		this.list[e.id].getValue(),
+		this.optionalValues.getValueList(),
+		this.list[e.id].getOptions()
+	);
+	this.characterOptionalValues.enable(0, e.callback);
 };
 
 com.hiyoko.sweet.Battle.prototype.putCharacter = function(e) {
@@ -200,9 +245,9 @@ com.hiyoko.sweet.Battle.prototype.bindEvents = function() {
 	this.$html.on('executeRequest', this.roleDice.bind(this));
 	this.$html.on('appendCharacterRequest', this.putCharacter.bind(this));
 	this.$html.on('sharingEnemyDataRequest', this.shareEnemyData.bind(this))
-	this.$html.on('isDamageEach', (e) => {
-		e.resolve(this.isDamageEach());
-	});
+	this.$html.on('isDamageEach', (e) => {e.resolve(this.isDamageEach());});
+	this.$html.on('getOptionalValueList', (e)=>{e.resolve(this.optionalValues.getValueList())});
+	this.$html.on('callCharacterOption', (e)=>{this.callCharacterOption(e);});
 	this.$html.on('updateCharacterRequest', function(e) {
 		var event = this.getAsyncEvent('tofRoomRequest').done(function(r){
 			$(e.target).notify('情報が更新されました', {className: 'success', position: 'top'});
@@ -211,9 +256,7 @@ com.hiyoko.sweet.Battle.prototype.bindEvents = function() {
 			alert('情報の更新に失敗しました\n' + r.result);
 			e.reject ? e.reject(r) : false;
 		});
-
 		event.method = 'updateCharacter';
-		
 		e.value.parts.forEach(function(p){
 			if(e.hide) {
 				event.args = [{
@@ -347,6 +390,28 @@ com.hiyoko.sweet.Battle.prototype.bindEvents = function() {
 	
 	this.$html.on('battleAddFromCharacterLister', this.appendCharacterFromCharacterList.bind(this));
 	this.$html.on('battleDeleteFromCharacterLister', this.deleteCharacterFromCharacterList.bind(this));
+	
+	this.getElementById('optionalValues').change((e)=>{this.changeOptionalValue(e)});
+};
+
+com.hiyoko.sweet.Battle.prototype.changeOptionalValue = function(e) {
+	const $dom = $(e.target);
+	if($dom.parent().hasClass('com-hiyoko-sweet-battle-optionalValues-table-member-0')) {
+		const re =/com-hiyoko-sweet-battle-optionalValues-table-member-(\d+)-(\d+)/.exec($dom.parent().attr('class')); 
+		if(re) {
+			const trIndex = Number(re[1]);
+			const nameList = this.optionalValues.getValueList().map((d)=>{return d[1]});
+			if($dom.prop('checked')) {
+				for(var key in this.list) {
+					this.list[key].addOption(trIndex, nameList);
+				}
+			} else {
+				for(var key in this.list) {
+					this.list[key].removeOption(trIndex, nameList);
+				}
+			}
+		}
+	}
 };
 
 com.hiyoko.sweet.Battle.prototype.appendCharacter = function() {

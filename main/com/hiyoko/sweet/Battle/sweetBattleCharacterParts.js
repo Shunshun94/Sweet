@@ -12,6 +12,7 @@ com.hiyoko.sweet.Battle.BattleCharacter = function($html, opt_params) {
 	this.isTableExist = opt_params ? opt_params.isTableExist : false;
 	this.added = false;
 	this.isHide = false;
+	this.optionValues = [];
 
 	this.render();
 
@@ -26,7 +27,7 @@ com.hiyoko.sweet.Battle.BattleCharacter = function($html, opt_params) {
 	this.shareInfoButton = this.getElement(`.${this.clazz}-share-status`);
 	this.toggleUnknown = this.getElement(`.${this.clazz}-hide-toggle`);
 	this.toggleData = this.getElement(`.${this.clazz}-toggle`);
-
+	this.callOption = this.getElement(`.${this.clazz}-options`);
 	this.addToTof = this.getElement('.' + this.clazz + '-add-tof');
 	this.addToTofAsUnknown = this.getElement('.' + this.clazz + '-add-tof-unknown');
 	
@@ -47,29 +48,94 @@ com.hiyoko.sweet.Battle.BattleCharacter.prototype.render = function() {
 	if(this.isTableExist) {
 		this.$html.append(com.hiyoko.util.format(
 				'<span class="%s">開閉</span><button class="%s">保存</button><p>名前 <input placeholder="NO NAME?" value="" type="text" class="%s" />' +
-				'<button class="%s">コマ追加</button><button class="%s">コマ追加 (正体不明)</button></p>' + 
+				'<button class="%s">コマ追加</button><button class="%s">コマ追加 (正体不明)</button>' +
+				'<button class="%s">バフ・デバフ設定</button></p>' +
 				'<div>生命抵抗力<input type="number" value="0" class="%s" />' +
 				'<button class="%s">判定</button><button class="%s">判定(固定値)</button>' +
 				' 　/　精神抵抗力<input type="number" value="0" class="%s" />' +
 				'<button class="%s">判定</button><button class="%s">判定(固定値)</button></div>' +
-				'<button class="%s">部位追加</button><span class="%s">×</span>',
+				'<button class="%s">部位追加</button><span class="%s">キャラクターを削除する</span>',
 				this.clazz + '-toggle', this.clazz + '-save', this.clazz + '-name',
 				this.clazz + '-add-tof', this.clazz + '-add-tof-unknown',
+				this.clazz + '-options',
 				this.clazz + '-vitality-val', this.clazz + '-vitality-exec', this.clazz + '-vitality-static-exec',
 				this.clazz + '-mentality-val', this.clazz + '-mentality-exec', this.clazz + '-mentality-static-exec',
 				this.clazz + '-addPart', this.clazz + '-remove'));
 	} else {
 		this.$html.append(
 				`<span class="${this.clazz + '-toggle'}">開閉</span><button class="${this.clazz + '-save'}">保存</button><p>名前 <input placeholder="NO NAME?" value="" type="text" class="${this.clazz + '-name'}" />
-				<button class="${this.clazz + '-share-status'}">データをテキストで共有</button><button class="${this.clazz + '-hide-toggle'}">未知の敵として扱う</button></p>
+				<button class="${this.clazz + '-share-status'}">データをテキストで共有</button><button class="${this.clazz + '-hide-toggle'}">未知の敵として扱う</button>
+				<button class="${this.clazz + '-options'}">バフ・デバフ設定</button></p>
 				<div>生命抵抗力<input type="number" value="0" class="${this.clazz + '-vitality-val'}" />
 				<button class="${this.clazz + '-vitality-exec'}">判定</button><button class="${this.clazz + '-vitality-static-exec'}">判定(固定値)</button>
 				 　/　精神抵抗力<input type="number" value="0" class="${this.clazz + '-mentality-val'}" />
 				<button class="${this.clazz + '-mentality-exec'}">判定</button><button class="${this.clazz + '-mentality-static-exec'}">判定(固定値)</button></div>
-				<button class="${this.clazz + '-addPart'}">部位追加</button><span class="${this.clazz + '-remove'}">×</span>`);
+				<button class="${this.clazz + '-addPart'}">部位追加</button><span class="${this.clazz + '-remove'}">キャラクターを削除する</span>`);
 	}
 
 	var id = this.addPart();
+};
+
+com.hiyoko.sweet.Battle.BattleCharacter.prototype.addOption = function(index, names) {
+	let list = [];
+	for(var key in this.parts) {
+		let partList = this.parts[key].optionValues;
+		if(! partList.includes(index)) {
+			partList.push(index);
+		}
+		list.push(partList);
+	}
+	this.setOptions(list, names);
+};
+com.hiyoko.sweet.Battle.BattleCharacter.prototype.removeOption = function(index, names) {
+	let list = [];
+	for(var key in this.parts) {
+		list.push(this.parts[key].optionValues.filter((d)=>{
+			return d !== index
+		}));
+	}
+	this.setOptions(list, names);
+};
+
+com.hiyoko.sweet.Battle.BattleCharacter.prototype.getOptions = function() {
+	let parts = [];
+	for(var key in this.parts) {
+		parts.push(this.parts[key].optionValues);
+	}
+	return {
+		character: this.optionValues,
+		parts: parts
+	};
+};
+
+com.hiyoko.sweet.Battle.BattleCharacter.prototype.setOptions = function(rawPartsData, names) {
+	let partsData = [];
+	if(rawPartsData) {
+		if(rawPartsData.length === 1) {
+			for(var key in this.parts) {
+				partsData.push(rawPartsData[0]);
+			}
+		} else {
+			partsData = rawPartsData
+		}
+		
+		var i = 0;
+		for(var key in this.parts) {
+			this.parts[key].setOptions(partsData[i], names);
+			i++;
+		}
+		this.optionValues = partsData[0];
+		partsData.forEach((list, i)=>{
+			this.optionValues = this.optionValues.filter((d)=>{
+				return list.includes(d);
+			});
+		});
+	} else {
+		for(var key in this.parts) {
+			this.parts[key].setOptions([], names);
+		}
+		this.optionValues = [];
+	}
 };
 
 com.hiyoko.sweet.Battle.BattleCharacter.prototype.afterAdd = function() {
@@ -135,7 +201,13 @@ com.hiyoko.sweet.Battle.BattleCharacter.prototype.bindEvents = function() {
 		}
 		this.$html.toggleClass(`${this.clazz}-unknown`);
 	});
-
+	this.callOption.click((e) => {
+		this.fireEvent({
+			type: 'callCharacterOption',
+			id: this.id.split('-').pop(),
+			callback: this.setOptions.bind(this)
+		});
+	});
 	this.toggleData.click((e) => {
 		this.getElement('div').toggle(500);
 		this.getElement('button').toggle(500);
@@ -179,7 +251,8 @@ com.hiyoko.sweet.Battle.BattleCharacter.prototype.bindEvents = function() {
 		this.fireEvent(new $.Event('executeRequestFromPart', {
 			col: 5,
 			text: '生命抵抗判定',
-			value: '' + this.vitality.val() + '+2d6'
+			value: '' + this.vitality.val() + '+2d6',
+			options: this.optionValues
 		}));
 	}.bind(this));
 	
@@ -187,7 +260,8 @@ com.hiyoko.sweet.Battle.BattleCharacter.prototype.bindEvents = function() {
 		this.fireEvent(new $.Event('executeRequestFromPart', {
 			col: 6,
 			text: '精神抵抗判定',
-			value: this.mentality.val() + '+2d6'
+			value: this.mentality.val() + '+2d6',
+			options: this.optionValues
 		}));
 	}.bind(this));
 	
@@ -195,7 +269,8 @@ com.hiyoko.sweet.Battle.BattleCharacter.prototype.bindEvents = function() {
 		this.fireEvent(new $.Event('executeRequestFromPart', {
 			col: 5,
 			text: '生命抵抗判定 (固定値)',
-			value: 'C(' + this.vitality.val() + '+7'
+			value: 'C(' + this.vitality.val() + '+7',
+			options: this.optionValues
 		}));
 	}.bind(this));
 	
@@ -203,7 +278,8 @@ com.hiyoko.sweet.Battle.BattleCharacter.prototype.bindEvents = function() {
 		this.fireEvent(new $.Event('executeRequestFromPart', {
 			col: 6,
 			text: '精神抵抗判定 (固定値)',
-			value: 'C(' + this.mentality.val() + '+7'
+			value: 'C(' + this.mentality.val() + '+7',
+			options: this.optionValues
 		}));
 	}.bind(this));
 	
@@ -214,7 +290,8 @@ com.hiyoko.sweet.Battle.BattleCharacter.prototype.bindEvents = function() {
 			name: this.name.val(),
 			text: e.text,
 			value: e.value,
-			id: splitedId.pop()
+			id: splitedId.pop(),
+			options: e.options
 		}));
 	}.bind(this));
 	
@@ -338,6 +415,7 @@ com.hiyoko.sweet.Battle.BattleCharacter.Part = function($html, opt_original) {
 	this.id = this.$html.attr('id');
 	this.clazz = this.$html.attr('class');
 	this.attackWays = {};
+	this.optionValues = [];
 
 	this.render(); 
 	this.add = this.getElement('.' + this.clazz + '-addAttackWay');
@@ -357,6 +435,12 @@ com.hiyoko.sweet.Battle.BattleCharacter.Part = function($html, opt_original) {
 
 com.hiyoko.util.extend(com.hiyoko.component.ApplicationBase, com.hiyoko.sweet.Battle.BattleCharacter.Part);
 
+com.hiyoko.sweet.Battle.BattleCharacter.Part.prototype.setOptions = function(optionsList, name) {
+	this.optionValues = optionsList;
+	const options = this.optionValues.map((num)=>{return name[num]}).join(',');
+	 this.getElement(`.${this.clazz}-optionsName`).text(options);
+}
+
 com.hiyoko.sweet.Battle.BattleCharacter.Part.prototype.afterAdd = function() {
 	this.name.attr('disabled', 'disabled');
 };
@@ -375,10 +459,13 @@ com.hiyoko.sweet.Battle.BattleCharacter.Part.prototype.render = function() {
 	}.bind(this));
 
 	$table.append($status)
-	this.$html.append(com.hiyoko.util.format('<span class="%s">×</span>' +
+	this.$html.append(com.hiyoko.util.format('<span class="%s"></span>' +
+			'<span class="%s">×</span>' +
 			'<button class="%s">攻撃手段追加</button>' + 
 			'<button class="%s">回避</button><button class="%s">回避(固定値)</button>',
-			this.clazz + '-delete', this.clazz + '-addAttackWay', this.clazz + '-dodge-exec', this.clazz + '-dodge-static-exec'));
+			this.clazz + '-optionsName', 
+			this.clazz + '-delete', this.clazz + '-addAttackWay',
+			this.clazz + '-dodge-exec', this.clazz + '-dodge-static-exec'));
 	this.$html.append($table);
 
 	this.addAttackWay({name: '通常攻撃'});
@@ -397,7 +484,8 @@ com.hiyoko.sweet.Battle.BattleCharacter.Part.prototype.bindEvents = function() {
 		this.fireEvent(new $.Event('executeRequestFromPart', {
 			col: 4,
 			text: this.name.val() + '：回避判定:',
-			value: this.dodge.val() + '+2d6'
+			value: this.dodge.val() + '+2d6',
+			options: this.optionValues
 		}));
 	}.bind(this));
 	
@@ -405,7 +493,8 @@ com.hiyoko.sweet.Battle.BattleCharacter.Part.prototype.bindEvents = function() {
 		this.fireEvent(new $.Event('executeRequestFromPart', {
 			col: 4,
 			text: this.name.val() + '：回避判定 (固定値)',
-			value: 'C(' + this.dodge.val() + '+7'
+			value: 'C(' + this.dodge.val() + '+7',
+			options: this.optionValues
 		}));
 	}.bind(this));
 	
@@ -413,7 +502,8 @@ com.hiyoko.sweet.Battle.BattleCharacter.Part.prototype.bindEvents = function() {
 		this.fireEvent(new $.Event('executeRequestFromPart', {
 			col: e.col,
 			text: this.name.val() + '：' + e.text,
-			value: e.value
+			value: e.value,
+			options: this.optionValues
 		}));
 	}.bind(this));
 	

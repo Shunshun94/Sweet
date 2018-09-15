@@ -95,6 +95,7 @@
 #com-hiyoko-sweet-battle-sharingEnemiesData,
 .com-hiyoko-sweet-battle-character-add-tof,
 .com-hiyoko-sweet-battle-character-add-tof-unknown,
+.com-hiyoko-sweet-battle-character-options,
 .com-hiyoko-sweet-battle-character-share-status,
 .com-hiyoko-sweet-battle-character-hide-toggle,
 .com-hiyoko-sweet-battle-character-mentality-exec,
@@ -134,10 +135,19 @@
 	position:relative;
 }
 
+
+.com-hiyoko-sweet-battle-character-part-optionsName {
+	position: absolute;
+	left: 405px;
+	width: 368px;
+	height: 30px;
+	font-size: 50%;
+}
+
 .com-hiyoko-sweet-battle-character-part-addAttackWay {
 	position:absolute;
-	top:0px;
-	right:54px;
+	top:33px;
+	right:4px;
 	border: coral 3px outset;
 	background-color:tomato;
 }
@@ -145,13 +155,13 @@
 .com-hiyoko-sweet-battle-character-part-dodge-exec {
 	position:absolute;
 	top:33px;
-	right:113px;
+	left: 405px
 }
 
 .com-hiyoko-sweet-battle-character-part-dodge-static-exec {
 	position:absolute;
 	top:33px;
-	right:4px;
+	left: 445px
 }
 
 .com-hiyoko-sweet-battle-character-part-number {
@@ -193,7 +203,19 @@
 	margin-left:2px;
 }
 
-.com-hiyoko-sweet-battle-character-remove,
+.com-hiyoko-sweet-battle-character-remove {
+	border: coral 2px solid;
+	font-size: 70%;
+	vertical-align:middle;
+	height: 14px;
+	text-align:center;
+	font-weight:bold;
+	background-color:tomato;
+	position:absolute;
+	right:0px;
+	top:0px;
+}
+
 .com-hiyoko-sweet-battle-character-part-delete,
 .com-hiyoko-sweet-battle-character-part-attackway-del {
 	border: coral 2px solid;
@@ -331,3 +353,72 @@
 	position:fixed;
 	display:none;
 }
+
+.com-hiyoko-sweet-battle-optionalValues-table-header-0,
+.com-hiyoko-sweet-battle-optionalValues-table-member-0 {
+	width: 5px;
+}
+
+.com-hiyoko-sweet-battle-optionalValues-table-header-2,
+.com-hiyoko-sweet-battle-optionalValues-table-header-4,
+.com-hiyoko-sweet-battle-optionalValues-table-header-7,
+.com-hiyoko-sweet-battle-optionalValues-table-member-2,
+.com-hiyoko-sweet-battle-optionalValues-table-member-4,
+.com-hiyoko-sweet-battle-optionalValues-table-member-7 {
+	width: 50px;
+}
+
+
+.com-hiyoko-sweet-battle-optionalValues-table-header-3,
+.com-hiyoko-sweet-battle-optionalValues-table-header-5,
+.com-hiyoko-sweet-battle-optionalValues-table-header-6,
+.com-hiyoko-sweet-battle-optionalValues-table-member-3,
+.com-hiyoko-sweet-battle-optionalValues-table-member-5,
+.com-hiyoko-sweet-battle-optionalValues-table-member-6 {
+	width: 80px;
+}
+
+#com-hiyoko-sweet-battle-characterOptionValues {
+	z-index:7;
+	position:fixed;
+	top:0;
+	left:0;
+	width:100%;
+	height:120%;
+	padding: 40px;
+}
+#com-hiyoko-sweet-battle-characterOptionValues-background {
+	z-index:8;
+	position:fixed;
+	top:0;
+	left:0;
+	width:100%;
+	height:120%;
+	background-color:rgba(0,0,0,0.75);
+}
+#com-hiyoko-sweet-battle-characterOptionValues-body {
+	margin:auto;
+	position:relative;
+	max-width: 90%;
+	max-height:70%;
+	z-index:9;
+	background-color:white;
+	padding:8px;
+	overflow: scroll;
+}
+
+.com-hiyoko-sweet-battle-characterOptionValues-body-table-header-partsName,
+.com-hiyoko-sweet-battle-characterOptionValues-body-table-member-col
+ {
+	background-color: #E0E0FF
+}
+.com-hiyoko-sweet-battle-characterOptionValues-body-table-header-characterName,
+.com-hiyoko-sweet-battle-characterOptionValues-body-table-member-col-all {
+	background-color: #C0C0FF
+}
+
+.com-hiyoko-sweet-battle-characterOptionValues-body-table-header-empty,
+.com-hiyoko-sweet-battle-characterOptionValues-body-table-member-title {
+	background-color:#F0F0F0;
+}
+
