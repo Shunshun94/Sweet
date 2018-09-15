@@ -622,7 +622,7 @@ com.hiyoko.sweet.Battle.BattleCharacter.Part.AttackWay.prototype.executeDanage =
 	list.forEach((target) => {
 		const tag = target ? `> ${target}` : '';
 		if (this.atkMode.attr('title') === '0') {
-			const crit = isRegisted ? '@13' : '@10';
+			const crit = isRegisted ? '@13' : this.getElement(`.${this.clazz}-critical-value`).val();
 			this.fireEvent(new $.Event('executeRequestFromAttackWay', {
 				col: 7,
 				text: `${this.name.val()} ダメージ${isRegisted ? ' (抵抗)' : ''} ${tag}`,
@@ -638,16 +638,21 @@ com.hiyoko.sweet.Battle.BattleCharacter.Part.AttackWay.prototype.executeDanage =
 	});
 };
 
+com.hiyoko.sweet.Battle.BattleCharacter.Part.AttackWay.prototype.setAtkMode = function(newValue) {
+	if(newValue === 1) {
+		this.atkMode.text('ダメージ基準値');
+		this.getElement(`.${this.clazz}-critical`).hide();
+	} else {
+		this.atkMode.text('威力');
+		this.getElement(`.${this.clazz}-critical`).show();
+	}
+	this.atkMode.attr('title', newValue);	
+};
+
 com.hiyoko.sweet.Battle.BattleCharacter.Part.AttackWay.prototype.bindEvent = function() {
-	this.atkSwitch.click(function(e){
-		var newValue = 1 - Number(this.atkMode.attr('title'));
-		if(newValue === 1) {
-			this.atkMode.text('ダメージ基準値');
-		} else {
-			this.atkMode.text('魔法威力レート');
-		}
-		this.atkMode.attr('title', newValue);
-	}.bind(this));
+	this.atkSwitch.click((e)=>{
+		this.setAtkMode(1 - Number(this.atkMode.attr('title')));
+	});
 	
 	this.del.click(function(e) {
 		this.destract();
@@ -720,7 +725,16 @@ com.hiyoko.sweet.Battle.BattleCharacter.Part.AttackWay.prototype.bindEvent = fun
 com.hiyoko.sweet.Battle.BattleCharacter.Part.AttackWay.prototype.render = function() {
 	this.$html.append(com.hiyoko.util.format('<input type="text" class="%s" />' +
 			' 基準値 <input type="number" class="%s" />' + 
-			' <span title="1" class="%s">ダメージ基準値</span> <input value="0" type="number" class="%s" />',
+			' <span title="1" class="%s">ダメージ基準値</span> <input value="0" type="number" class="%s" />'+
+			`<span style="display:none;" class="${this.clazz}-critical"> C値 <select class="${this.clazz}-critical-value">
+			<option value="@13">13</option>
+			<option value="@12">12</option>
+			<option value="@11">11</option>
+			<option selected value="@10">10</option>
+			<option value="@9">9</option>
+			<option value="@8">8</option>
+			<option value="@7">7</option>
+		</select></span>`,
 			this.clazz + '-name', this.clazz + '-val',
 			this.clazz + '-atk-mode', this.clazz + '-atk'));
 	this.$html.append(com.hiyoko.util.format('<button class="%s">判定</button>' +
@@ -740,15 +754,8 @@ com.hiyoko.sweet.Battle.BattleCharacter.Part.AttackWay.prototype.setValue = func
 	this.name.val(value.name);
 	this.value.val(value.value);
 	this.atk.val(value.damage);
-	
-	if(value.isMagic) {
-		this.atkMode.attr('title', 0);
-		this.atkMode.text('魔法威力レート');
-	} else {
-		this.atkMode.attr('title', 1);
-		this.atkMode.text('ダメージ基準値');
-	}
-	
+
+	this.setAtkMode(value.isMagic ? 0 : 1);
 };
 
 com.hiyoko.sweet.Battle.BattleCharacter.Part.AttackWay.prototype.getValue = function() {
