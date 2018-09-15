@@ -135,10 +135,19 @@
 	position:relative;
 }
 
+
+.com-hiyoko-sweet-battle-character-part-optionsName {
+	position: absolute;
+	left: 405px;
+	width: 368px;
+	height: 30px;
+	font-size: 50%;
+}
+
 .com-hiyoko-sweet-battle-character-part-addAttackWay {
 	position:absolute;
-	top:0px;
-	right:20px;
+	top:33px;
+	right:4px;
 	border: coral 3px outset;
 	background-color:tomato;
 }

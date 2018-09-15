@@ -6,6 +6,7 @@ com.hiyoko.sweet.Battle.CharacterOptionalValues = class extends com.hiyoko.compo
 	constructor($html, opt={}) {
 		super($html, opt);
 		this.callback = console.log;
+		this.nameList = [];
 		this.buildDom();
 		this.bindEvents();
 	}
@@ -19,7 +20,7 @@ com.hiyoko.sweet.Battle.CharacterOptionalValues = class extends com.hiyoko.compo
 	}
 
 	bindEvents() {
-		this.background.click((e)=>{this.disable();this.callback(null)});
+		this.background.click((e)=>{this.disable();this.callback(null, this.nameList)});
 		this.$html.change((e) => {
 			const $dom = $(e.target);
 			if($dom.hasClass(`${this.id}-body-table-member-all-col-checkbox`)) {
@@ -29,7 +30,7 @@ com.hiyoko.sweet.Battle.CharacterOptionalValues = class extends com.hiyoko.compo
 		this.body.click((e)=>{
 			const $dom = $(e.target);
 			if($dom.attr('id') === `${this.id}-body-decide`) {
-				this.callback(this.getValues());
+				this.callback(this.getValues(), this.nameList);
 				this.disable();
 			}
 		})
@@ -64,6 +65,7 @@ com.hiyoko.sweet.Battle.CharacterOptionalValues = class extends com.hiyoko.compo
 
 	insertData(character, options) {
 		this.body.empty();
+		this.nameList = [];
 		let $table = $(`<table id="${this.id}-body-table" border="1"></table>`);
 		$table.append(
 			`<tr id="${this.id}-body-table-header" class="${this.id}-body-table-header">
@@ -74,6 +76,7 @@ com.hiyoko.sweet.Battle.CharacterOptionalValues = class extends com.hiyoko.compo
 			}).join('')}
 			</tr>`);
 		options.forEach((o, i)=>{
+			this.nameList.push(o[1]);
 			let $tr = $(`<tr class="${this.id}-body-table-member" id="${this.id}-body-table-member-${i}"></tr>`);
 			$tr.append(`<td class="${this.id}-body-table-member-col ${this.id}-body-table-member-title">${o[1]}</td>`);
 			$tr.append(

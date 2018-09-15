@@ -52,8 +52,44 @@ com.hiyoko.sweet.Battle.prototype.isDamageEach = function(e) {
 	return this.getElementById('isDamageEach > input').prop('checked');
 };
 
+com.hiyoko.sweet.Battle.prototype.joinOptions = function(optionList, opt_col){
+	var table = this.optionalValues.getValueList();
+	var adjustedValue = 0;
+	var text = [];
+	var detail = '';
+
+	var col = opt_col || 3;
+	
+	table.filter((v, i)=> {
+		return optionList.includes(i);
+	}).forEach(function(l) {
+		text.push(l[1]);
+		const val = Number(l[col]);
+		adjustedValue += val;
+		if(val < 0) {
+			detail += '\n　' + l[1] + '　' + Number(l[col]);
+		} else {
+			detail += '\n　' + l[1] + '　+' + Number(l[col]);
+		}
+	});
+
+	if(opt_col) {
+		return {
+			value: (adjustedValue < 0 ? String(adjustedValue) : '+' + adjustedValue),
+			text: text.join(', '),
+			detail: detail
+		};
+	} else {
+		return text.join(',');
+	}
+}
+
 com.hiyoko.sweet.Battle.prototype.roleDice = function(e) {
-	var option = this.optionalValues.getOptionalValue(e.col);
+	//var option = this.optionalValues.getOptionalValue(e.col);
+	const cols = e.col;
+	const options = e.options;
+	const option = this.joinOptions(options, cols);
+	
 	var event = this.getAsyncEvent('tofRoomRequest').done(function(r){
 		$(e.target).notify('ダイスが振られました', {className: 'success', position: 'top'});
 	}.bind(this)).fail(function(r){
@@ -75,9 +111,9 @@ com.hiyoko.sweet.Battle.prototype.roleDice = function(e) {
 com.hiyoko.sweet.Battle.prototype.callCharacterOption = function(e) {
 	this.characterOptionalValues.insertData(
 		this.list[e.id].getValue(),
-		this.optionalValues.getValueList(0, e.callback)
+		this.optionalValues.getValueList()
 	);
-	this.characterOptionalValues.enable();
+	this.characterOptionalValues.enable(0, e.callback);
 };
 
 com.hiyoko.sweet.Battle.prototype.putCharacter = function(e) {

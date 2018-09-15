@@ -12,6 +12,7 @@ com.hiyoko.sweet.Battle.BattleCharacter = function($html, opt_params) {
 	this.isTableExist = opt_params ? opt_params.isTableExist : false;
 	this.added = false;
 	this.isHide = false;
+	this.optionValues = [];
 
 	this.render();
 
@@ -73,6 +74,37 @@ com.hiyoko.sweet.Battle.BattleCharacter.prototype.render = function() {
 	}
 
 	var id = this.addPart();
+};
+
+com.hiyoko.sweet.Battle.BattleCharacter.prototype.setOptions = function(rawPartsData, names) {
+	let partsData = [];
+	if(rawPartsData) {
+		if(rawPartsData.length === 1) {
+			for(var key in this.parts) {
+				partsData.push(rawPartsData[0]);
+			}
+		} else {
+			partsData = rawPartsData
+		}
+		
+		var i = 0;
+		for(var key in this.parts) {
+			this.parts[key].setOptions(partsData[i], names);
+			i++;
+		}
+		this.optionValues = partsData[0];
+		partsData.forEach((list, i)=>{
+			this.optionValues = this.optionValues.filter((d)=>{
+				return list.includes(d);
+			});
+		});
+	} else {
+		for(var key in this.parts) {
+			this.parts[key].setOptions([], names);
+		}
+		this.optionValues = [];
+	}
+	//const options = this.optionValues.map((num)=>{return names[num]}).join(',');
 };
 
 com.hiyoko.sweet.Battle.BattleCharacter.prototype.afterAdd = function() {
@@ -142,7 +174,7 @@ com.hiyoko.sweet.Battle.BattleCharacter.prototype.bindEvents = function() {
 		this.fireEvent({
 			type: 'callCharacterOption',
 			id: this.id.split('-').pop(),
-			callback: console.log
+			callback: this.setOptions.bind(this)
 		});
 	});
 	this.toggleData.click((e) => {
@@ -188,7 +220,8 @@ com.hiyoko.sweet.Battle.BattleCharacter.prototype.bindEvents = function() {
 		this.fireEvent(new $.Event('executeRequestFromPart', {
 			col: 5,
 			text: '生命抵抗判定',
-			value: '' + this.vitality.val() + '+2d6'
+			value: '' + this.vitality.val() + '+2d6',
+			options: this.optionValues
 		}));
 	}.bind(this));
 	
@@ -196,7 +229,8 @@ com.hiyoko.sweet.Battle.BattleCharacter.prototype.bindEvents = function() {
 		this.fireEvent(new $.Event('executeRequestFromPart', {
 			col: 6,
 			text: '精神抵抗判定',
-			value: this.mentality.val() + '+2d6'
+			value: this.mentality.val() + '+2d6',
+			options: this.optionValues
 		}));
 	}.bind(this));
 	
@@ -204,7 +238,8 @@ com.hiyoko.sweet.Battle.BattleCharacter.prototype.bindEvents = function() {
 		this.fireEvent(new $.Event('executeRequestFromPart', {
 			col: 5,
 			text: '生命抵抗判定 (固定値)',
-			value: 'C(' + this.vitality.val() + '+7'
+			value: 'C(' + this.vitality.val() + '+7',
+			options: this.optionValues
 		}));
 	}.bind(this));
 	
@@ -212,7 +247,8 @@ com.hiyoko.sweet.Battle.BattleCharacter.prototype.bindEvents = function() {
 		this.fireEvent(new $.Event('executeRequestFromPart', {
 			col: 6,
 			text: '精神抵抗判定 (固定値)',
-			value: 'C(' + this.mentality.val() + '+7'
+			value: 'C(' + this.mentality.val() + '+7',
+			options: this.optionValues
 		}));
 	}.bind(this));
 	
@@ -223,7 +259,8 @@ com.hiyoko.sweet.Battle.BattleCharacter.prototype.bindEvents = function() {
 			name: this.name.val(),
 			text: e.text,
 			value: e.value,
-			id: splitedId.pop()
+			id: splitedId.pop(),
+			options: e.options
 		}));
 	}.bind(this));
 	
@@ -347,6 +384,7 @@ com.hiyoko.sweet.Battle.BattleCharacter.Part = function($html, opt_original) {
 	this.id = this.$html.attr('id');
 	this.clazz = this.$html.attr('class');
 	this.attackWays = {};
+	this.optionValues = [];
 
 	this.render(); 
 	this.add = this.getElement('.' + this.clazz + '-addAttackWay');
@@ -366,6 +404,12 @@ com.hiyoko.sweet.Battle.BattleCharacter.Part = function($html, opt_original) {
 
 com.hiyoko.util.extend(com.hiyoko.component.ApplicationBase, com.hiyoko.sweet.Battle.BattleCharacter.Part);
 
+com.hiyoko.sweet.Battle.BattleCharacter.Part.prototype.setOptions = function(optionsList, name) {
+	this.optionValues = optionsList;
+	const options = this.optionValues.map((num)=>{return name[num]}).join(',');
+	 this.getElement(`.${this.clazz}-optionsName`).text(options);
+}
+
 com.hiyoko.sweet.Battle.BattleCharacter.Part.prototype.afterAdd = function() {
 	this.name.attr('disabled', 'disabled');
 };
@@ -384,10 +428,13 @@ com.hiyoko.sweet.Battle.BattleCharacter.Part.prototype.render = function() {
 	}.bind(this));
 
 	$table.append($status)
-	this.$html.append(com.hiyoko.util.format('<span class="%s">×</span>' +
+	this.$html.append(com.hiyoko.util.format('<span class="%s"></span>' +
+			'<span class="%s">×</span>' +
 			'<button class="%s">攻撃手段追加</button>' + 
 			'<button class="%s">回避</button><button class="%s">回避(固定値)</button>',
-			this.clazz + '-delete', this.clazz + '-addAttackWay', this.clazz + '-dodge-exec', this.clazz + '-dodge-static-exec'));
+			this.clazz + '-optionsName', 
+			this.clazz + '-delete', this.clazz + '-addAttackWay',
+			this.clazz + '-dodge-exec', this.clazz + '-dodge-static-exec'));
 	this.$html.append($table);
 
 	this.addAttackWay({name: '通常攻撃'});
@@ -406,7 +453,8 @@ com.hiyoko.sweet.Battle.BattleCharacter.Part.prototype.bindEvents = function() {
 		this.fireEvent(new $.Event('executeRequestFromPart', {
 			col: 4,
 			text: this.name.val() + '：回避判定:',
-			value: this.dodge.val() + '+2d6'
+			value: this.dodge.val() + '+2d6',
+			options: this.optionValues
 		}));
 	}.bind(this));
 	
@@ -414,7 +462,8 @@ com.hiyoko.sweet.Battle.BattleCharacter.Part.prototype.bindEvents = function() {
 		this.fireEvent(new $.Event('executeRequestFromPart', {
 			col: 4,
 			text: this.name.val() + '：回避判定 (固定値)',
-			value: 'C(' + this.dodge.val() + '+7'
+			value: 'C(' + this.dodge.val() + '+7',
+			options: this.optionValues
 		}));
 	}.bind(this));
 	
@@ -422,7 +471,8 @@ com.hiyoko.sweet.Battle.BattleCharacter.Part.prototype.bindEvents = function() {
 		this.fireEvent(new $.Event('executeRequestFromPart', {
 			col: e.col,
 			text: this.name.val() + '：' + e.text,
-			value: e.value
+			value: e.value,
+			options: this.optionValues
 		}));
 	}.bind(this));
 	
