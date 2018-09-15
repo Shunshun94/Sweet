@@ -76,6 +76,38 @@ com.hiyoko.sweet.Battle.BattleCharacter.prototype.render = function() {
 	var id = this.addPart();
 };
 
+com.hiyoko.sweet.Battle.BattleCharacter.prototype.addOption = function(index, names) {
+	let list = [];
+	for(var key in this.parts) {
+		let partList = this.parts[key].optionValues;
+		if(! partList.includes(index)) {
+			partList.push(index);
+		}
+		list.push(partList);
+	}
+	this.setOptions(list, names);
+};
+com.hiyoko.sweet.Battle.BattleCharacter.prototype.removeOption = function(index, names) {
+	let list = [];
+	for(var key in this.parts) {
+		list.push(this.parts[key].optionValues.filter((d)=>{
+			return d !== index
+		}));
+	}
+	this.setOptions(list, names);
+};
+
+com.hiyoko.sweet.Battle.BattleCharacter.prototype.getOptions = function() {
+	let parts = [];
+	for(var key in this.parts) {
+		parts.push(this.parts[key].optionValues);
+	}
+	return {
+		character: this.optionValues,
+		parts: parts
+	};
+};
+
 com.hiyoko.sweet.Battle.BattleCharacter.prototype.setOptions = function(rawPartsData, names) {
 	let partsData = [];
 	if(rawPartsData) {
@@ -104,7 +136,6 @@ com.hiyoko.sweet.Battle.BattleCharacter.prototype.setOptions = function(rawParts
 		}
 		this.optionValues = [];
 	}
-	//const options = this.optionValues.map((num)=>{return names[num]}).join(',');
 };
 
 com.hiyoko.sweet.Battle.BattleCharacter.prototype.afterAdd = function() {

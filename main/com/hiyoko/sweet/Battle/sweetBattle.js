@@ -85,7 +85,6 @@ com.hiyoko.sweet.Battle.prototype.joinOptions = function(optionList, opt_col){
 }
 
 com.hiyoko.sweet.Battle.prototype.roleDice = function(e) {
-	//var option = this.optionalValues.getOptionalValue(e.col);
 	const cols = e.col;
 	const options = e.options;
 	const option = this.joinOptions(options, cols);
@@ -111,7 +110,8 @@ com.hiyoko.sweet.Battle.prototype.roleDice = function(e) {
 com.hiyoko.sweet.Battle.prototype.callCharacterOption = function(e) {
 	this.characterOptionalValues.insertData(
 		this.list[e.id].getValue(),
-		this.optionalValues.getValueList()
+		this.optionalValues.getValueList(),
+		this.list[e.id].getOptions()
 	);
 	this.characterOptionalValues.enable(0, e.callback);
 };
@@ -390,6 +390,28 @@ com.hiyoko.sweet.Battle.prototype.bindEvents = function() {
 	
 	this.$html.on('battleAddFromCharacterLister', this.appendCharacterFromCharacterList.bind(this));
 	this.$html.on('battleDeleteFromCharacterLister', this.deleteCharacterFromCharacterList.bind(this));
+	
+	this.getElementById('optionalValues').change((e)=>{this.changeOptionalValue(e)});
+};
+
+com.hiyoko.sweet.Battle.prototype.changeOptionalValue = function(e) {
+	const $dom = $(e.target);
+	if($dom.parent().hasClass('com-hiyoko-sweet-battle-optionalValues-table-member-0')) {
+		const re =/com-hiyoko-sweet-battle-optionalValues-table-member-(\d+)-(\d+)/.exec($dom.parent().attr('class')); 
+		if(re) {
+			const trIndex = Number(re[1]);
+			const nameList = this.optionalValues.getValueList().map((d)=>{return d[1]});
+			if($dom.prop('checked')) {
+				for(var key in this.list) {
+					this.list[key].addOption(trIndex, nameList);
+				}
+			} else {
+				for(var key in this.list) {
+					this.list[key].removeOption(trIndex, nameList);
+				}
+			}
+		}
+	}
 };
 
 com.hiyoko.sweet.Battle.prototype.appendCharacter = function() {

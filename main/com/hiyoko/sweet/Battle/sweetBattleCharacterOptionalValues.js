@@ -12,7 +12,7 @@ com.hiyoko.sweet.Battle.CharacterOptionalValues = class extends com.hiyoko.compo
 	}
 
 	buildDom() {
-		this.$html.append(`<div id="${this.id}-body">aaaaaaaa</div>`);
+		this.$html.append(`<div id="${this.id}-body"></div>`);
 		this.$html.append(`<div id="${this.id}-background"></div>`);
 		this.body = this.getElementById('body');
 		this.background = this.getElementById('background');
@@ -20,7 +20,7 @@ com.hiyoko.sweet.Battle.CharacterOptionalValues = class extends com.hiyoko.compo
 	}
 
 	bindEvents() {
-		this.background.click((e)=>{this.disable();this.callback(null, this.nameList)});
+		this.background.click((e)=>{this.disable()});
 		this.$html.change((e) => {
 			const $dom = $(e.target);
 			if($dom.hasClass(`${this.id}-body-table-member-all-col-checkbox`)) {
@@ -63,7 +63,7 @@ com.hiyoko.sweet.Battle.CharacterOptionalValues = class extends com.hiyoko.compo
 		return result;
 	}
 
-	insertData(character, options) {
+	insertData(character, options, optionStatus) {
 		this.body.empty();
 		this.nameList = [];
 		let $table = $(`<table id="${this.id}-body-table" border="1"></table>`);
@@ -81,12 +81,18 @@ com.hiyoko.sweet.Battle.CharacterOptionalValues = class extends com.hiyoko.compo
 			$tr.append(`<td class="${this.id}-body-table-member-col ${this.id}-body-table-member-title">${o[1]}</td>`);
 			$tr.append(
 				`<td class="${this.id}-body-table-member-col ${this.id}-body-table-member-col-all">
-				<input class="${this.id}-body-table-member-all-col-checkbox" id="${this.id}-body-table-member-all-col-checkbox-${i}" type="checkbox" />
+				<input 	class="${this.id}-body-table-member-all-col-checkbox"
+						id="${this.id}-body-table-member-all-col-checkbox-${i}"
+						${optionStatus.character.includes(i) ? ' checked ' : ' '}
+						type="checkbox" />
 				</td>`);
 			character.parts.forEach((p, j)=> {
 				$tr.append(
 						`<td class="${this.id}-body-table-member-col" id="${this.id}-body-table-member-col-${i}-${j}">
-						<input class="${this.id}-body-table-member-col-checkbox ${this.id}-body-table-member-col-checkbox-${i}" id="${this.id}-body-table-member-col-checkbox-${i}-${j}" type="checkbox" />
+						<input 	class="${this.id}-body-table-member-col-checkbox ${this.id}-body-table-member-col-checkbox-${i}"
+								id="${this.id}-body-table-member-col-checkbox-${i}-${j}"
+								${optionStatus.parts[j].includes(i) ? ' checked ' : ' '}
+								type="checkbox" />
 						</td>`);
 			});
 			$table.append($tr);

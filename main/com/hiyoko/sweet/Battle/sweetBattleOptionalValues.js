@@ -25,7 +25,6 @@ com.hiyoko.util.extend(com.hiyoko.component.ApplicationBase, com.hiyoko.sweet.Ba
 com.hiyoko.sweet.Battle.OptionalValues.prototype.bindEvent = function(){
 	this.$toggle.click(function(e) {
 		this.$table.toggle(400);
-		this.$summary.text(this.table.getOptionalValue());
 	}.bind(this));
 };
 
