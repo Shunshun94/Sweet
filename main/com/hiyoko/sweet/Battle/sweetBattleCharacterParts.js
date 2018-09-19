@@ -462,7 +462,8 @@ com.hiyoko.sweet.Battle.BattleCharacter.Part.prototype.render = function() {
 	this.$html.append(com.hiyoko.util.format('<span class="%s"></span>' +
 			'<span class="%s">×</span>' +
 			'<button class="%s">攻撃手段追加</button>' + 
-			'<button class="%s">回避</button><button class="%s">回避(固定値)</button>',
+			'<button class="%s io-github-shunshun94-util-UnDoubleClickable">回避</button>'+
+			'<button class="%s io-github-shunshun94-util-UnDoubleClickable">回避(固定値)</button>',
 			this.clazz + '-optionsName', 
 			this.clazz + '-delete', this.clazz + '-addAttackWay',
 			this.clazz + '-dodge-exec', this.clazz + '-dodge-static-exec'));
@@ -737,17 +738,17 @@ com.hiyoko.sweet.Battle.BattleCharacter.Part.AttackWay.prototype.render = functi
 		</select></span>`,
 			this.clazz + '-name', this.clazz + '-val',
 			this.clazz + '-atk-mode', this.clazz + '-atk'));
-	this.$html.append(com.hiyoko.util.format('<button class="%s">判定</button>' +
-			'<button class="%s">判定(固定値)</button>' +
-			'<button class="%s">ダメージ</button>' +
-			'<button class="%s">ダメージ (抵抗)</button>' +
+	this.$html.append(com.hiyoko.util.format('<button class="%s io-github-shunshun94-util-UnDoubleClickable">判定</button>' +
+			'<button class="%s io-github-shunshun94-util-UnDoubleClickable">判定(固定値)</button>' +
+			'<button class="%s io-github-shunshun94-util-UnDoubleClickable">ダメージ</button>' +
+			'<button class="%s io-github-shunshun94-util-UnDoubleClickable">ダメージ (抵抗)</button>' +
 			'<button class="%s">威力切替</button><span class="%s">×</span>',
 			this.clazz + '-exec', this.clazz + '-static-exec',
 			this.clazz + '-atk-exec', this.clazz + '-atk-exec-half',
 			this.clazz + '-switch', this.clazz + '-del'));
-	this.$html.append(`<br/>対象: <span class="${this.clazz}-targets">-</span>
+	this.$html.append(`<br/><span class="${this.clazz}-targetSelector">対象: <span class="${this.clazz}-targets">-</span>
 			<button class="${this.clazz}-targetSelect">対象を選択する</button>
-			<button class="${this.clazz}-targetClear">クリア</button>`);
+			<button class="${this.clazz}-targetClear">クリア</button></span>`);
 };
 
 com.hiyoko.sweet.Battle.BattleCharacter.Part.AttackWay.prototype.setValue = function(value) {

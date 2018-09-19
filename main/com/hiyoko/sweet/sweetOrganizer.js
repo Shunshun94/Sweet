@@ -11,7 +11,6 @@ com.hiyoko.sweet.Organizer = function($html) {
 	this.$html = $html;
 	this.id = this.$html.attr('id');
 
-	this.tofServerAccess;
 	this.tofRoomAccess;
 
 	this.applications;
@@ -30,7 +29,6 @@ com.hiyoko.sweet.Organizer.prototype.buildComponents = function() {
 		let query2 = com.hiyoko.util.getQueries();
 		query2.url = query2.url || this.getElementById('dummy_r');
 
-		this.tofServerAccess = io.github.shunshun94.trpg.ServerClientFactory(query1);
 		this.tofRoomAccess = io.github.shunshun94.trpg.RoomClientFactory(query2);
 		setTimeout(()=>{
 			this.buildApplications(this.query.platform);
@@ -63,7 +61,7 @@ com.hiyoko.sweet.Organizer.prototype.buildComponents = function() {
 				}
 			});
 			this.retriableRequest(getRoomEvent, 3);
-		}, com.hiyoko.sweet.Organizer.LongerPlatforms.includes(this.query.platform) ? 3000 : 0);
+		}, com.hiyoko.sweet.Organizer.LongerPlatforms.includes(this.query.platform) ? 1500 : 0);
 	} else {
 		this.tofRoomAccess = com.hiyoko.DodontoF.V2.RoomDummy;
 		this.buildApplications(false);

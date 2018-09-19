@@ -22,6 +22,10 @@ com.hiyoko.sweet.PlayerBattle.prototype.buildComponents = function() {
 	this.characterList = new com.hiyoko.sweet.PlayerBattle.NameSelector(this.getElementById('nameSelector'));
 };
 
+com.hiyoko.sweet.PlayerBattle.prototype.isDamageEach = function() {
+	return this.getElementById('damageAll').prop('checked');
+};
+
 com.hiyoko.sweet.PlayerBattle.prototype.getCharacters = function(e) {
 	var event = this.getAsyncEvent('tofRoomRequest').done(function(r){
 		this.characterList.open(r.characters.filter(function(c){
