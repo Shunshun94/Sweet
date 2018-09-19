@@ -74,6 +74,35 @@ h1 {
 	background-color:white;
 }
 
+#com-hiyoko-sw2-player-playerbattle-weapons {
+	background-color: #f5deb3;
+}
+
+#com-hiyoko-sw2-player-playerbattle-magics {
+	background-color: #e6e6fa;
+}
+
+#com-hiyoko-sw2-player-playerbattle-response {
+	background-color:#98fb98;
+}
+
+#com-hiyoko-sw2-player-playerbattle-call {
+	background-color:#ffe4e1;
+}
+
+.com-hiyoko-sw2-player-playerbattle-base {
+	padding: 8px;
+	margin-top: 8px;
+	border-radius:8px;
+	width: 800px;
+}
+
+.com-hiyoko-sw2-player-playerbattle-base p,
+.com-hiyoko-sw2-player-playerbattle-base h3 {
+	margin-top: 0px;
+	margin-bottom: 0px;
+}
+
 #com-hiyoko-sw2-player-playerbattle-weapons-ratelabel,
 #com-hiyoko-sw2-player-playerbattle-weapons-rate,
 #com-hiyoko-sw2-player-playerbattle-weapons-damagelabel
@@ -86,6 +115,7 @@ h1 {
 	display: none;
 }
 
+
 #com-hiyoko-sw2-player-playerbattle-weapons-memo,
 #com-hiyoko-sw2-player-playerbattle-magics-memo {
 	width: 333px;
@@ -97,6 +127,7 @@ h1 {
 
 #com-hiyoko-sw2-player-playerbattle-call-editor {
 	width: 480px;
+	resize:none;
 }
 
 #com-hiyoko-sw2-player-playerbattle-call-move-distance {
@@ -209,7 +240,8 @@ div.com-hiyoko-sw2-player-pet-character-part-attackway {
 }
 
 .com-hiyoko-sw2-player-pet-character-part-dodge-static-exec,
-.com-hiyoko-sw2-player-pet-character-part-attackway-static-exec {
+.com-hiyoko-sw2-player-pet-character-part-attackway-static-exec,
+.com-hiyoko-sw2-player-pet-character-part-attackway-targetSelector {
 	display: none;
 }
 

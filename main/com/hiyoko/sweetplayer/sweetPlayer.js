@@ -140,4 +140,6 @@ com.hiyoko.sweet.Player.prototype.bindEvents = function(e) {
 	});
 	
 	this.$html.on('clickMenu', this.onClickList.bind(this));
+
+	this.$html.on('isDamageEach', (e) => {e.resolve(this.components[0].isDamageEach());});
 };
