@@ -209,8 +209,12 @@ div.com-hiyoko-sw2-player-pet-character-part-attackway {
 }
 
 .com-hiyoko-sw2-player-pet-character-part-dodge-static-exec,
-.com-hiyoko-sw2-player-pet-character-part-attackway-static-exec {
+.com-hiyoko-sw2-player-pet-character-part-attackway-static-exec,
+.com-hiyoko-sw2-player-pet-character-part-attackway-targetSelector {
 	display: none;
+}
+ {
+	
 }
 
 .com-hiyoko-sw2-player-pet-character-part-delete,

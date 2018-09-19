@@ -168,7 +168,7 @@ com.hiyoko.sweet.Pet.Character.prototype.removePart = function(e) {
 
 com.hiyoko.sweet.Pet.Character.prototype.addPartGenerateHtml = function() {
 	var newId = com.hiyoko.util.rndString(8);
-	var $part = $(com.hiyoko.util.format('<div class="%s" id="%s"></tr>', this.clazz + '-part', this.id + '-' + newId));
+	var $part = $(com.hiyoko.util.format('<div class="%s" id="%s"></div>', this.clazz + '-part', this.id + '-' + newId));
 	this.$html.append($part);
 	this.parts[newId] = new com.hiyoko.sweet.Battle.BattleCharacter.Part(this.getElementById(newId));
 	return newId;
@@ -203,17 +203,17 @@ com.hiyoko.sweet.Pet.Character.render = function(idNo, isTableExist) {
 	$base.addClass(clazz);
 	$base.attr('id', id);
 	if(isTableExist) {
-		$base.append(com.hiyoko.util.format('<button class="%s" id="%s">コマ追加</button>', clazz + '-append', id + '-append'));
+		$base.append(com.hiyoko.util.format('<button class="%s io-github-shunshun94-util-UnDoubleClickable" id="%s">コマ追加</button>', clazz + '-append', id + '-append'));
 	}
-	$base.append(com.hiyoko.util.format('<button class="%s" id="%s">チャットで状態を共有</button>', clazz + '-shareData', id + '-shareData'));
+	$base.append(com.hiyoko.util.format('<button class="%s io-github-shunshun94-util-UnDoubleClickable" id="%s">チャットで状態を共有</button>', clazz + '-shareData', id + '-shareData'));
 	$base.append(com.hiyoko.util.format('<p>名前： <span class="%s" id="%s"></span></p>', clazz + '-name', id + '-name'));
 	
 	$base.append(com.hiyoko.util.format('<select class="%s" id="%s"></select>', clazz + '-partsCandidates', id + '-partsCandidates'));
-	$base.append(com.hiyoko.util.format('<button class="%s" id="%s">部位追加</button>', clazz + '-appendParts', id + '-appendParts'));
+	$base.append(com.hiyoko.util.format('<button class="%s io-github-shunshun94-util-UnDoubleClickable" id="%s">部位追加</button>', clazz + '-appendParts', id + '-appendParts'));
 	$base.append('<br/>');
 	
-	$base.append(com.hiyoko.util.format('<button class="%s" id="%s">生命抵抗判定</button>', clazz + '-physical', id + '-physical'));
-	$base.append(com.hiyoko.util.format('<button class="%s" id="%s">精神抵抗判定</button>', clazz + '-mental', id + '-mental'));
+	$base.append(com.hiyoko.util.format('<button class="%s io-github-shunshun94-util-UnDoubleClickable" id="%s">生命抵抗判定</button>', clazz + '-physical', id + '-physical'));
+	$base.append(com.hiyoko.util.format('<button class="%s io-github-shunshun94-util-UnDoubleClickable" id="%s">精神抵抗判定</button>', clazz + '-mental', id + '-mental'));
 	
 	
 	return $base;
