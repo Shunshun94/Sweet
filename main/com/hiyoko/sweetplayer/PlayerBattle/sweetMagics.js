@@ -143,7 +143,7 @@ com.hiyoko.sweet.PlayerBattle.Magics.prototype.bindEvents = function() {
 		const text = `現在の楽素\n` +
 		`　　⤴ ${this.getElementById('bard-musicElement-upper').val()}\n` +
 		`　　⤵ ${this.getElementById('bard-musicElement-downer').val()}\n` +
-		`　　💛 ${this.getElementById('bard-musicElement-hearts').val()}`
+		`　　♥ ${this.getElementById('bard-musicElement-hearts').val()}`
 		this.fireEvent({
 			type: 'tofRoomRequest',
 			args: [{
