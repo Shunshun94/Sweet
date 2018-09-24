@@ -121,6 +121,10 @@ h1 {
 	width: 333px;
 }
 
+#com-hiyoko-sw2-player-playerbattle-magics-bard-musicElement input {
+	width: 30px;
+}
+
 #com-hiyoko-sw2-player-playerbattle-call > div > div {
 	margin-bottom:4px;
 }
