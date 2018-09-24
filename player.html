@@ -318,6 +318,8 @@
 			<!-- 戦闘関係 -->
 			<option value="先制" />
 			<option value="魔物知識" />
+			<option value="薬草使用" />
+			<option value="ポーション使用" />
 			<option value="生死" />
 			<option value="応急手当" />
 			<option value="呪歌" />
@@ -329,9 +331,16 @@
 			<p id="com-hiyoko-sw2-player-commoncheck-option-summary"></p>
 			<table border="1" id="com-hiyoko-sw2-player-commoncheck-option-table"></table>
 		</div>
-		<button id="com-hiyoko-sw2-player-commoncheck-exec" class="io-github-shunshun94-util-UnDoubleClickable">判定</button>　
-		<button id="com-hiyoko-sw2-player-commoncheck-execNoSkill"  class="io-github-shunshun94-util-UnDoubleClickable">平目で判定</button>
-		<p><input type="checkbox" id="com-hiyoko-sw2-player-commoncheck-comment-clear-everytime" checked />判定実施後、コメント欄を自動的に削除する</p>
+		<div id="com-hiyoko-sw2-player-commoncheck-executionButtons">
+			<button id="com-hiyoko-sw2-player-commoncheck-exec" class="io-github-shunshun94-util-UnDoubleClickable">判定</button>
+			<button id="com-hiyoko-sw2-player-commoncheck-execNoSkill"  class="io-github-shunshun94-util-UnDoubleClickable">平目で判定</button><br/>
+			威力:<input id="com-hiyoko-sw2-player-commoncheck-damageRate" type="number" value="0" min="0" max="100" />
+			C値:<input id="com-hiyoko-sw2-player-commoncheck-damageCritical" type="number" value="13" min="7" max="13" /> 
+			<button id="com-hiyoko-sw2-player-commoncheck-execDamage" class="io-github-shunshun94-util-UnDoubleClickable">威力表</button>
+			<button id="com-hiyoko-sw2-player-commoncheck-execDamageNoSkill"  class="io-github-shunshun94-util-UnDoubleClickable">平目で威力表</button>
+			<p><input type="checkbox" id="com-hiyoko-sw2-player-commoncheck-comment-clear-everytime" checked />判定実施後、コメント欄を自動的に削除する</p>
+		</div>
+
 	</div>
 	<div id="com-hiyoko-sw2-player-links"></div>
 	<div id="com-hiyoko-sw2-player-talk">

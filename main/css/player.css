@@ -273,6 +273,24 @@ div.com-hiyoko-sw2-player-pet-character-part-attackway {
 	min-height: 630px;
 }
 
+#com-hiyoko-sw2-player-commoncheck p {
+	margin-top: 0px;
+	margin-bottom: 0px;
+}
+
+#com-hiyoko-sw2-player-commoncheck-option {
+	margin-top: 8px;
+	margin-bottom: 8px;
+}
+
+#com-hiyoko-sw2-player-commoncheck-executionButtons {
+	margin-top: 8px;
+}
+
+#com-hiyoko-sw2-player-commoncheck-executionButtons > button {
+	margin-bottom: 4px;
+}
+
 #com-hiyoko-sw2-player-talk {
 	display:none;
 	position: fixed;
