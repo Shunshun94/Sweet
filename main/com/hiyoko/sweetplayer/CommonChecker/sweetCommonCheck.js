@@ -159,6 +159,13 @@ com.hiyoko.sweet.CommonCheck.prototype.autocompleteSkillAndStatus = function(e) 
 			this.getElementById('status > option').filter(function(i) {
 				return result[1] === $(this).text();
 			}).prop('selected', true);
+
+			this.getElementById('skill').css('background-color', '#ff7f7f');
+			this.getElementById('status').css('background-color', '#ff7f7f');
+			setTimeout(()=>{
+				this.getElementById('skill').css('background-color', 'white');
+				this.getElementById('status').css('background-color', 'white');
+			}, 500);
 		}
 	}.bind(this));
 	
