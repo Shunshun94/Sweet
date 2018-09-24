@@ -28,7 +28,8 @@ com.hiyoko.sweet.PlayerBattle.Magics.prototype.forRider = function(character) {
 			exceeded: character.skills[w.skill] > 15
 		});
 	 }.bind(this));
-	[{skill: 'バード', name:'呪歌'}].filter((w) => {
+	[{skill: 'バード', name:'呪歌'},
+	 {skill: 'バード', name:'終律'}].filter((w) => {
 		return character.skills[w.skill];
 	}).forEach(function(w){
 		this.magics.push({
@@ -45,6 +46,12 @@ com.hiyoko.sweet.PlayerBattle.Magics.prototype.forRider = function(character) {
 			name:'目線', value:character.level + character.status[5],
 			exceeded: character.level > 15
 		});
+	}
+
+	if(character.skills['バード']) {
+		this.getElementById('bard-musicElement').show();
+	} else {
+		this.getElementById('bard-musicElement').hide();
 	}
 };
 
@@ -130,6 +137,20 @@ com.hiyoko.sweet.PlayerBattle.Magics.prototype.bindEvents = function() {
 		this.getElementById('targets').text('-');
 		this.getElementById('memo').focus();
 		this.targetList = [];
+	}.bind(this));
+	
+	this.getElementById('bard-musicElement-share').click(function(e) {
+		const text = `現在の楽素\n` +
+		`　　⤴ ${this.getElementById('bard-musicElement-upper').val()}\n` +
+		`　　⤵ ${this.getElementById('bard-musicElement-downer').val()}\n` +
+		`　　💛 ${this.getElementById('bard-musicElement-hearts').val()}`
+		this.fireEvent({
+			type: 'tofRoomRequest',
+			args: [{
+				message: text
+			}],
+			method: 'sendChat'
+		});
 	}.bind(this));
 };
 
