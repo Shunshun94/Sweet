@@ -119,6 +119,7 @@ com.hiyoko.sweet.Player.prototype.bindEvents = function(e) {
 		if(e.method === 'sendChat') {
 			e.args[0].color = self.color;
 			e.args[0].bot = self.selectBot.getBot();
+			e.args[0].name = e.args[0].name || self.character.name;
 		}
 		self.retriableRequest(e, 4);
 	});
