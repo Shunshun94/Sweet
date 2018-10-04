@@ -179,6 +179,14 @@ h1 {
 	text-align: left;
 }
 
+#com-hiyoko-sw2-player-resourceManage-resources-points input {
+	width:40px;
+}
+
+#com-hiyoko-sw2-player-resourceManage-resources-points input#com-hiyoko-sw2-player-resourceManage-resources-points-mp-extend {
+	width: 90px;
+}
+
 #com-hiyoko-sw2-player-resourceManage-resources-RemoCon {
 	display: inline-block;
 	border-left: 2px double #ffbf7f;
