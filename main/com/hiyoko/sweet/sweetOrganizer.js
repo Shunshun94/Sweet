@@ -12,6 +12,7 @@ com.hiyoko.sweet.Organizer = function($html) {
 	this.id = this.$html.attr('id');
 
 	this.tofRoomAccess;
+	this.ytSheetMClient = new com.hiyoko.sweet.YtSheetMClient(JSON.parse(localStorage.getItem(com.hiyoko.sweet.Entry.AlgorithmiaTokenStorage)));
 
 	this.applications;
 	this.list;
@@ -133,9 +134,8 @@ com.hiyoko.sweet.Organizer.prototype.bindEvents = function(e) {
 	});
 
 	this.$html.on('algorithmiaRequest', function(e){
-		var client = new com.hiyoko.Algorithmia(JSON.parse(localStorage.getItem(com.hiyoko.sweet.Entry.AlgorithmiaTokenStorage)));
-		client.request(e.algorithm, e.params).then(function(res){e.resolve(res);}, function(err){e.reject(err)});
-	});
+		this.ytSheetMClient.getSheet(e.params).then(function(res){e.resolve(res);}, function(err){e.reject(err)});
+	}.bind(this));
 
 	this.$html.on('getStorage', function(e){
 		e.callback(localStorage.getItem(e.key) ? JSON.parse(localStorage.getItem(e.key)) : null);
