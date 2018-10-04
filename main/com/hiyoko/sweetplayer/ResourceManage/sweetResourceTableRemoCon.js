@@ -25,20 +25,15 @@ com.hiyoko.sweet.ResourceManage.ResourceTableRemoCon.APPLY_EVENT = 'com-hiyoko-s
 com.hiyoko.sweet.ResourceManage.ResourceTableRemoCon.prototype.bindEvents = function() {
 	this.getElementById('physical-exec').click(function(e) {
 		this.apply({
-			hp: Math.max(
-					Number(this.getElementById('physical-base').val()) -
-					Number(this.getElementById('physical-guard').val()) +
-					Number(this.getElementById('physical-help').val()),
-					0)
+			hpDamage: Number(this.getElementById('physical-base').val()) + Number(this.getElementById('physical-help').val()),
+			hpGuard: Number(this.getElementById('physical-guard').val())
 		});
 	}.bind(this));
 	
 	this.getElementById('magical-exec').click(function(e) {
 		this.apply({
-			hp: Math.max(
-					Number(this.getElementById('magical-base').val()) +
-					Number(this.getElementById('magical-help').val()),
-					0)
+			hpDamage: Number(this.getElementById('magical-base').val()) + Number(this.getElementById('magical-help').val()),
+			hpGuard: 0
 		});
 	}.bind(this));
 
