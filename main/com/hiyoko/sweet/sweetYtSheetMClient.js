@@ -16,6 +16,7 @@ com.hiyoko.sweet.YtSheetMClient = class {
 				this.algorithmiaClient.request(com.hiyoko.sweet.YtSheetMClient.Algorithm, url).then((result)=>{
 					resolve(result);
 				}, (error_2)=>{
+					console.error(error_1, error_2);
 					reject(error_2);
 				});
 			});
