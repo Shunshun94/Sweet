@@ -114,7 +114,7 @@ com.hiyoko.sweet.CommonCheck.prototype.sendCommandNoSkill = function(e) {
 	});
 	
 	var option = this.option.getOptionalValue();
-	var text = com.hiyoko.util.format('k%s%s / %s (基準値：平目)%s',
+	var text = com.hiyoko.util.format('2d6%s / %s (基準値：平目)%s',
 			option.value, this.getElementById('comment').val(), option.detail);
 	
 	event.args = [{name: this.character.name, message: text, bot:'SwordWorld2.0'}];
