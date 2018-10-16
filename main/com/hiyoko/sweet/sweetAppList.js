@@ -48,5 +48,9 @@ com.hiyoko.sweet.AppList.prototype.bindEvents = function() {
 			this.fireEvent(new $.Event('clickMenu', {num:$(e.target).attr('title')}));
 		}
 	}.bind(this));
+
+	this.getElementById('toggle').click((e)=>{
+		this.$menu.toggle(200);
+	});
 };
 
