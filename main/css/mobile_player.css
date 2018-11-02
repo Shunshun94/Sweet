@@ -1,0 +1,64 @@
+h1 {
+	padding: 5px;
+	font-size:80%;
+}
+
+h2 {
+	margin-top: 4px;
+	margin-bottom: 4px;
+}
+
+.com-hiyoko-sw2-player-list-list-item {
+	width: 160px;
+}
+
+#com-hiyoko-sw2-player > div {
+	padding: 0px;
+}
+
+.com-hiyoko-sw2-player-playerbattle-base {
+	width: 90%;
+}
+
+#com-hiyoko-sw2-player-playerbattle-weapons-checkpannel {
+	padding-bottom: 12px;
+}
+
+#com-hiyoko-sw2-player-playerbattle-weapons-memo {
+	width: 210px;
+}
+
+#com-hiyoko-sw2-player-playerbattle-weapons-rolevalue {
+	width: 260px;
+}
+
+#com-hiyoko-sw2-player-playerbattle-weapons-critical {
+	width: 210px;
+}
+
+#com-hiyoko-sw2-player-playerbattle-weapons-detail {
+	font-size: 100%;
+}
+
+#com-hiyoko-sw2-player-playerbattle-magics-hitexec,
+#com-hiyoko-sw2-player-playerbattle-magics-damexec {
+	margin-bottom: 12px;
+}
+
+#com-hiyoko-sw2-player-playerbattle-magics-memo {
+	width: 200px;
+}
+
+#com-hiyoko-sw2-player-playerbattle-magics-bard-musicElement-share {
+	width: 112px;
+	padding: 0px;
+}
+
+#com-hiyoko-sw2-player-playerbattle-call-editor {
+	width: 90%;
+}
+
+div#com-hiyoko-sw2-player-talk {
+	position: absolute;
+	right: -400px;
+}
