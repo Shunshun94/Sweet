@@ -130,6 +130,14 @@ com.hiyoko.sweet.PlayerBattle.Weapons.prototype.bindEvents = function() {
 					weapon.name, this.getElementById('memo').val()),
 			col: [8, 3, 9]
 		});
+		if(this.getElementById('rolevalue').val() !== '') {
+			this.getElementById('rolevalue').val('');
+			this.getElementById('rolevalue').css('background-color', '#ff7f7f');
+			setTimeout(()=>{
+				this.getElementById('rolevalue').css('background-color', 'white');
+			}, 500);
+		}
+		
 	}.bind(this));
 
 	this.getElementById('memo-clear').click(function(e) {
