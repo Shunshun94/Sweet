@@ -114,9 +114,9 @@ button {
 	position:relative;
 }
 #com-hiyoko-sweet-responseChatBase {
-	position:absolute;
+	position:fixed;
 	right:4px;
-	top: 4px;
+	top: 81px;
 	background-color:white;
 }
 #com-hiyoko-sweet-responseChatBase-toggle {
