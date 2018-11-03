@@ -1,0 +1,127 @@
+h1 {
+	padding: 5px;
+	font-size:80%;
+}
+h1:before {content:"[For mobile]";}
+
+h2 {
+	margin-top: 4px;
+	margin-bottom: 4px;
+}
+
+.com-hiyoko-sw2-player-list-list-item {
+	width: 45%;
+}
+
+#com-hiyoko-sw2-player > div {
+	padding: 0px;
+}
+
+.com-hiyoko-sw2-player-playerbattle-base {
+	width: 90%;
+}
+
+#com-hiyoko-sw2-player-playerbattle-weapons-checkpannel {
+	padding-bottom: 12px;
+}
+
+#com-hiyoko-sw2-player-playerbattle-weapons-memo {
+	width: 50%;
+}
+
+#com-hiyoko-sw2-player-playerbattle-weapons-rolevalue {
+	width: 74%;
+}
+
+#com-hiyoko-sw2-player-playerbattle-weapons-critical {
+	width: 60%;
+}
+
+#com-hiyoko-sw2-player-playerbattle-weapons-detail {
+	font-size: 100%;
+}
+
+#com-hiyoko-sw2-player-playerbattle-magics-hitexec,
+#com-hiyoko-sw2-player-playerbattle-magics-damexec {
+	margin-bottom: 12px;
+}
+
+#com-hiyoko-sw2-player-playerbattle-magics-memo {
+	width: 80%;
+}
+
+#com-hiyoko-sw2-player-playerbattle-magics-bard-musicElement-share {
+	width: 32%;
+	padding: 0px;
+}
+
+#com-hiyoko-sw2-player-playerbattle-call-editor {
+	width: 90%;
+}
+
+.com-hiyoko-sw2-player-playerbattle-option-table-member > td {
+	display: inline-block;
+}
+
+.com-hiyoko-sw2-player-playerbattle-option-table-header {
+	display: none;
+}
+
+.com-hiyoko-sw2-player-playerbattle-option-table-member-0 {
+	width: 15%;
+}
+.com-hiyoko-sw2-player-playerbattle-option-table-member-1 {
+	width: 80%;
+}
+.com-hiyoko-sw2-player-playerbattle-option-table-member-1 > input {
+	width: 95%;
+}
+
+.com-hiyoko-sw2-player-playerbattle-option-table-member-2,
+.com-hiyoko-sw2-player-playerbattle-option-table-member-3,
+.com-hiyoko-sw2-player-playerbattle-option-table-member-4,
+.com-hiyoko-sw2-player-playerbattle-option-table-member-5,
+.com-hiyoko-sw2-player-playerbattle-option-table-member-6,
+.com-hiyoko-sw2-player-playerbattle-option-table-member-7,
+.com-hiyoko-sw2-player-playerbattle-option-table-member-8,
+.com-hiyoko-sw2-player-playerbattle-option-table-member-9 {
+	width: 23%;
+}
+.com-hiyoko-sw2-player-playerbattle-option-table-member-2:before {content:"命";}
+.com-hiyoko-sw2-player-playerbattle-option-table-member-3:before {content:"追";}
+.com-hiyoko-sw2-player-playerbattle-option-table-member-4:before {content:"回";}
+.com-hiyoko-sw2-player-playerbattle-option-table-member-5:before {content:"生";}
+.com-hiyoko-sw2-player-playerbattle-option-table-member-6:before {content:"精";}
+.com-hiyoko-sw2-player-playerbattle-option-table-member-7:before {content:"魔";}
+.com-hiyoko-sw2-player-playerbattle-option-table-member-8:before {content:"威";}
+.com-hiyoko-sw2-player-playerbattle-option-table-member-9:before {content:"必";}
+
+
+div#com-hiyoko-sw2-player-talk {
+	position: absolute;
+	z-index: -5;
+}
+
+
+#com-hiyoko-sw2-player-resourceManage-resources-points {
+	display:table;
+	top: 0px;
+}
+#com-hiyoko-sw2-player-resourceManage-resources-RemoCon {
+	display: block;
+}
+#com-hiyoko-sw2-player-resourceManage-resources-RemoCon > div > h5,
+#com-hiyoko-sw2-player-resourceManage-resources-RemoCon > div > p {
+	margin-top:4px;
+	margin-bottom:4px;
+}
+
+#com-hiyoko-sw2-player-footer {
+	padding-top: 4px;
+	padding-bottom: 4px;
+}
+#com-hiyoko-sw2-player-footer > p {
+	padding: 0px;
+	margin-top: 0px;
+	margin-bottom: 0px;
+}
