@@ -130,6 +130,13 @@ com.hiyoko.sweet.PlayerBattle.Magics.prototype.bindEvents = function() {
 					magic.name, this.getElementById('memo').val()),
 			col: [3, 7, 9]
 		});
+		if(this.getElementById('rolevalue').val() !== '') {
+			this.getElementById('rolevalue').val('');
+			this.getElementById('rolevalue').css('background-color', '#ff7f7f');
+			setTimeout(()=>{
+				this.getElementById('rolevalue').css('background-color', 'white');
+			}, 500);
+		}
 	}.bind(this));
 
 	this.getElementById('memo-clear').click(function(e) {

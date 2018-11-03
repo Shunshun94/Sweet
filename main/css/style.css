@@ -69,12 +69,31 @@ button {
 	vertical-align:top;
 	height:100%;
 	color:black;
-	width:220px;
+	position:relative;
+}
+
+#com-hiyoko-sweet-menu-toggle {
+	position: relative;
+	top: 4px;
+	left: 4px;
+	width: 20px;
+	height: 20px;
+	margin-right:4px;
+	text-align:center;
+	display: block;
+	border: 3px gray outset;
+}
+
+#com-hiyoko-sweet-menu-toggle:hover {
+	border: 3px gray inset;
+	background-color: gray;
 }
 
 #com-hiyoko-sweet-menu-list {
 	list-style-type: none;
 	position:relative;
+	left:-2em;
+	width:210px;
 }
 
 #com-hiyoko-sweet-menu-list > li{
@@ -83,8 +102,7 @@ button {
 	margin-bottom:4px;
 	padding:5px;
 	position:relative;
-	left:-2em;
-	width:200px;
+	width:220px;
 }
 
 #com-hiyoko-sweet-apps {
@@ -96,9 +114,9 @@ button {
 	position:relative;
 }
 #com-hiyoko-sweet-responseChatBase {
-	position:absolute;
+	position:fixed;
 	right:4px;
-	top: 4px;
+	top: 81px;
 	background-color:white;
 }
 #com-hiyoko-sweet-responseChatBase-toggle {
