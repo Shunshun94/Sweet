@@ -6,7 +6,7 @@ com.hiyoko.sweet.PlayerBattle = com.hiyoko.sweet.PlayerBattle || {};
 com.hiyoko.sweet.PlayerBattle.OptionalValues = function($html, opt_conf) {
 	this.$html = $($html);
 	this.id = this.$html.attr('id');
-	
+
 	this.$table = this.getElementById('table');
 	this.$toggle = this.getElementById('toggle');
 	this.$summary = this.getElementById('summary');
@@ -19,7 +19,7 @@ com.hiyoko.sweet.PlayerBattle.OptionalValues = function($html, opt_conf) {
 	                 {title:'生命抵抗', type:'number'}, {title:'精神抵抗', type:'number'},
 	                 {title:'魔力', type:'number'}, {title:'威力', type:'number'},
 	                 {title:'出目(2.5から)', type:'number'}]);
-	
+
 	this.bindEvent();
 };
 
@@ -49,11 +49,7 @@ com.hiyoko.sweet.PlayerBattle.OptionalValues.Table = function($html, cols) {
 
 com.hiyoko.util.extend(com.hiyoko.component.TableBase, com.hiyoko.sweet.PlayerBattle.OptionalValues.Table);
 
-com.hiyoko.sweet.PlayerBattle.OptionalValues.Table.prototype.bindEvent = function(){
-	this.$html.change(function(e) {
-		
-	}.bind(this));
-};
+com.hiyoko.sweet.PlayerBattle.OptionalValues.Table.prototype.bindEvent = function(){};
 
 com.hiyoko.sweet.PlayerBattle.OptionalValues.Table.prototype.getOptionalValue = function(opt_col) {
 	var table = this.getTableValue();
