@@ -2,7 +2,7 @@ var com = com || {};
 com.hiyoko = com.hiyoko || {};
 com.hiyoko.sweet = com.hiyoko.sweet || {};
 
-com.hiyoko.sweet.PlayerBattle = function($html, character) {
+com.hiyoko.sweet.PlayerBattle = function($html, character, query) {
 	this.$html = $html;
 	this.id = this.$html.attr('id');
 	this.character = character;
