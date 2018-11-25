@@ -362,6 +362,48 @@ td.com-hiyoko-sweet-accounting-summary-table-out-total {
 	margin-top: -5px;
 }
 
+#com-hiyoko-sweet-Memo-header {
+	margin-top: 0px;
+	margin-bottom: 0px;
+	padding: 0px;
+}
+
+#com-hiyoko-sweet-Memo-header,
+#com-hiyoko-sweet-Memo-browser,
+#com-hiyoko-sweet-Memo-textmemo {
+	position: relative;
+	width: 40%;
+	min-width: 540px;
+}
+
+#com-hiyoko-sweet-Memo-url {
+	width: 80%;	
+}
+
+.com-hiyoko-sweet-Memo-header-button {
+	border: 2px outset gray;
+	width: 25px;
+	display: inline-block;
+	text-align:center;
+}
+
+.com-hiyoko-sweet-Memo-header-button:hover {
+	background-color: gray;
+	border: 2px inset gray;
+}
+
+#com-hiyoko-sweet-Memo-browser,
+#com-hiyoko-sweet-Memo-textmemo {
+	top: 8px;
+	background-color: white;
+	height: 600px;
+}
+
+#com-hiyoko-sweet-Memo-textmemo {
+	resize: none;
+	display: none;
+}
+
 #com-hiyoko-sweet-footer{
 	border-top: solid 3px #D0C0C0;
 	background-color:#F0E0E0;

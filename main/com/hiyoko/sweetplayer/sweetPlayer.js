@@ -31,6 +31,7 @@ com.hiyoko.sweet.Player.prototype.initRoomTitle = function() {
 };
 
 com.hiyoko.sweet.Player.prototype.buildComponents = function() {
+	com.hiyoko.sweet.PlayerBattle.PlayerBattleOptionalTableLoader(this.query);
 	if(this.query.platform && this.query.sheetId) {
 		const id = this.query.sheetId.replace(/\$/gm, '?').replace(/~/gm, '=');
 		this.color = this.query.color || io.github.shunshun94.util.Color.getColorFromSeed(id).code.substr(1);
@@ -55,7 +56,6 @@ com.hiyoko.sweet.Player.prototype.buildComponents = function() {
 				this.selectBot = new com.hiyoko.sweet.SelectBot(this.getElementById('selectBot'));
 				this.onClickList({num: 0});
 			}, 1500);
-
 		}.bind(this));
 	} else {
 		this.$html.children('div').hide();
@@ -116,7 +116,7 @@ com.hiyoko.sweet.Player.prototype.bindEvents = function(e) {
 	var self = this;
 	
 	this.$html.on('tofRoomRequest', function(e){
-		if(e.method === 'sendChat') {
+		if(e.method === 'sendChat') { 
 			e.args[0].color = self.color;
 			e.args[0].bot = self.selectBot.getBot();
 			e.args[0].name = e.args[0].name || self.character.name;

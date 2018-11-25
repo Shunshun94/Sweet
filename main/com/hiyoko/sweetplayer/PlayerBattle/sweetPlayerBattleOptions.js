@@ -6,7 +6,7 @@ com.hiyoko.sweet.PlayerBattle = com.hiyoko.sweet.PlayerBattle || {};
 com.hiyoko.sweet.PlayerBattle.OptionalValues = function($html, opt_conf) {
 	this.$html = $($html);
 	this.id = this.$html.attr('id');
-	
+
 	this.$table = this.getElementById('table');
 	this.$toggle = this.getElementById('toggle');
 	this.$summary = this.getElementById('summary');
@@ -19,17 +19,28 @@ com.hiyoko.sweet.PlayerBattle.OptionalValues = function($html, opt_conf) {
 	                 {title:'生命抵抗', type:'number'}, {title:'精神抵抗', type:'number'},
 	                 {title:'魔力', type:'number'}, {title:'威力', type:'number'},
 	                 {title:'出目(2.5から)', type:'number'}]);
-	
 	this.bindEvent();
+	this.updateTableStorage({value: this.table.getTableValue()});
 };
 
 com.hiyoko.util.extend(com.hiyoko.component.ApplicationBase, com.hiyoko.sweet.PlayerBattle.OptionalValues);
+
+com.hiyoko.sweet.PlayerBattle.OptionalValues.prototype.updateTableStorage = function(e) {
+	const list = e.value.map((d)=>{return d.slice(1).join(':')}).join(';');
+	this.getElementById('export').val(`${location.origin}${location.pathname}?PlayerBattleOptions=${list}`);	
+};
 
 com.hiyoko.sweet.PlayerBattle.OptionalValues.prototype.bindEvent = function(){
 	this.$toggle.click(function(e) {
 		this.$table.toggle(400);
 		this.$summary.text(this.table.getOptionalValue());
 	}.bind(this));
+	this.$html.on('setStorage', (e)=>{
+		this.updateTableStorage(e);
+	});
+	this.getElementById('export').focus((e)=>{
+		this.getElementById('export').select();
+	});
 };
 
 com.hiyoko.sweet.PlayerBattle.OptionalValues.prototype.getOptionalValue = function(col) {
@@ -49,11 +60,7 @@ com.hiyoko.sweet.PlayerBattle.OptionalValues.Table = function($html, cols) {
 
 com.hiyoko.util.extend(com.hiyoko.component.TableBase, com.hiyoko.sweet.PlayerBattle.OptionalValues.Table);
 
-com.hiyoko.sweet.PlayerBattle.OptionalValues.Table.prototype.bindEvent = function(){
-	this.$html.change(function(e) {
-		
-	}.bind(this));
-};
+com.hiyoko.sweet.PlayerBattle.OptionalValues.Table.prototype.bindEvent = function(){};
 
 com.hiyoko.sweet.PlayerBattle.OptionalValues.Table.prototype.getOptionalValue = function(opt_col) {
 	var table = this.getTableValue();
