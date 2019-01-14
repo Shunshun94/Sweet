@@ -228,6 +228,10 @@ div.com-hiyoko-sw2-player-pet-character-part {
 	position: relative;
 }
 
+.com-hiyoko-sw2-player-pet-character-part-copy {
+	display:none;
+}
+
 table.com-hiyoko-sw2-player-pet-character-part-table {
 	display:table;
 }

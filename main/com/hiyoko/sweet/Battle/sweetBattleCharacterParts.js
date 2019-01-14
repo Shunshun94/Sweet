@@ -295,6 +295,30 @@ com.hiyoko.sweet.Battle.BattleCharacter.prototype.bindEvents = function() {
 		}));
 	}.bind(this));
 	
+	this.$html.on('executeCopyFromPart', (e)=>{
+		const execResult = /([A-Z])$/.exec(e.value.name);
+		const nameLastCharIndex = e.value.name.length - 1;
+		const nameIncrement = (name) => {
+			return `${name.slice(0, nameLastCharIndex)}${String.fromCharCode(name.charCodeAt(nameLastCharIndex) + 1)}`;
+		};
+		if(execResult) {
+			let names = [];
+			for(var key in this.parts) {
+				names.push(this.parts[key].getValue().name);
+			}
+			while(names.includes(e.value.name)) {
+				e.value.name = nameIncrement(e.value.name);
+			}
+		} else {
+			const currentName = e.value.name;
+			e.value.name = `${currentName}_A`;
+			this.parts[e.id].setValue(e.value);
+			e.value.name = `${currentName}_B`;
+		}
+		const id = this.addPart();		
+		this.parts[id].setValue(e.value);
+	});
+	
 	this.name.change(function(e) {
 		if(this.added) {
 			return;
@@ -420,6 +444,7 @@ com.hiyoko.sweet.Battle.BattleCharacter.Part = function($html, opt_original) {
 	this.render(); 
 	this.add = this.getElement('.' + this.clazz + '-addAttackWay');
 	this.remove = this.getElement('.' + this.clazz + '-delete');
+	this.copy = this.getElement('.' + this.clazz + '-copy');
 
 	this.name = this.getElement('.' + this.clazz + '-name');
 	this.dodge = this.getElement('.' + this.clazz + '-dodge');
@@ -460,11 +485,13 @@ com.hiyoko.sweet.Battle.BattleCharacter.Part.prototype.render = function() {
 
 	$table.append($status)
 	this.$html.append(com.hiyoko.util.format('<span class="%s"></span>' +
+			'<span class="%s">コピー</span>'+
 			'<span class="%s">×</span>' +
 			'<button class="%s">攻撃手段追加</button>' + 
 			'<button class="%s io-github-shunshun94-util-UnDoubleClickable">回避</button>'+
 			'<button class="%s io-github-shunshun94-util-UnDoubleClickable">回避(固定値)</button>',
-			this.clazz + '-optionsName', 
+			this.clazz + '-optionsName',
+			this.clazz + '-copy',
 			this.clazz + '-delete', this.clazz + '-addAttackWay',
 			this.clazz + '-dodge-exec', this.clazz + '-dodge-static-exec'));
 	this.$html.append($table);
@@ -479,6 +506,13 @@ com.hiyoko.sweet.Battle.BattleCharacter.Part.prototype.bindEvents = function() {
 	
 	this.remove.click(function(e){
 		this.destract();
+	}.bind(this));
+	
+	this.copy.click(function(e){
+		const value = this.getValue();
+		this.fireEvent(new $.Event('executeCopyFromPart', {
+			value: value, id:this.id.split('-').reverse()[0]
+		}));
 	}.bind(this));
 	
 	this.dodgeExec.click(function(e){
