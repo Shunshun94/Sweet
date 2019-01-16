@@ -56,6 +56,13 @@ MIT ライセンスです。
 
 ライセンス情報：  https://github.com/izy521/discord.io/blob/master/LICENSE
 
+### AlertifyJS
+
+GPLv3 です。
+
+ライセンス情報： https://github.com/MohammadYounes/AlertifyJS/blob/master/LICENSE
+
+
 ## Related products
 
 ### ソードワールド2.0/2.5
