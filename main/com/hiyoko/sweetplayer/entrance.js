@@ -109,7 +109,7 @@ com.hiyoko.DodontoF.V2.Entrance.Option = class extends com.hiyoko.component.Inpu
 				}
 			}
 		}).fail((error) => {
-			alert('チャットの取得に失敗しました。\n理由：' + error.result);
+			alertify.error('文字色を取得するためのチャットの取得に失敗しました。\n理由：' + error.result);
 			console.error(error);
 			this.goBack.bind(this)
 		});

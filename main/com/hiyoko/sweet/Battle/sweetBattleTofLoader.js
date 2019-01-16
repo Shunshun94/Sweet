@@ -27,7 +27,7 @@ com.hiyoko.sweet.Battle.TofLoader.prototype.loadCharacters = function(cb, opt_fa
 		if(opt_fail) {
 			opt_fail(result);
 		} else {
-			alert(result.result);
+			alertify.error(result.result);
 		}
 	}));
 };

@@ -48,14 +48,14 @@ com.hiyoko.sweet.PcManager.PcManager.prototype.bindEvents = function() {
 			this.console.insertCharacters(characterList);
 			this.console.enable();
 		}.bind(this), function(failedReason) {
-			alert(failedReason);
+			alertify.error(failedReason);
 		});
 	}.bind(this));
 	this.$html.on(com.hiyoko.sweet.PcManager.PcManager.Console.EVENTS.UPDATE, function(e) {
 		this.manager.getCharacters(e.sheets).then(function(characterList) {
 			this.console.insertCharacters(characterList);
 		}.bind(this), function(failedReason) {
-			alert(failedReason);
+			alertify.error(failedReason);
 		});
 	}.bind(this));
 	this.$html.on(com.hiyoko.sweet.PcManager.PcManager.Console.EVENTS.PUT, function(e) {

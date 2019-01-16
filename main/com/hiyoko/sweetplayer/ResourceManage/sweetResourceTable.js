@@ -23,11 +23,16 @@ com.hiyoko.sweet.ResourceManage.ResourceTable.prototype.bindEvent = function() {
 		this.hpmp.applyValueWithExtend(e.arg);
 	}.bind(this));
 	this.getElementById('shareAsText').click((e) => {
-		var event = {type: 'tofRoomRequest', resolve:function(){}, reject:function(){}};
+		var event = {type: 'tofRoomRequest', resolve:function(){
+			alertify.success('HP/MP の情報が無事送信されました');
+		}, reject:function(){
+			alertify.error('HP/MP の情報送信に失敗しました');
+		}};
 		const value = this.hpmp.getValue();
 		event.args = [{name: this.data.name, message: this.generateHPMPText(value)}];
 		event.method = 'sendChat';
 		this.fireEvent(event);
+		alertify.message('HP/MP の情報を送信しています……');
 	});
 }
 

@@ -40,9 +40,9 @@ com.hiyoko.sweet.PlayerBattle.prototype.getCharacters = function(e) {
 
 com.hiyoko.sweet.PlayerBattle.prototype.sendCommand = function(e){
 	var event = this.getAsyncEvent('tofRoomRequest').done(function(r){
-		$(e.target).notify('ダイスが振られました', {className: 'success', position: 'top'});
+		alertify.success('ダイスが振られました');
 	}.bind(this)).fail(function(r){
-		alert('ダイスを振るのに失敗しました\n' + r.result);
+		alertify.error('ダイスを振るのに失敗しました\n' + r.result);
 	});
 
 	var options;
@@ -76,12 +76,14 @@ com.hiyoko.sweet.PlayerBattle.prototype.sendCommand = function(e){
 			event.args = [{name: this.character.name, message: text, bot:'SwordWorld2.0'}];
 			event.method = 'sendChat';
 			this.fireEvent(event);
+			alertify.message(`ダイスコマンド (${text}) を送信しました`);
 		})
 	} else {
 		const targets = (e.targetList || []).length ? ` ＞ ${e.targetList.join(', ')}` : '';
 		const text = com.hiyoko.util.format.apply(null, optionValues).replace('#+0 /', ' /') + targets + options.detail;
 		event.args = [{name: this.character.name, message: text, bot:'SwordWorld2.0'}];
 		event.method = 'sendChat';
+		alertify.message(`ダイスコマンド (${text}) を送信しました`);
 		this.fireEvent(event);
 	}
 };

@@ -27,7 +27,7 @@ com.hiyoko.sweet.Pet.Character.prototype.initialize = function(list) {
 	this.bindEvents();
 	if(list.length) {
 		this.buildPartsList(list);
-		this.$html.notify('どどんとふにすでにデータがあったので読み込みました', {className: 'success', position: 'top'});
+		alertify.success('どどんとふにすでにデータがあったので読み込みました');
 	}
 };
 
@@ -105,9 +105,9 @@ com.hiyoko.sweet.Pet.Character.prototype.updateHpMp = function(e) {
 			name: this.getElementById('name').text(),
 			parts: parts
 		}).done(function(result){
-			this.$html.notify('更新しました', {className: 'success', position: 'top'});
+			alertify.success('更新しました');
 		}.bind(this)).fail(function(r){
-			alert('更新に失敗しました\n' + r.result);
+			alertify.error('更新に失敗しました\n' + r.result);
 		}));
 	}
 };
@@ -154,10 +154,10 @@ com.hiyoko.sweet.Pet.Character.prototype.appendCharacterToTof = function(e) {
 		parts: parts
 	}).done(function(result){
 		$(e.target).hide();
-		this.$html.notify('コマを作成しました', {className: 'success', position: 'top'});
+		alertify.success('コマを作成しました');
 		com.hiyoko.util.forEachMap(this.parts, function(v){v.afterAdd();});
 	}.bind(this)).fail(function(r){
-		alert('コマの作成に失敗しました\n' + r.result);
+		alertify.error('コマの作成に失敗しました\n' + r.result);
 	}));
 };
 
@@ -180,7 +180,7 @@ com.hiyoko.sweet.Pet.Character.prototype.addPart = function() {
 	
 	for(var key in this.parts) {
 		if(data.name === this.parts[key].getValue().name) {
-			alert('既にある部位と同じ名前の部位は追加できません');
+			alertify.error('既にある部位と同じ名前の部位は追加できません');
 			return null;
 		}
 	}

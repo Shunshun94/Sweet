@@ -22,10 +22,10 @@ com.hiyoko.sweet.PlayerBattle.Call.prototype.sendCall = function(isIdea) {
 	if(this.editor.val() === ''){return;}
 	var text = (isIdea ? '行動宣言 (案)\n' : '行動宣言\n') + this.editor.val();
 	var event = this.getAsyncEvent('tofRoomRequest').done(function(r) {
-		this.editor.notify('送信しました', {className: 'success', position: 'top'});
+		alertify.success('送信しました');
 	}.bind(this)).fail(function(err){
 		console.error(err);
-		alert(err.message || err || '送信に失敗しました');
+		alertify.error(err.message || err || '送信に失敗しました');
 	});
 	event.args = [{name: this.character.name, message: text}];
 	event.method = 'sendChat';

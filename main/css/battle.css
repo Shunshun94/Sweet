@@ -144,6 +144,20 @@
 	font-size: 50%;
 }
 
+.com-hiyoko-sweet-battle-character-part-copy {
+	border: coral 2px solid;
+	font-size: 70%;
+	vertical-align:middle;
+	width: 48px;
+	height: 14px;
+	text-align:center;
+	font-weight:bold;
+	background-color:tomato;
+	position:absolute;
+	right:20px;
+	top:0px;
+}
+
 .com-hiyoko-sweet-battle-character-part-addAttackWay {
 	position:absolute;
 	top:33px;
