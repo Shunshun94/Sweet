@@ -25,7 +25,7 @@ com.hiyoko.sweet.Discussion.prototype.buildComponents = function(){
 			tabs: r.chatTab
 		});
 	}).fail(function(r){
-		alert('Couldn\'t get DodontoF Room Info. Is URL correct?\n' + r.result);
+		alertify.error('どどんとふの部屋情報の取得に失敗しました。URL を再度確認してください\n' + r.result);
 	});
 	event.method = 'getRoomInfo';
 	this.fireEvent(event);
@@ -73,12 +73,12 @@ com.hiyoko.sweet.Discussion.Memo.prototype.update = function(e) {
 		method: 'updateMemo',
 		args:[text, this.memoId]
 	}).done(function(r){
-		this.editor.notify('更新しました', 'success');
+		alertify.success('更新しました');
 		if (this.memoId === '') {
 			this.setMemoId(id);
 		}
 	}.bind(this)).fail(function(r){
-		this.editor.notify('更新に失敗しました\n理由：' + r.result, 'warn');
+		alertify.error('更新に失敗しました\n理由：' + r.result);
 	}.bind(this));
 	
 	this.fireEvent(event);
@@ -94,7 +94,7 @@ com.hiyoko.sweet.Discussion.Memo.prototype.setMemoId = function(suffix) {
 			}
 		}.bind(this));
 	}.bind(this)).fail(function(r){
-		this.editor.notify('メモの追加には成功しましたが、\n次の更新がうまくいかなそうです\n理由：' + r.result, 'warn');
+		alertify.warning('メモの追加には成功しましたが、\n次の更新がうまくいかなそうです\n理由：' + r.result);
 	}.bind(this));
 
 	this.fireEvent(event);
@@ -149,7 +149,7 @@ com.hiyoko.sweet.Discussion.Vote.prototype.bindEvents = function() {
 
 com.hiyoko.sweet.Discussion.Vote.prototype.sendVoteChoice = function(list) {
 	if(list.length === 0) {
-		this.submit.notify('投票を開始しました', 'success');
+		alertify.success('投票を開始しました');
 	} else {
 		var event = this.getAsyncEvent('tofRoomRequest', {
 			method: 'sendChat',
@@ -160,7 +160,7 @@ com.hiyoko.sweet.Discussion.Vote.prototype.sendVoteChoice = function(list) {
 		}).done(function(r){
 			this.sendVoteChoice(list);
 		}.bind(this)).fail(function(r){
-			this.submit.notify('投票の開始に失敗しました\n理由:' + r.result, 'warn');
+			alertify.error('投票の開始に失敗しました\n理由:' + r.result);
 		}.bind(this));
 
 		this.fireEvent(event);	

@@ -90,9 +90,9 @@ com.hiyoko.sweet.Pet.prototype.appendCharacterToTof = function(e) {
 
 com.hiyoko.sweet.Pet.prototype.sendCommand = function(e) {
 	var event = this.getAsyncEvent('tofRoomRequest').done(function(r){
-		$(e.target).notify('ダイスが振られました', {className: 'success', position: 'top'});
+		alertify.success('ダイスが振られました');
 	}.bind(this)).fail(function(r){
-		alert('ダイスを振るのに失敗しました\n' + r.result);
+		alertify.error('ダイスを振るのに失敗しました\n' + r.result);
 	});
 	var option = this.table.getOptionalValue(e.col);
 	

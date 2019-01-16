@@ -90,9 +90,9 @@ com.hiyoko.sweet.Battle.prototype.roleDice = function(e) {
 	const option = this.joinOptions(options, cols);
 	
 	var event = this.getAsyncEvent('tofRoomRequest').done(function(r){
-		$(e.target).notify('ダイスが振られました', {className: 'success', position: 'top'});
+		alertify.success('ダイスが振られました');
 	}.bind(this)).fail(function(r){
-		alert('ダイスを振るのに失敗しました\n' + r.result);
+		alertify.error(`ダイスを振るのに失敗しました\n${r.result}`);
 	});
 	var text = e.value.startsWith('C') ?
 			com.hiyoko.util.format('%s%s) / %s', e.value, option.value, e.text) : 
@@ -104,7 +104,8 @@ com.hiyoko.sweet.Battle.prototype.roleDice = function(e) {
 	event.args = [{name: this.nameList.append(e.id, e.name), message: text, bot:'SwordWorld2.0'}];
 	event.method = 'sendChat';
 	this.fireEvent(event);
-	$(e.target).notify('ダイスコマンドを送信しました' + text, {className: 'info', position: 'top'});
+
+	alertify.message('ダイスコマンドを送信しました' + text);
 };
 
 com.hiyoko.sweet.Battle.prototype.callCharacterOption = function(e) {
@@ -118,10 +119,10 @@ com.hiyoko.sweet.Battle.prototype.callCharacterOption = function(e) {
 
 com.hiyoko.sweet.Battle.prototype.putCharacter = function(e) {
 	var event = this.getAsyncEvent('tofRoomRequest').done(function(r){
-		$(e.target).notify('キャラクターが追加されました', {className: 'success', position: 'top'});
+		alertify.success('キャラクターが追加されました');
 		e.resolve ? e.resolve() : false;
 	}.bind(this)).fail(function(r){
-		alert('キャラクターの追加に失敗しました\n' + r.result);
+		alertify.error('キャラクターの追加に失敗しました\n' + r.result);
 	});
 	
 	event.method = 'addCharacter';
@@ -145,7 +146,7 @@ com.hiyoko.sweet.Battle.prototype.putCharacter = function(e) {
 		this.fireEvent(event);
 	}.bind(this));
 	
-	$(e.target).notify('キャラクター追加のリクエストを送信しました (' + e.value.name + ')', {className: 'info', position: 'top'});
+	alertify.message(`キャラクター追加のリクエストを送信しました (${e.value.name})`);
 };
 
 com.hiyoko.sweet.Battle.prototype.shareEnemyData = function(e) {
@@ -207,7 +208,7 @@ com.hiyoko.sweet.Battle.prototype.openNameSelector = function(e) {
 					return character.name;
 				}), e.resolve, e.reject);
 	}).fail((e)=> {
-		alert(`キャラクター一覧の取得に失敗しました\n理由: ${e.result}`)
+		alertify.error(`キャラクター一覧の取得に失敗しました\n理由: ${e.result}`)
 		console.error(e);
 	}));
 };
@@ -229,10 +230,10 @@ com.hiyoko.sweet.Battle.prototype.bindEvents = function() {
 			var event = this.getAsyncEvent('algorithmiaRequest').done(function(r){
 				var id = this.appendCharacter();
 				this.list[id].setValue(r);
-				$(e.target).notify('読み込みました', {className: 'success', position: 'top'});
+				alertify.success('読み込みました');
 			}.bind(this)).fail(function(r){
 				console.error(r);
-				alert('読み込みに失敗しました\n' + r.message);
+				alertify.error('読み込みに失敗しました\n' + r.message);
 			});
 			event.algorithm = 'algo://Shunshun94/ytSheetMParser/0.4.3';
 			event.params = url;
@@ -250,10 +251,10 @@ com.hiyoko.sweet.Battle.prototype.bindEvents = function() {
 	this.$html.on('callCharacterOption', (e)=>{this.callCharacterOption(e);});
 	this.$html.on('updateCharacterRequest', function(e) {
 		var event = this.getAsyncEvent('tofRoomRequest').done(function(r){
-			$(e.target).notify('情報が更新されました', {className: 'success', position: 'top'});
+			alertify.success('情報が更新されました');
 			e.resolve ? e.resolve(r) : false;
 		}.bind(this)).fail(function(r){
-			alert('情報の更新に失敗しました\n' + r.result);
+			alertify.error('情報の更新に失敗しました\n' + r.result);
 			e.reject ? e.reject(r) : false;
 		});
 		event.method = 'updateCharacter';
@@ -273,16 +274,16 @@ com.hiyoko.sweet.Battle.prototype.bindEvents = function() {
 			
 			this.fireEvent(event);
 		}.bind(this));
-		
-		$(e.target).notify('情報更新のリクエストを送信しました (' + e.value.name + ')', {className: 'info', position: 'top'});
+
+		alertify.message('情報更新のリクエストを送信しました (' + e.value.name + ')');
 	}.bind(this));
 	
 	this.$html.on('updateCharacterNameRequest', function(e) {
 		var event = this.getAsyncEvent('tofRoomRequest').done(function(r){
-			$(e.target).notify('名前が更新されました', {className: 'success', position: 'top'});
+			alertify.success('名前が更新されました');
 			e.resolve ? e.resolve(r) : false;
 		}.bind(this)).fail(function(r){
-			alert('名前の更新に失敗しました\n' + r.result);
+			alertify.error('名前の更新に失敗しました\n' + r.result);
 			e.reject ? e.reject(r) : false;
 		});
 		
@@ -300,9 +301,9 @@ com.hiyoko.sweet.Battle.prototype.bindEvents = function() {
 			this.fireEvent(event);
 		}.bind(this));
 		
-		$(e.target).notify('名前更新のリクエストを送信しました (' + e.value.name + ')', {className: 'info', position: 'top'});
+		alertify.message('名前更新のリクエストを送信しました (' + e.value.name + ')');
 	}.bind(this));
-	
+
 	this.$html.on('saveRequest', function(e){
 		this.enemyList[e.value.name] = e.value;
 		this.setStorage('enemy-list', this.enemyList);
@@ -329,7 +330,7 @@ com.hiyoko.sweet.Battle.prototype.bindEvents = function() {
 		var event = this.getAsyncEvent('tofRoomRequest').done(function(r){
 			e.resolve ? e.resolve(r) : false;
 		}.bind(this)).fail(function(r){
-			alert(e.name + 'の更新に失敗しました\n' + r.result);
+			alertify.error(e.name + 'の更新に失敗しました\n' + r.result);
 			e.reject ? e.reject(r) : false;
 		});
 		
@@ -473,7 +474,7 @@ com.hiyoko.sweet.Battle.prototype.loadCurrentStatus = function() {
 			}.bind(this));
 		}.bind(this));
 	}.bind(this), function(result) {
-		alert('読み込みに失敗しました\n原因：' + result.result);
+		alertify.error('読み込みに失敗しました\n原因：' + result.result);
 	});
 	
 };

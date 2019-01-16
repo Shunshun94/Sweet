@@ -230,7 +230,7 @@ com.hiyoko.util.extend(com.hiyoko.sweet.Circumstance.CommandBase, com.hiyoko.swe
 com.hiyoko.sweet.Circumstance.Music.prototype.sendCommand = function(e) {
 	var $button = this.getElementById('send');
 	if($button.text() !== '適用') {
-		$button.notify('設定中です……', 'warn');
+		alertify.message('設定中です……');
 		return;
 	}
 	
@@ -239,10 +239,10 @@ com.hiyoko.sweet.Circumstance.Music.prototype.sendCommand = function(e) {
 	$button.text('……');
 	
 	var event = this.getAsyncEvent('tofRoomRequest').done(function(r){
-		$button.notify('BGM 設定しました', 'success');
+		alertify.success('BGM 設定しました');
 		$button.text('適用');
 	}).fail(function(r){
-		alert('BGM 設定に失敗しました\n' + r.result, 'warn');
+		alertify.error('BGM 設定に失敗しました\n' + r.result);
 		$button.text('適用');
 	});
 	
@@ -293,9 +293,9 @@ com.hiyoko.sweet.Circumstance.BackGround.prototype.sendCommand = function(e) {
 	var data = this.getData()[Number(index)];
 	
 	var event = this.getAsyncEvent('tofRoomRequest').done(function(r){
-		alert('設定しました');
+		alertify.success('設定しました');
 	}).fail(function(r){
-		alert('設定に失敗しました\n' + r.result);
+		alertify.error('設定に失敗しました\n' + r.result);
 	});
 	
 	// という所まで書いて、どどんとふの背景画像は WEBIF からは変更できないと気付いて挫折

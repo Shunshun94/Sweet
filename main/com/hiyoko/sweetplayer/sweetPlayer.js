@@ -26,7 +26,7 @@ com.hiyoko.sweet.Player.prototype.initRoomTitle = function() {
 		this.getElementById('title').text('【' + this.character.name + ' @ ' + r.roomName + '】');
 	}.bind(this))
 	.fail(function(r){
-		alert('Couldn\'t get DodontoF Room Info. Is URL correct?');
+		alertify.error('部屋情報の取得に失敗しました。アクセス情報が間違っているかもしれません');
 	}.bind(this));	
 };
 

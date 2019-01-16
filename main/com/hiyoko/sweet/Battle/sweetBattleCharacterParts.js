@@ -153,19 +153,19 @@ com.hiyoko.sweet.Battle.BattleCharacter.prototype.afterAdd = function() {
 com.hiyoko.sweet.Battle.BattleCharacter.prototype.bindEvents = function() {
 	this.saveButton.click(function(e){
 		if(this.name.val() === '') {
-			this.name.notify('名前が空欄です', 'error');
+			alertify.warning('名前が空欄です');
 			return;
 		}
 		var result = this.getValue();
 		this.fireEvent(new $.Event('saveRequest', {
 			value: result
 		}));
-		this.saveButton.notify('保存しました', 'info');
+		alertify.success('保存しました');
 	}.bind(this));
 
 	this.addToTof.click(function(e) {
 		if(this.name.val() === '') {
-			this.name.notify('名前が空欄です', 'error');
+			alertify.warning('名前が空欄です');
 			return;
 		}
 		this.isHide = false;
@@ -221,7 +221,7 @@ com.hiyoko.sweet.Battle.BattleCharacter.prototype.bindEvents = function() {
 		var splitedId = this.id.split('-');
 		if($(e.target).attr('class').endsWith('-name')) {
 			if(this.name.val() === '') {
-				this.name.notify('名前が空欄です。', 'error');
+				alertify.warning('名前が空欄です。');
 				this.name.val('仮の名前');
 			}
 			this.fireEvent(new $.Event('updateCharacterNameRequest', {

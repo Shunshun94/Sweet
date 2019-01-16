@@ -65,9 +65,9 @@ com.hiyoko.sweet.ResourceManage.prototype.getCharacters = function(callback) {
 
 com.hiyoko.sweet.ResourceManage.prototype.updateCharacter = function(e) {
 	var event = this.getAsyncEvent('tofRoomRequest').done(function(r){
-		$(e.target).notify('更新されました', {className: 'success', position: 'top'});
+		alertify.success('更新されました');
 	}.bind(this)).fail(function(r){
-		alert('更新に失敗しました\n' + r.result);
+		alertify.error('更新に失敗しました\n' + r.result);
 	});
 	
 	event.method = 'updateCharacter';
@@ -78,9 +78,9 @@ com.hiyoko.sweet.ResourceManage.prototype.updateCharacter = function(e) {
 
 com.hiyoko.sweet.ResourceManage.prototype.putCharacter = function(e) {
 	var event = this.getAsyncEvent('tofRoomRequest').done(function(r){
-		$(e.target).notify('キャラクターが追加されました', {className: 'success', position: 'top'});
+		alertify.success('キャラクターが追加されました');
 	}.bind(this)).fail(function(r){
-		alert('キャラクターの追加に失敗しました\n' + r.result);
+		alertify.error('キャラクターの追加に失敗しました\n' + r.result);
 	});
 	
 	event.method = 'addCharacter';

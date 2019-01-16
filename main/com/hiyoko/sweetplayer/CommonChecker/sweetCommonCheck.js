@@ -42,12 +42,12 @@ com.hiyoko.sweet.CommonCheck.prototype.buildComponents = function() {
 
 com.hiyoko.sweet.CommonCheck.prototype.sendCommand = function(e) {
 	var event = this.getAsyncEvent('tofRoomRequest').done(function(r){
-		$(e.target).notify('ダイスが振られました', {className: 'success', position: 'top'});
+		alertify.success('ダイスが振られました');
 		if(this.isCommentClearEvertytime()) {
 			this.getElementById('comment').val('');
 		}
 	}.bind(this)).fail(function(r){
-		alert('ダイスを振るのに失敗しました\n' + r.result);
+		alertify.error('ダイスを振るのに失敗しました\n' + r.result);
 	});
 	
 	var option = this.option.getOptionalValue();
@@ -74,12 +74,12 @@ com.hiyoko.sweet.CommonCheck.prototype.sendCommand = function(e) {
 
 com.hiyoko.sweet.CommonCheck.prototype.sendDamageCommand = function(e) {
 	var event = this.getAsyncEvent('tofRoomRequest').done(function(r){
-		$(e.target).notify('ダイスが振られました', {className: 'success', position: 'top'});
+		alertify.success('ダイスが振られました');
 		if(this.isCommentClearEvertytime()) {
 			this.getElementById('comment').val('');
 		}
 	}.bind(this)).fail(function(r){
-		alert('ダイスを振るのに失敗しました\n' + r.result);
+		alertify.error('ダイスを振るのに失敗しました\n' + r.result);
 	});
 	
 	var option = this.option.getOptionalValue();
@@ -105,12 +105,12 @@ com.hiyoko.sweet.CommonCheck.prototype.sendDamageCommand = function(e) {
 
 com.hiyoko.sweet.CommonCheck.prototype.sendCommandNoSkill = function(e) {
 	var event = this.getAsyncEvent('tofRoomRequest').done(function(r){
-		$(e.target).notify('ダイスが振られました', {className: 'success', position: 'top'});
+		alertify.success('ダイスが振られました');
 		if(this.isCommentClearEvertytime()) {
 			this.getElementById('comment').val('');
 		}
 	}.bind(this)).fail(function(r){
-		alert('ダイスを振るのに失敗しました\n' + r.result);
+		alertify.error('ダイスを振るのに失敗しました\n' + r.result);
 	});
 	
 	var option = this.option.getOptionalValue();
@@ -124,12 +124,12 @@ com.hiyoko.sweet.CommonCheck.prototype.sendCommandNoSkill = function(e) {
 
 com.hiyoko.sweet.CommonCheck.prototype.sendDamageCommandNoSkill = function(e) {
 	var event = this.getAsyncEvent('tofRoomRequest').done(function(r){
-		$(e.target).notify('ダイスが振られました', {className: 'success', position: 'top'});
+		alertify.success('ダイスが振られました');
 		if(this.isCommentClearEvertytime()) {
 			this.getElementById('comment').val('');
 		}
 	}.bind(this)).fail(function(r){
-		alert('ダイスを振るのに失敗しました\n' + r.result);
+		alertify.error('ダイスを振るのに失敗しました\n' + r.result);
 	});
 	
 	var option = this.option.getOptionalValue();

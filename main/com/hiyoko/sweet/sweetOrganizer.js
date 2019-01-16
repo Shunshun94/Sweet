@@ -55,10 +55,12 @@ com.hiyoko.sweet.Organizer.prototype.buildComponents = function() {
 				this.onClickList({num: (this.applications.length - 1)});
 				this.list.disable();
 				if(this.query.platform === 'discord') {
-					alert('Couldn\'t get Room Info. The token is incorrect or initial loading is failed.\nThis application will reload and try again.');
-					document.location = document.location;
+					alertify.error('チャンネル情報の取得に失敗しました。トークンが間違っているか、通信に失敗したと思われます。修正を試みるためにリロードを行います');
+					setTimeout(()=>{
+						document.location = document.location;
+					}, 2000);
 				} else {
-					alert('Couldn\'t get Room Info. Is URL correct?');
+					alertify.error('部屋情報の取得に失敗しました。アクセス情報が間違っているかもしれません');
 				}
 			});
 			this.retriableRequest(getRoomEvent, 3);

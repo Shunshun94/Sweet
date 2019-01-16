@@ -40,9 +40,9 @@ com.hiyoko.sweet.PlayerBattle.prototype.getCharacters = function(e) {
 
 com.hiyoko.sweet.PlayerBattle.prototype.sendCommand = function(e){
 	var event = this.getAsyncEvent('tofRoomRequest').done(function(r){
-		$(e.target).notify('ダイスが振られました', {className: 'success', position: 'top'});
+		alertify.success('ダイスが振られました');
 	}.bind(this)).fail(function(r){
-		alert('ダイスを振るのに失敗しました\n' + r.result);
+		alertify.error('ダイスを振るのに失敗しました\n' + r.result);
 	});
 
 	var options;
@@ -84,6 +84,7 @@ com.hiyoko.sweet.PlayerBattle.prototype.sendCommand = function(e){
 		event.method = 'sendChat';
 		this.fireEvent(event);
 	}
+	alertify.message('ダイスコマンドを送信しました');
 };
 
 com.hiyoko.sweet.PlayerBattle.prototype.bindEvents = function() {
