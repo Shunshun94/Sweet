@@ -4,7 +4,7 @@ new io.github.shunshun94.UpdateInfo([
 		body: [
 			'バーチャルタフネスやホーリーブレッシング等によるHPの一時的増強についてバグがあったので修正しました'
 		]
-	}
+	},
 	{
 		date: new Date('2019/01/17'),
 		body: [
