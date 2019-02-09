@@ -78,7 +78,7 @@ com.hiyoko.sweet.ResourceManage.ResourceTable.prototype.generateHPMPText = (valu
 		}
 	}
 
-	return `HP:${value.HP}${extendedHp}${extendedHp}/${value.MHP}${extendedMhp}　MP:${value.MP}${extendedMp}/${value.MMP}${extendedMmp}`;
+	return `HP:${value.HP}${extendedHp}${additionalHp}/${value.MHP}${extendedMhp}　MP:${value.MP}${extendedMp}/${value.MMP}${extendedMmp}`;
 };
 
 com.hiyoko.sweet.ResourceManage.ResourceTable.HPMP = function($html, data) {
