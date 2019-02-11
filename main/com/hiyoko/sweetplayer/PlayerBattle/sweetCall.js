@@ -46,6 +46,7 @@ com.hiyoko.sweet.PlayerBattle.Call.prototype.bindEvents = function() {
 
 com.hiyoko.sweet.PlayerBattle.Call.prototype.buildComponents = function() {
 	new com.hiyoko.sweet.PlayerBattle.Call.TempTech(this.getElementById('temptech'), this.character.subSkills.tempTech);
+	new com.hiyoko.sweet.PlayerBattle.Call.BattleSkill(this.getElementById('battleSkill'), this.character.battleSkills);
 	new com.hiyoko.sweet.PlayerBattle.Call.AlchemicCard(this.getElementById('alchemiccard'), this.character.subSkills.alchemicCard);
 	new com.hiyoko.sweet.PlayerBattle.Call.LeadersOrder(this.getElementById('leadersorder'), this.character.subSkills.leadersOrder);
 	new com.hiyoko.sweet.PlayerBattle.Call.SpellSong(this.getElementById('spellsong'), this.character.subSkills.spellSong);
@@ -238,4 +239,19 @@ com.hiyoko.sweet.PlayerBattle.Call.AristocratDignity.prototype.getText = functio
 	var tech = this.list[this.getElementById('list').val()];
 	return com.hiyoko.util.format('貴格 %s | %s',
 			tech.name, tech.effect);
+};
+
+com.hiyoko.sweet.PlayerBattle.Call.BattleSkill = function($html, list) {
+	this.$html = $($html);
+	this.id = this.$html.attr('id');
+	this.list = list.filter(function(v){return v.name;});
+
+	this.buildComponents();
+	this.bindCommonEvents();	
+};
+com.hiyoko.util.extend(com.hiyoko.sweet.PlayerBattle.Call.Child, com.hiyoko.sweet.PlayerBattle.Call.BattleSkill);
+com.hiyoko.sweet.PlayerBattle.Call.BattleSkill.prototype.getText = function() {
+	var skill = this.list[this.getElementById('list').val()];
+	return com.hiyoko.util.format('戦闘特技 %s | %s',
+			skill.name, skill.note);
 };
