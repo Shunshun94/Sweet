@@ -147,6 +147,13 @@ com.hiyoko.sweet.Circumstance.CommandBase.prototype.bindEvents = function() {
 			clicked.parent().parent().remove();
 		}
 	}.bind(this));
+	
+	this.getElementById('selector').change((e)=>{
+		this.fireEvent({
+			type: `${this.id}-selector-change`,
+			index: this.getElementById('selector').val()
+		});
+	});
 };
 
 com.hiyoko.sweet.Circumstance.Music = function($html) {
@@ -224,6 +231,11 @@ com.hiyoko.sweet.Circumstance.Music = function($html) {
 	this.initialize();
 	
 	this.bindEvents();
+	
+	this.$html.on(`${this.id}-selector-change`, (e)=>{
+		const musicData = this.getData()[Number(e.index)];
+		this.getElementById('behavior').attr('src', musicData.url);
+	});
 };
 com.hiyoko.util.extend(com.hiyoko.sweet.Circumstance.CommandBase, com.hiyoko.sweet.Circumstance.Music);
 
