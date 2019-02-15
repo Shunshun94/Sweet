@@ -1,5 +1,11 @@
 new io.github.shunshun94.UpdateInfo([
 	{
+		date: new Date('2019/02/16'),
+		body: [
+			'BGM の試聴ができるようになりました'
+		]
+	},
+	{
 		date: new Date('2019/01/17'),
 		body: [
 			'このような更新通知を表示するようにしました',
