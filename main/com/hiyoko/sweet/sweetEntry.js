@@ -13,6 +13,11 @@ com.hiyoko.sweet.Entry = class extends io.github.shunshun94.HiyokoCross.Entrance
 	saveAlgorithmiaToken() {
 		localStorage.setItem(com.hiyoko.sweet.Entry.AlgorithmiaTokenStorage, JSON.stringify(this.getElementById('algorithmia').val()));
 	}
+	buildBgmUrl(e) {
+		const value = this.tof.collectValues();
+		this.saveAlgorithmiaToken();
+		document.location = `./bgm.html?url=${value.url}&room=${value.room.no}&pass=${value.password.password}`;
+	}
 	buildTofUrl(e) {
 		this.saveAlgorithmiaToken();
 		document.location = `./index.html?platform=DodontoF&url=${e.value.url}&room=${e.value.room.no}&pass=${e.value.password.password}`;
@@ -60,6 +65,7 @@ com.hiyoko.sweet.Entry = class extends io.github.shunshun94.HiyokoCross.Entrance
 				`<div id="${this.id}-tof-option">` +
 				`<button id="${this.id}-tof-option-back">戻る</button><br/>` +
 				`<button id="${this.id}-tof-option-next">入力完了</button>` +
+				`<button id="${this.id}-tof-option-music">BGM 再生のみで起動</button><br/>` +
 				`</div></div>`
 		);
 		this.$html.append(`<div id="${this.id}-discord"></div>`);
@@ -85,7 +91,10 @@ com.hiyoko.sweet.Entry = class extends io.github.shunshun94.HiyokoCross.Entrance
 		this.getElementById('dummy-bcdice-list').append(list.map((url) => {
 			return `<option value="${url}"></option>`;
 		}).join(''));
-
+		
+		this.getElementById('tof-option-music').click((e)=>{
+			this.buildBgmUrl(e);
+		});
 		this.getElementById('discord').hide();
 	}
 };
