@@ -9,6 +9,7 @@ com.hiyoko.sweet.Battle = function($html, opt_params = {}) {
 	this.list = {};
 	this.param = opt_params;
 	this.param.isTableExist = com.hiyoko.sweet.Battle.hasInitTable(this.param);
+	this.system = this.param.system || 'SwordWorld2.0' 
 	this.nameList = new com.hiyoko.sweet.Battle.NameIndex();
 	this.tofLoader = new com.hiyoko.sweet.Battle.TofLoader(this.$html);
 
@@ -101,7 +102,7 @@ com.hiyoko.sweet.Battle.prototype.roleDice = function(e) {
 		text += ' (' + option.text + ')' + option.detail;
 	}
 	
-	event.args = [{name: this.nameList.append(e.id, e.name), message: text, bot:'SwordWorld2.0'}];
+	event.args = [{name: this.nameList.append(e.id, e.name), message: text, bot: this.system}];
 	event.method = 'sendChat';
 	this.fireEvent(event);
 
@@ -380,6 +381,7 @@ com.hiyoko.sweet.Battle.prototype.bindEvents = function() {
 	}.bind(this));
 	
 	this.$html.on('CounterRemoConChangeHP', function(e){
+		console.log(e);
 		var charDamage = com.hiyoko.util.groupArray(e.damages.values, function(v){return v.id;});
 		for(var key in charDamage) {
 			this.list[key].applyDamage(charDamage[key], e.damages.type, false);

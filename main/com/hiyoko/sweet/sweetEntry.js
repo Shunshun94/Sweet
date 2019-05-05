@@ -10,6 +10,9 @@ com.hiyoko.sweet.Entry = class extends io.github.shunshun94.HiyokoCross.Entrance
 	getSheetId() {
 		return this.getElementById('sheet-input').val();
 	}
+	getSystem() {
+		return this.getElementById('system').val();
+	}
 	saveAlgorithmiaToken() {
 		localStorage.setItem(com.hiyoko.sweet.Entry.AlgorithmiaTokenStorage, JSON.stringify(this.getElementById('algorithmia').val()));
 	}
@@ -20,15 +23,15 @@ com.hiyoko.sweet.Entry = class extends io.github.shunshun94.HiyokoCross.Entrance
 	}
 	buildTofUrl(e) {
 		this.saveAlgorithmiaToken();
-		document.location = `./index.html?platform=DodontoF&url=${e.value.url}&room=${e.value.room.no}&pass=${e.value.password.password}`;
+		document.location = `./index.html?platform=DodontoF&system=${this.getSystem()}&url=${e.value.url}&room=${e.value.room.no}&pass=${e.value.password.password}`;
 	}
 	buildDiscordUrl(e) {
 		this.saveAlgorithmiaToken();
-		document.location = `./index.html?platform=discord&system=SwordWorld2.0&url=${e.value.url}&room=${e.value.room}&dicebot=${e.value.dicebot}`
+		document.location = `./index.html?platform=discord&system=${this.getSystem()}&url=${e.value.url}&room=${e.value.room}&dicebot=${e.value.dicebot}`
 	}
 	buildDummyUrl(e) {
 		this.saveAlgorithmiaToken();
-		document.location = `./index.html?platform=dummy&system=SwordWorld2.0&dicebot=${this.getElementById('dummy-bcdice-url').val()}`;
+		document.location = `./index.html?platform=dummy&system=${this.getSystem()}&dicebot=${this.getElementById('dummy-bcdice-url').val()}`;
 	}
 	buildDom() {
 		this.$html.empty();
@@ -44,7 +47,8 @@ com.hiyoko.sweet.Entry = class extends io.github.shunshun94.HiyokoCross.Entrance
 		this.$html.append(
 			`<div id="${this.id}-sheet">` +
 			`<p><a href="https://algorithmia.com/">Algorithmia</a> でユーザ登録した際に作ることのできる API Key を入力します。<br/>ゆとシート取り込み機能を利用しない場合は不要です<br/>` +
-			`Algorithmia API Key： <input type="password" id="${this.id}-algorithmia" /></p>` +
+			`Algorithmia API Key： <input type="password" id="${this.id}-algorithmia" /><br/>` +
+			`利用するシステム<select id="${this.id}-system"><option value="SwordWorld2.0">ソード・ワールド2.0</option><option value="SwordWorld2.5">ソード・ワールド2.5</option></select></p>` +
 			`<datalist id="${this.id}-sheet-list"></datalist><hr/>` + buttons + '</div>'
 		);
 		this.$html.append(

@@ -32,7 +32,7 @@ com.hiyoko.sweet.Organizer.prototype.buildComponents = function() {
 
 		this.tofRoomAccess = io.github.shunshun94.trpg.RoomClientFactory(query2);
 		setTimeout(()=>{
-			this.buildApplications(this.query.platform);
+			this.buildApplications(this.query.platform, this.query.system);
 			this.onClickList({num:0});
 			const getRoomEvent = this.getAsyncEvent('dummyEvent', {
 				method: 'getRoomInfo', args: {}
@@ -56,15 +56,13 @@ com.hiyoko.sweet.Organizer.prototype.buildComponents = function() {
 				this.list.disable();
 				if(this.query.platform === 'discord') {
 					alertify.error('チャンネル情報の取得に失敗しました。トークンが間違っているか、通信に失敗したと思われます。修正を試みるためにリロードを行います');
-					setTimeout(()=>{
-						document.location = document.location;
-					}, 2000);
+					console.error(this.tofRoomAccess);
 				} else {
 					alertify.error('部屋情報の取得に失敗しました。アクセス情報が間違っているかもしれません');
 				}
 			});
 			this.retriableRequest(getRoomEvent, 3);
-		}, com.hiyoko.sweet.Organizer.LongerPlatforms.includes(this.query.platform) ? 1500 : 0);
+		}, com.hiyoko.sweet.Organizer.LongerPlatforms.includes(this.query.platform) ? 4500 : 0);
 	} else {
 		this.tofRoomAccess = com.hiyoko.DodontoF.V2.RoomDummy;
 		this.buildApplications(false);
@@ -73,7 +71,7 @@ com.hiyoko.sweet.Organizer.prototype.buildComponents = function() {
 	}
 };
 
-com.hiyoko.sweet.Organizer.prototype.buildApplications = function(platform){
+com.hiyoko.sweet.Organizer.prototype.buildApplications = function(platform, system='SwordWorld2.0'){
 	var $apps = this.getElementById('apps').children('section');
 	this.applications = com.hiyoko.util.mergeArray(
 			com.hiyoko.sweet.Organizer.APPLICATION_LIST,
@@ -82,7 +80,7 @@ com.hiyoko.sweet.Organizer.prototype.buildApplications = function(platform){
 	this.list = new com.hiyoko.sweet.AppList(this.getElement('#com-hiyoko-sweet-menu'), this.applications, platform);
 	if(platform) {
 		this.responseChat = new com.hiyoko.sweet.ResponseChat(this.getElementById('responseChatBase'), {
-			displayLimit: 15, system:'SwordWorld2.0'
+			displayLimit: 15, system:system
 		});
 		this.pcManager = new com.hiyoko.sweet.PcManager(this.getElementById('pcs'));
 	} else {
@@ -105,7 +103,12 @@ com.hiyoko.sweet.Organizer.prototype.retriableRequest = function(e, max, count =
 				if(count) {
 					console.log(`PASSED ${e.method} (${count + 1} / ${max})`);
 				}
-				e.resolve(result);
+				if(e.resolve) {
+					e.resolve(result);
+				} else {
+					console.info(`NO resolve func for ${e.method}`, e);
+				}
+				
 			},
 			(result) => {
 				if((count !== max) && (! Boolean(result.suppressRetry))) {
