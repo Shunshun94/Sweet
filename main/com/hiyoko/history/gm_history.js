@@ -1,5 +1,11 @@
 new io.github.shunshun94.UpdateInfo([
 	{
+		date: new Date('2019/05/05'),
+		body: [
+			'ログイン時に SW2.0 / SW2.5 のどちらのダイスボットを利用するか選択可能にしました。簡易チャットからコマンドを叩く際に便利です'
+		]
+	},
+	{
 		date: new Date('2019/02/16'),
 		body: [
 			'BGM の試聴ができるようになりました'
