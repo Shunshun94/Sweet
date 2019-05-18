@@ -33,6 +33,9 @@ com.hiyoko.sweet.Player.prototype.initRoomTitle = function() {
 com.hiyoko.sweet.Player.prototype.buildComponents = function() {
 	com.hiyoko.sweet.PlayerBattle.PlayerBattleOptionalTableLoader(this.query);
 	if(this.query.platform && this.query.sheetId) {
+		if(! this.hasInitTable(this.query)) {
+			this.$html.addClass(`${this.id}-noTableExist`);
+		}
 		const id = this.query.sheetId.replace(/\$/gm, '?').replace(/~/gm, '=');
 		this.color = this.query.color || io.github.shunshun94.util.Color.getColorFromSeed(id).code.substr(1);
 		const client = (this.query.sheetId.startsWith('http')) ? io.github.shunshun94.trpg.ytsheet.ytsheetSW2_5 : com.hiyoko.VampireBlood.SW2;
@@ -110,6 +113,11 @@ com.hiyoko.sweet.Player.prototype.retriableRequest = function(e, max, count = 0)
 				}
 			}
 	);
+};
+
+com.hiyoko.sweet.Player.prototype.hasInitTable = (query) => {
+	const platform = query.platform || '';
+	return ['tof', 'DodontoF',　'とふ', 'どどんとふ'].includes(platform) || platform.endsWith('tof');
 };
 
 com.hiyoko.sweet.Player.prototype.bindEvents = function(e) {

@@ -34,7 +34,7 @@ com.hiyoko.sweet.Links.prototype.buildComponents = function() {
 	} else {
 		$links.append(com.hiyoko.util.format('<li><a target="_blank" href="http://charasheet.vampire-blood.net/%s">キャラクターシート</a></li>', this.character.id));
 	}
-	if(this.options.platform !== 'dummy') {
+	if(this.options.platform === 'tof' || this.options.platform === 'dodontof') {
 		var $map = $('<li></li>');
 	
 		$map.append(com.hiyoko.util.format('<a id="%s-map-exec">マップ</a><br/>', this.id));
