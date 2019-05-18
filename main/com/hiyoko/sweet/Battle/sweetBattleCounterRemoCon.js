@@ -62,9 +62,7 @@ com.hiyoko.sweet.Battle.CounterRemoCon.prototype.bindEvents = function() {
 		
 		let characters = this.list.getValue();
 		if(characters.length === 1 && characters[0].type === 'leaf') {
-			characters[0].check = true;
 			this.list.checkAll();
-			this.inputer.buildCharacterList(characters);
 		}
 	}.bind(this));
 	
@@ -93,7 +91,7 @@ com.hiyoko.sweet.Battle.CounterRemoCon.prototype.bindEvents = function() {
 com.hiyoko.sweet.Battle.CounterRemoCon.List = function($html, opt_params) {
 	this.$html = $($html);
 	this.id = this.$html.attr('id');
-	
+
 	this.bindEvents();
 };
 
@@ -113,16 +111,56 @@ com.hiyoko.sweet.Battle.CounterRemoCon.List.prototype.renderDefaultLi = function
 	return $li;
 };
 
+com.hiyoko.sweet.Battle.CounterRemoCon.List.prototype.buildList = function(list, opt_option, depth=0) {
+	var $ul = $('<ul></ul>');
+	var option = opt_option || {renderer: this.renderDefaultLi.bind(this)};
+	
+	list.forEach(function(item){
+		var $li = $('<li></li>');
+		
+		$li = option.renderer($li, item, option);
+		if(item.type !== 'leaf') {
+			var tmpOption = opt_option || {renderer: this.renderDefaultLi.bind(this)};
+			tmpOption.child = true;
+			$li.append(this.buildList(item.list, tmpOption, depth+1)); 
+		}
+		if(option.child) {
+			$li.addClass('com-hiyoko-component-ul-list-li-child');
+		} else {
+			$li.addClass('com-hiyoko-component-ul-list-li');
+		}
+		
+		$ul.append($li);
+	}.bind(this));
+	
+	if(depth === 0) {
+		this.$html.empty();
+		this.$html.append($ul);
+		this.$html.append(`<button id="${this.id}-selectAll">全部選択する</button>`);
+	}
+	return $ul;
+};
+
+
 com.hiyoko.sweet.Battle.CounterRemoCon.List.prototype.bindEvents = function() {
 	this.$html.change(function(e){
 		if($(e.target).is('input')){
 			this.onCheck(e);
 		}
 	}.bind(this));
+	this.$html.click(function(e){
+		if($(e.target).is('button')){
+			this.checkAll();
+		}
+	}.bind(this));
 };
 
 com.hiyoko.sweet.Battle.CounterRemoCon.List.prototype.checkAll = function() {
 	this.getElementsByClass('check').attr('checked', true);
+	this.fireEvent({
+		type: 'CounterRemoConUpdated',
+		characters: this.getValue()
+	});
 };
 
 com.hiyoko.sweet.Battle.CounterRemoCon.List.prototype.onCheck = function(event) {
@@ -132,7 +170,6 @@ com.hiyoko.sweet.Battle.CounterRemoCon.List.prototype.onCheck = function(event) 
 	if((! $target.is(':checked')) && $target.parent().hasClass('com-hiyoko-sweet-ul-list-li-child')) {
 		$($target.parent().parent().parent().find('input')[0]).prop('checked', $target.is(':checked'));
 	}
-	
 	this.fireEvent({
 		type: 'CounterRemoConUpdated',
 		characters: this.getValue()
