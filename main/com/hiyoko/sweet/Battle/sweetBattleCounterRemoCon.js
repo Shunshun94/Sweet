@@ -59,6 +59,13 @@ com.hiyoko.sweet.Battle.CounterRemoCon.prototype.bindEvents = function() {
 		this.body.show();
 		this.overlay.show();
 		this.inputer.reset();
+		
+		let characters = this.list.getValue();
+		if(characters.length === 1 && characters[0].type === 'leaf') {
+			characters[0].check = true;
+			this.list.checkAll();
+			this.inputer.buildCharacterList(characters);
+		}
 	}.bind(this));
 	
 	this.overlay.click(function(e){
@@ -112,6 +119,10 @@ com.hiyoko.sweet.Battle.CounterRemoCon.List.prototype.bindEvents = function() {
 			this.onCheck(e);
 		}
 	}.bind(this));
+};
+
+com.hiyoko.sweet.Battle.CounterRemoCon.List.prototype.checkAll = function() {
+	this.getElementsByClass('check').attr('checked', true);
 };
 
 com.hiyoko.sweet.Battle.CounterRemoCon.List.prototype.onCheck = function(event) {
