@@ -114,8 +114,8 @@
 			<p id="com-hiyoko-sw2-player-playerbattle-weapons-checkpannel"><button id="com-hiyoko-sw2-player-playerbattle-weapons-hitexec" class="io-github-shunshun94-util-UnDoubleClickable">命中判定</button>
 			<button id="com-hiyoko-sw2-player-playerbattle-weapons-damexec" class="io-github-shunshun94-util-UnDoubleClickable">ダメージ決定</button></p>
 			<p>付加情報：<input placeholder="対象の情報とか" type="text" id="com-hiyoko-sw2-player-playerbattle-weapons-memo" /> <button id="com-hiyoko-sw2-player-playerbattle-weapons-memo-clear">クリア</button><br/>
-			対象：<span type="text" id="com-hiyoko-sw2-player-playerbattle-weapons-targets">-</span>
-			<button id="com-hiyoko-sw2-player-playerbattle-weapons-getCharacterList">対象候補一覧から入力</button></p>
+			<span class="com-hiyoko-sw2-player-playerbattle-common-targetList">対象：<span type="text" id="com-hiyoko-sw2-player-playerbattle-weapons-targets">-</span>
+			<button id="com-hiyoko-sw2-player-playerbattle-weapons-getCharacterList">対象候補一覧から入力</button></span></p>
 			<p>出目操作：<select id="com-hiyoko-sw2-player-playerbattle-weapons-rolevalue">
 			 <option value="">-</option>
 				<option value="$+1">クリレイB</option>
@@ -168,8 +168,8 @@
 			<p><button id="com-hiyoko-sw2-player-playerbattle-magics-hitexec" class="io-github-shunshun94-util-UnDoubleClickable">行使判定</button>
 			<button id="com-hiyoko-sw2-player-playerbattle-magics-damexec" class="io-github-shunshun94-util-UnDoubleClickable">ダメージ決定 (ダメージの増減は追加Dで)</button></p>
 			<p>付加情報：<input placeholder="魔法名称等" type="text" id="com-hiyoko-sw2-player-playerbattle-magics-memo" /> <button id="com-hiyoko-sw2-player-playerbattle-magics-memo-clear">クリア</button><br/>
-			対象：<span type="text" id="com-hiyoko-sw2-player-playerbattle-magics-targets">-</span>
-			<button id="com-hiyoko-sw2-player-playerbattle-magics-getCharacterList">対象候補一覧から入力</button>
+			<span class="com-hiyoko-sw2-player-playerbattle-common-targetList">対象：<span type="text" id="com-hiyoko-sw2-player-playerbattle-magics-targets">-</span>
+			<button id="com-hiyoko-sw2-player-playerbattle-magics-getCharacterList">対象候補一覧から入力</button></span>
 			<button id="com-hiyoko-sw2-player-playerbattle-magics-toggleRegistedOrNot">素通し / 抵抗</button>
 			</p>
 			<p>出目操作：<select id="com-hiyoko-sw2-player-playerbattle-magics-rolevalue">
@@ -247,8 +247,8 @@
 				</div>
 				<div id="com-hiyoko-sw2-player-playerbattle-call-temptech">
 					<select id="com-hiyoko-sw2-player-playerbattle-call-temptech-list"></select>
-					<span id="com-hiyoko-sw2-player-playerbattle-call-temptech-target"></span>
-					<button id="com-hiyoko-sw2-player-playerbattle-call-temptech-getCharacterList">対象選択</button>
+					<span class="com-hiyoko-sw2-player-playerbattle-common-targetList"><span id="com-hiyoko-sw2-player-playerbattle-call-temptech-target"></span>
+					<button id="com-hiyoko-sw2-player-playerbattle-call-temptech-getCharacterList">対象選択</button></span>
 					<button id="com-hiyoko-sw2-player-playerbattle-call-temptech-send" class="io-github-shunshun94-util-UnDoubleClickable">追加</button>
 				</div>
 				<div id="com-hiyoko-sw2-player-playerbattle-call-alchemiccard">
@@ -256,8 +256,8 @@
 					<select id="com-hiyoko-sw2-player-playerbattle-call-alchemiccard-size">
 						<option value="B">B</option><option value="A">A</option><option value="S">S</option><option value="SS">SS</option>
 					</select>
-					<span id="com-hiyoko-sw2-player-playerbattle-call-alchemiccard-target"></span>
-					<button id="com-hiyoko-sw2-player-playerbattle-call-alchemiccard-getCharacterList">対象選択</button>
+					<span class="com-hiyoko-sw2-player-playerbattle-common-targetList"><span id="com-hiyoko-sw2-player-playerbattle-call-alchemiccard-target"></span>
+					<button id="com-hiyoko-sw2-player-playerbattle-call-alchemiccard-getCharacterList">対象選択</button></span>
 					<button id="com-hiyoko-sw2-player-playerbattle-call-alchemiccard-send" class="io-github-shunshun94-util-UnDoubleClickable">追加</button>
 				</div>
 				<div id="com-hiyoko-sw2-player-playerbattle-call-leadersorder">
@@ -270,8 +270,8 @@
 				</div>
 				<div id="com-hiyoko-sw2-player-playerbattle-call-fortunetelling">
 					<select id="com-hiyoko-sw2-player-playerbattle-call-fortunetelling-list"></select>
-					<span id="com-hiyoko-sw2-player-playerbattle-call-fortunetelling-target"></span>
-					<button id="com-hiyoko-sw2-player-playerbattle-call-fortunetelling-getCharacterList">対象選択</button>
+					<span class="com-hiyoko-sw2-player-playerbattle-common-targetList"><span id="com-hiyoko-sw2-player-playerbattle-call-fortunetelling-target"></span>
+					<button id="com-hiyoko-sw2-player-playerbattle-call-fortunetelling-getCharacterList">対象選択</button></span>
 					<button id="com-hiyoko-sw2-player-playerbattle-call-fortunetelling-send" class="io-github-shunshun94-util-UnDoubleClickable">追加</button>
 				</div>
 				<div id="com-hiyoko-sw2-player-playerbattle-call-spellSeal">
