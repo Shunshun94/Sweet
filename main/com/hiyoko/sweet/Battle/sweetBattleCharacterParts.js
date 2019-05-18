@@ -18,6 +18,7 @@ com.hiyoko.sweet.Battle.BattleCharacter = function($html, opt_params) {
 
 	this.saveButton = this.getElement('.' + this.clazz + '-save');
 	this.removeButton = this.getElement('.' + this.clazz + '-remove');
+	this.copyButton = this.getElement('.' + this.clazz + '-copy');
 
 	this.vitalityRegistButton = this.getElement('.' + this.clazz + '-vitality-exec');
 	this.mentalityRegistButton = this.getElement('.' + this.clazz + '-mentality-exec');
@@ -54,13 +55,15 @@ com.hiyoko.sweet.Battle.BattleCharacter.prototype.render = function() {
 				'<button class="%s">判定</button><button class="%s">判定(固定値)</button>' +
 				' 　/　精神抵抗力<input type="number" value="0" class="%s" />' +
 				'<button class="%s">判定</button><button class="%s">判定(固定値)</button></div>' +
-				'<button class="%s">部位追加</button><span class="%s">キャラクターを削除する</span>',
+				'<button class="%s">部位追加</button>' +
+				'<span class="%s">キャラクターをコピーする</span>' +
+				'<span class="%s">キャラクターを削除する</span>',
 				this.clazz + '-toggle', this.clazz + '-save', this.clazz + '-name',
 				this.clazz + '-add-tof', this.clazz + '-add-tof-unknown',
 				this.clazz + '-options',
 				this.clazz + '-vitality-val', this.clazz + '-vitality-exec', this.clazz + '-vitality-static-exec',
 				this.clazz + '-mentality-val', this.clazz + '-mentality-exec', this.clazz + '-mentality-static-exec',
-				this.clazz + '-addPart', this.clazz + '-remove'));
+				this.clazz + '-addPart', this.clazz + '-copy', this.clazz + '-remove'));
 	} else {
 		this.$html.append(
 				`<span class="${this.clazz + '-toggle'}">開閉</span><button class="${this.clazz + '-save'}">保存</button><p>名前 <input placeholder="NO NAME?" value="" type="text" class="${this.clazz + '-name'}" />
@@ -70,7 +73,7 @@ com.hiyoko.sweet.Battle.BattleCharacter.prototype.render = function() {
 				<button class="${this.clazz + '-vitality-exec'}">判定</button><button class="${this.clazz + '-vitality-static-exec'}">判定(固定値)</button>
 				 　/　精神抵抗力<input type="number" value="0" class="${this.clazz + '-mentality-val'}" />
 				<button class="${this.clazz + '-mentality-exec'}">判定</button><button class="${this.clazz + '-mentality-static-exec'}">判定(固定値)</button></div>
-				<button class="${this.clazz + '-addPart'}">部位追加</button><span class="${this.clazz + '-remove'}">キャラクターを削除する</span>`);
+				<button class="${this.clazz + '-addPart'}">部位追加</button><span class="${this.clazz + '-copy'}">キャラクターをコピーする</span><span class="${this.clazz + '-remove'}">キャラクターを削除する</span>`);
 	}
 
 	var id = this.addPart();
@@ -242,7 +245,11 @@ com.hiyoko.sweet.Battle.BattleCharacter.prototype.bindEvents = function() {
 	this.removeButton.click(function(e){
 		this.destract();
 	}.bind(this));
-	
+
+	this.copyButton.click(function(e){
+		this.copy();
+	}.bind(this))
+
 	this.$html.on('removePart', function(e){
 		this.destractPart(e.id);
 	}.bind(this));
@@ -433,6 +440,12 @@ com.hiyoko.sweet.Battle.BattleCharacter.prototype.destract = function() {
 	this.fireEvent(new $.Event('removeCharacter', {id: splitedId.pop()}));
 };
 
+com.hiyoko.sweet.Battle.BattleCharacter.prototype.copy = function() {
+	const value = this.getValue();
+	this.fireEvent(new $.Event('executeCopyFromCharacter', {
+		value: value, id:this.id.split('-').reverse()[0]
+	}));
+};
 
 com.hiyoko.sweet.Battle.BattleCharacter.Part = function($html, opt_original) {
 	this.$html = $html;

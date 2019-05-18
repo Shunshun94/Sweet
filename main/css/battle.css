@@ -217,6 +217,19 @@
 	margin-left:2px;
 }
 
+.com-hiyoko-sweet-battle-character-copy {
+	border: coral 2px solid;
+	font-size: 70%;
+	vertical-align:middle;
+	height: 14px;
+	text-align:center;
+	font-weight:bold;
+	background-color:tomato;
+	position:absolute;
+	right:129px;
+	top:0px;
+}
+
 .com-hiyoko-sweet-battle-character-remove {
 	border: coral 2px solid;
 	font-size: 70%;

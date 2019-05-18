@@ -144,7 +144,6 @@ com.hiyoko.sweet.Battle.prototype.putCharacter = function(e) {
 				info:com.hiyoko.sweet.Battle.TofLoader.SIGNATURE
 			}];
 		}
-		
 		this.fireEvent(event);
 	}.bind(this));
 	
@@ -247,6 +246,7 @@ com.hiyoko.sweet.Battle.prototype.bindEvents = function() {
 	this.$html.on('callNameSelector', this.openNameSelector.bind(this));
 	this.$html.on('executeRequest', this.roleDice.bind(this));
 	this.$html.on('appendCharacterRequest', this.putCharacter.bind(this));
+	this.$html.on('executeCopyFromCharacter', this.copyCharacter.bind(this));
 	this.$html.on('sharingEnemyDataRequest', this.shareEnemyData.bind(this))
 	this.$html.on('isDamageEach', (e) => {e.resolve(this.isDamageEach());});
 	this.$html.on('getOptionalValueList', (e)=>{e.resolve(this.optionalValues.getValueList())});
@@ -427,6 +427,30 @@ com.hiyoko.sweet.Battle.prototype.appendCharacter = function() {
 	this.list[newId] = new com.hiyoko.sweet.Battle.BattleCharacter(this.getElementById('character-' + newId),
 			this.param);
 	return newId;
+};
+
+com.hiyoko.sweet.Battle.prototype.copyCharacter = function(e) {
+	const execResult = /([A-Z])$/.exec(e.value.name);
+	const nameLastCharIndex = e.value.name.length - 1;
+	const nameIncrement = (name) => {
+		return `${name.slice(0, nameLastCharIndex)}${String.fromCharCode(name.charCodeAt(nameLastCharIndex) + 1)}`;
+	};
+	if(execResult) {
+		let names = [];
+		for(var key in this.list) {
+			names.push(this.list[key].getValue().name);
+		}
+		while(names.includes(e.value.name)) {
+			e.value.name = nameIncrement(e.value.name);
+		}
+	} else {
+		const currentName = e.value.name;
+		e.value.name = `${currentName}_A`;
+		this.list[e.id].setValue(e.value);
+		e.value.name = `${currentName}_B`;
+	}
+	const id = this.appendCharacter();		
+	this.list[id].setValue(e.value);
 };
 
 com.hiyoko.sweet.Battle.prototype.destractAllCharacters = function() {
