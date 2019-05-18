@@ -44,6 +44,10 @@ h1 {
 	background-color:#E0E0E0;
 }
 
+.com-hiyoko-sw2-player-noTableExist .com-hiyoko-sw2-player-playerbattle-common-targetList {
+	display:none;
+}
+
 #com-hiyoko-sw2-player-playerbattle-nameSelector-overlay {
 	z-index:1;
 	display:none;
