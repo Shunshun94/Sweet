@@ -250,6 +250,10 @@
 	background-color:tomato;
 }
 
+.com-hiyoko-sweet-battle-noTableExist .com-hiyoko-sweet-battle-character-part-attackway-targetSelector {
+	display:none;
+}
+
 #com-hiyoko-sweet-battle-counterRemoCon-body {
 	width:60%;
 	min-width:650px;

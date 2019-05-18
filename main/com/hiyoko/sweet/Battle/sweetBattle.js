@@ -9,6 +9,7 @@ com.hiyoko.sweet.Battle = function($html, opt_params = {}) {
 	this.list = {};
 	this.param = opt_params;
 	this.param.isTableExist = com.hiyoko.sweet.Battle.hasInitTable(this.param);
+	if(! this.param.isTableExist) { this.$html.addClass(`${this.id}-noTableExist`); }
 	this.system = this.param.system || 'SwordWorld2.0' 
 	this.nameList = new com.hiyoko.sweet.Battle.NameIndex();
 	this.tofLoader = new com.hiyoko.sweet.Battle.TofLoader(this.$html);
