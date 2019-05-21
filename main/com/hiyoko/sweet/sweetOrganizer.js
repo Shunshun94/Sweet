@@ -7,7 +7,7 @@ com.hiyoko = com.hiyoko || {};
 com.hiyoko.sweet = com.hiyoko.sweet || {};
 com.hiyoko.sweet.Organizer = function($html) {
 	this.query = com.hiyoko.util.getQueries();
-	
+
 	this.$html = $html;
 	this.id = this.$html.attr('id');
 
@@ -16,7 +16,7 @@ com.hiyoko.sweet.Organizer = function($html) {
 
 	this.applications;
 	this.list;
-	
+
 	this.bindEvents();	
 	this.buildComponents();
 
@@ -54,8 +54,8 @@ com.hiyoko.sweet.Organizer.prototype.buildComponents = function() {
 			}).fail((r) => {
 				this.onClickList({num: (this.applications.length - 1)});
 				this.list.disable();
-				if(this.query.platform === 'discord') {
-					alertify.error('チャンネル情報の取得に失敗しました。トークンが間違っているか、通信に失敗したと思われます。修正を試みるためにリロードを行います');
+				if(com.hiyoko.sweet.Organizer.LongerPlatforms.includes(this.query.platform)) {
+					alertify.error('チャンネル情報の取得に失敗しました。トークンが間違っているか、通信に失敗したと思われます。リロードしてみてください');
 					console.error(this.tofRoomAccess);
 				} else {
 					alertify.error('部屋情報の取得に失敗しました。アクセス情報が間違っているかもしれません');
@@ -80,7 +80,8 @@ com.hiyoko.sweet.Organizer.prototype.buildApplications = function(platform, syst
 	this.list = new com.hiyoko.sweet.AppList(this.getElement('#com-hiyoko-sweet-menu'), this.applications, platform);
 	if(platform) {
 		this.responseChat = new com.hiyoko.sweet.ResponseChat(this.getElementById('responseChatBase'), {
-			displayLimit: 15, system:system
+			displayLimit: 15, system:system,
+			msgConverte: this.query.platform === 'discord' ? com.hiyoko.DodontoF.V2.converteLog : false
 		});
 		this.pcManager = new com.hiyoko.sweet.PcManager(this.getElementById('pcs'));
 	} else {
