@@ -1,5 +1,11 @@
 new io.github.shunshun94.UpdateInfo([
 	{
+		date: new Date('2019/05/22'),
+		body: [
+			'Discord 接続時におけるチャットの挙動を少し変更しました'
+		]
+	},
+	{
 		date: new Date('2019/05/18'),
 		body: [
 			'魔物データが1部位分しかない場合にカウンターリモコンが最初からその部位が選択されているようにしました',
