@@ -49,7 +49,7 @@ h1 {
 }
 
 #com-hiyoko-sw2-player-playerbattle-nameSelector-overlay {
-	z-index:1;
+	z-index:8;
 	display:none;
 	position:fixed;
 	top:0;
@@ -67,7 +67,7 @@ h1 {
 	padding:1em;
 	border:2px double #aaa;
 	background:white;
-	z-index:2;
+	z-index:9;
 	position:fixed;
 	display:none;
 }
@@ -152,7 +152,7 @@ h1 {
 }
 
 #com-hiyoko-sw2-player-resourceManage {
-	z-index:2;
+	z-index:4;
 }
   
 #com-hiyoko-sw2-player-resourceManage-base {

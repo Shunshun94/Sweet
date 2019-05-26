@@ -1,5 +1,11 @@
 new io.github.shunshun94.UpdateInfo([
 	{
+		date: new Date('2019/05/26'),
+		body: [
+			'見た目を若干変更しました'
+		]
+	},
+	{
 		date: new Date('2019/05/22'),
 		body: [
 			'Discord 接続時におけるチャットの挙動を少し変更しました'
