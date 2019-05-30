@@ -14,7 +14,7 @@ com.hiyoko.sweet.Pet = function($html, character, option={}) {
 		this.petCharacter.push({
 			name: com.hiyoko.sweet.Pet.NAMING[character.race]
 		});
-		this.petParts = character.parts;
+		this.petParts = character.parts || [];
 	}
 	this.petCharacter = this.petCharacter.concat(character.pets.character);
 	this.petParts = this.petParts.concat(character.pets.parts);
