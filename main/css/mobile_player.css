@@ -17,6 +17,11 @@ h2 {
 	padding: 0px;
 }
 
+#com-hiyoko-sw2-player-selectBot {
+	top:116px;
+	font-size:70%;
+}
+
 .com-hiyoko-sw2-player-playerbattle-base {
 	width: 90%;
 }
@@ -124,4 +129,101 @@ div#com-hiyoko-sw2-player-talk {
 	padding: 0px;
 	margin-top: 0px;
 	margin-bottom: 0px;
+}
+
+#com-hiyoko-sw2-player-pet > h2 {
+	position: relative;
+	top:-40px;
+}
+
+#com-hiyoko-sw2-player-pet > p {
+	position: relative;
+	top:12px;
+}
+
+#com-hiyoko-sw2-player-pet-prefixExplain-explanation {
+	display:block;
+}
+
+#com-hiyoko-sw2-player-pet-options {
+	top: -8px;
+}
+
+#com-hiyoko-sw2-player-pet-options > p {
+	margin:0px;
+}
+
+.com-hiyoko-sw2-player-pet-options-table-header {
+	display:none;
+}
+
+.com-hiyoko-sw2-player-pet-options-table-member > td {
+	display:inline-block;
+}
+
+.com-hiyoko-sw2-player-pet-options-table-member-0 {
+	width: 15%;
+}
+.com-hiyoko-sw2-player-pet-options-table-member-1 {
+	width: 80%;
+}
+.com-hiyoko-sw2-player-pet-options-table-member-1 > input {
+	width: 95%;
+}
+
+.com-hiyoko-sw2-player-pet-options-table-member-2,
+.com-hiyoko-sw2-player-pet-options-table-member-3,
+.com-hiyoko-sw2-player-pet-options-table-member-4,
+.com-hiyoko-sw2-player-pet-options-table-member-5,
+.com-hiyoko-sw2-player-pet-options-table-member-6,
+.com-hiyoko-sw2-player-pet-options-table-member-7 {
+	width:31%;
+}
+
+.com-hiyoko-sw2-player-pet-options-table-member-2:before {content:"命";}
+.com-hiyoko-sw2-player-pet-options-table-member-3:before {content:"追";}
+.com-hiyoko-sw2-player-pet-options-table-member-4:before {content:"回";}
+.com-hiyoko-sw2-player-pet-options-table-member-5:before {content:"生";}
+.com-hiyoko-sw2-player-pet-options-table-member-6:before {content:"精";}
+.com-hiyoko-sw2-player-pet-options-table-member-7:before {content:"魔";}
+
+#com-hiyoko-sw2-player-pet-characters {
+	position: relative;
+	top:12px;
+}
+
+.com-hiyoko-sw2-player-pet-character-part-table > tr:first-child {
+	display:none;
+}
+
+.com-hiyoko-sw2-player-pet-character-part-table > tr > td {
+	display:inline-block;
+}
+
+.com-hiyoko-sw2-player-pet-character-part-table > tr > td:nth-child(1) {
+	width:90%
+}
+
+.com-hiyoko-sw2-player-pet-character-part-table > tr > td:nth-child(2):before {
+	content:"回";
+}
+.com-hiyoko-sw2-player-pet-character-part-table > tr > td:nth-child(3):before {
+	content:"防";
+}
+.com-hiyoko-sw2-player-pet-character-part-table > tr > td:nth-child(4):before {
+	content:"HP";
+}
+.com-hiyoko-sw2-player-pet-character-part-table > tr > td:nth-child(5):before {
+	content:"MP";
+}
+
+.com-hiyoko-sw2-player-pet-character-part-table > tr > td:nth-child(2),
+.com-hiyoko-sw2-player-pet-character-part-table > tr > td:nth-child(3),
+.com-hiyoko-sw2-player-pet-character-part-table > tr > td:nth-child(4),
+.com-hiyoko-sw2-player-pet-character-part-table > tr > td:nth-child(5) {
+	width:45%;
+}
+
+.com-hiyoko-sw2-player-pet-character-part-attackway-name{
+	display:block;
 }

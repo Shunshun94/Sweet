@@ -25,6 +25,7 @@ com.hiyoko.util.extend(com.hiyoko.component.ApplicationBase, com.hiyoko.sweet.Ba
 com.hiyoko.sweet.Battle.OptionalValues.prototype.bindEvent = function(){
 	this.$toggle.click(function(e) {
 		this.$table.toggle(400);
+		this.$html.trigger({type: com.hiyoko.sweet.Battle.OptionalValues.TOGGLE_EVENT});
 	}.bind(this));
 };
 
@@ -36,7 +37,12 @@ com.hiyoko.sweet.Battle.OptionalValues.prototype.getOptionalValue = function(col
 	return this.table.getOptionalValue(col);
 };
 
+com.hiyoko.sweet.Battle.OptionalValues.prototype.insertSumaary = function(str) {
+	this.$summary.text(str);
+};
+
 com.hiyoko.sweet.Battle.OptionalValues.COLS = {HIT:2, ATK:3, DODGE:4, VITALITY:5, MENTALITY:6};
+com.hiyoko.sweet.Battle.OptionalValues.TOGGLE_EVENT = 'com-hiyoko-sweet-Battle-OptionalValues-TOGGLE_EVENT';
 
 com.hiyoko.sweet.Battle.OptionalValues.Table = function($html, cols) {
 	this.$html = $($html);

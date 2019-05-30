@@ -209,6 +209,7 @@ h1 {
 	position: absolute;
 	background-color: white;
 	top:-3em;
+	z-index:2;
 }
 
 div.com-hiyoko-sw2-player-pet-character {
@@ -361,4 +362,3 @@ table {
 #com-hiyoko-sw2-player-entrance-url-FreeInput {
 	display:none;
 }
-
