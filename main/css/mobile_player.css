@@ -26,20 +26,25 @@ h2 {
 	width: 90%;
 }
 
+.com-hiyoko-sw2-player-playerbattle-weapons-mobileblock,
+.com-hiyoko-sw2-player-playerbattle-magics-mobileblock {
+	display:block;
+}
+
 #com-hiyoko-sw2-player-playerbattle-weapons-checkpannel {
 	padding-bottom: 12px;
 }
 
 #com-hiyoko-sw2-player-playerbattle-weapons-memo {
-	width: 50%;
+	width: 45%;
 }
 
 #com-hiyoko-sw2-player-playerbattle-weapons-rolevalue {
-	width: 74%;
+	width: 70%;
 }
 
 #com-hiyoko-sw2-player-playerbattle-weapons-critical {
-	width: 60%;
+	width: 40%;
 }
 
 #com-hiyoko-sw2-player-playerbattle-weapons-detail {
@@ -52,7 +57,7 @@ h2 {
 }
 
 #com-hiyoko-sw2-player-playerbattle-magics-memo {
-	width: 80%;
+	width: 45%;
 }
 
 #com-hiyoko-sw2-player-playerbattle-magics-bard-musicElement-share {
@@ -226,4 +231,20 @@ div#com-hiyoko-sw2-player-talk {
 
 .com-hiyoko-sw2-player-pet-character-part-attackway-name{
 	display:block;
+}
+
+.com-hiyoko-sw2-player-commoncheck-calcpart {
+	display:block;
+}
+
+.com-hiyoko-sw2-player-commoncheck-option-table-header {
+	display:none;
+}
+
+#com-hiyoko-sw2-player-commoncheck-option-table-body {
+	width:100%;
+}
+
+.com-hiyoko-sw2-player-commoncheck-option-table-member > td {
+	display:inline-block;
 }
