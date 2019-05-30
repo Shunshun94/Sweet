@@ -7,8 +7,18 @@ com.hiyoko.sweet.Pet = function($html, character, option={}) {
 	this.id = this.$html.attr('id');
 	this.masterName = character.name;
 	this.ownerId = character.id;
-	this.petCharacter = character.pets.character;
-	this.petParts = character.pets.parts;
+	this.petCharacter = [];
+	this.petParts = [];
+
+	if(character.skills[com.hiyoko.sweet.Pet.TRANSFORM_SKILL]) {
+		this.petCharacter.push({
+			name: com.hiyoko.sweet.Pet.NAMING[character.race]
+		});
+		this.petParts = character.parts;
+	}
+	this.petCharacter = this.petCharacter.concat(character.pets.character);
+	this.petParts = this.petParts.concat(character.pets.parts);
+
 	this.isTableExist = com.hiyoko.sweet.Pet.hasInitTable(option);
 	this.pets = {};
 	this.LIST_NAME = '騎獣など';
@@ -39,7 +49,7 @@ com.hiyoko.sweet.Pet.prototype.lockPrefix = function() {
 };
 
 com.hiyoko.sweet.Pet.prototype.buildComponents = function() {
-	if(this.petCharacter.length) {
+	if(this.petCharacter.length && this.petParts.length) {
 		this.petCharacter.forEach(function(v, i) {
 			this.getElementById('characterList').append(com.hiyoko.util.format('<option value="%s">%s</option>', i, v.name));
 		}.bind(this));
@@ -56,6 +66,11 @@ com.hiyoko.sweet.Pet.prototype.bindEvents = function() {
 	this.$html.on('executeRequest', this.sendCommand.bind(this));
 	this.$html.on('executeAddCharacters', this.appendCharacterToTof.bind(this));
 	this.$html.on('executeUpdateCharacters', this.updateCharacterToTof.bind(this));
+	this.$html.on(com.hiyoko.sweet.Battle.OptionalValues.TOGGLE_EVENT, this.updateOptionSummary.bind(this))
+};
+
+com.hiyoko.sweet.Pet.prototype.updateOptionSummary = function(e) {
+	this.table.insertSumaary(this.table.getOptionalValue(e.col));
 };
 
 com.hiyoko.sweet.Pet.prototype.updateCharacterToTof = function(e) {
@@ -132,6 +147,12 @@ com.hiyoko.sweet.Pet.prototype.appendCharacter = function() {
 };
 
 com.hiyoko.sweet.Pet.SIGNATURE = 'By PCSweet Pets';
+com.hiyoko.sweet.Pet.TRANSFORM_SKILL = 'フィジカルマスター';
+com.hiyoko.sweet.Pet.NAMING = {
+	'ドレイク（ナイト）': '竜化',
+	'ドレイクナイト': '竜化',
+	'バジリスク': '魔物化',
+};
 
 com.hiyoko.sweet.Pet.hasInitTable = (query) => {
 	const platform = query.platform || '';

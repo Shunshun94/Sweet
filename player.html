@@ -116,7 +116,7 @@
 			<p>付加情報：<input placeholder="対象の情報とか" type="text" id="com-hiyoko-sw2-player-playerbattle-weapons-memo" /> <button id="com-hiyoko-sw2-player-playerbattle-weapons-memo-clear">クリア</button><br/>
 			<span class="com-hiyoko-sw2-player-playerbattle-common-targetList">対象：<span type="text" id="com-hiyoko-sw2-player-playerbattle-weapons-targets">-</span>
 			<button id="com-hiyoko-sw2-player-playerbattle-weapons-getCharacterList">対象候補一覧から入力</button></span></p>
-			<p>出目操作：<select id="com-hiyoko-sw2-player-playerbattle-weapons-rolevalue">
+			<p><span class="com-hiyoko-sw2-player-playerbattle-weapons-mobileblock">出目操作：<select id="com-hiyoko-sw2-player-playerbattle-weapons-rolevalue">
 			 <option value="">-</option>
 				<option value="$+1">クリレイB</option>
 				<option value="$+2">クリレイA</option>
@@ -132,7 +132,8 @@
 				<option value="$5">1廻目固定5</option>
 				<option value="$4">1廻目固定4</option>
 				<option value="$3">1廻目固定3</option>
-			</select>
+			</select></span>
+			<span class="com-hiyoko-sw2-player-playerbattle-weapons-mobileblock">
 			クリティカル値：<select id="com-hiyoko-sw2-player-playerbattle-weapons-critical">
 				<option value="">デフォルト値</option>
 				<option value="@13">13</option>
@@ -142,7 +143,7 @@
 				<option value="@9">9</option>
 				<option value="@8">8</option>
 				<option value="@7">7</option>
-			</select>
+			</select></span>
 			<span id="com-hiyoko-sw2-player-playerbattle-weapons-ratelabel">威力：</span><select id="com-hiyoko-sw2-player-playerbattle-weapons-rate">
 				<option value="0">0</option>
 				<option value="10">10</option>
@@ -166,13 +167,13 @@
 		<div class="com-hiyoko-sw2-player-playerbattle-base" id="com-hiyoko-sw2-player-playerbattle-magics">
 			<h3>魔法行使</h3>
 			<p><button id="com-hiyoko-sw2-player-playerbattle-magics-hitexec" class="io-github-shunshun94-util-UnDoubleClickable">🎲💭行使判定</button>
-			<button id="com-hiyoko-sw2-player-playerbattle-magics-damexec" class="io-github-shunshun94-util-UnDoubleClickable">🎲💭ダメージ決定 (ダメージの増減は追加Dで)</button></p>
+			<button id="com-hiyoko-sw2-player-playerbattle-magics-damexec" class="io-github-shunshun94-util-UnDoubleClickable">🎲💭ダメージ (ダメージの増減は追加Dで)</button></p>
 			<p>付加情報：<input placeholder="魔法名称等" type="text" id="com-hiyoko-sw2-player-playerbattle-magics-memo" /> <button id="com-hiyoko-sw2-player-playerbattle-magics-memo-clear">クリア</button><br/>
 			<span class="com-hiyoko-sw2-player-playerbattle-common-targetList">対象：<span type="text" id="com-hiyoko-sw2-player-playerbattle-magics-targets">-</span>
 			<button id="com-hiyoko-sw2-player-playerbattle-magics-getCharacterList">対象候補一覧から入力</button></span>
 			<button id="com-hiyoko-sw2-player-playerbattle-magics-toggleRegistedOrNot">素通し / 抵抗</button>
 			</p>
-			<p>出目操作：<select id="com-hiyoko-sw2-player-playerbattle-magics-rolevalue">
+			<p><span class="com-hiyoko-sw2-player-playerbattle-magics-mobileblock">出目操作：<select id="com-hiyoko-sw2-player-playerbattle-magics-rolevalue">
 			 <option value="">-</option>
 				<option value="$12">1廻目固定12</option>
 				<option value="$11">1廻目固定11</option>
@@ -184,7 +185,8 @@
 				<option value="$5">1廻目固定5</option>
 				<option value="$4">1廻目固定4</option>
 				<option value="$3">1廻目固定3</option>
-			</select>
+			</select></span>
+			<span class="com-hiyoko-sw2-player-playerbattle-magics-mobileblock">
 			クリティカル値：<select id="com-hiyoko-sw2-player-playerbattle-magics-critical">
 				<option value="@13">13</option>
 				<option value="@12">12</option>
@@ -193,7 +195,8 @@
 				<option value="@9">9</option>
 				<option value="@8">8</option>
 				<option value="@7">7</option>
-			</select>
+			</select></span>
+			<span class="com-hiyoko-sw2-player-playerbattle-magics-mobileblock">
 			<span id="com-hiyoko-sw2-player-playerbattle-magics-ratelabel">威力：</span><select id="com-hiyoko-sw2-player-playerbattle-magics-rate">
 				<option value="0">0</option>
 				<option value="10">10</option>
@@ -206,7 +209,7 @@
 				<option value="80">80</option>
 				<option value="90">90</option>
 				<option value="100">100</option>
-			</select></p>
+			</select></span></p>
 			<p>魔法種類：<select id="com-hiyoko-sw2-player-playerbattle-magics-list"></select></p>
 			<p id="com-hiyoko-sw2-player-playerbattle-magics-bard-musicElement">楽素
 				⤴<input id="com-hiyoko-sw2-player-playerbattle-magics-bard-musicElement-upper" value="0" min="0" type="number" /> /
@@ -292,15 +295,14 @@
 			<p>修正： <span id="com-hiyoko-sw2-player-pet-options-summary"></span></p>
 			<table border="1" id="com-hiyoko-sw2-player-pet-options-table"></table>
 		</div>
-		<p><span id="com-hiyoko-sw2-player-pet-prefixExplain">持ち主識別子： <input id="com-hiyoko-sw2-player-pet-prefix" type="text" /><span style="font-size:50%">追加された騎獣名の先頭に付加される持ち主を示す記号です</span></span><br/>
+		<p><span id="com-hiyoko-sw2-player-pet-prefixExplain">持ち主識別子： <input id="com-hiyoko-sw2-player-pet-prefix" type="text" /><span  id="com-hiyoko-sw2-player-pet-prefixExplain-explanation" style="font-size:50%">追加された騎獣名の先頭に付加される持ち主を示す記号です</span></span><br/>
 		<select id="com-hiyoko-sw2-player-pet-characterList"></select> <button id="com-hiyoko-sw2-player-pet-characterAppend" class="io-github-shunshun94-util-UnDoubleClickable">追加</button></p>
 		<div id="com-hiyoko-sw2-player-pet-characters"></div>
 	</div>
 	<div id="com-hiyoko-sw2-player-commoncheck">
 		<h2>判定</h2>
-		<p>[技能] <select id="com-hiyoko-sw2-player-commoncheck-skill"></select> ＋
-		[能力値] <select id="com-hiyoko-sw2-player-commoncheck-status"></select> ＋
-		2d6</p>
+		<p><span class="com-hiyoko-sw2-player-commoncheck-calcpart">[技能] <select id="com-hiyoko-sw2-player-commoncheck-skill"></select> ＋</span>
+		<span class="com-hiyoko-sw2-player-commoncheck-calcpart">[能力値] <select id="com-hiyoko-sw2-player-commoncheck-status"></select> ＋ 2d6</span></p>
 		<p>コメント (判定内容や対象等) <input type="text" list="com-hiyoko-sw2-player-commoncheck-comment-candidate" id="com-hiyoko-sw2-player-commoncheck-comment" /> <button id="com-hiyoko-sw2-player-commoncheck-comment-clear">クリア</button></p>
 		<datalist id="com-hiyoko-sw2-player-commoncheck-comment-candidate">
 			<!-- ダンジョン内頻出判定 -->
@@ -363,8 +365,8 @@
 			<button id="com-hiyoko-sw2-player-commoncheck-execNoSkill"  class="io-github-shunshun94-util-UnDoubleClickable">🎲💭平目で判定</button><br/>
 			<button id="com-hiyoko-sw2-player-commoncheck-execDamage" class="io-github-shunshun94-util-UnDoubleClickable">🎲💭威力表</button>
 			<button id="com-hiyoko-sw2-player-commoncheck-execDamageNoSkill"  class="io-github-shunshun94-util-UnDoubleClickable">🎲💭平目で威力表</button>
-			威力:<input id="com-hiyoko-sw2-player-commoncheck-damageRate" type="number" value="0" min="0" max="100" />
-			C値:<input id="com-hiyoko-sw2-player-commoncheck-damageCritical" type="number" value="13" min="7" max="13" /> 
+			<span class="com-hiyoko-sw2-player-commoncheck-calcpart">威力:<input id="com-hiyoko-sw2-player-commoncheck-damageRate" type="number" value="0" min="0" max="100" />
+			C値:<input id="com-hiyoko-sw2-player-commoncheck-damageCritical" type="number" value="13" min="7" max="13" /></span>
 
 			<p><input type="checkbox" id="com-hiyoko-sw2-player-commoncheck-comment-clear-everytime" checked />判定実施後、コメント欄を自動的に削除する</p>
 		</div>
@@ -410,7 +412,7 @@
 		</div>
 	</div>
 	<footer id="com-hiyoko-sw2-player-footer">
-		<p id="com-hiyoko-sw2-player-footer-version">v20190526</p>
+		<p id="com-hiyoko-sw2-player-footer-version">v20190601</p>
 		<p id="com-hiyoko-sw2-player-footer-rights"><a href="https://fujimi-trpg-online.jp/info/entry-2587.html">【ソード・ワールド】二次創作ガイドライン</a><br/>本ツールは、「グループＳＮＥ」及び「株式会社ＫＡＤＯＫＡＷＡ」が権利を有する『ソード・ワールド2.0/2.5』のために作られたツールです。<br/>(C)GroupSNE<br/>(C)KADOKAWA</p>
 		<p><a href="./datamanager.html">データマネージャ</a> | <a href="https://twitter.com/Shunshun94">作者 Twitter</a> | <a href="https://github.com/Shunshun94/Sweet">GitHub</a> | <a href="./history.html">HISTORY</a> | <a href="http://amzn.asia/8mNqdKy">ひよこのほしい物りすと</a></p>
 	</footer>
