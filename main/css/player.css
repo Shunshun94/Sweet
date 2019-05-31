@@ -33,7 +33,7 @@ h1 {
 	display: inline-block;
 	background-color:white;
 	position:relative;
-	width:200px; 
+	width:20%; 
 	margin-left:4px;
 	left: -42px;
 	border: outset 3px gray;
@@ -72,10 +72,24 @@ h1 {
 	display:none;
 }
 
+#com-hiyoko-sw2-player-playerbattle-option > p {
+	margin:0px;
+}
+
 #com-hiyoko-sw2-player-playerbattle-option-table {
 	position:absolute;
 	z-index:3;
 	background-color:white;
+}
+
+#com-hiyoko-sw2-player-playerbattle-option-exportbase {
+	padding-top:8px;
+	display:none;
+}
+
+#com-hiyoko-sw2-player-playerbattle-option-export {
+	position:absolute;
+	top:-5000px;
 }
 
 #com-hiyoko-sw2-player-playerbattle-weapons {
@@ -98,7 +112,8 @@ h1 {
 	padding: 8px;
 	margin-top: 8px;
 	border-radius:8px;
-	width: 800px;
+	max-width: 800px;
+	width:90%;
 }
 
 .com-hiyoko-sw2-player-playerbattle-base p,
@@ -209,6 +224,7 @@ h1 {
 	position: absolute;
 	background-color: white;
 	top:-3em;
+	z-index:2;
 }
 
 div.com-hiyoko-sw2-player-pet-character {
@@ -361,4 +377,3 @@ table {
 #com-hiyoko-sw2-player-entrance-url-FreeInput {
 	display:none;
 }
-

@@ -33,13 +33,16 @@ com.hiyoko.sweet.PlayerBattle.OptionalValues.prototype.updateTableStorage = func
 com.hiyoko.sweet.PlayerBattle.OptionalValues.prototype.bindEvent = function(){
 	this.$toggle.click(function(e) {
 		this.$table.toggle(400);
+		this.getElementById('exportbase').toggle(400);
 		this.$summary.text(this.table.getOptionalValue());
 	}.bind(this));
 	this.$html.on('setStorage', (e)=>{
 		this.updateTableStorage(e);
 	});
-	this.getElementById('export').focus((e)=>{
+	this.getElementById('exportcopy').click((e)=>{
 		this.getElementById('export').select();
+		document.execCommand('copy');
+		alertify.success('修正値表エクスポート用の URL をコピーしました。このURLを共有することで他の人に修正値表のデータを共有できます');
 	});
 };
 
