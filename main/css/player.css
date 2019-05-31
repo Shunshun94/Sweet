@@ -98,7 +98,8 @@ h1 {
 	padding: 8px;
 	margin-top: 8px;
 	border-radius:8px;
-	width: 800px;
+	max-width: 800px;
+	width:90%;
 }
 
 .com-hiyoko-sw2-player-playerbattle-base p,
