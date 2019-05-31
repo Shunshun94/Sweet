@@ -72,10 +72,24 @@ h1 {
 	display:none;
 }
 
+#com-hiyoko-sw2-player-playerbattle-option > p {
+	margin:0px;
+}
+
 #com-hiyoko-sw2-player-playerbattle-option-table {
 	position:absolute;
 	z-index:3;
 	background-color:white;
+}
+
+#com-hiyoko-sw2-player-playerbattle-option-exportbase {
+	padding-top:8px;
+	display:none;
+}
+
+#com-hiyoko-sw2-player-playerbattle-option-export {
+	position:absolute;
+	top:-5000px;
 }
 
 #com-hiyoko-sw2-player-playerbattle-weapons {
