@@ -68,10 +68,10 @@ com.hiyoko.sweet.Circumstance.CommandBase.prototype.renderTable = function(datal
 	datalist.forEach(function(data) {
 		table.append(`
 		<tr class="${self.id}-list">
-			<td contenteditable="">${data.command}</td>
-			<td contenteditable="">${data.url}</td>
-			<td contenteditable="">${data.memo}</td>
-			<td>${data.kept ? '' : '<button class="' + self.id + '-list-td-delete">×</button>'}</td>
+			<td class="${self.id}-list-td" contenteditable="">${data.command}</td>
+			<td class="${self.id}-list-td" contenteditable="">${data.url}</td>
+			<td class="${self.id}-list-td" contenteditable="">${data.memo}</td>
+			<td class="${self.id}-list-td">${data.kept ? '' : '<button class="' + self.id + '-list-td-delete">×</button>'}</td>
 		</tr>`);});
 	table.append(com.hiyoko.util.format(
 			'<tr><td colspan="4"><button id="%s">ADD</button><button id="%s">RESET</button></td></tr>',
@@ -127,11 +127,11 @@ com.hiyoko.sweet.Circumstance.CommandBase.prototype.bindEvents = function() {
 	
 	this.getElementById('add').click(function(e){
 		this.getElementsByClass('list:last').after(`
-			<tr class="${self.id}-list">
-				<td contenteditable=""></td>
-				<td contenteditable=""></td>
-				<td contenteditable=""></td>
-				<td><button class="${this.id}-list-td-delete">×</button></td>
+			<tr class="${this.id}-list">
+				<td class="${this.id}-list-td" contenteditable=""></td>
+				<td class="${this.id}-list-td" contenteditable=""></td>
+				<td class="${this.id}-list-td" contenteditable=""></td>
+				<td class="${this.id}-list-td"><button class="${this.id}-list-td-delete">×</button></td>
 			</tr>`);
 	}.bind(this));
 	
