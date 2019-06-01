@@ -66,16 +66,13 @@ com.hiyoko.sweet.Circumstance.CommandBase.prototype.renderTable = function(datal
 	var self = this;
 	table.find('tr').remove();
 	datalist.forEach(function(data) {
-		table.append(com.hiyoko.util.format(
-						'<tr class="%s"><td contenteditable="">%s</td>' +
-						'<td contenteditable="">%s</td>' +
-						'<td contenteditable="">%s</td>' +
-						(data.kept ? '<td></td>' : '<td><button class="%s">×</button></td>') +
-						'</tr>',
-						self.id + '-list',
-						data.command, data.url, data.memo,
-						self.id + '-list-delete'));
-	});
+		table.append(`
+		<tr class="${self.id}-list">
+			<td contenteditable="">${data.command}</td>
+			<td contenteditable="">${data.url}</td>
+			<td contenteditable="">${data.memo}</td>
+			<td>${data.kept ? '' : '<button class="' + self.id + '-list-td-delete">×</button>'}</td>
+		</tr>`);});
 	table.append(com.hiyoko.util.format(
 			'<tr><td colspan="4"><button id="%s">ADD</button><button id="%s">RESET</button></td></tr>',
 			self.id + '-add', self.id + '-reset'));
@@ -129,12 +126,13 @@ com.hiyoko.sweet.Circumstance.CommandBase.prototype.bindEvents = function() {
 	}.bind(this));
 	
 	this.getElementById('add').click(function(e){
-		this.getElementsByClass('list:last').after(com.hiyoko.util.format(
-				'<tr class="%s"><td contenteditable=""></td>' +
-				'<td contenteditable=""></td>' +
-				'<td contenteditable=""></td>' +
-				'<td><button class="%s">×</button></td></tr>',
-				this.id + '-list', this.id + '-list-delete'));
+		this.getElementsByClass('list:last').after(`
+			<tr class="${self.id}-list">
+				<td contenteditable=""></td>
+				<td contenteditable=""></td>
+				<td contenteditable=""></td>
+				<td><button class="${this.id}-list-td-delete">×</button></td>
+			</tr>`);
 	}.bind(this));
 	
 	this.getElementById('reset').click(function(e){
@@ -143,7 +141,7 @@ com.hiyoko.sweet.Circumstance.CommandBase.prototype.bindEvents = function() {
 
 	this.getElementById('editor').click(function(e) {
 		var clicked = $(e.target);
-		if(clicked.hasClass(this.id + '-list-delete')) {
+		if(clicked.hasClass(this.id + '-list-td-delete')) {
 			clicked.parent().parent().remove();
 		}
 	}.bind(this));
