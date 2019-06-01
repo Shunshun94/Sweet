@@ -287,6 +287,35 @@ td.com-hiyoko-sweet-accounting-summary-table-out-total {
 	height: 18px;
 }
 
+#com-hiyoko-sweet-circumstance-music-editor {
+	table-layout: fixed;
+	width: 700px;
+}
+
+.com-hiyoko-sweet-circumstance-music-list {
+	height:48px;
+}
+
+.com-hiyoko-sweet-circumstance-music-list-td:nth-child(1) {
+	width:160px;
+}
+
+.com-hiyoko-sweet-circumstance-music-list-td:nth-child(2) {
+	width:200px;
+	height:48px;
+	overflow:hidden;
+}
+
+.com-hiyoko-sweet-circumstance-music-list-td:nth-child(3) {
+	width:160px;
+}
+
+.com-hiyoko-sweet-circumstance-music-list-td:nth-child(4) {
+	width:32px;
+	text-align:center;
+	vertical-align:top;
+}
+
 #com-hiyoko-sweet-disscussion {
 	display:flex;
 }

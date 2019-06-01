@@ -1,5 +1,11 @@
 new io.github.shunshun94.UpdateInfo([
 	{
+		date: new Date('2019/06/01'),
+		body: [
+			'BGM 再生機能の見た目を変更しました'
+		]
+	},
+	{
 		date: new Date('2019/05/22'),
 		body: [
 			'Discord 接続時におけるチャットの挙動を少し変更しました'
