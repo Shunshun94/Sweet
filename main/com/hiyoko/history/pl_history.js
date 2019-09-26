@@ -1,5 +1,11 @@
 new io.github.shunshun94.UpdateInfo([
 	{
+		date: new Date('2019/09/27'),
+		body: [
+			'判定の送信先を選択可能にしました'
+		]
+	},
+	{
 		date: new Date('2019/06/01'),
 		body: [
 			'フィジカルマスター技能による追加部位に対応しました。騎獣などのタブからご利用いただけます',
