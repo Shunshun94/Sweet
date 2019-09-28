@@ -28,7 +28,6 @@ com.hiyoko.sweet.SelectBot = class extends com.hiyoko.component.ApplicationBase 
 		return tabs.map((v, i)=>{return `<option value="${i}">${v}</option>`}).join('');
 	}
 	getTab() {
-		console.log(this.getElementById('tab').val())
 		return Number(this.getElementById('tab').val());
 	}
 	getBot(opt_default = com.hiyoko.sweet.SelectBot.BOTS.TWO_POINT_ZERO) {
