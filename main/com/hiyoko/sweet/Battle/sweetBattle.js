@@ -35,7 +35,35 @@ com.hiyoko.sweet.Battle.prototype.buildComponents = function() {
 	this.storagedList = new com.hiyoko.sweet.Battle.CharacterLister(this.getElementById('strogaedList'));
 	this.nameSelector = new com.hiyoko.sweet.PlayerBattle.NameSelector(this.getElementById('nameSelector'));
 	this.characterOptionalValues = new com.hiyoko.sweet.Battle.CharacterOptionalValues(this.getElementById('characterOptionValues'));
+	this.buildTabList();
 	this.appendCharacter();
+};
+
+com.hiyoko.sweet.Battle.prototype._generateTabHtml = function(tabs) {
+	return tabs.map((v, i)=>{return `<option value="${i}">${v}</option>`}).join('');
+}
+
+com.hiyoko.sweet.Battle.prototype.getTab = function() {
+	return Number(this.getElementById('chatTargetTab-select').val());
+};
+
+com.hiyoko.sweet.Battle.prototype.buildTabList = function() {
+	var event = this.getAsyncEvent('tofRoomRequest').done((result)=>{
+		const tabLength = result.chatTab.length;
+		this.getElementById('chatTargetTab-select').append(this._generateTabHtml(result.chatTab));
+		this.getElementById('chatTargetTab-select').change((d)=>{
+			const currentTab = this.getTab();
+			if(currentTab) {
+				this.getElementById('chatTargetTab').css('background-color', `hsl(${(360) * (this.getTab() / tabLength)}, 100%, 85%)`);
+			} else {
+				this.getElementById('chatTargetTab').css('background-color', 'transparent');
+			}
+		});
+	}).fail((reuslt)=>{
+		console.error(result);
+	});
+	event.method = 'getRoomInfo';
+	this.fireEvent(event);
 };
 
 com.hiyoko.sweet.Battle.prototype.buildEnemyList = function() {
@@ -103,7 +131,7 @@ com.hiyoko.sweet.Battle.prototype.roleDice = function(e) {
 		text += ' (' + option.text + ')' + option.detail;
 	}
 	
-	event.args = [{name: this.nameList.append(e.id, e.name), message: text, bot: this.system}];
+	event.args = [{name: this.nameList.append(e.id, e.name), message: text, bot: this.system, channel: e.channel || this.getTab()}];
 	event.method = 'sendChat';
 	this.fireEvent(event);
 
@@ -153,7 +181,7 @@ com.hiyoko.sweet.Battle.prototype.putCharacter = function(e) {
 com.hiyoko.sweet.Battle.prototype.shareEnemyData = function(e) {
 	var event = {type: 'tofRoomRequest'};
 	const text = '\n' + this.buildCharacterAsText(this.list[e.id].getValue());
-	event.args = [{name: 'GM', message: text}];
+	event.args = [{name: 'GM', message: text, channel: e.channel || this.getTab()}];
 	event.method = 'sendChat';
 	this.fireEvent(event);
 };
@@ -165,7 +193,7 @@ com.hiyoko.sweet.Battle.prototype.shareEnemiesData = function(e) {
 		sharingList.push(this.buildCharacterAsText(data));
 	});
 	const text = '\n' + sharingList.join('\n');
-	event.args = [{name: 'GM', message: text}];
+	event.args = [{name: 'GM', message: text, channel: e.channel || this.getTab()}];
 	event.method = 'sendChat';
 	this.fireEvent(event);
 };
