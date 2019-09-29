@@ -27,7 +27,7 @@
 	border: coral 3px outset;
 	background-color:tomato;
 	position:absolute;
-	left:496px;
+	left:508px;
 	top:-15px;
 }
 
@@ -43,16 +43,23 @@
 	border: coral 3px outset;
 	background-color:tomato;
 	position:absolute;
-	left:461px;
+	left:473px;
 	top:20px;
+}
+
+#com-hiyoko-sweet-battle-chatTargetTab {
+	position: absolute;
+	left: 169px;
+	top: 34px;
+	padding: 3px;
 }
 
 #com-hiyoko-sweet-battle-jump-top {
 	opacity: 0.8;
 	color: #90AA90;
 	border-radius: 20px;
- cursor: pointer;
- position: fixed;
+	cursor: pointer;
+	position: fixed;
 	right: 30px;
 	bottom:0px;
 }

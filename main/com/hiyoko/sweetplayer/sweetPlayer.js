@@ -125,6 +125,7 @@ com.hiyoko.sweet.Player.prototype.bindEvents = function(e) {
 	
 	this.$html.on('tofRoomRequest', function(e){
 		if(e.method === 'sendChat') { 
+			e.args[0].channel = e.args[0].channel || self.selectBot.getTab(); 
 			e.args[0].color = self.color;
 			e.args[0].bot = self.selectBot.getBot();
 			e.args[0].name = e.args[0].name || self.character.name;

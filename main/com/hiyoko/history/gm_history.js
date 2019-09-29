@@ -1,5 +1,11 @@
 new io.github.shunshun94.UpdateInfo([
 	{
+		date: new Date('2019/09/29'),
+		body: [
+			'戦闘のチャット送信先を選択可能にしました'
+		]
+	},
+	{
 		date: new Date('2019/06/01'),
 		body: [
 			'BGM 再生機能の見た目を変更しました'
