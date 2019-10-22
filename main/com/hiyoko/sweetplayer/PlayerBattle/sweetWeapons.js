@@ -117,16 +117,18 @@ com.hiyoko.sweet.PlayerBattle.Weapons.prototype.bindEvents = function() {
 	
 	this.getElementById('damexec').click(function(e) {
 		var weapon = this.weapons[list.val()];
+		const neckCutting = Number( this.getElementById('neckCutter').val() );
 		this.fireEvent({
 			target: e.target,
 			isDamage: true,
 			targetList: this.targetList,
 			type: com.hiyoko.sweet.PlayerBattle.Events.role,
-			message: com.hiyoko.util.format('k(%s\\%s)+%s\\%s%s%s#\\%s / ダメージ ：%s %s',
+			message: com.hiyoko.util.format('k(%s\\%s)+%s\\%s%s%s#\\%s%s / ダメージ ：%s %s',
 					(['ガン', '車載武器', '練技'].includes(weapon.category)) ? this.getElementById('rate').val() : weapon.rate,
 					('車載武器' === weapon.category) ? this.getElementById('damage').val() : weapon.damage,
 					(this.getElementById('critical').val() || '@' + weapon.crit),
 					this.getElementById('rolevalue').val(),
+					(neckCutting) ? `r${neckCutting}` : '',
 					weapon.name, this.getElementById('memo').val()),
 			col: [8, 3, 9]
 		});
