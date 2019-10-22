@@ -7,7 +7,7 @@ com.hiyoko.sweet.SelectBot = class extends com.hiyoko.component.ApplicationBase 
 		super($html, opt);
 		var event = this.getAsyncEvent('tofRoomRequest').done((result)=>{
 			const tabLength = result.chatTab.length;
-			this.$html.append(`ソードワールド 2.5 のダイスボットを使う <input type="checkbox" id="${this.id}-isTwoPointFive" /><br/>`);
+			this.$html.append(`ソードワールド 2.5 のダイスボットを使う <input type="checkbox" id="${this.id}-isTwoPointFive" ${(opt.character.system === '2.5') ? 'checked' : ''} /><br/>`);
 			this.$html.append(`ダイスコマンド送信先のタブ <select id="${this.id}-tab">${this.generateTabHtml(result.chatTab)}</select>`);
 			this.getElementById('tab').change((d)=>{
 				const currentTab = this.getTab();
