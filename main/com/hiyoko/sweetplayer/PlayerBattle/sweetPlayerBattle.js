@@ -72,7 +72,7 @@ com.hiyoko.sweet.PlayerBattle.prototype.sendCommand = function(e){
 	optionValues.unshift(e.message);
 	if(this.getElementById('damageAll').prop('checked') && e.isDamage && e.targetList.length) {
 		e.targetList.forEach((target) => {
-			const text = com.hiyoko.util.format.apply(null, optionValues).replace('#+0 /', ' /') + ' ＞ ' + target + options.detail;
+			const text = com.hiyoko.util.format.apply(null, optionValues).replace('#+0 /', ' /').replace('#+0r', 'r') + ' ＞ ' + target + options.detail;
 			event.args = [{name: this.character.name, message: text, bot:'SwordWorld2.0'}];
 			event.method = 'sendChat';
 			this.fireEvent(event);
@@ -80,7 +80,7 @@ com.hiyoko.sweet.PlayerBattle.prototype.sendCommand = function(e){
 		})
 	} else {
 		const targets = (e.targetList || []).length ? ` ＞ ${e.targetList.join(', ')}` : '';
-		const text = com.hiyoko.util.format.apply(null, optionValues).replace('#+0 /', ' /') + targets + options.detail;
+		const text = com.hiyoko.util.format.apply(null, optionValues).replace('#+0 /', ' /').replace('#+0r', 'r') + targets + options.detail;
 		event.args = [{name: this.character.name, message: text, bot:'SwordWorld2.0'}];
 		event.method = 'sendChat';
 		alertify.message(`ダイスコマンド (${text}) を送信しました`);
