@@ -256,7 +256,12 @@ com.hiyoko.sweet.Circumstance.Music.prototype.sendCommand = function(e) {
 		$button.text('適用');
 	});
 	
-	event.args = [data.url, data.command, this.getElementById('volume').val(),'SWEET'];
+	event.args = [{
+		name: 'SWEET',
+		volume: this.getElementById('volume').val(),
+		message: data.command,
+		soundSource: data.url	
+	}];
 	event.method = 'playBGM';
 	this.fireEvent(event);
 };
