@@ -5,6 +5,7 @@ com.hiyoko.sweet.PlayerBattle = com.hiyoko.sweet.PlayerBattle || {};
 
 com.hiyoko.sweet.PlayerBattle.Weapons = function($html, character) {
 	this.$html = $html;
+	this.system = character.system;
 	this.id = this.$html.attr('id');
 	this.weapons = (character.weapons || []).map((w) => {
 		w.exceeded = (character.skills[w.skill] || 0) > 15;
@@ -101,6 +102,15 @@ com.hiyoko.sweet.PlayerBattle.Weapons.prototype.bindEvents = function() {
 		} else {
 			this.toggleRate(false);
 			this.toggleDamage(false);
+		}
+		if((weapon.name.indexOf('首切') !== -1) || weapon.name.indexOf('斬首') !== -1) {
+			if( this.system === '2.5' ) {
+				this.getElementById('neckCutter').val('5');
+			} else {
+				this.getElementById('neckCutter').val('10');
+			}
+		} else {
+			this.getElementById('neckCutter').val('0');
 		}
 	}.bind(this));
 	
