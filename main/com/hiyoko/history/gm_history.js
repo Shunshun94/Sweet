@@ -1,5 +1,11 @@
 new io.github.shunshun94.UpdateInfo([
 	{
+		date: new Date('2019/10/22'),
+		body: [
+			'どどんとふの状態によっては BGM 再生できなかった問題に対処しました'
+		]
+	},
+	{
 		date: new Date('2019/09/29'),
 		body: [
 			'戦闘のチャット送信先を選択可能にしました'
