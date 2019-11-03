@@ -1,5 +1,10 @@
 new io.github.shunshun94.UpdateInfo([
 	{
+		date: new Date('2019/11/04'),
+		body: [
+			'グレイテストフォーチュンに対応しました。エラッタも反映済みです'
+		]
+	},{
 		date: new Date('2019/10/22'),
 		body: [
 			'首切り刀に対応しました',
