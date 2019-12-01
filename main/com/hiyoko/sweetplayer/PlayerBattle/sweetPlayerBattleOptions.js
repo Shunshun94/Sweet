@@ -11,14 +11,14 @@ com.hiyoko.sweet.PlayerBattle.OptionalValues = function($html, opt_conf) {
 	this.$toggle = this.getElementById('toggle');
 	this.$summary = this.getElementById('summary');
 
+	this.cols = [{title:'', type:'check'}, {title:'名称', type:'text'},
+        {title:'命中', type:'number'}, {title:'追加 D', type:'number'},
+        {title:'回避', type:'number'},
+        {title:'生命抵抗', type:'number'}, {title:'精神抵抗', type:'number'},
+        {title:'魔力', type:'number'}, {title:'威力', type:'number'},
+        {title:'出目(2.5から)', type:'number'}];
 	this.table = new com.hiyoko.sweet.PlayerBattle.OptionalValues.Table(
-					this.$table,
-					[{title:'', type:'check'}, {title:'名称', type:'text'},
-	                 {title:'命中', type:'number'}, {title:'追加 D', type:'number'},
-	                 {title:'回避', type:'number'},
-	                 {title:'生命抵抗', type:'number'}, {title:'精神抵抗', type:'number'},
-	                 {title:'魔力', type:'number'}, {title:'威力', type:'number'},
-	                 {title:'出目(2.5から)', type:'number'}]);
+					this.$table, this.cols);
 	this.bindEvent();
 	this.updateTableStorage({value: this.table.getTableValue()});
 };
@@ -30,11 +30,34 @@ com.hiyoko.sweet.PlayerBattle.OptionalValues.prototype.updateTableStorage = func
 	this.getElementById('export').val(`${location.origin}${location.pathname}?PlayerBattleOptions=${list}`);	
 };
 
+com.hiyoko.sweet.PlayerBattle.OptionalValues.prototype.getAllOptionValues = function() {
+	let result = [];
+	for(var i = 2; i < this.cols.length; i++) {
+		const val = this.table.getOptionalValue(i).value;
+		if(val !== '+0') {
+			result.push({
+				title: this.cols[i].title,
+				val: val,
+				text: `${this.cols[i].title.replace('(2.5から)', '')}:${val}`
+			});
+		}
+	}
+	return result;
+};
+
 com.hiyoko.sweet.PlayerBattle.OptionalValues.prototype.bindEvent = function(){
+	this.$html.change((e)=>{
+		const str = this.table.getOptionalValue();
+		const editedList = this.getAllOptionValues();
+		if(editedList.length) {
+			this.$summary.text(`${str} (${editedList.map((v)=>{return v.text}).join(', ')})`);
+		} else {
+			this.$summary.text(str);
+		}
+	});
 	this.$toggle.click(function(e) {
 		this.$table.toggle(400);
-		this.getElementById('exportbase').toggle(400);
-		this.$summary.text(this.table.getOptionalValue());
+		this.getElementById('exportbase').toggle(400); 
 	}.bind(this));
 	this.$html.on('setStorage', (e)=>{
 		this.updateTableStorage(e);
