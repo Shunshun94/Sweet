@@ -76,6 +76,11 @@ h1 {
 	margin:0px;
 }
 
+#com-hiyoko-sw2-player-playerbattle-option-exportcopy {
+	position:absolute;
+	right:4px;
+}
+
 #com-hiyoko-sw2-player-playerbattle-option-table {
 	position:absolute;
 	z-index:3;
@@ -83,8 +88,11 @@ h1 {
 }
 
 #com-hiyoko-sw2-player-playerbattle-option-exportbase {
-	padding-top:8px;
 	display:none;
+	position:relative;
+	height:28px;
+	width:100%;
+	max-width:910px;
 }
 
 #com-hiyoko-sw2-player-playerbattle-option-export {
