@@ -28,8 +28,22 @@ com.hiyoko.sweet.Organizer.prototype.buildComponents = function() {
 		let query1 = com.hiyoko.util.getQueries();
 		query1.url = query1.url || this.getElementById('dummy_s');
 		let query2 = com.hiyoko.util.getQueries();
-		query2.url = query2.url || this.getElementById('dummy_r');
 
+		if(this.query.platform === 'discord') {
+			if(query2.url) {
+				document.cookie = `discordtoken=${query2.url}`;
+				document.location = `./index.html?platform=discord&system=${query2.system}&room=${query2.room}&dicebot=${query2.dicebot}`;
+			}
+			const discordTokenData = /discordtoken=([^;]+)/.exec(document.cookie);
+			if(discordTokenData) {
+				query2.url = discordTokenData[1];
+			} else {
+				this.showEntryPage();
+				return;
+			}
+		} else {
+			query2.url = query2.url || this.getElementById('dummy_r');
+		}
 		this.tofRoomAccess = io.github.shunshun94.trpg.RoomClientFactory(query2);
 		setTimeout(()=>{
 			this.buildApplications(this.query.platform, this.query.system);
@@ -64,10 +78,7 @@ com.hiyoko.sweet.Organizer.prototype.buildComponents = function() {
 			this.retriableRequest(getRoomEvent, 3);
 		}, com.hiyoko.sweet.Organizer.LongerPlatforms.includes(this.query.platform) ? 4500 : 0);
 	} else {
-		this.tofRoomAccess = com.hiyoko.DodontoF.V2.RoomDummy;
-		this.buildApplications(false);
-		this.onClickList({num: (this.applications.length - 1)});
-		this.list.disable();
+		this.showEntryPage();
 	}
 };
 
@@ -152,6 +163,13 @@ com.hiyoko.sweet.Organizer.prototype.bindEvents = function(e) {
 	});
 
 	this.$html.on('clickMenu', this.onClickList.bind(this));
+};
+
+com.hiyoko.sweet.Organizer.prototype.showEntryPage = function() {
+	this.tofRoomAccess = com.hiyoko.DodontoF.V2.RoomDummy;
+	this.buildApplications(false);
+	this.onClickList({num: (this.applications.length - 1)});
+	this.list.disable();
 };
 
 com.hiyoko.sweet.Organizer.APPLICATION_LIST = [

@@ -13,7 +13,8 @@ com.hiyoko.sweet.PlayerEntrance = class extends io.github.shunshun94.HiyokoCross
 		url=${e.value.url}&room=${e.value.room.no}&pass=${e.value.password.password}&color=${e.value.option.color}`;
 	}
 	buildDiscordUrl(e) {
-		document.location = `./player.html?platform=discord&system=SwordWorld2.0&sheetId=${this.getSheetId()}&url=${e.value.url}&room=${e.value.room}&dicebot=${e.value.dicebot}`
+		document.cookie = `discordtoken=${e.value.url}`;
+		document.location = `./player.html?platform=discord&system=SwordWorld2.0&sheetId=${this.getSheetId()}&room=${e.value.room}&dicebot=${e.value.dicebot}`;
 	}
 	buildDummyUrl(e) {
 		document.location = `./player.html?platform=dummy&system=SwordWorld2.0&sheetId=${this.getSheetId()}&dicebot=${this.getElementById('dummy-bcdice-url').val()}`;
