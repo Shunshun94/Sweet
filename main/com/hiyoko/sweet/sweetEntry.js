@@ -27,7 +27,8 @@ com.hiyoko.sweet.Entry = class extends io.github.shunshun94.HiyokoCross.Entrance
 	}
 	buildDiscordUrl(e) {
 		this.saveAlgorithmiaToken();
-		document.location = `./index.html?platform=discord&system=${this.getSystem()}&url=${e.value.url}&room=${e.value.room}&dicebot=${e.value.dicebot}`
+		document.cookie = `discordtoken=${e.value.url}`;
+		document.location = `./index.html?platform=discord&system=${this.getSystem()}&room=${e.value.room}&dicebot=${e.value.dicebot}`
 	}
 	buildDummyUrl(e) {
 		this.saveAlgorithmiaToken();

@@ -36,6 +36,19 @@ com.hiyoko.sweet.Player.prototype.buildComponents = function() {
 		if(! this.hasInitTable(this.query)) {
 			this.$html.addClass(`${this.id}-noTableExist`);
 		}
+		if(this.query.platform === 'discord') {
+			if(this.query.url) {
+				document.cookie = `discordtoken=${this.query.url}`;
+				document.location = `./player.html?platform=discord&system=SwordWorld2.0&sheetId=${this.query.sheetId}&room=${this.query.room}&dicebot=${this.query.dicebot}`;
+			}
+			const discordTokenData = /discordtoken=([^;]+)/.exec(document.cookie);
+			if(discordTokenData) {
+				this.query.url = discordTokenData[1];
+			} else {
+				this.showEntryPage();
+				return;
+			}
+		}
 		const id = this.query.sheetId.replace(/\$/gm, '?').replace(/~/gm, '=');
 		this.color = this.query.color || io.github.shunshun94.util.Color.getColorFromSeed(id).code.substr(1);
 		const client = (this.query.sheetId.startsWith('http')) ? io.github.shunshun94.trpg.ytsheet.ytsheetSW2_5 : com.hiyoko.VampireBlood.SW2;
@@ -61,15 +74,7 @@ com.hiyoko.sweet.Player.prototype.buildComponents = function() {
 			}, 1500);
 		}.bind(this));
 	} else {
-		this.$html.children('div').hide();
-		new com.hiyoko.DodontoF.V2.Entrance(this.getElementById('entrance'));
-		var list = this.loadSheetIdList();
-		var $list = this.getElementById('entrance-option-sheetId-list');
-		com.hiyoko.util.forEachMap(list, function(v, k) {
-			$list.append(com.hiyoko.util.format('<option value="%s">%s</option>', k, v));
-		});
-		this.getElementById('entrance').show();
-		new com.hiyoko.sweet.PlayerEntrance(this.getElementById('entrance'));
+		this.showEntryPage();
 	}
 };
 
@@ -152,4 +157,16 @@ com.hiyoko.sweet.Player.prototype.bindEvents = function(e) {
 	this.$html.on('clickMenu', this.onClickList.bind(this));
 
 	this.$html.on('isDamageEach', (e) => {e.resolve(this.components[0].isDamageEach());});
+};
+
+com.hiyoko.sweet.Player.prototype.showEntryPage = function() {
+	this.$html.children('div').hide();
+	new com.hiyoko.DodontoF.V2.Entrance(this.getElementById('entrance'));
+	var list = this.loadSheetIdList();
+	var $list = this.getElementById('entrance-option-sheetId-list');
+	com.hiyoko.util.forEachMap(list, function(v, k) {
+		$list.append(com.hiyoko.util.format('<option value="%s">%s</option>', k, v));
+	});
+	this.getElementById('entrance').show();
+	new com.hiyoko.sweet.PlayerEntrance(this.getElementById('entrance'));
 };
