@@ -49,12 +49,10 @@ com.hiyoko.sweet.Accounting.InputTable.prototype.bindEvents = function(){
 		}.bind(this));
 	}.bind(this));
 
-	if(this.getElementById('reset')){
-		this.getElementById('reset').click((e)=>{
-			this.detailIn.clear();
-			this.detailOut.clear();
-		});
-	}
+	this.getElementById('reset').click((e)=>{
+		this.detailIn.clear();
+		this.detailOut.clear();
+	});
 };
 
 
