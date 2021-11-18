@@ -19,7 +19,7 @@ com.hiyoko.sweet.Accounting.InputTable = function($html) {
 		                 {title:'小計', type:'auto', func:'calcSubTotal'}];
 	
 	this.bindEvents();
-	
+
 	this.detailIn = new com.hiyoko.sweet.Accounting.DetailIn(this.getElementById('in'), detailInCols);
 	this.detailOut = new com.hiyoko.sweet.Accounting.DetailOut(this.getElementById('out'), detailOutCols);
 	this.saveData = new com.hiyoko.sweet.Accounting.SaveDataManager(this.getElementById('savedData'));
@@ -31,7 +31,7 @@ com.hiyoko.sweet.Accounting.InputTable.prototype.bindEvents = function(){
 	this.$html.on('updateItemList', function(e) {
 		var tag = this.getElementById('items');
 		tag.empty();
-		e.itemList.forEach(function(item){
+		e.itemList.sort().forEach(function(item){
 			tag.append('<option value="' + item + '"></option>');
 		});
 	}.bind(this));
@@ -48,6 +48,13 @@ com.hiyoko.sweet.Accounting.InputTable.prototype.bindEvents = function(){
 			this.detailOut.setLine(l);
 		}.bind(this));
 	}.bind(this));
+
+	if(this.getElementById('reset')){
+		this.getElementById('reset').click((e)=>{
+			this.detailIn.clear();
+			this.detailOut.clear();
+		});
+	}
 };
 
 
