@@ -27,6 +27,19 @@ com.hiyoko.sweet.Accounting.InputTable = function($html) {
 
 com.hiyoko.util.extend(com.hiyoko.component.ApplicationBase, com.hiyoko.sweet.Accounting.InputTable);
 
+com.hiyoko.sweet.Accounting.InputTable.prototype.applyTable = (e, opt_self) => {
+	(opt_self || this).detailIn.clear();
+	e.inCost.forEach((l) => {
+		(opt_self || this).detailIn.addMember();
+		(opt_self || this).detailIn.setLine(l);
+	});
+	(opt_self || this).detailOut.clear();
+	e.outCost.forEach((l) => {
+		(opt_self || this).detailOut.addMember();
+		(opt_self || this).detailOut.setLine(l);
+	});
+};
+
 com.hiyoko.sweet.Accounting.InputTable.prototype.bindEvents = function(){
 	this.$html.on('updateItemList', function(e) {
 		var tag = this.getElementById('items');
@@ -35,23 +48,16 @@ com.hiyoko.sweet.Accounting.InputTable.prototype.bindEvents = function(){
 			tag.append('<option value="' + item + '"></option>');
 		});
 	}.bind(this));
-	
-	this.getElementById('savedData').on('ApplyScenario', function(e) {
-		this.detailIn.clear();
-		e.inCost.forEach(function(l) {
-			this.detailIn.addMember();
-			this.detailIn.setLine(l);
-		}.bind(this));
-		this.detailOut.clear();
-		e.outCost.forEach(function(l) {
-			this.detailOut.addMember();
-			this.detailOut.setLine(l);
-		}.bind(this));
-	}.bind(this));
+
+	this.getElementById('savedData').on('ApplyScenario', (e)=>{
+		(this.applyTable)(e, this);
+	});
 
 	this.getElementById('reset').click((e)=>{
-		this.detailIn.clear();
-		this.detailOut.clear();
+		if(window.confirm('表をリセットします。戻せませんがよろしいですか？')) {
+			this.detailIn.clear();
+			this.detailOut.clear();
+		}
 	});
 };
 
