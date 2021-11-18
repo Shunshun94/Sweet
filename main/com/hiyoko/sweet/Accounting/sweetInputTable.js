@@ -19,7 +19,7 @@ com.hiyoko.sweet.Accounting.InputTable = function($html) {
 		                 {title:'小計', type:'auto', func:'calcSubTotal'}];
 	
 	this.bindEvents();
-	
+
 	this.detailIn = new com.hiyoko.sweet.Accounting.DetailIn(this.getElementById('in'), detailInCols);
 	this.detailOut = new com.hiyoko.sweet.Accounting.DetailOut(this.getElementById('out'), detailOutCols);
 	this.saveData = new com.hiyoko.sweet.Accounting.SaveDataManager(this.getElementById('savedData'));
@@ -27,27 +27,38 @@ com.hiyoko.sweet.Accounting.InputTable = function($html) {
 
 com.hiyoko.util.extend(com.hiyoko.component.ApplicationBase, com.hiyoko.sweet.Accounting.InputTable);
 
+com.hiyoko.sweet.Accounting.InputTable.prototype.applyTable = (e, opt_self) => {
+	(opt_self || this).detailIn.clear();
+	e.inCost.forEach((l) => {
+		(opt_self || this).detailIn.addMember();
+		(opt_self || this).detailIn.setLine(l);
+	});
+	(opt_self || this).detailOut.clear();
+	e.outCost.forEach((l) => {
+		(opt_self || this).detailOut.addMember();
+		(opt_self || this).detailOut.setLine(l);
+	});
+};
+
 com.hiyoko.sweet.Accounting.InputTable.prototype.bindEvents = function(){
 	this.$html.on('updateItemList', function(e) {
 		var tag = this.getElementById('items');
 		tag.empty();
-		e.itemList.forEach(function(item){
+		e.itemList.sort().forEach(function(item){
 			tag.append('<option value="' + item + '"></option>');
 		});
 	}.bind(this));
-	
-	this.getElementById('savedData').on('ApplyScenario', function(e) {
-		this.detailIn.clear();
-		e.inCost.forEach(function(l) {
-			this.detailIn.addMember();
-			this.detailIn.setLine(l);
-		}.bind(this));
-		this.detailOut.clear();
-		e.outCost.forEach(function(l) {
-			this.detailOut.addMember();
-			this.detailOut.setLine(l);
-		}.bind(this));
-	}.bind(this));
+
+	this.getElementById('savedData').on('ApplyScenario', (e)=>{
+		(this.applyTable)(e, this);
+	});
+
+	this.getElementById('reset').click((e)=>{
+		if(window.confirm('表をリセットします。戻せませんがよろしいですか？')) {
+			this.detailIn.clear();
+			this.detailOut.clear();
+		}
+	});
 };
 
 

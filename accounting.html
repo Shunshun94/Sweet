@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+<head
+	　prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# article: http://ogp.me/ns/article#">
+<meta property="og:title" content="SWEET Accounting" />
+<meta property="og:type" content="website" />
+<meta property="og:image" content="https://shunshun94.github.io/Sweet/gm_ogp.png" />
+<meta property="og:site_name" content="SWEET Accounting" />
+<meta property="og:description"
+	content="セッション時等の会計処理支援ツール" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:site" content="@Shunshun94" />
+<meta name="twitter:text:title" content="SWEET Accounting" />
+<meta charset="UTF-8">
+<title>SWEET Accouting</title>
+<link rel="stylesheet" href="main/css/style.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/alertifyjs@1.11.2/build/css/alertify.min.css"/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/alertifyjs@1.11.2/build/css/themes/default.min.css"/>
+<style>
+    body *{box-sizing:border-box;}
+    button {
+        font-size:100%;
+    }
+    button:hover {
+        background-color:lightyellow;
+        border: lemonchiffon 3px inset;
+    }
+    #com-hiyoko-sweet-accounting-detail-savedData {display:none;}
+</style>
+</head>
+<body>
+	<section id="com-hiyoko-sweet-accounting">
+        <p><button id="save">データ保存</button> 保存したファイルをドラッグ/ドロップすると読み込めます</p>
+		<div id="com-hiyoko-sweet-accounting-detail">
+			<div id="com-hiyoko-sweet-accounting-detail-savedData">
+				<button id="com-hiyoko-sweet-accounting-detail-savedData-toggle">▼</button>
+				<div id="com-hiyoko-sweet-accounting-detail-savedData-display">
+					<ul id="com-hiyoko-sweet-accounting-detail-savedData-display-list"></ul>
+					<div id="com-hiyoko-sweet-accounting-detail-savedData-display-detail"></div>
+					<button id="com-hiyoko-sweet-accounting-detail-savedData-display-apply">このデータを読み込む</button>
+				</div>
+			</div>
+			<table border="1" id="com-hiyoko-sweet-accounting-detail-in"></table>
+			<table border="1" id="com-hiyoko-sweet-accounting-detail-out"></table>
+			<datalist id="com-hiyoko-sweet-accounting-detail-items"></datalist>
+			<datalist id="com-hiyoko-sweet-accounting-detail-members"></datalist>
+            <button id="com-hiyoko-sweet-accounting-detail-reset">表をリセット</button>
+		</div>
+        <hr/>
+		<button id="com-hiyoko-sweet-accounting-printReport">会計報告を出力する</button>
+		<div id="com-hiyoko-sweet-accounting-summary"></div>
+		<div id="com-hiyoko-sweet-accounting-plan">
+			<p>人数：<input id="com-hiyoko-sweet-accounting-plan-memberCount" type="number" value='0'/></p>
+			<table border="1" id="com-hiyoko-sweet-accounting-plan-table" ></table>
+			<p id="com-hiyoko-sweet-accounting-plan-text"></p>
+            <p>
+                <button id="clipboard-report-html">収支報告を HTML としてクリップボードにコピー</button>
+                <button id="clipboard-report-text">収支報告をテキストとしてクリップボードにコピー</button>
+                <button id="clipboard-plan-html">報酬配分を HTML としてクリップボードにコピー</button>
+            </p>
+		</div>
+	</section>
+
+    <footer id="com-hiyoko-sweet-footer">
+        <p id="com-hiyoko-sweet-footer-version">v20211118</p>
+        <p><a href="https://twitter.com/Shunshun94">作者 Twitter</a> | <a href="https://github.com/Shunshun94/Sweet">GitHub</a> | <a href="http://amzn.asia/8mNqdKy">ひよこのほしい物りすと</a></p>
+    </footer>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/alertifyjs@1.11.2/build/alertify.min.js"></script>
+    <script src='https://shunshun94.github.io/shared/jquery/com/hiyoko/util/v2/utils.js'></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/encoding-japanese/1.0.30/encoding.min.js"></script>
+    <script src='https://shunshun94.github.io/shared/jquery/com/hiyoko/components/v1/ApplicationBase.js'></script>
+    <script src='https://shunshun94.github.io/shared/jquery/com/hiyoko/components/v1/InputFlow.js'></script>
+    <script src='https://shunshun94.github.io/shared/jquery/com/hiyoko/components/v1/TableBase.js'></script>
+    <script src='https://shunshun94.github.io/shared/jquery/com/hiyoko/components/v1/UlList.js'></script>
+    <script src='main/com/hiyoko/sweet/Accounting/sweetAccounting.js'></script>
+    <script src='main/com/hiyoko/sweet/Accounting/sweetInputTable.js'></script>
+    <script src='main/com/hiyoko/sweet/Accounting/sweetReporting.js'></script>
+    <script>
+    if(location.protocol === 'http:') {
+        location.href = location.href.replace('http:', 'https:');
+    }
+    const fileReader = new FileReader();
+    const downloadFile = (title, content) => {
+        const url = window.URL.createObjectURL(new Blob([ content ], { "type" : 'text/plain;charset=utf-8;' }));
+        const a = document.createElement("a");
+        document.body.appendChild(a);
+        a.download = title;
+        a.href = url;
+        a.click();
+        a.remove();
+        URL.revokeObjectURL(url);
+    };
+    const base = $('#com-hiyoko-sweet-accounting');
+    const body = $('body');
+    base.on('getStorage', function(e){
+		e.callback(localStorage.getItem(e.key) ? JSON.parse(localStorage.getItem(e.key)) : null);
+	});
+	base.on('setStorage', function(e){
+		localStorage.setItem(e.id, JSON.stringify(e.value));
+	});
+    const app = new com.hiyoko.sweet.Accounting(base);
+    $('#save').click((e)=>{
+        const result = {
+            inCost: app.input.detailIn.getTableValue(),
+	        outCost: app.input.detailOut.getTableValue()
+        }
+        downloadFile('sweet_accounting_saveData.json', JSON.stringify(result));
+    });
+    body.on('dragleave', (e) => {
+	    body.css('background-color', '');
+        e.preventDefault();
+    });
+    body.on('dragover', (e) => {
+	    body.css('background-color', 'lightyellow');
+        e.preventDefault();
+    });
+
+    body.on('drop', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        fileReader.onload = (e) => {
+            const codes = new Uint8Array(fileReader.result);
+            const rawString = Encoding.convert(codes, {
+                to: 'unicode',
+                from: Encoding.detect(codes),
+                type: 'string'
+            });
+            try {
+                app.input.applyTable(JSON.parse(rawString), app.input);
+                alertify.success('データを読み込みました');
+            } catch(err) {
+                alertify.error('データの読み込みに失敗しました');
+                console.error(err, rawString);
+            }
+        };
+    	fileReader.readAsArrayBuffer(e.originalEvent.dataTransfer.files[0]);
+        body.css('background-color', '');
+    });
+    $('#clipboard-report-html').click((e)=>{
+        navigator.clipboard.writeText(`<table border="2" id="com-hiyoko-sweet-accounting-summary-table">${$('#com-hiyoko-sweet-accounting-summary-table').html()}</table>`);
+        alertify.success('クリップボードに収支報告の HTML をコピーしました');
+    });
+    $('#clipboard-report-text').click((e)=>{
+        navigator.clipboard.writeText($('#com-hiyoko-sweet-accounting-summary > pre').html());
+        alertify.success('クリップボードに収支報告のテキストをコピーしました');
+    });
+    $('#clipboard-plan-html').click((e)=>{
+        navigator.clipboard.writeText(`<table border="1" id="com-hiyoko-sweet-accounting-plan-table">${$('#com-hiyoko-sweet-accounting-plan-table').html()}</table>`);
+        alertify.success('クリップボードに報酬配分の HTML をコピーしました');
+    });
+    </script>
+</body>
+</html>
