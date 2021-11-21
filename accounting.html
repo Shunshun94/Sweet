@@ -56,7 +56,9 @@
             <p>
                 <button id="clipboard-report-html">収支報告を HTML としてクリップボードにコピー</button>
                 <button id="clipboard-report-text">収支報告をテキストとしてクリップボードにコピー</button>
+                <button id="save-report-picture">収支報告を画像として保存</button>
                 <button id="clipboard-plan-html">報酬配分を HTML としてクリップボードにコピー</button>
+                <button id="save-plan-picture">報酬配分を画像として保存</button>
             </p>
 		</div>
 	</section>
@@ -74,6 +76,7 @@
     <script src='https://shunshun94.github.io/shared/jquery/com/hiyoko/components/v1/InputFlow.js'></script>
     <script src='https://shunshun94.github.io/shared/jquery/com/hiyoko/components/v1/TableBase.js'></script>
     <script src='https://shunshun94.github.io/shared/jquery/com/hiyoko/components/v1/UlList.js'></script>
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.js"></script>
     <script src='main/com/hiyoko/sweet/Accounting/sweetAccounting.js'></script>
     <script src='main/com/hiyoko/sweet/Accounting/sweetInputTable.js'></script>
     <script src='main/com/hiyoko/sweet/Accounting/sweetReporting.js'></script>
@@ -146,9 +149,25 @@
         navigator.clipboard.writeText($('#com-hiyoko-sweet-accounting-summary > pre').html());
         alertify.success('クリップボードに収支報告のテキストをコピーしました');
     });
+    $('#save-report-picture').click((e)=>{
+        html2canvas(document.querySelector('.com-hiyoko-sweet-accounting-summary-table')).then(canvas => {
+            let downloadEle = document.createElement("a");
+            downloadEle.href = canvas.toDataURL("image/png");
+            downloadEle.download = "report.png";
+            downloadEle.click();
+        });
+    });
     $('#clipboard-plan-html').click((e)=>{
         navigator.clipboard.writeText(`<table border="1" id="com-hiyoko-sweet-accounting-plan-table">${$('#com-hiyoko-sweet-accounting-plan-table').html()}</table>`);
         alertify.success('クリップボードに報酬配分の HTML をコピーしました');
+    });
+    $('#save-plan-picture').click((e)=>{
+        html2canvas(document.querySelector('#com-hiyoko-sweet-accounting-plan-table')).then(canvas => {
+            let downloadEle = document.createElement("a");
+            downloadEle.href = canvas.toDataURL("image/png");
+            downloadEle.download = "report.png";
+            downloadEle.click();
+        });
     });
     </script>
 </body>
