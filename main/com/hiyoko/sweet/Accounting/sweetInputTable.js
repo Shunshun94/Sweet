@@ -136,7 +136,7 @@ com.hiyoko.sweet.Accounting.DetailOut.prototype.calcTotal = function(e) {
 			result = {};
 		}
 		table.forEach(function(v) {
-			if(v[1]) {
+			if(v[1] && (v[2] !==  '0')) {
 				result[v[1]] = v;
 			}
 		});
