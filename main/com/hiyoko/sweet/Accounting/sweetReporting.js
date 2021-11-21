@@ -174,13 +174,11 @@ com.hiyoko.sweet.Accounting.FeePartition.prototype.defineMemberCount = function(
 	}
 };
 
-com.hiyoko.sweet.Accounting.FeePartition.prototype.print = function(data, opt_members, opt_denomi) {
+com.hiyoko.sweet.Accounting.FeePartition.prototype.print = function(data, opt_members, denomi=1) {
 	this.data = data;
-	
+
 	var benefit = data.inCost.total - data.outCost.total;
 	var memberCount = this.defineMemberCount(data);
-	var denomi = opt_denomi || 10;
-	var count = 0;
 	var itemCost;
 	
 	var standardPaying = denomi * Math.floor(benefit / (memberCount * denomi));
