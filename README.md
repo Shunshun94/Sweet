@@ -62,6 +62,11 @@ GPLv3 です。
 
 ライセンス情報： https://github.com/MohammadYounes/AlertifyJS/blob/master/LICENSE
 
+### html2canvas
+
+MIT ライセンスです。
+
+ライセンス情報： https://html2canvas.hertzen.com/
 
 ## Related products
 
