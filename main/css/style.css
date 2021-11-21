@@ -260,6 +260,10 @@ td.com-hiyoko-sweet-accounting-summary-table-out-name {
 	text-align:left;
 }
 
+td.com-hiyoko-sweet-accounting-summary-disabled {
+	background-color:lightgray;
+}
+
 td.com-hiyoko-sweet-accounting-summary-table-out-total {
 	border-top: double 6px black;
 }

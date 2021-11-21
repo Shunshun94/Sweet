@@ -100,9 +100,12 @@ com.hiyoko.sweet.Accounting.SummaryReport.prototype.renderOutTable = function(ra
 };
 
 com.hiyoko.sweet.Accounting.SummaryReport.prototype.renderOutTableLine = function(detailData) {
-	return com.hiyoko.util.format('<td class="%s">%s</td><td>%s</td><td>%s</td><td>%s</td>',
-			this.id + '-table-out-name',
-			detailData[1], detailData[2],detailData[3], detailData[4]).replace(/\n/gm, '<br/>');
+	const disabledClass = (detailData[2] === '0') ? ` ${this.id}-disabled` : ''
+	return com.hiyoko.util.format('<td class="%s">%s</td><td class="%s">%s</td><td class="%s">%s</td><td class="%s">%s</td>',
+			`${this.id}-table-out-name${disabledClass}`, detailData[1],
+			disabledClass, detailData[2],
+			disabledClass, detailData[3],
+			disabledClass, detailData[4]).replace(/\n/gm, '<br/>');
 };
 
 com.hiyoko.sweet.Accounting.SummaryReport.prototype.textReport = function(cost) {
